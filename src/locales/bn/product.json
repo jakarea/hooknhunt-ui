@@ -1,0 +1,71 @@
+{
+  "breadcrumb": {
+    "home": "হোম",
+    "products": "পণ্য",
+    "loading": "লোড হচ্ছে..."
+  },
+  "stock": {
+    "inStock": "স্টকে আছে",
+    "outOfStock": "স্টক নেই",
+    "lowStock": "স্টক কম",
+    "available": "{count} টি উপলব্ধ",
+    "status": "অবস্থা: {status}"
+  },
+  "buttons": {
+    "addToCart": "কার্টে যোগ করুন",
+    "buyNow": "এখনই কিনুন",
+    "viewCart": "কার্ট দেখুন",
+    "selectVariant": "ভ্যারিয়েন্ট নির্বাচন করুন"
+  },
+  "quantity": {
+    "label": "পরিমাণ",
+    "decrease": "পরিমাণ কমান",
+    "increase": "পরিমাণ বাড়ান"
+  },
+  "variants": {
+    "title": "ভ্যারিয়েন্ট নির্বাচন করুন",
+    "selectOption": "{option} নির্বাচন করুন",
+    "price": "মূল্য",
+    "sku": "এসকেইউ: {sku}",
+    "inStock": "স্টকে আছে",
+    "outOfStock": "স্টক নেই",
+    "selectVariant": "অনুগ্রহ করে একটি ভ্যারিয়েন্ট নির্বাচন করুন"
+  },
+  "details": {
+    "description": "বর্ণনা",
+    "specifications": "স্পেসিফিকেশন",
+    "features": "বৈশিষ্ট্য",
+    "gallery": "পণ্য গ্যালারি",
+    "imageOf": "মোট {total} টির {current} নম্বর ছবি"
+  },
+  "reviews": {
+    "title": "গ্রাহক রিভিউ",
+    "rating": "রেটিং",
+    "basedOn": "{count} টি রিভিউ এর ভিত্তিতে",
+    "seeAll": "সব রিভিউ দেখুন →",
+    "writeReview": "রিভিউ লিখুন",
+    "noReviews": "কোনো রিভিউ নেই।",
+    "beFirst": "প্রথম রিভিউ লিখুন!"
+  },
+  "related": {
+    "title": "সম্পর্কিত পণ্য",
+    "viewAll": "সব পণ্য দেখুন"
+  },
+  "offers": {
+    "limitedTime": "সীমিত সময়ের অফার!",
+    "save": "৳{amount} সেভ করুন"
+  },
+  "share": {
+    "title": "এই পণ্যটি শেয়ার করুন",
+    "copyLink": "লিংক কপি করুন",
+    "linkCopied": "লিংক কপি করা হয়েছে!"
+  },
+  "compare": {
+    "title": "তুলনা করুন",
+    "addToCompare": "তুলনায় যোগ করুন"
+  },
+  "wishlist": {
+    "addToWishlist": "উইশলিস্টে যোগ করুন",
+    "inWishlist": "উইশলিস্টে আছে"
+  }
+}

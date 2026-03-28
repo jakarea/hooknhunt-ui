@@ -1,0 +1,25 @@
+{
+  "title": "Track Your Order",
+  "subtitle": "Enter your Steadfast tracking ID to track your shipment",
+  "form": {
+    "trackingId": {
+      "label": "Tracking ID",
+      "required": "*",
+      "placeholder": "e.g., 123456789",
+      "helper": "Enter your Steadfast tracking ID from order confirmation"
+    },
+    "submitButton": "Track on Steadfast"
+  },
+  "infoBox": {
+    "title": "How to find your tracking ID?",
+    "items": [
+      "Check your order confirmation email",
+      "View SMS notification from Steadfast",
+      "Login to your account and view order details"
+    ]
+  },
+  "helpSection": {
+    "title": "Need help with your order?",
+    "contactButton": "Contact Support"
+  }
+}

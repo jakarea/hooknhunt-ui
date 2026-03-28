@@ -1,0 +1,71 @@
+{
+  "breadcrumb": {
+    "home": "Home",
+    "products": "Products",
+    "loading": "Loading..."
+  },
+  "stock": {
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "lowStock": "Low Stock",
+    "available": "{count} available",
+    "status": "Status: {status}"
+  },
+  "buttons": {
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "viewCart": "View Cart",
+    "selectVariant": "Select Variant"
+  },
+  "quantity": {
+    "label": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity"
+  },
+  "variants": {
+    "title": "Select Variant",
+    "selectOption": "Select {option}",
+    "price": "Price",
+    "sku": "SKU: {sku}",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "selectVariant": "Please select a variant"
+  },
+  "details": {
+    "description": "Description",
+    "specifications": "Specifications",
+    "features": "Features",
+    "gallery": "Product Gallery",
+    "imageOf": "Image {current} of {total}"
+  },
+  "reviews": {
+    "title": "Customer Reviews",
+    "rating": "Rating",
+    "basedOn": "Based on {count} reviews",
+    "seeAll": "See all reviews →",
+    "writeReview": "Write a Review",
+    "noReviews": "No reviews yet.",
+    "beFirst": "Be the first to review this product!"
+  },
+  "related": {
+    "title": "Related Products",
+    "viewAll": "View All Products"
+  },
+  "offers": {
+    "limitedTime": "Limited Time Offer!",
+    "save": "Save ৳{amount}"
+  },
+  "share": {
+    "title": "Share this product",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!"
+  },
+  "compare": {
+    "title": "Compare",
+    "addToCompare": "Add to Compare"
+  },
+  "wishlist": {
+    "addToWishlist": "Add to Wishlist",
+    "inWishlist": "In Wishlist"
+  }
+}

@@ -1,0 +1,28 @@
+[00:00:00.971] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.063] Server  LOG     ✓ Ready in 812ms
+[00:00:01.936] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:03.804] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: EXISTS
+[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] Validating token with API...
+[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] ⚡ Using cached user immediately: {"addresses":[{"address":null,"city":"San Francisco","district":null,"id":1,"is_default":false,"phone":"376719985741","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Fresno","district":null,"id":2,"is_default":false,"phone":"687018994754","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Baltimore","district":null,"id":3,"is_default":false,"phone":"483299254788","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Charlotte","district":null,"id":4,"is_default":false,"phone":"537899286936","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Dallas","district":null,"id":5,"is_default":true,"phone":"449695556383","postal_code":null,"recipient_name":null,"type":null}],"created_at":"2026-01-15T05:12:43+06:00","customer_profile":{"avg_order_value":0,"dob":"2026-01-04","gender":"male","loyalty_points":0,"loyalty_tier":"bronze","preferred_currency":"BDT","preferred_language":"en","total_orders":0,"total_spent":0,"whatsapp_number":"01234568765"},"email":"jakarea@yopmail.com3","email_verified_at":null,"id":2,"name":"Jakarea Parvez","phone_number":"01728247398","phone_verified_at":"2026-01-15T05:14:29+06:00","role":"Retail Customer","updated_at":"2026-02-28T10:11:19+06:00"}
+[00:00:03.805] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/me"}
+[00:00:03.805] Browser LOG     Theme initialized to light mode
+[00:00:03.805] Browser LOG     HTML classes: 
+[00:00:03.805] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[00:00:03.805] Browser LOG     🔍 [API_DEBUG] Catch error: {}
+[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] ❌ API Error: 0 Network error. Please check your connection.
+[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] 🌐 Network error but cached user is available
+[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[00:00:03.805] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
+[00:00:04.069] Browser WARN    Image with src "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&h=600&fit=crop" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:00:04.246] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
+[00:00:04.544] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
+[00:00:04.571] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
+[00:01:08.812] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
+[00:01:08.814] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
+[00:01:09.826] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
+[00:01:10.800] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
+[00:01:11.299] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
+[00:01:11.301] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
+[00:01:12.047] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
+[00:01:12.049] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404

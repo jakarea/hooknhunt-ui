@@ -1,0 +1,13 @@
+{
+  "productCard.discount": "-{percent}%",
+  "productCard.stockWarning": "Only {count} left",
+  "productCard.outOfStock": "OUT OF STOCK",
+  "productCard.priceUnavailable": "Price unavailable",
+  "productCard.priceVaries": "Price varies",
+  "productCard.variantsAvailable": "{count} variants available",
+  "productCard.viewCart": "View Cart",
+  "productCard.viewDetails": "View Details",
+  "productCard.addToCart": "Add to Cart",
+  "productCard.outOfStockButton": "Out of Stock",
+  "productCard.unavailable": "Unavailable"
+}

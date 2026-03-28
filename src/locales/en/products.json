@@ -1,0 +1,43 @@
+{
+  "breadcrumb": {
+    "home": "Home",
+    "products": "Products"
+  },
+  "title": "Products",
+  "filterButton": "Filters",
+  "activeFilters": "Active Filters",
+  "clearAll": "Clear All",
+  "categories": "Categories",
+  "allProducts": "All Products",
+  "priceRange": "Price Range",
+  "under1000": "Under ৳1,000",
+  "1000-5000": "৳1,000 - ৳5,000",
+  "5000-10000": "৳5,000 - ৳10,000",
+  "10000-plus": "৳10,000 & Above",
+  "customerRating": "Customer Rating",
+  "andUp": "& Up",
+  "specialOffer": {
+    "title": "Special Offer!",
+    "description": "Get up to 30% off on selected items",
+    "viewDeals": "View Deals"
+  },
+  "showing": "Showing",
+  "products": "products",
+  "product": "product",
+  "sortBy": "Sort by:",
+  "sortOptions": {
+    "bestSelling": "Best selling",
+    "newest": "New Released",
+    "discount": "Discount",
+    "priceLow": "Price Low to High",
+    "priceHigh": "Price High to Low"
+  },
+  "loading": "Loading more products...",
+  "noProducts": {
+    "title": "No products found",
+    "message": "Try adjusting your filters or browse all categories to find what you're looking for",
+    "clearFilters": "Clear All Filters"
+  },
+  "endOfList": "You've reached the end. Showing all {count} products.",
+  "loadingPage": "Loading products..."
+}

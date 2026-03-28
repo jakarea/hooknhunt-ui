@@ -1,0 +1,13 @@
+{
+  "productCard.discount": "-{percent}%",
+  "productCard.stockWarning": "মাত্র {count} টি বাকি আছে",
+  "productCard.outOfStock": "স্টক নেই",
+  "productCard.priceUnavailable": "মূল্য পাওয়া যায়",
+  "productCard.priceVaries": "মূল্য ভিন্ন হতে পারে",
+  "productCard.variantsAvailable": "{count} টি ভ্যারিয়েন্ট আছে",
+  "productCard.viewCart": "কার্ট দেখুন",
+  "productCard.viewDetails": "বিস্তারিত দেখুন",
+  "productCard.addToCart": "কার্টে যোগ করুন",
+  "productCard.outOfStockButton": "স্টক নেই",
+  "productCard.unavailable": "পাওয়া নেই"
+}
