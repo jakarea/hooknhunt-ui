@@ -53,8 +53,8 @@ export default function UserDashboard() {
       const response = await api.getOrders();
 
       // Handle different response structures
-      const ordersData = response.data || response;
-      const ordersArray = Array.isArray(ordersData) ? ordersData : (ordersData?.data || []);
+      const ordersData = response.data || response as unknown;
+      const ordersArray = Array.isArray(ordersData) ? ordersData : (Array.isArray((ordersData as Record<string, unknown>)?.data) ? (ordersData as Record<string, unknown>).data : []) as Order[];
 
       setOrders(ordersArray);
 

@@ -67,17 +67,18 @@ export default function OrdersPage() {
       const response = await api.getOrders();
 
       // Handle different response structures
-      const ordersData = response.data || response;
-      const ordersArray = Array.isArray(ordersData) ? ordersData : (ordersData?.data || []);
+      const ordersData = response.data || response as unknown;
+      const ordersRecord = ordersData as Record<string, unknown>;
+      const ordersArray = Array.isArray(ordersData) ? ordersData : (Array.isArray(ordersRecord?.data) ? ordersRecord.data : []);
 
       // If it's paginated response
-      if (ordersData?.data && Array.isArray(ordersData.data)) {
-        setOrders(ordersData.data);
+      if (ordersRecord?.data && Array.isArray(ordersRecord.data)) {
+        setOrders(ordersRecord.data as []);
         setPagination({
-          current_page: ordersData.current_page || 1,
-          last_page: ordersData.last_page || 1,
-          per_page: ordersData.per_page || 15,
-          total: ordersData.total || 0,
+          current_page: (ordersRecord.current_page as number) || 1,
+          last_page: (ordersRecord.last_page as number) || 1,
+          per_page: (ordersRecord.per_page as number) || 15,
+          total: (ordersRecord.total as number) || 0,
         });
       } else {
         setOrders(ordersArray);

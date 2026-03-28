@@ -300,7 +300,7 @@ export default function CartPage() {
                       </div>
 
                       <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 capitalize">
-                        {item.product.category}
+                        {item.product.variant_name || ''}
                       </p>
 
                       <div className="flex flex-wrap items-center justify-between gap-4">

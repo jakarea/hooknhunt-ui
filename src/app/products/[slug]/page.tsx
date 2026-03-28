@@ -64,6 +64,7 @@ interface Product {
   categories: Category[];
   stock_info: StockInfo;
   description: string;
+  short_description: string;
   meta_title: string;
   meta_description: string;
   variants: Variant[];
@@ -147,7 +148,7 @@ function ProductDetailPageContent() {
         (productData as any).originalPrice = originalPriceValue;
 
         // Create mock variants for products with variant_count > 0 (always at least 3)
-        if (staticProduct.variant_count > 0) {
+        if ((staticProduct.variant_count ?? 0) > 0) {
           // Define variant types: Size, Weight, Color
           const variantTypes = [
             { name: 'Small', type: 'Size' },
@@ -159,7 +160,7 @@ function ProductDetailPageContent() {
           ];
 
           // Ensure we have at least 3 variants
-          const variantCount = Math.max(staticProduct.variant_count, 3);
+          const variantCount = Math.max(staticProduct.variant_count ?? 0, 3);
           const mockVariants: Variant[] = [];
 
           for (let i = 0; i < Math.min(variantCount, 6); i++) {
@@ -249,8 +250,8 @@ function ProductDetailPageContent() {
         <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-8">
           Sorry, we couldn&apos;t find the product you&apos;re looking for.
         </p>
-        <Link href="/products">
-          <Button>{t('breadcrumb.home')}</Button>
+        <Link href="/products" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+          {t('breadcrumb.home')}
         </Link>
       </div>
     );

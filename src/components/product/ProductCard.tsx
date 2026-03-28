@@ -44,7 +44,15 @@ export default function ProductCard({ product }: ProductCardProps) {
     e.stopPropagation();
 
     setIsAdding(true);
-    addToCart(product, 1);
+    addToCart({
+      id: product.id,
+      name: product.name || product.title,
+      price: product.price || product.actual_price,
+      originalPrice: product.originalPrice || product.compare_at_price,
+      image: product.image || product.featured_image,
+      slug: product.slug,
+      stock: product.stock || product.inventory_quantity,
+    }, 1);
 
     // Reset animation after 500ms
     setTimeout(() => {

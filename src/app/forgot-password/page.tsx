@@ -233,10 +233,10 @@ export default function ForgotPasswordPage() {
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
                         <OtpVerification
                             phone={phone}
-                            onVerify={(otp) => {
+                            onVerify={async (otp) => {
                                 // Store OTP for the reset step
-                                (window as any).resetOtp = otp;
-                                handleVerifyOtp(otp);
+                                (window as unknown as Record<string, unknown>).resetOtp = otp;
+                                await handleVerifyOtp(otp);
                             }}
                             onResend={handleResendOtp}
                             isLoading={isLoading}

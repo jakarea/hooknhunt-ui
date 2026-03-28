@@ -539,7 +539,15 @@ function ProductCard({ product }) {
         e.preventDefault();
         e.stopPropagation();
         setIsAdding(true);
-        addToCart(product, 1);
+        addToCart({
+            id: product.id,
+            name: product.name || product.title,
+            price: product.price || product.actual_price,
+            originalPrice: product.originalPrice || product.compare_at_price,
+            image: product.image || product.featured_image,
+            slug: product.slug,
+            stock: product.stock || product.inventory_quantity
+        }, 1);
         // Reset animation after 500ms
         setTimeout(()=>{
             setIsAdding(false);
@@ -568,7 +576,7 @@ function ProductCard({ product }) {
                                 sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 67,
+                                lineNumber: 75,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "w-full h-full flex items-center justify-center text-gray-400",
@@ -584,17 +592,17 @@ function ProductCard({ product }) {
                                         d: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                                     }, void 0, false, {
                                         fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                        lineNumber: 82,
+                                        lineNumber: 90,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                    lineNumber: 76,
+                                    lineNumber: 84,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 75,
+                                lineNumber: 83,
                                 columnNumber: 13
                             }, this),
                             discount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -604,7 +612,7 @@ function ProductCard({ product }) {
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 93,
+                                lineNumber: 101,
                                 columnNumber: 13
                             }, this),
                             stock > 0 && stock < 10 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -614,7 +622,7 @@ function ProductCard({ product }) {
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 99,
+                                lineNumber: 107,
                                 columnNumber: 13
                             }, this),
                             stock === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -624,18 +632,18 @@ function ProductCard({ product }) {
                                     children: t('productCard.outOfStock')
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                    lineNumber: 106,
+                                    lineNumber: 114,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 105,
+                                lineNumber: 113,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                        lineNumber: 65,
+                        lineNumber: 73,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -646,7 +654,7 @@ function ProductCard({ product }) {
                                 children: name
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 116,
+                                lineNumber: 124,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -660,7 +668,7 @@ function ProductCard({ product }) {
                                             children: price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceUnavailable')
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                            lineNumber: 125,
+                                            lineNumber: 133,
                                             columnNumber: 17
                                         }, this),
                                         originalPrice && originalPrice > price && price > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -671,13 +679,13 @@ function ProductCard({ product }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                            lineNumber: 129,
+                                            lineNumber: 137,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                    lineNumber: 124,
+                                    lineNumber: 132,
                                     columnNumber: 15
                                 }, this) : // Multiple variants - show price range
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -688,7 +696,7 @@ function ProductCard({ product }) {
                                             children: price_range_display || (price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceVaries'))
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                            lineNumber: 137,
+                                            lineNumber: 145,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -698,30 +706,30 @@ function ProductCard({ product }) {
                                             })
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                            lineNumber: 140,
+                                            lineNumber: 148,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                    lineNumber: 136,
+                                    lineNumber: 144,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 121,
+                                lineNumber: 129,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                        lineNumber: 114,
+                        lineNumber: 122,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                lineNumber: 63,
+                lineNumber: 71,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -731,7 +739,7 @@ function ProductCard({ product }) {
                     className: "w-full py-2.5 bg-gray-200 animate-pulse rounded"
                 }, void 0, false, {
                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                    lineNumber: 153,
+                    lineNumber: 161,
                     columnNumber: 11
                 }, this) : productInCart ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     onClick: handleViewCart,
@@ -749,19 +757,19 @@ function ProductCard({ product }) {
                                 d: "M5 13l4 4L19 7"
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 160,
+                                lineNumber: 168,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                            lineNumber: 159,
+                            lineNumber: 167,
                             columnNumber: 13
                         }, this),
                         t('productCard.viewCart')
                     ]
                 }, void 0, true, {
                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                    lineNumber: 155,
+                    lineNumber: 163,
                     columnNumber: 11
                 }, this) : variant_count > 1 ? // Multiple variants - show "View Details" button
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -781,7 +789,7 @@ function ProductCard({ product }) {
                                     d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 181,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -791,20 +799,20 @@ function ProductCard({ product }) {
                                     d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                    lineNumber: 174,
+                                    lineNumber: 182,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                            lineNumber: 172,
+                            lineNumber: 180,
                             columnNumber: 13
                         }, this),
                         t('productCard.viewDetails')
                     ]
                 }, void 0, true, {
                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                    lineNumber: 171,
+                    lineNumber: 179,
                     columnNumber: 11
                 }, this) : // Single variant or no variants - show "Add to Cart" button
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -824,30 +832,30 @@ function ProductCard({ product }) {
                                 d: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                                lineNumber: 193,
+                                lineNumber: 201,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                            lineNumber: 186,
+                            lineNumber: 194,
                             columnNumber: 13
                         }, this),
                         stock === 0 ? t('productCard.outOfStockButton') : price <= 0 ? t('productCard.unavailable') : t('productCard.addToCart')
                     ]
                 }, void 0, true, {
                     fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                    lineNumber: 180,
+                    lineNumber: 188,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-                lineNumber: 150,
+                lineNumber: 158,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/hooknhunt-ui/src/components/product/ProductCard.tsx",
-        lineNumber: 62,
+        lineNumber: 70,
         columnNumber: 5
     }, this);
 }

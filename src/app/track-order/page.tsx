@@ -73,7 +73,7 @@ export default function TrackOrderPage() {
                   {t('infoBox.title')}
                 </h3>
                 <ul className="text-xs sm:text-sm text-blue-800 dark:text-blue-400 space-y-1.5 list-disc list-inside leading-relaxed">
-                  {t('infoBox.items', { returnObjects: true }).map((item: string, index: number) => (
+                  {(t('infoBox.items', { returnObjects: true }) as unknown as string[]).map((item: string, index: number) => (
                     <li key={index}>{item}</li>
                   ))}
                 </ul>

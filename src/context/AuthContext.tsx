@@ -12,7 +12,7 @@ interface AuthContextType {
   register: (phone: string, password: string, name?: string) => Promise<void>;
   sendOtp: (phone: string) => Promise<void>;
   verifyOtp: (phone: string, otp: string) => Promise<void>;
-  sendResetOtp: (phone: string) => Promise<{ message: string; otp_code?: string }>;
+  sendResetOtp: (phone: string) => Promise<{ message?: string; otp_code?: string }>;
   resetPassword: (phone: string, otp: string, password: string, passwordConfirmation: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;

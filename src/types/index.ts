@@ -207,7 +207,6 @@ export interface Product {
   variant_count?: number; // Number of variants
   price_range_display?: string; // Price range display text
   has_offer?: boolean;  // Whether product has offers
-  short_description?: string; // Short product description for highlights
   thumbnail_url?: string; // Product thumbnail image URL
   gallery_images?: string[] | string; // Product gallery images
   price_range?: {       // Price range object
@@ -216,7 +215,7 @@ export interface Product {
     display: string;
   };
   categories?: Category[]; // Product categories
-  variants?: Variant[]; // Product variants
+  variants?: ProductVariant[]; // Product variants
   meta_title?: string; // SEO meta title
   meta_description?: string; // SEO meta description
 }

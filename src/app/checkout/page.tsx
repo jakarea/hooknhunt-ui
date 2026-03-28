@@ -52,6 +52,7 @@ export default function CheckoutPage() {
     district: '',
     thana: '',
     division: '',
+    notes: '',
   });
 
   // Get all districts with their division info
@@ -142,7 +143,7 @@ export default function CheckoutPage() {
           const division = getDivisionForDistrict(district);
           setFormData(prev => ({
             ...prev,
-            address: defaultAddress.address || prev.address,
+            address: defaultAddress.address_line1 || prev.address,
             city: defaultAddress.city || prev.city,
             district: district,
             division: division,
@@ -163,7 +164,7 @@ export default function CheckoutPage() {
       const division = getDivisionForDistrict(district);
       setFormData(prev => ({
         ...prev,
-        address: selected.address || prev.address,
+        address: selected.address_line1 || prev.address,
         city: selected.city || prev.city,
         district: district,
         division: division,
@@ -261,7 +262,7 @@ export default function CheckoutPage() {
     setCouponCode('');
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -288,7 +289,7 @@ export default function CheckoutPage() {
         product_id: item.product.id,
         variant_id: item.variant?.id || null,
         product_name: item.product.name,
-        product_sku: item.product.sku || item.variant?.sku || null,
+        product_sku: item.variant?.sku || null,
         product_image: item.product.image || '/placeholder-product.png',
         unit_price: item.price || 0,
         quantity: item.quantity,
@@ -326,24 +327,23 @@ export default function CheckoutPage() {
       const response = await api.post('/store/orders', orderData);
 
       if (response && 'order' in response) {
-        const order = response.order as OrderResponse['order'];
-        console.log('Order placed successfully:', order);
+        const order = (response as Record<string, unknown>).order as Record<string, unknown>;
 
         // Check if OTP verification is required
-        if (response.verification_required) {
+        if ((response as Record<string, unknown>).verification_required) {
           // Show OTP verification modal
           setPendingOrder({
-            id: order.id,
-            order_number: order.order_number,
-            phone_number: response.order.phone_number || formData.phone,
-            total_amount: order.total_amount,
-            customer_name: order.customer_name,
+            id: order.id as number,
+            order_number: order.order_number as string,
+            phone_number: (order.phone_number as string) || formData.phone,
+            total_amount: order.total_amount as number,
+            customer_name: order.customer_name as string,
           });
           setShowOtpModal(true);
         } else {
           // No verification required, proceed normally
           clearCart();
-          router.push(`/order-success?orderId=${order.order_number}&total=${order.payable_amount}&name=${encodeURIComponent(order.customer_name)}`);
+          router.push(`/order-success?orderId=${order.order_number as string}&total=${order.payable_amount as number}&name=${encodeURIComponent(order.customer_name as string)}`);
         }
       } else {
         throw new Error('Invalid response from server');
@@ -582,7 +582,7 @@ export default function CheckoutPage() {
                             )}
                           </div>
                           <p className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-line">
-                            {address.address}, {address.city}, {address.district}
+                            {address.address_line1}, {address.city}, {address.district}
                           </p>
                         </div>
                       </label>

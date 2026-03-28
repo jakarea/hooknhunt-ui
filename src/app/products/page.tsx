@@ -71,11 +71,13 @@ function ProductsPageContent() {
         case 'price-high':
           return (b.price || 0) - (a.price || 0);
         case 'discount':
-          const aDiscount = a.originalPrice && a.originalPrice > a.price
-            ? ((a.originalPrice - a.price) / a.originalPrice)
+          const aPrice = a.price || 0;
+          const bPrice = b.price || 0;
+          const aDiscount = a.originalPrice && a.originalPrice > aPrice
+            ? ((a.originalPrice - aPrice) / a.originalPrice)
             : 0;
-          const bDiscount = b.originalPrice && b.originalPrice > b.price
-            ? ((b.originalPrice - b.price) / b.originalPrice)
+          const bDiscount = b.originalPrice && b.originalPrice > bPrice
+            ? ((b.originalPrice - bPrice) / b.originalPrice)
             : 0;
           return bDiscount - aDiscount;
         case 'newest':
