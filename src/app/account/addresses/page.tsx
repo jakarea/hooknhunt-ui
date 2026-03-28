@@ -86,7 +86,7 @@ export default function AddressesPage() {
         address_line1: address.address_line1,
         address_line2: address.address_line2 || '',
         city: address.city,
-        district: address.district,
+        district: address.district || '',
         post_code: address.post_code || '',
         phone: address.phone,
         is_default: address.is_default || false,
