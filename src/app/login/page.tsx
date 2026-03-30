@@ -24,7 +24,7 @@ function LoginForm() {
     const [error, setError] = useState('');
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { login, isAuthenticated, isLoading: authLoading } = useAuth();
+    const { login, sendOtp, isAuthenticated, isLoading: authLoading } = useAuth();
 
     // Get redirect URL from query params (for middleware-based protection)
     const redirectUrl = searchParams.get('redirect') || '/account';
@@ -45,7 +45,7 @@ function LoginForm() {
         setIsLoading(true);
 
         // Validate phone number (Bangladesh format)
-        const phoneRegex = /^01[3-9]\d{8}$/;
+        const phoneRegex = /^01\d{9}$/;
         if (!phoneRegex.test(phone)) {
             toast.error(t('auth.validation.phoneRequired'));
             setIsLoading(false);
@@ -77,7 +77,19 @@ function LoginForm() {
                 }, 300);
             }, 200);
         } catch (err: unknown) {
-            const error = err as Error & { errors?: { [key: string]: string[] } };
+            const error = err as Error & { errors?: { [key: string]: string[] }; error_code?: string };
+
+            // Phone registered but not verified — redirect to OTP page
+            if (error.error_code === 'phone_not_verified') {
+                try {
+                    await sendOtp(phone);
+                } catch {
+                    // OTP send failed — still redirect, user can resend from OTP page
+                }
+                router.push('/verify-otp?phone=' + encodeURIComponent(phone) + '&from=login');
+                return;
+            }
+
             const loginIdErrors = error.errors?.login_id;
             const errorMessage = loginIdErrors?.[0] || error.message || t('auth.login.failed');
             setError(errorMessage);

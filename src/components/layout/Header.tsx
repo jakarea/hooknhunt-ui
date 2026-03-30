@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
-import { staticCategories } from '@/data/static-products';
+import { useCategoryStore } from '@/stores/categoryStore';
 import TopBar from './TopBar';
 
 export default function Header() {
@@ -15,6 +15,8 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const [isNavSticky, setIsNavSticky] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+  const categories = useCategoryStore((s) => s.categories);
+  const fetchCategories = useCategoryStore((s) => s.fetchCategories);
   const { getCartCount, toggleCart } = useCart();
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -22,6 +24,11 @@ export default function Header() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Fetch categories once from API (store deduplicates)
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -163,15 +170,32 @@ export default function Header() {
               {/* Dropdown Menu - Shows on Hover */}
               <div className={`absolute top-full left-0 mt-1 w-56 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50 transition-opacity duration-200 ${isCategoryDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                 <div className="max-h-[400px] overflow-y-auto">
-                  {staticCategories.map((category) => (
-                    <Link
-                      key={category.id}
-                      href={`/products?category=${category.slug}`}
-                      className="block px-4 py-2 text-sm md:text-base text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] hover:text-[#bc1215] transition-colors"
-                    >
-                      {category.name}
-                    </Link>
-                  ))}
+                  {categories.map((category) => {
+                    const img = category.image;
+                    const imageUrl = (typeof img === 'object' && img?.full_url)
+                      ? img.full_url
+                      : category.image_url || '';
+                    return (
+                      <Link
+                        key={category.id}
+                        href={`/products?category=${category.slug}`}
+                        className="flex items-center gap-3 px-4 py-2 text-sm md:text-base text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] hover:text-[#bc1215] transition-colors"
+                      >
+                        <span className="relative w-6 h-6 flex-shrink-0 rounded overflow-hidden bg-gray-100 dark:bg-gray-700">
+                          {imageUrl && (
+                            <Image
+                              src={imageUrl}
+                              alt={category.name}
+                              fill
+                              className="object-cover"
+                              sizes="24px"
+                            />
+                          )}
+                        </span>
+                        <span className="truncate">{category.name}</span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -230,16 +254,33 @@ export default function Header() {
                   <span>📁</span>
                   {t('nav.category')}
                 </div>
-                {staticCategories.map((category) => (
-                  <Link
-                    key={category.id}
-                    href={`/products?category=${category.slug}`}
-                    className="block px-4 py-2 pl-8 text-sm md:text-base text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] hover:text-[#bc1215] transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {category.name}
-                  </Link>
-                ))}
+                {categories.map((category) => {
+                  const img = category.image;
+                  const imageUrl = (typeof img === 'object' && img?.full_url)
+                    ? img.full_url
+                    : category.image_url || '';
+                  return (
+                    <Link
+                      key={category.id}
+                      href={`/products?category=${category.slug}`}
+                      className="flex items-center gap-3 px-4 py-2 pl-8 text-sm md:text-base text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] hover:text-[#bc1215] transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <span className="relative w-6 h-6 flex-shrink-0 rounded overflow-hidden bg-gray-100 dark:bg-gray-700">
+                        {imageUrl && (
+                          <Image
+                            src={imageUrl}
+                            alt={category.name}
+                            fill
+                            className="object-cover"
+                            sizes="24px"
+                          />
+                        )}
+                      </span>
+                      <span className="truncate">{category.name}</span>
+                    </Link>
+                  );
+                })}
               </div>
 
               {/* Track Order & Contact - After Categories */}

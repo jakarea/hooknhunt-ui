@@ -1,127 +1,71 @@
-[00:00:00.971] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.063] Server  LOG     ✓ Ready in 812ms
-[00:00:01.936] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:03.804] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: EXISTS
-[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] Validating token with API...
-[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] ⚡ Using cached user immediately: {"addresses":[{"address":null,"city":"San Francisco","district":null,"id":1,"is_default":false,"phone":"376719985741","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Fresno","district":null,"id":2,"is_default":false,"phone":"687018994754","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Baltimore","district":null,"id":3,"is_default":false,"phone":"483299254788","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Charlotte","district":null,"id":4,"is_default":false,"phone":"537899286936","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Dallas","district":null,"id":5,"is_default":true,"phone":"449695556383","postal_code":null,"recipient_name":null,"type":null}],"created_at":"2026-01-15T05:12:43+06:00","customer_profile":{"avg_order_value":0,"dob":"2026-01-04","gender":"male","loyalty_points":0,"loyalty_tier":"bronze","preferred_currency":"BDT","preferred_language":"en","total_orders":0,"total_spent":0,"whatsapp_number":"01234568765"},"email":"jakarea@yopmail.com3","email_verified_at":null,"id":2,"name":"Jakarea Parvez","phone_number":"01728247398","phone_verified_at":"2026-01-15T05:14:29+06:00","role":"Retail Customer","updated_at":"2026-02-28T10:11:19+06:00"}
-[00:00:03.805] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/me"}
-[00:00:03.805] Browser LOG     Theme initialized to light mode
-[00:00:03.805] Browser LOG     HTML classes: 
-[00:00:03.805] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:00:03.805] Browser LOG     🔍 [API_DEBUG] Catch error: {}
-[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] ❌ API Error: 0 Network error. Please check your connection.
-[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] 🌐 Network error but cached user is available
-[00:00:03.805] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:00:03.805] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:00:04.069] Browser WARN    Image with src "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&h=600&fit=crop" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
-Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
-[00:00:04.246] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
-[00:00:04.544] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:00:04.571] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
-[00:01:08.812] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
-[00:01:08.814] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
-[00:01:09.826] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:01:10.800] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:01:11.299] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:01:11.301] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:01:12.047] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:01:12.049] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:04:02.398] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:04:02.398] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/addresses"}
-[00:04:02.398] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/addresses"}
-[00:04:02.398] Browser LOG     🔍 [API_DEBUG] Catch error: {}
-[00:04:02.398] Browser ERROR   Failed to fetch addresses: {"errors":{},"message":"Network error. Please check your connection.","response":null,"status":0}
-[00:04:02.398] Browser LOG     🔍 [API_DEBUG] Catch error: {}
-[00:04:02.398] Browser ERROR   Failed to fetch addresses: {"errors":{},"message":"Network error. Please check your connection.","response":null,"status":0}
-[00:04:02.398] Browser ERROR   unhandledRejection: TypeError: Failed to fetch
-[00:04:02.398] Browser ERROR   unhandledRejection: TypeError: Failed to fetch
-[00:06:22.800] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:23.013] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: EXISTS
-[00:06:23.013] Browser LOG     🔍 [AUTH_DEBUG] Validating token with API...
-[00:06:23.013] Browser LOG     🔍 [AUTH_DEBUG] ⚡ Using cached user immediately: {"addresses":[{"address":null,"city":"San Francisco","district":null,"id":1,"is_default":false,"phone":"376719985741","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Fresno","district":null,"id":2,"is_default":false,"phone":"687018994754","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Baltimore","district":null,"id":3,"is_default":false,"phone":"483299254788","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Charlotte","district":null,"id":4,"is_default":false,"phone":"537899286936","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Dallas","district":null,"id":5,"is_default":true,"phone":"449695556383","postal_code":null,"recipient_name":null,"type":null}],"created_at":"2026-01-15T05:12:43+06:00","customer_profile":{"avg_order_value":0,"dob":"2026-01-04","gender":"male","loyalty_points":0,"loyalty_tier":"bronze","preferred_currency":"BDT","preferred_language":"en","total_orders":0,"total_spent":0,"whatsapp_number":"01234568765"},"email":"jakarea@yopmail.com3","email_verified_at":null,"id":2,"name":"Jakarea Parvez","phone_number":"01728247398","phone_verified_at":"2026-01-15T05:14:29+06:00","role":"Retail Customer","updated_at":"2026-02-28T10:11:19+06:00"}
-[00:06:23.013] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/me"}
-[00:06:23.013] Browser LOG     Theme initialized to light mode
-[00:06:23.013] Browser LOG     HTML classes: 
-[00:06:23.013] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:06:23.013] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/addresses"}
-[00:06:23.013] Browser LOG     🔍 [API_DEBUG] Catch error: {}
-[00:06:23.013] Browser LOG     🔍 [AUTH_DEBUG] ❌ API Error: 0 Network error. Please check your connection.
-[00:06:23.013] Browser LOG     🔍 [AUTH_DEBUG] 🌐 Network error but cached user is available
-[00:06:23.013] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:06:23.013] Browser LOG     🔍 [API_DEBUG] Catch error: {}
-[00:06:23.013] Browser ERROR   Failed to fetch addresses: {"errors":{},"message":"Network error. Please check your connection.","response":null,"status":0}
-[00:09:13.796] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:09:14.050] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: EXISTS
-[00:09:14.050] Browser LOG     🔍 [AUTH_DEBUG] Validating token with API...
-[00:09:14.050] Browser LOG     🔍 [AUTH_DEBUG] ⚡ Using cached user immediately: {"addresses":[{"address":null,"city":"San Francisco","district":null,"id":1,"is_default":false,"phone":"376719985741","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Fresno","district":null,"id":2,"is_default":false,"phone":"687018994754","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Baltimore","district":null,"id":3,"is_default":false,"phone":"483299254788","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Charlotte","district":null,"id":4,"is_default":false,"phone":"537899286936","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Dallas","district":null,"id":5,"is_default":true,"phone":"449695556383","postal_code":null,"recipient_name":null,"type":null}],"created_at":"2026-01-15T05:12:43+06:00","customer_profile":{"avg_order_value":0,"dob":"2026-01-04","gender":"male","loyalty_points":0,"loyalty_tier":"bronze","preferred_currency":"BDT","preferred_language":"en","total_orders":0,"total_spent":0,"whatsapp_number":"01234568765"},"email":"jakarea@yopmail.com3","email_verified_at":null,"id":2,"name":"Jakarea Parvez","phone_number":"01728247398","phone_verified_at":"2026-01-15T05:14:29+06:00","role":"Retail Customer","updated_at":"2026-02-28T10:11:19+06:00"}
-[00:09:14.050] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/me"}
-[00:09:14.050] Browser LOG     Theme initialized to light mode
-[00:09:14.050] Browser LOG     HTML classes: 
-[00:09:14.050] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:09:14.050] Browser LOG     🔍 [API_DEBUG] Catch error: {}
-[00:09:14.050] Browser LOG     🔍 [AUTH_DEBUG] ❌ API Error: 0 Network error. Please check your connection.
-[00:09:14.050] Browser LOG     🔍 [AUTH_DEBUG] 🌐 Network error but cached user is available
-[00:09:14.050] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:09:14.151] Browser WARN    Image with src "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=800&fit=crop" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
-Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
-[00:09:16.283] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:09:16.988] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
-[00:09:16.994] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
-[00:09:17.062] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:09:17.269] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:09:18.188] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
-[00:09:18.191] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
-[00:09:18.341] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
-[00:09:18.348] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
-[00:09:25.060] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:09:26.751] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:09:41.140] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:09:41.156] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:09:41.726] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:09:41.727] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:15:59.262] Server  LOG     ✓ Compiled in 996ms
-[00:15:59.275] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:15:59.328] Server  LOG     ✓ Compiled in 0ms
-[00:15:59.878] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:16:01.060] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: EXISTS
-[00:16:01.060] Browser LOG     🔍 [AUTH_DEBUG] Validating token with API...
-[00:16:01.060] Browser LOG     🔍 [AUTH_DEBUG] ⚡ Using cached user immediately: {"addresses":[{"address":null,"city":"San Francisco","district":null,"id":1,"is_default":false,"phone":"376719985741","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Fresno","district":null,"id":2,"is_default":false,"phone":"687018994754","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Baltimore","district":null,"id":3,"is_default":false,"phone":"483299254788","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Charlotte","district":null,"id":4,"is_default":false,"phone":"537899286936","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Dallas","district":null,"id":5,"is_default":true,"phone":"449695556383","postal_code":null,"recipient_name":null,"type":null}],"created_at":"2026-01-15T05:12:43+06:00","customer_profile":{"avg_order_value":0,"dob":"2026-01-04","gender":"male","loyalty_points":0,"loyalty_tier":"bronze","preferred_currency":"BDT","preferred_language":"en","total_orders":0,"total_spent":0,"whatsapp_number":"01234568765"},"email":"jakarea@yopmail.com3","email_verified_at":null,"id":2,"name":"Jakarea Parvez","phone_number":"01728247398","phone_verified_at":"2026-01-15T05:14:29+06:00","role":"Retail Customer","updated_at":"2026-02-28T10:11:19+06:00"}
-[00:16:01.060] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/me"}
-[00:16:01.060] Browser LOG     Theme initialized to light mode
-[00:16:01.060] Browser LOG     HTML classes: 
-[00:16:01.060] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:16:01.060] Browser LOG     🔍 [API_DEBUG] Catch error: {}
-[00:16:01.060] Browser LOG     🔍 [AUTH_DEBUG] ❌ API Error: 0 Network error. Please check your connection.
-[00:16:01.060] Browser LOG     🔍 [AUTH_DEBUG] 🌐 Network error but cached user is available
-[00:16:01.060] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:31:41.396] Server  LOG     ✓ Compiled in 191ms
-[00:31:51.824] Server  LOG     ✓ Compiled in 119ms
-[00:32:04.079] Server  LOG     ✓ Compiled in 131ms
-[00:42:19.187] Server  LOG     ✓ Compiled in 205ms
-[00:47:11.386] Server  LOG     ✓ Compiled in 199ms
-[00:50:41.793] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:50:42.138] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: EXISTS
-[00:50:42.138] Browser LOG     🔍 [AUTH_DEBUG] Validating token with API...
-[00:50:42.139] Browser LOG     🔍 [AUTH_DEBUG] ⚡ Using cached user immediately: {"addresses":[{"address":null,"city":"San Francisco","district":null,"id":1,"is_default":false,"phone":"376719985741","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Fresno","district":null,"id":2,"is_default":false,"phone":"687018994754","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Baltimore","district":null,"id":3,"is_default":false,"phone":"483299254788","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Charlotte","district":null,"id":4,"is_default":false,"phone":"537899286936","postal_code":null,"recipient_name":null,"type":null},{"address":null,"city":"Dallas","district":null,"id":5,"is_default":true,"phone":"449695556383","postal_code":null,"recipient_name":null,"type":null}],"created_at":"2026-01-15T05:12:43+06:00","customer_profile":{"avg_order_value":0,"dob":"2026-01-04","gender":"male","loyalty_points":0,"loyalty_tier":"bronze","preferred_currency":"BDT","preferred_language":"en","total_orders":0,"total_spent":0,"whatsapp_number":"01234568765"},"email":"jakarea@yopmail.com3","email_verified_at":null,"id":2,"name":"Jakarea Parvez","phone_number":"01728247398","phone_verified_at":"2026-01-15T05:14:29+06:00","role":"Retail Customer","updated_at":"2026-02-28T10:11:19+06:00"}
-[00:50:42.139] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"http://localhost:8000/api/v2/store/account/me"}
-[00:50:42.139] Browser LOG     Theme initialized to light mode
-[00:50:42.139] Browser LOG     HTML classes: 
-[00:50:42.139] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:50:42.139] Browser LOG     🔍 [API_DEBUG] Catch error: {}
-[00:50:42.139] Browser LOG     🔍 [AUTH_DEBUG] ❌ API Error: 0 Network error. Please check your connection.
-[00:50:42.139] Browser LOG     🔍 [AUTH_DEBUG] 🌐 Network error but cached user is available
-[00:50:42.139] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:50:42.547] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
-[00:50:42.581] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
-[00:50:42.781] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:50:42.782] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:50:43.875] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
-[00:50:43.879] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
-[00:50:44.153] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=400&h=400&fit=crop" 404
-[00:50:44.154] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=400&h=400&fit=crop" 404
-[00:50:44.624] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:50:45.551] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:50:46.475] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
-[00:50:46.477] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:51:19.923] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1518589728347-67f3ac8c45f6?w=800&h=800&fit=crop" 404
-[00:51:19.927] Server  ERROR   ⨯ "upstream image response failed for" "https://images.unsplash.com/photo-1535581272126-f2a1c0fe7e21?w=800&h=800&fit=crop" 404
+[00:00:01.524] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.632] Server  LOG     ✓ Ready in 1401ms
+[00:00:04.473] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:04.849] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:00:04.850] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[00:00:04.851] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:00:04.851] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[00:00:04.851] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[00:00:04.851] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[00:00:04.851] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: EXISTS
+[00:00:04.851] Browser LOG     🔍 [AUTH_DEBUG] Validating token with API...
+[00:00:04.851] Browser LOG     🔍 [AUTH_DEBUG] ⚡ Using cached user immediately: {"addresses":[{"address_line1":"909 South Old Freeway","address_line2":"Apartment 514","area":null,"city":"Bakshiganj","country":"Bangladesh","district":"Jamalpur","division":"Mymensingh","full_name":"Alfonso Gibson","id":8,"is_billing_address":true,"is_default":true,"is_shipping_address":false,"label":"Home","phone":"438476243061","postal_code":null,"thana":"Bakshiganj"}],"created_at":"2026-03-30T16:11:43+06:00","customer_profile":null,"email":null,"email_verified_at":null,"id":12,"name":"Mira Rivas","phone_number":"01328247398","phone_verified_at":"2026-03-30T16:41:08+06:00","role":"Retail Customer","updated_at":"2026-03-30T16:41:08+06:00"}
+[00:00:04.851] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/me"}
+[00:00:04.851] Browser LOG     Theme initialized to light mode
+[00:00:04.851] Browser LOG     HTML classes: 
+[00:00:04.851] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[00:00:06.491] Server  ERROR   ⨯ "upstream image" "https://hooknhunt-api.test/storage/uploads/1774668227_69c749c321fe3_NID_Back.jpeg" "resolved to private ip" "[\"127.0.0.1\"]"
+[00:00:06.538] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:06.538] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:06.705] Server  ERROR   ⨯ "upstream image" "https://hooknhunt-api.test/storage/uploads/1774668227_69c749c321fe3_NID_Back.jpeg" "resolved to private ip" "[\"127.0.0.1\"]"
+[00:00:06.707] Server  ERROR   ⨯ "upstream image" "https://hooknhunt-api.test/storage/uploads/1772874391_69abea97549e7_46acc6c0-cf72-4e59-b427-551ad5ad8f82_722x925_q100.jpg" "resolved to private ip" "[\"127.0.0.1\"]"
+[00:00:06.759] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:06.759] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:06.759] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:06.759] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:06.759] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:06.759] Browser LOG     🔍 [AUTH_DEBUG] API response status: OK
+[00:00:06.759] Browser LOG     🔍 [AUTH_DEBUG] API response data: {"data":{"user":{"addresses":[],"created_at":"2026-03-30T16:11:43+06:00","customer_profile":null,"email":null,"email_verified_at":null,"id":12,"name":"Mira Rivas","phone_number":"01328247398","phone_verified_at":"2026-03-30T16:41:08+06:00","role":"Retail Customer","updated_at":"2026-03-30T16:41:08+06:00"}},"message":"Profile retrieved successfully","status":true}
+[00:00:06.759] Browser LOG     🔍 [AUTH_DEBUG] ✅ User authenticated: {"addresses":[],"created_at":"2026-03-30T16:11:43+06:00","customer_profile":null,"email":null,"email_verified_at":null,"id":12,"name":"Mira Rivas","phone_number":"01328247398","phone_verified_at":"2026-03-30T16:41:08+06:00","role":"Retail Customer","updated_at":"2026-03-30T16:41:08+06:00"}
+[00:00:06.759] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[00:00:08.601] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:00:08.601] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/orders/summary"}
+[00:00:08.601] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/orders/summary"}
+[00:00:08.879] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:08.879] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:13.450] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/addresses"}
+[00:00:13.451] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/addresses"}
+[00:00:13.451] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:13.451] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:23.289] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/account/addresses"}
+[00:00:23.442] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":201,"statusText":""}
+[00:00:23.442] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/addresses"}
+[00:00:23.442] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:26.757] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:26.888] Server  ERROR   ⨯ "upstream image" "https://hooknhunt-api.test/storage/uploads/1774668227_69c749c321fe3_NID_Back.jpeg" "resolved to private ip" "[\"127.0.0.1\"]"
+[00:00:27.060] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:00:27.060] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: EXISTS
+[00:00:27.060] Browser LOG     🔍 [AUTH_DEBUG] Validating token with API...
+[00:00:27.060] Browser LOG     🔍 [AUTH_DEBUG] ⚡ Using cached user immediately: {"addresses":[],"created_at":"2026-03-30T16:11:43+06:00","customer_profile":null,"email":null,"email_verified_at":null,"id":12,"name":"Mira Rivas","phone_number":"01328247398","phone_verified_at":"2026-03-30T16:41:08+06:00","role":"Retail Customer","updated_at":"2026-03-30T16:41:08+06:00"}
+[00:00:27.060] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/me"}
+[00:00:27.060] Browser LOG     Theme initialized to light mode
+[00:00:27.060] Browser LOG     HTML classes: 
+[00:00:27.060] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[00:00:27.060] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:27.060] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:27.060] Browser LOG     🔍 [AUTH_DEBUG] API response status: OK
+[00:00:27.060] Browser LOG     🔍 [AUTH_DEBUG] API response data: {"data":{"user":{"addresses":[{"address_line1":"91 Fabien Road","address_line2":"Number 47","area":null,"city":"Mymensingh Sadar","country":"Bangladesh","district":null,"division":"Mymensingh","full_name":"Zachery Stuart","id":9,"is_billing_address":false,"is_default":false,"is_shipping_address":true,"label":"Home","phone":"721974518067","postal_code":"Tenetur tempor magni","thana":null}],"created_at":"2026-03-30T16:11:43+06:00","customer_profile":null,"email":null,"email_verified_at":null,"id":12,"name":"Mira Rivas","phone_number":"01328247398","phone_verified_at":"2026-03-30T16:41:08+06:00","role":"Retail Customer","updated_at":"2026-03-30T16:41:08+06:00"}},"message":"Profile retrieved successfully","status":true}
+[00:00:27.060] Browser LOG     🔍 [AUTH_DEBUG] ✅ User authenticated: {"addresses":[{"address_line1":"91 Fabien Road","address_line2":"Number 47","area":null,"city":"Mymensingh Sadar","country":"Bangladesh","district":null,"division":"Mymensingh","full_name":"Zachery Stuart","id":9,"is_billing_address":false,"is_default":false,"is_shipping_address":true,"label":"Home","phone":"721974518067","postal_code":"Tenetur tempor magni","thana":null}],"created_at":"2026-03-30T16:11:43+06:00","customer_profile":null,"email":null,"email_verified_at":null,"id":12,"name":"Mira Rivas","phone_number":"01328247398","phone_verified_at":"2026-03-30T16:41:08+06:00","role":"Retail Customer","updated_at":"2026-03-30T16:41:08+06:00"}
+[00:00:27.060] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[00:00:27.060] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/addresses"}
+[00:00:27.060] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/addresses"}
+[00:00:27.060] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:27.060] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:43.303] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"PUT","url":"https://hooknhunt-api.test/api/v2/store/account/addresses/9"}
+[00:00:43.303] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:43.303] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/addresses"}
+[00:00:43.303] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:48.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"DELETE","url":"https://hooknhunt-api.test/api/v2/store/account/addresses/9"}
+[00:00:48.224] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:48.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":true,"includeAuth":true,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/account/addresses"}
+[00:00:48.224] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}

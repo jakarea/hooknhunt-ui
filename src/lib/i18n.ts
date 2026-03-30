@@ -337,9 +337,7 @@ const resources = {
       'auth.validation.termsRequired': 'You must agree to terms and conditions',
       ...enInventory.inventory,
       ...enSidebar,
-      ...enContact,
       ...enTrackOrder,
-      ...enHotDeals,
       ...enProductCard,
       ...enProduct,
       ...enProducts
@@ -660,15 +658,24 @@ const resources = {
       'auth.validation.termsRequired': 'আপনাকে শর্তাবলীতে সম্মত হতে হবে',
       ...bnInventory.inventory,
       ...bnSidebar,
-      ...bnContact,
       ...bnTrackOrder,
-      ...bnHotDeals,
       ...bnProductCard,
       ...bnProduct,
       ...bnProducts
 
     },
   },
+} as const;
+
+(resources as Record<string, Record<string, unknown>>).en = {
+  ...(resources as Record<string, Record<string, unknown>>).en,
+  contact: enContact,
+  hotDeals: enHotDeals,
+};
+(resources as Record<string, Record<string, unknown>>).bn = {
+  ...(resources as Record<string, Record<string, unknown>>).bn,
+  contact: bnContact,
+  hotDeals: bnHotDeals,
 };
 
 i18n

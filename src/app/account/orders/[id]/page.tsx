@@ -11,37 +11,46 @@ import toast, { Toaster } from 'react-hot-toast';
 
 interface OrderItem {
   id: number;
-  product_name: string;
-  product_image: string;
-  product_sku: string;
-  unit_price: number;
+  variantId: number;
   quantity: number;
-  total_price: number;
-  product_attributes?: any;
+  unitPrice: number;
+  totalPrice: number;
+  productName: string;
+  variantName: string;
+  sku: string;
+  image: string;
+}
+
+interface ShippingInfo {
+  address: string;
+  city: string | null;
+  district: string;
+  division: string;
+  thana: string;
+}
+
+interface CustomerInfo {
+  name: string;
+  phone: string;
+  email: string;
 }
 
 interface Order {
   id: number;
-  order_number: string;
+  orderNumber: string;
   status: string;
-  total_amount: number;
-  subtotal: number;
-  delivery_charge: number;
-  service_charge: number;
-  coupon_discount: number;
-  payable_amount: number;
-  payment_method: string;
-  payment_details?: string;
-  notes?: string;
-  customer_name: string;
-  customer_phone: string;
-  customer_email?: string;
-  shipping_address: string;
-  shipping_city: string;
-  shipping_district: string;
-  created_at: string;
-  updated_at: string;
+  paymentStatus: string;
+  subTotal: number;
+  discountAmount: number;
+  deliveryCharge: number;
+  totalAmount: number;
+  paidAmount: number;
+  dueAmount: number;
+  notes: string | null;
+  shipping: ShippingInfo;
+  customer: CustomerInfo;
   items: OrderItem[];
+  createdAt: string;
 }
 
 export default function OrderDetailsPage() {
@@ -68,11 +77,10 @@ export default function OrderDetailsPage() {
   const fetchOrderDetails = async () => {
     try {
       setIsLoading(true);
-      const response = await api.getOrder(parseInt(orderId));
+      const response = await api.getOrder(orderId);
       const orderData = response.data || response;
       setOrder(orderData as Order);
-    } catch (error) {
-      console.error('Failed to fetch order details:', error);
+    } catch {
       toast.error('Failed to load order details');
       router.push('/account/orders');
     } finally {
@@ -90,8 +98,9 @@ export default function OrderDetailsPage() {
     });
   };
 
-  const formatCurrency = (amount: number) => {
-    return `৳${amount.toLocaleString('en-BD', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const formatCurrency = (amount: number | undefined | null) => {
+    const safeAmount = amount ?? 0;
+    return `৳${safeAmount.toLocaleString('en-BD', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   const getStatusColor = (status: string) => {
@@ -173,7 +182,7 @@ export default function OrderDetailsPage() {
                 <img src="/hook-and-hunt-logo.svg" alt="Hook & Hunt" className="h-16 mr-4" />
                 <div>
                   <h1 className="text-3xl font-bold">INVOICE</h1>
-                  <p className="text-red-100">Order #{order.order_number}</p>
+                  <p className="text-red-100">Order #{order.orderNumber}</p>
                 </div>
               </div>
               <div className="text-right">
@@ -193,24 +202,18 @@ export default function OrderDetailsPage() {
                 <div className="space-y-2 text-sm">
                   <div className="flex">
                     <span className="w-24 text-gray-500">Order ID:</span>
-                    <span className="font-medium text-gray-900">#{order.order_number}</span>
+                    <span className="font-medium text-gray-900">#{order.orderNumber}</span>
                   </div>
                   <div className="flex">
                     <span className="w-24 text-gray-500">Order Date:</span>
-                    <span className="font-medium text-gray-900">{formatDate(order.created_at)}</span>
+                    <span className="font-medium text-gray-900">{formatDate(order.createdAt)}</span>
                   </div>
                   <div className="flex">
                     <span className="w-24 text-gray-500">Payment:</span>
                     <span className="font-medium text-gray-900 capitalize">
-                      {order.payment_method === 'cod' ? 'Cash on Delivery' : order.payment_method}
+                      {order.paymentStatus === 'paid' ? 'Paid' : order.paymentStatus}
                     </span>
                   </div>
-                  {order.payment_details && (
-                    <div className="flex">
-                      <span className="w-24 text-gray-500">Details:</span>
-                      <span className="font-medium text-gray-900">{order.payment_details}</span>
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -220,16 +223,16 @@ export default function OrderDetailsPage() {
                 <div className="space-y-2 text-sm">
                   <div className="flex">
                     <span className="w-24 text-gray-500">Name:</span>
-                    <span className="font-medium text-gray-900">{order.customer_name}</span>
+                    <span className="font-medium text-gray-900">{order.customer.name}</span>
                   </div>
                   <div className="flex">
                     <span className="w-24 text-gray-500">Phone:</span>
-                    <span className="font-medium text-gray-900">{order.customer_phone}</span>
+                    <span className="font-medium text-gray-900">{order.customer.phone}</span>
                   </div>
-                  {order.customer_email && (
+                  {order.customer.email && (
                     <div className="flex">
                       <span className="w-24 text-gray-500">Email:</span>
-                      <span className="font-medium text-gray-900">{order.customer_email}</span>
+                      <span className="font-medium text-gray-900">{order.customer.email}</span>
                     </div>
                   )}
                 </div>
@@ -240,9 +243,11 @@ export default function OrderDetailsPage() {
             <div className="mb-8">
               <h3 className="text-sm font-bold text-gray-500 uppercase mb-3">Shipping Address</h3>
               <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-gray-900 font-medium">{order.customer_name}</p>
-                <p className="text-gray-600 text-sm">{order.shipping_address}</p>
-                <p className="text-gray-600 text-sm">{order.shipping_city}, {order.shipping_district}</p>
+                <p className="text-gray-900 font-medium">{order.customer.name}</p>
+                <p className="text-gray-600 text-sm">{order.shipping.address}</p>
+                <p className="text-gray-600 text-sm">
+                  {[order.shipping.thana, order.shipping.district, order.shipping.division].filter(Boolean).join(', ')}
+                </p>
               </div>
             </div>
 
@@ -267,20 +272,25 @@ export default function OrderDetailsPage() {
                           <div className="flex items-center">
                             <div className="h-16 w-16 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden mr-4">
                               <Image
-                                src={item.product_image || '/placeholder-image.jpg'}
-                                alt={item.product_name}
+                                src={item.image || '/placeholder-image.jpg'}
+                                alt={item.productName}
                                 width={64}
                                 height={64}
                                 className="object-cover"
                               />
                             </div>
-                            <span className="text-sm font-medium text-gray-900">{item.product_name}</span>
+                            <div>
+                              <span className="text-sm font-medium text-gray-900">{item.productName}</span>
+                              {item.variantName && (
+                                <p className="text-xs text-gray-500">{item.variantName}</p>
+                              )}
+                            </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-600 hidden sm:table-cell">{item.product_sku || '-'}</td>
+                        <td className="px-6 py-4 text-sm text-gray-600 hidden sm:table-cell">{item.sku || '-'}</td>
                         <td className="px-6 py-4 text-center text-sm text-gray-900">{item.quantity}</td>
-                        <td className="px-6 py-4 text-right text-sm text-gray-900">{formatCurrency(item.unit_price)}</td>
-                        <td className="px-6 py-4 text-right text-sm font-medium text-gray-900">{formatCurrency(item.total_price)}</td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-900">{formatCurrency(item.unitPrice)}</td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-gray-900">{formatCurrency(item.totalPrice)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -295,29 +305,35 @@ export default function OrderDetailsPage() {
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Subtotal:</span>
-                    <span className="font-medium text-gray-900">{formatCurrency(order.subtotal)}</span>
+                    <span className="font-medium text-gray-900">{formatCurrency(order.subTotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Delivery Charge:</span>
-                    <span className="font-medium text-gray-900">{formatCurrency(order.delivery_charge)}</span>
+                    <span className="font-medium text-gray-900">{formatCurrency(order.deliveryCharge)}</span>
                   </div>
-                  {order.service_charge > 0 && (
+                  {order.discountAmount > 0 && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Service Charge:</span>
-                      <span className="font-medium text-gray-900">{formatCurrency(order.service_charge)}</span>
-                    </div>
-                  )}
-                  {order.coupon_discount > 0 && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Coupon Discount:</span>
-                      <span className="font-medium text-green-600">-{formatCurrency(order.coupon_discount)}</span>
+                      <span className="text-gray-600">Discount:</span>
+                      <span className="font-medium text-green-600">-{formatCurrency(order.discountAmount)}</span>
                     </div>
                   )}
                   <div className="border-t border-gray-200 pt-3 mt-3">
                     <div className="flex justify-between text-base">
                       <span className="font-bold text-gray-900">Total Amount:</span>
-                      <span className="font-bold text-red-700 text-lg">{formatCurrency(order.payable_amount)}</span>
+                      <span className="font-bold text-red-700 text-lg">{formatCurrency(order.totalAmount)}</span>
                     </div>
+                    {order.dueAmount > 0 && (
+                      <div className="flex justify-between text-sm mt-2">
+                        <span className="text-gray-600">Due:</span>
+                        <span className="font-medium text-red-600">{formatCurrency(order.dueAmount)}</span>
+                      </div>
+                    )}
+                    {order.paidAmount > 0 && (
+                      <div className="flex justify-between text-sm mt-1">
+                        <span className="text-gray-600">Paid:</span>
+                        <span className="font-medium text-green-600">{formatCurrency(order.paidAmount)}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

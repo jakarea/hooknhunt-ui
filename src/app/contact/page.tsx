@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import api from '@/lib/api';
 
 export default function ContactPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('contact');
   const [formData, setFormData] = useState({
     name: '',
     email: '',

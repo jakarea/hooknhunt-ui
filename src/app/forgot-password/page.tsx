@@ -25,7 +25,7 @@ export default function ForgotPasswordPage() {
         setIsLoading(true);
 
         // Validate phone number (Bangladesh format)
-        const phoneRegex = /^01[3-9]\d{8}$/;
+        const phoneRegex = /^01\d{9}$/;
         if (!phoneRegex.test(phone)) {
             setError('Please enter a valid Bangladesh phone number (01xxxxxxxxx)');
             setIsLoading(false);

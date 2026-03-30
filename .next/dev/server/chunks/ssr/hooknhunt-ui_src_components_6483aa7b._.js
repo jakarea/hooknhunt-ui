@@ -1009,16 +1009,82 @@ __turbopack_context__.s([
     ()=>Categories
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/node_modules/next/image.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$data$2f$static$2d$products$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/src/data/static-products.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$stores$2f$categoryStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/src/stores/categoryStore.ts [app-ssr] (ecmascript)");
 'use client';
 ;
 ;
 ;
 ;
+;
 function Categories() {
-    const categories = __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$data$2f$static$2d$products$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["staticCategories"];
+    const categories = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$stores$2f$categoryStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCategoryStore"])((s)=>s.categories);
+    const loading = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$stores$2f$categoryStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCategoryStore"])((s)=>s.loading);
+    const fetchCategories = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$stores$2f$categoryStore$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCategoryStore"])((s)=>s.fetchCategories);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        fetchCategories();
+    }, [
+        fetchCategories
+    ]);
+    if (loading) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+            className: "py-20 bg-white dark:bg-[#0a0a0a]",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "text-center mb-16",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "h-10 w-64 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mx-auto mb-4"
+                            }, void 0, false, {
+                                fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
+                                lineNumber: 22,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "h-6 w-96 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mx-auto"
+                            }, void 0, false, {
+                                fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
+                                lineNumber: 23,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
+                        lineNumber: 21,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6",
+                        children: Array.from({
+                            length: 12
+                        }).map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "aspect-square bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse"
+                            }, i, false, {
+                                fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
+                                lineNumber: 27,
+                                columnNumber: 15
+                            }, this))
+                    }, void 0, false, {
+                        fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
+                        lineNumber: 25,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
+                lineNumber: 20,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
+            lineNumber: 19,
+            columnNumber: 7
+        }, this);
+    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         className: "py-20 bg-white dark:bg-[#0a0a0a]",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1032,7 +1098,7 @@ function Categories() {
                             children: "Shop by Category"
                         }, void 0, false, {
                             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                            lineNumber: 16,
+                            lineNumber: 40,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1040,18 +1106,20 @@ function Categories() {
                             children: "Find exactly what you're looking for"
                         }, void 0, false, {
                             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                            lineNumber: 19,
+                            lineNumber: 43,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                    lineNumber: 15,
+                    lineNumber: 39,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6",
-                    children: categories.slice(0, 18).map((category, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    children: categories.slice(0, 18).map((category, index)=>{
+                        const imageUrl = category.image_object?.full_url || category.image_url || category.image || '';
+                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                             href: `/products?category=${category.slug}`,
                             className: "group",
                             style: {
@@ -1062,16 +1130,16 @@ function Categories() {
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "relative aspect-square overflow-hidden",
                                     children: [
-                                        category.image_url ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                            src: category.image_url,
+                                        imageUrl ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                            src: imageUrl,
                                             alt: category.name,
                                             fill: true,
                                             className: "object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110",
                                             sizes: "(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                            lineNumber: 37,
-                                            columnNumber: 21
+                                            lineNumber: 63,
+                                            columnNumber: 23
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1086,25 +1154,25 @@ function Categories() {
                                                     d: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                                    lineNumber: 47,
-                                                    columnNumber: 25
+                                                    lineNumber: 73,
+                                                    columnNumber: 27
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                                lineNumber: 46,
-                                                columnNumber: 23
+                                                lineNumber: 72,
+                                                columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                            lineNumber: 45,
-                                            columnNumber: 21
+                                            lineNumber: 71,
+                                            columnNumber: 23
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                            lineNumber: 53,
-                                            columnNumber: 19
+                                            lineNumber: 79,
+                                            columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out",
@@ -1115,18 +1183,18 @@ function Categories() {
                                                     children: category.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                                    lineNumber: 58,
-                                                    columnNumber: 23
+                                                    lineNumber: 84,
+                                                    columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                                lineNumber: 57,
-                                                columnNumber: 21
+                                                lineNumber: 83,
+                                                columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                            lineNumber: 56,
-                                            columnNumber: 19
+                                            lineNumber: 82,
+                                            columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "absolute bottom-0 left-0 right-0 p-3 group-hover:opacity-0 transition-opacity duration-300",
@@ -1137,38 +1205,39 @@ function Categories() {
                                                     children: category.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                                    lineNumber: 67,
-                                                    columnNumber: 23
+                                                    lineNumber: 93,
+                                                    columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                                lineNumber: 66,
-                                                columnNumber: 21
+                                                lineNumber: 92,
+                                                columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                            lineNumber: 65,
-                                            columnNumber: 19
+                                            lineNumber: 91,
+                                            columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                    lineNumber: 35,
-                                    columnNumber: 17
+                                    lineNumber: 61,
+                                    columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                lineNumber: 33,
-                                columnNumber: 15
+                                lineNumber: 59,
+                                columnNumber: 17
                             }, this)
                         }, category.id, false, {
                             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                            lineNumber: 27,
-                            columnNumber: 13
-                        }, this))
+                            lineNumber: 53,
+                            columnNumber: 15
+                        }, this);
+                    })
                 }, void 0, false, {
                     fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                    lineNumber: 25,
+                    lineNumber: 49,
                     columnNumber: 9
                 }, this),
                 categories.length > 18 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1181,7 +1250,7 @@ function Categories() {
                                 children: "View All Categories"
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                lineNumber: 85,
+                                lineNumber: 112,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1196,34 +1265,34 @@ function Categories() {
                                     d: "M17 8l4 4m0 0l-4 4m4-4H3"
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                    lineNumber: 87,
+                                    lineNumber: 114,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                                lineNumber: 86,
+                                lineNumber: 113,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                        lineNumber: 81,
+                        lineNumber: 108,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-                    lineNumber: 80,
+                    lineNumber: 107,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-            lineNumber: 13,
+            lineNumber: 37,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/hooknhunt-ui/src/components/home/Categories.tsx",
-        lineNumber: 12,
+        lineNumber: 36,
         columnNumber: 5
     }, this);
 }

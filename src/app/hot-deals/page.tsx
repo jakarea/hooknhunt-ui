@@ -1,13 +1,33 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from '@/components/product/ProductCard';
-import { getBestDeals } from '@/data/static-products';
 import { useTranslation } from 'react-i18next';
+import api from '@/lib/api';
+import { mapApiProduct, ApiProduct } from '@/stores/productStore';
+import { Product } from '@/types';
 
 export default function HotDealsPage() {
-  const { t } = useTranslation();
-  const hotDealsProducts = getBestDeals();
+  const { t } = useTranslation('hotDeals');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await api.getHotDeals(24);
+        const resData = res.data as ApiProduct[] | unknown as ApiProduct[];
+        const raw = Array.isArray(resData) ? resData : [];
+        if (!cancelled) {
+          setProducts(raw.map(mapApiProduct));
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a]">
@@ -19,22 +39,37 @@ export default function HotDealsPage() {
             {t('title')}
           </h1>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-            {t('subtitle', { count: hotDealsProducts.length })}
+            {t('subtitle', { count: products.length })}
           </p>
         </div>
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-          {hotDealsProducts.map((product, index) => (
-            <div
-              key={product.id}
-              className="animate-fadeInUp"
-              style={{ animationDelay: `${index * 50}ms` }}
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
+          {loading
+            ? Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="aspect-square bg-gray-200 dark:bg-gray-700 rounded" />
+                  <div className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
+                  <div className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                </div>
+              ))
+            : products.map((product, index) => (
+                <div
+                  key={product.id}
+                  className="animate-fadeInUp"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <ProductCard product={product} />
+                </div>
+              ))}
         </div>
+
+        {/* Empty state */}
+        {!loading && products.length === 0 && (
+          <div className="text-center py-16">
+            <p className="text-gray-500 dark:text-gray-400 text-lg">No deals available right now. Check back soon!</p>
+          </div>
+        )}
 
         {/* Newsletter CTA Section */}
         <div className="mt-12 sm:mt-16 text-center bg-white dark:bg-[#1a1a1a] rounded-xl p-4 sm:p-6 lg:p-8 shadow-sm">

@@ -7,27 +7,55 @@ import { useParams, useRouter } from 'next/navigation';
 import ProductCard from '@/components/product/ProductCard';
 import ProductErrorBoundary from '@/components/product/ProductErrorBoundary';
 import { useCart } from '@/context/CartContext';
-import { staticProducts, staticCategories, getProductBySlug } from '@/data/static-products';
 import { Product as StaticProduct } from '@/types';
+import api from '@/lib/api';
 import { useTranslation } from 'react-i18next';
 
-// Define types for API response
-interface StockInfo {
-  in_stock: boolean;
-  total_available: number;
-  low_stock: boolean;
-  stock_status: string;
+// Types matching actual API response (camelCase)
+interface ApiVariant {
+  id: number;
+  variantName: string;
+  variantSlug: string;
+  sku: string;
+  price: number;
+  offerPrice: number | null;
+  offerStarts: string | null;
+  offerEnds: string | null;
+  stock: number;
+  weight: string;
+  size: string | null;
+  color: string | null;
+  isActive: boolean;
 }
 
+interface ApiProduct {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  shortDescription: string | null;
+  highlights: string[] | null;
+  includesInBox: string[] | null;
+  videoUrl: string | null;
+  warrantyEnabled: boolean;
+  warrantyDetails: string | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  seoTags: string[] | null;
+  thumbnail: { id: number; fullUrl: string; alt: string } | null;
+  galleryImages: { fullUrl: string }[];
+  category: { id: number; name: string; slug: string } | null;
+  brand: { id: number; name: string } | null;
+  variants: ApiVariant[];
+}
+
+// UI-facing types (kept for template compatibility)
 interface Variant {
   id: number;
   sku: string;
   name: string;
   retail_price: number;
-  wholesale_price: number;
-  moq_wholesale: number;
-  weight?: number;
-  dimensions?: string;
+  original_price: number;
   stock_info: {
     available: number;
     in_stock: boolean;
@@ -41,37 +69,28 @@ interface Variant {
   };
 }
 
-interface Category {
-  name: string;
-  slug: string;
-}
-
-interface PriceRange {
-  min: string;
-  max: string;
-  display: string;
-}
-
 interface Product {
   id: number;
   name: string;
   slug: string;
   thumbnail_url: string;
-  gallery_images: string[] | string;
-  price_range: PriceRange;
+  gallery_images: string[];
+  price_range: { min: string; max: string; display: string };
   has_offer: boolean;
+  originalPrice: number;
   variant_count: number;
-  categories: Category[];
-  stock_info: StockInfo;
+  categories: { name: string; slug: string }[];
+  stock_info: {
+    in_stock: boolean;
+    total_available: number;
+    low_stock: boolean;
+    stock_status: string;
+  };
   description: string;
   short_description: string;
   meta_title: string;
   meta_description: string;
   variants: Variant[];
-}
-
-interface ApiResponse {
-  product: Product;
 }
 
 function ProductDetailPageContent() {
@@ -82,132 +101,184 @@ function ProductDetailPageContent() {
   const slug = params.slug as string;
 
   const [product, setProduct] = useState<Product | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<StaticProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
 
-  // Handle image change with simple fade
   const handleImageChange = useCallback((index: number) => {
     if (index === selectedImage) return;
     setSelectedImage(index);
   }, [selectedImage]);
 
-  // Fetch product data from static source
+  // Map API product to UI Product type
+  const mapApiProduct = useCallback((apiProduct: ApiProduct): Product => {
+    const activeVariants = apiProduct.variants.filter(v => v.isActive);
+    const thumbnailUrl = apiProduct.thumbnail?.fullUrl || '';
+    const galleryUrls = apiProduct.galleryImages?.map((img: { fullUrl: string }) => img.fullUrl) || [];
+
+    const totalStock = activeVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
+    const hasOffer = activeVariants.some(v => v.offerPrice && v.offerPrice > 0 && v.offerPrice < v.price);
+
+    const prices = activeVariants.map(v => v.offerPrice && v.offerPrice > 0 && v.offerPrice < v.price ? v.offerPrice : v.price);
+    const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
+    const maxPrice = prices.length > 0 ? Math.max(...prices) : 0;
+
+    // Original price = highest regular price among variants (for discount display)
+    const originalPrice = activeVariants.length > 0
+      ? Math.max(...activeVariants.map(v => v.price))
+      : 0;
+
+    const priceDisplay = minPrice === maxPrice
+      ? `৳${minPrice.toLocaleString()}`
+      : `৳${minPrice.toLocaleString()} - ৳${maxPrice.toLocaleString()}`;
+
+    const uiVariants: Variant[] = activeVariants.map(v => ({
+      id: v.id,
+      sku: v.sku,
+      name: v.variantName,
+      retail_price: v.offerPrice && v.offerPrice > 0 && v.offerPrice < v.price ? v.offerPrice : v.price,
+      original_price: v.price,
+      stock_info: {
+        available: v.stock,
+        in_stock: v.stock > 0,
+        low_stock: v.stock > 0 && v.stock < 10,
+        stock_status: v.stock > 0 ? 'in_stock' : 'out_of_stock',
+      },
+      image: {
+        url: thumbnailUrl,
+        thumbnail_url: thumbnailUrl,
+        alt_text: `${apiProduct.name} - ${v.variantName}`,
+      },
+    }));
+
+    return {
+      id: apiProduct.id,
+      name: apiProduct.name,
+      slug: apiProduct.slug,
+      thumbnail_url: thumbnailUrl,
+      gallery_images: galleryUrls,
+      price_range: { min: String(minPrice), max: String(maxPrice), display: priceDisplay },
+      has_offer: hasOffer,
+      originalPrice,
+      variant_count: activeVariants.length,
+      categories: apiProduct.category ? [{ name: apiProduct.category.name, slug: apiProduct.category.slug }] : [],
+      stock_info: {
+        in_stock: totalStock > 0,
+        total_available: totalStock,
+        low_stock: totalStock > 0 && totalStock < 10,
+        stock_status: totalStock > 0 ? 'in_stock' : 'out_of_stock',
+      },
+      description: apiProduct.description || '',
+      short_description: apiProduct.shortDescription || '',
+      meta_title: apiProduct.seoTitle || apiProduct.name,
+      meta_description: apiProduct.seoDescription || apiProduct.shortDescription || '',
+      variants: uiVariants,
+    };
+  }, []);
+
+  // Map API product to ProductCard-compatible StaticProduct
+  const mapToProductCard = useCallback((apiProduct: ApiProduct): StaticProduct => {
+    const activeVariants = (apiProduct.variants || []).filter((v: ApiVariant) => v.isActive);
+    const prices = activeVariants.map((v: ApiVariant) => v.offerPrice && v.offerPrice > 0 && v.offerPrice < v.price ? v.offerPrice : v.price);
+    const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
+    const totalStock = activeVariants.reduce((sum: number, v: ApiVariant) => sum + (v.stock || 0), 0);
+
+    return {
+      id: apiProduct.id,
+      name: apiProduct.name,
+      title: apiProduct.name,
+      slug: apiProduct.slug,
+      image: apiProduct.thumbnail?.fullUrl || '',
+      featured_image: apiProduct.thumbnail?.fullUrl || '',
+      price: minPrice,
+      actual_price: minPrice,
+      stock: totalStock,
+      inventory_quantity: totalStock,
+      category_id: apiProduct.category?.id || 0,
+      category: apiProduct.category?.name || '',
+      variant_count: activeVariants.length,
+      description: apiProduct.description || '',
+      short_description: apiProduct.shortDescription || '',
+      product_code: '',
+      sku: activeVariants[0]?.sku || '',
+      tags: [],
+      gallery: apiProduct.galleryImages?.map((img: { fullUrl: string }) => img.fullUrl) || [],
+      has_variants: activeVariants.length > 1,
+      status: 'active',
+      created_at: '',
+      updated_at: '',
+      supplier_id: 0,
+      product_link: '',
+      brand: apiProduct.brand?.name || '',
+      weight: 0,
+      unit: 'pcs',
+      cost_rmb: 0,
+      exchange_rate: 0,
+      cost_bdt: 0,
+      default_price: minPrice,
+      compare_at_price: 0,
+      price_wholesale: 0,
+      price_retail: minPrice,
+      price_daraz: 0,
+      inventory_policy: 'continue',
+      barcode: '',
+      hs_code: '',
+      seo_title: '',
+      seo_description: '',
+    } as StaticProduct;
+  }, []);
+
+  // Fetch product + related from API
   useEffect(() => {
-    const fetchProduct = () => {
+    if (!slug) return;
+    let cancelled = false;
+
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      setSelectedImage(0);
+      setQuantity(1);
+      setSelectedVariant(null);
+
       try {
-        setLoading(true);
-        setError(null);
+        const [productRes, relatedRes] = await Promise.all([
+          api.getProduct(slug),
+          api.getRelatedProducts(slug, 6),
+        ]);
 
-        // Get product from static data
-        const staticProduct = getProductBySlug(slug);
+        if (cancelled) return;
 
-        if (!staticProduct) {
-          throw new Error(`Product not found: ${slug}`);
+        const apiProduct = (productRes as { data?: ApiProduct }).data;
+        if (!apiProduct) {
+          setError('Product not found');
+          setLoading(false);
+          return;
         }
 
-        // Store original price for display
-        const originalPriceValue = staticProduct.originalPrice || staticProduct.compare_at_price || 0;
+        const mapped = mapApiProduct(apiProduct);
+        setProduct(mapped);
 
-        // Transform static product to match expected API response format
-        const productData: Product = {
-          id: staticProduct.id,
-          name: staticProduct.name || staticProduct.title,
-          slug: staticProduct.slug,
-          thumbnail_url: staticProduct.image || staticProduct.featured_image || '',
-          gallery_images: staticProduct.gallery || [],
-          price_range: {
-            min: String(staticProduct.price_wholesale || staticProduct.price),
-            max: String(staticProduct.price_daraz || staticProduct.price),
-            display: staticProduct.price_range_display || `৳${staticProduct.price?.toLocaleString()}`,
-          },
-          has_offer: staticProduct.has_offer || (originalPriceValue > 0 && originalPriceValue > (staticProduct.price || 0)) || false,
-          variant_count: staticProduct.variant_count || 0,
-          categories: staticProduct.category_id
-            ? [{
-                name: staticProduct.category || 'Uncategorized',
-                slug: staticCategories.find(c => c.id === staticProduct.category_id)?.slug || 'uncategorized',
-              }]
-            : [],
-          stock_info: {
-            in_stock: (staticProduct.stock || staticProduct.inventory_quantity || 0) > 0,
-            total_available: staticProduct.stock || staticProduct.inventory_quantity || 0,
-            low_stock: (staticProduct.stock || staticProduct.inventory_quantity || 0) > 0 && (staticProduct.stock || staticProduct.inventory_quantity || 0) < 10,
-            stock_status: (staticProduct.stock || staticProduct.inventory_quantity || 0) > 0 ? 'in_stock' : 'out_of_stock',
-          },
-          description: staticProduct.description || '',
-          short_description: staticProduct.short_description || '',
-          meta_title: staticProduct.seo_title || staticProduct.name || '',
-          meta_description: staticProduct.seo_description || staticProduct.short_description || '',
-          variants: [], // Static products don't have detailed variants
-        };
-
-        // Store original price separately for use in price display
-        (productData as any).originalPrice = originalPriceValue;
-
-        // Create mock variants for products with variant_count > 0 (always at least 3)
-        if ((staticProduct.variant_count ?? 0) > 0) {
-          // Define variant types: Size, Weight, Color
-          const variantTypes = [
-            { name: 'Small', type: 'Size' },
-            { name: 'Medium', type: 'Size' },
-            { name: '500g', type: 'Weight' },
-            { name: '1kg', type: 'Weight' },
-            { name: 'Red', type: 'Color' },
-            { name: 'Blue', type: 'Color' },
-          ];
-
-          // Ensure we have at least 3 variants
-          const variantCount = Math.max(staticProduct.variant_count ?? 0, 3);
-          const mockVariants: Variant[] = [];
-
-          for (let i = 0; i < Math.min(variantCount, 6); i++) {
-            const variantType = variantTypes[i];
-            const variantStock = Math.floor((staticProduct.stock || staticProduct.inventory_quantity || 100) / variantCount);
-            mockVariants.push({
-              id: staticProduct.id + i + 1, // Unique ID for each variant
-              sku: `${staticProduct.sku || staticProduct.product_code || 'FF'}-${variantType.name.toUpperCase()}`,
-              name: `${staticProduct.name} - ${variantType.name}`,
-              retail_price: staticProduct.price_retail || staticProduct.price || 0,
-              wholesale_price: staticProduct.price_wholesale || staticProduct.price || 0,
-              moq_wholesale: 1,
-              weight: staticProduct.weight || 0,
-              dimensions: undefined,
-              stock_info: {
-                available: variantStock,
-                in_stock: variantStock > 0,
-                low_stock: variantStock > 0 && variantStock < 10,
-                stock_status: variantStock > 0 ? 'in_stock' : 'out_of_stock',
-              },
-              image: {
-                url: staticProduct.image || staticProduct.featured_image || '',
-                thumbnail_url: staticProduct.image || staticProduct.featured_image || '',
-                alt_text: `${staticProduct.name} - ${variantType.name} (${variantType.type})`,
-              },
-            });
-          }
-
-          productData.variants = mockVariants;
-
-          // Set first variant as selected by default
-          setSelectedVariant(mockVariants[0]);
+        if (mapped.variants.length > 0) {
+          setSelectedVariant(mapped.variants[0]);
         }
 
-        setProduct(productData);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        setError('Failed to load product details');
+        const relatedData = (relatedRes as { data?: ApiProduct[] }).data;
+        if (relatedData && Array.isArray(relatedData)) {
+          setRelatedProducts(relatedData.map(mapToProductCard));
+        }
+      } catch {
+        if (!cancelled) setError('Failed to load product details');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
-    if (slug) {
-      fetchProduct();
-    }
-  }, [slug]);
+    fetchData();
+    return () => { cancelled = true; };
+  }, [slug, mapApiProduct, mapToProductCard]);
 
   // Loading state with shimmer effect
   if (loading) {
@@ -261,7 +332,7 @@ function ProductDetailPageContent() {
   const currentPrice = selectedVariant ? selectedVariant.retail_price : parseFloat(product.price_range.min);
   const currentStock = selectedVariant ? selectedVariant.stock_info.available : product.stock_info.total_available;
   const isInStock = selectedVariant ? selectedVariant.stock_info.in_stock : product.stock_info.in_stock;
-  const originalPrice = (product as any).originalPrice || 0;
+  const originalPrice = product.originalPrice || 0;
 
   // Calculate discount percentage and saved amount
   const discountPercentage = originalPrice > 0 && originalPrice > currentPrice
@@ -290,14 +361,8 @@ function ProductDetailPageContent() {
     ...galleryImages
   ].filter(img => img && img.trim() !== '');
 
-  // Get related products from static data (same category, excluding current product)
-  const relatedProducts = product.categories.length > 0
-    ? staticProducts
-        .filter(p => p.category_id === staticProducts.find(sp => sp.slug === slug)?.category_id && p.slug !== slug)
-        .slice(0, 4)
-    : staticProducts
-        .filter(p => p.slug !== slug)
-        .slice(0, 4);
+  // Related products come from API (fetched in useEffect)
+  const relatedProductsList = relatedProducts;
 
   return (
     <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
@@ -1058,7 +1123,7 @@ function ProductDetailPageContent() {
       </div>
 
       {/* Related Products */}
-      {relatedProducts.length > 0 && (
+      {relatedProductsList.length > 0 && (
         <section className="py-12 bg-white dark:bg-[#0a0a0a]">
           <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
             <div className="flex items-center justify-between mb-8">
@@ -1071,7 +1136,7 @@ function ProductDetailPageContent() {
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
-              {relatedProducts.map(relatedProduct => (
+              {relatedProductsList.map(relatedProduct => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}
             </div>

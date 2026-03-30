@@ -120,16 +120,39 @@ export interface Supplier {
 }
 
 // ✅ Category
+export interface CategoryImage {
+  id: number;
+  folder_id?: number | null;
+  filename: string;
+  original_filename?: string;
+  path: string;
+  url: string;
+  full_url: string;
+  mime_type?: string;
+  width?: number;
+  height?: number;
+  size?: number;
+  alt_text?: string | null;
+}
+
 export interface Category {
   id: number;
   name: string;
   slug: string;
-  image?: string;
-  image_url?: string; // API returns this field
   parent_id?: number | null;
-  created_at: string;
-  updated_at: string;
-  children?: Category[]; // For nested categories
+  image_id?: number | null;
+  is_active?: number;
+  sort_order?: number;
+  products_count?: number;
+  parent?: Category | null;
+  image?: CategoryImage | string | null;
+  children?: Category[];
+  created_at?: string;
+  updated_at?: string;
+
+  // Legacy fields (used by static data files)
+  image_url?: string;
+  image_object?: { full_url?: string };
 }
 
 // ✅ Product

@@ -10,10 +10,10 @@ import toast from 'react-hot-toast';
 
 interface Order {
   id: number;
-  order_number: string;
-  total_amount: number;
+  orderNumber: string;
+  totalAmount: number;
   status: string;
-  created_at: string;
+  createdAt: string;
 }
 
 interface Stats {
@@ -50,28 +50,22 @@ export default function UserDashboard() {
   const fetchOrders = async () => {
     try {
       setIsLoading(true);
-      const response = await api.getOrders();
+      const response = await api.getOrderSummary();
+      const summary = (response.data || response) as Record<string, unknown>;
 
-      // Handle different response structures
-      const ordersData = response.data || response as unknown;
-      const ordersArray = Array.isArray(ordersData) ? ordersData : (Array.isArray((ordersData as Record<string, unknown>)?.data) ? (ordersData as Record<string, unknown>).data : []) as Order[];
+      if (summary) {
+        setStats({
+          totalOrders: (summary.totalOrders as number) || 0,
+          totalSpent: (summary.totalSpent as number) || 0,
+          pendingOrders: (summary.pendingOrders as number) || 0,
+          completedOrders: (summary.completedOrders as number) || 0,
+        });
 
-      setOrders(ordersArray);
-
-      // Calculate stats
-      const totalOrders = ordersArray.length;
-      const totalSpent = ordersArray.reduce((sum: number, order: Order) => sum + order.total_amount, 0);
-      const pendingOrders = ordersArray.filter((order: Order) => order.status === 'pending').length;
-      const completedOrders = ordersArray.filter((order: Order) => order.status === 'completed').length;
-
-      setStats({
-        totalOrders,
-        totalSpent,
-        pendingOrders,
-        completedOrders,
-      });
+        const recent = (summary.recentOrders as Order[]) || [];
+        setOrders(recent);
+      }
     } catch (error) {
-      console.error('Failed to fetch orders:', error);
+      console.error('Failed to fetch order summary:', error);
       toast.error('Failed to load orders');
     } finally {
       setIsLoading(false);
@@ -257,14 +251,14 @@ export default function UserDashboard() {
                       {orders.slice(0, 5).map((order) => (
                         <tr key={order.id} className="hover:bg-gray-50 cursor-pointer">
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm font-medium text-gray-900">#{order.order_number}</div>
+                            <div className="text-sm font-medium text-gray-900">#{order.orderNumber}</div>
                             <div className="text-xs text-gray-500">ID: {order.id}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {formatDate(order.created_at)}
+                            {formatDate(order.createdAt)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {formatCurrency(order.total_amount)}
+                            {formatCurrency(order.totalAmount)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(order.status)}`}>
@@ -272,7 +266,7 @@ export default function UserDashboard() {
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <Link href={`/account/orders/${order.id}`} className="text-red-700 hover:text-red-900">
+                            <Link href={`/account/orders/${order.orderNumber}`} className="text-red-700 hover:text-red-900">
                               View Details
                             </Link>
                           </td>

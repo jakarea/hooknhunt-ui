@@ -130,13 +130,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (phone: string, password: string, name?: string) => {
-    try {
-      await api.register(phone, password, name);
-      // Registration successful, but user needs to verify OTP
-    } catch (error) {
-      console.error('Registration failed:', error);
-      throw error;
-    }
+    await api.register(phone, password, name);
   };
 
   const sendOtp = async (phone: string) => {

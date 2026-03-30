@@ -38,6 +38,6 @@
     "message": "Try adjusting your filters or browse all categories to find what you're looking for",
     "clearFilters": "Clear All Filters"
   },
-  "endOfList": "You've reached the end. Showing all {count} products.",
+  "endOfList": "You've reached the end. Showing all {{count}} products.",
   "loadingPage": "Loading products..."
 }

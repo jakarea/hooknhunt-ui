@@ -1,12 +1,36 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { staticCategories } from '@/data/static-products';
+import { useCategoryStore } from '@/stores/categoryStore';
 
 export default function Categories() {
-  const categories = staticCategories;
+  const categories = useCategoryStore((s) => s.categories);
+  const loading = useCategoryStore((s) => s.loading);
+  const fetchCategories = useCategoryStore((s) => s.fetchCategories);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-white dark:bg-[#0a0a0a]">
+        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+          <div className="text-center mb-16">
+            <div className="h-10 w-64 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mx-auto mb-4" />
+            <div className="h-6 w-96 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mx-auto" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div key={i} className="aspect-square bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-white dark:bg-[#0a0a0a]">
@@ -21,58 +45,64 @@ export default function Categories() {
           </p>
         </div>
 
-        {/* Categories Grid - Clean & Compact Style - 3 rows on desktop */}
+        {/* Categories Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-          {categories.slice(0, 18).map((category, index) => (
-            <Link
-              key={category.id}
-              href={`/products?category=${category.slug}`}
-              className="group"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-                {/* Product Image */}
-                <div className="relative aspect-square overflow-hidden">
-                  {category.image_url ? (
-                    <Image
-                      src={category.image_url}
-                      alt={category.name}
-                      fill
-                      className="object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
-                      sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
-                      <svg className="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
+          {categories.slice(0, 18).map((category, index) => {
+            const img = category.image;
+            const imageUrl = (typeof img === 'object' && img?.full_url)
+              ? img.full_url
+              : category.image_url || '';
+            return (
+              <Link
+                key={category.id}
+                href={`/products?category=${category.slug}`}
+                className="group"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
+                  {/* Product Image */}
+                  <div className="relative aspect-square overflow-hidden">
+                    {imageUrl ? (
+                      <Image
+                        src={imageUrl}
+                        alt={category.name}
+                        fill
+                        className="object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
+                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+                        <svg className="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
+
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                    {/* Category Name - Floating above image */}
+                    <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                      <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg">
+                        <h3 className="text-center text-gray-900 dark:text-white font-semibold text-sm leading-tight truncate">
+                          {category.name}
+                        </h3>
+                      </div>
                     </div>
-                  )}
 
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                  {/* Category Name - Floating above image */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
-                    <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg">
-                      <h3 className="text-center text-gray-900 dark:text-white font-semibold text-sm leading-tight truncate">
-                        {category.name}
-                      </h3>
-                    </div>
-                  </div>
-
-                  {/* Initial state - name visible below image */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 group-hover:opacity-0 transition-opacity duration-300">
-                    <div className="bg-gradient-to-t from-black/60 to-transparent pt-8">
-                      <h3 className="text-center text-white font-semibold text-sm lg:text-lg pb-2 leading-tight px-2">
-                        {category.name}
-                      </h3>
+                    {/* Initial state - name visible below image */}
+                    <div className="absolute bottom-0 left-0 right-0 p-3 group-hover:opacity-0 transition-opacity duration-300">
+                      <div className="bg-gradient-to-t from-black/60 to-transparent pt-8">
+                        <h3 className="text-center text-white font-semibold text-sm lg:text-lg pb-2 leading-tight px-2">
+                          {category.name}
+                        </h3>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Simple CTA */}

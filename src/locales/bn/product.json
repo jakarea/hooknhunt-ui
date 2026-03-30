@@ -8,8 +8,8 @@
     "inStock": "স্টকে আছে",
     "outOfStock": "স্টক নেই",
     "lowStock": "স্টক কম",
-    "available": "{count} টি উপলব্ধ",
-    "status": "অবস্থা: {status}"
+    "available": "{{count}} টি উপলব্ধ",
+    "status": "অবস্থা: {{status}}"
   },
   "buttons": {
     "addToCart": "কার্টে যোগ করুন",
@@ -24,9 +24,9 @@
   },
   "variants": {
     "title": "ভ্যারিয়েন্ট নির্বাচন করুন",
-    "selectOption": "{option} নির্বাচন করুন",
+    "selectOption": "{{option}} নির্বাচন করুন",
     "price": "মূল্য",
-    "sku": "এসকেইউ: {sku}",
+    "sku": "এসকেইউ: {{sku}}",
     "inStock": "স্টকে আছে",
     "outOfStock": "স্টক নেই",
     "selectVariant": "অনুগ্রহ করে একটি ভ্যারিয়েন্ট নির্বাচন করুন"
@@ -36,12 +36,12 @@
     "specifications": "স্পেসিফিকেশন",
     "features": "বৈশিষ্ট্য",
     "gallery": "পণ্য গ্যালারি",
-    "imageOf": "মোট {total} টির {current} নম্বর ছবি"
+    "imageOf": "মোট {{total}} টির {{current}} নম্বর ছবি"
   },
   "reviews": {
     "title": "গ্রাহক রিভিউ",
     "rating": "রেটিং",
-    "basedOn": "{count} টি রিভিউ এর ভিত্তিতে",
+    "basedOn": "{{count}} টি রিভিউ এর ভিত্তিতে",
     "seeAll": "সব রিভিউ দেখুন →",
     "writeReview": "রিভিউ লিখুন",
     "noReviews": "কোনো রিভিউ নেই।",
@@ -53,7 +53,7 @@
   },
   "offers": {
     "limitedTime": "সীমিত সময়ের অফার!",
-    "save": "৳{amount} সেভ করুন"
+    "save": "৳{{amount}} সেভ করুন"
   },
   "share": {
     "title": "এই পণ্যটি শেয়ার করুন",

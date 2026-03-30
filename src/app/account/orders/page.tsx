@@ -11,43 +11,45 @@ import toast from 'react-hot-toast';
 
 interface OrderItem {
   id: number;
-  product_name: string;
-  product_image: string;
-  unit_price: number;
+  variantId: number;
   quantity: number;
-  total_price: number;
-  product_attributes?: any;
+  unitPrice: number;
+  totalPrice: number;
+  productName: string;
+  variantName: string;
+  sku: string;
+  image: string;
+}
+
+interface ShippingInfo {
+  address: string;
+  city: string | null;
+  district: string;
+  division: string;
+  thana: string;
 }
 
 interface Order {
   id: number;
-  order_number: string;
+  orderNumber: string;
   status: string;
-  total_amount: number;
-  created_at: string;
+  paymentStatus: string;
+  subTotal: number;
+  totalAmount: number;
+  deliveryCharge: number;
+  paidAmount: number;
+  dueAmount: number;
+  shipping: ShippingInfo;
   items: OrderItem[];
-}
-
-interface PaginatedOrders {
-  data: Order[];
-  current_page: number;
-  last_page: number;
-  per_page: number;
-  total: number;
+  createdAt: string;
 }
 
 export default function OrdersPage() {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
-  const [pagination, setPagination] = useState({
-    current_page: 1,
-    last_page: 1,
-    per_page: 15,
-    total: 0,
-  });
-  const [selectedStatus, setSelectedStatus] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedStatus, setSelectedStatus] = useState('');
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -61,36 +63,17 @@ export default function OrdersPage() {
     }
   }, [isAuthenticated]);
 
-  const fetchOrders = async (page: number = 1) => {
+  const fetchOrders = async () => {
     try {
       setIsLoading(true);
       const response = await api.getOrders();
 
-      // Handle different response structures
-      const ordersData = response.data || response as unknown;
-      const ordersRecord = ordersData as Record<string, unknown>;
-      const ordersArray = Array.isArray(ordersData) ? ordersData : (Array.isArray(ordersRecord?.data) ? ordersRecord.data : []);
-
-      // If it's paginated response
-      if (ordersRecord?.data && Array.isArray(ordersRecord.data)) {
-        setOrders(ordersRecord.data as []);
-        setPagination({
-          current_page: (ordersRecord.current_page as number) || 1,
-          last_page: (ordersRecord.last_page as number) || 1,
-          per_page: (ordersRecord.per_page as number) || 15,
-          total: (ordersRecord.total as number) || 0,
-        });
-      } else {
-        setOrders(ordersArray);
-        setPagination({
-          current_page: 1,
-          last_page: 1,
-          per_page: 15,
-          total: ordersArray.length,
-        });
-      }
-    } catch (error) {
-      console.error('Failed to fetch orders:', error);
+      const ordersData = response.data || response;
+      const ordersArray = Array.isArray(ordersData)
+        ? ordersData
+        : ((ordersData as Record<string, unknown>)?.data as Order[]) || [];
+      setOrders(ordersArray);
+    } catch {
       toast.error('Failed to load orders');
     } finally {
       setIsLoading(false);
@@ -126,8 +109,9 @@ export default function OrdersPage() {
     });
   };
 
-  const formatCurrency = (amount: number) => {
-    return `৳${amount.toLocaleString()}`;
+  const formatCurrency = (amount: number | undefined | null) => {
+    const safeAmount = amount ?? 0;
+    return `৳${safeAmount.toLocaleString()}`;
   };
 
   if (authLoading || isLoading) {
@@ -174,7 +158,7 @@ export default function OrdersPage() {
                     My Orders
                   </h1>
                   <p className="text-gray-600 mt-2">
-                    Total Orders: {pagination.total}
+                    Total Orders: {orders.length}
                   </p>
                 </div>
 
@@ -208,10 +192,10 @@ export default function OrdersPage() {
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                       <div>
                         <h2 className="text-lg font-semibold text-gray-900">
-                          Order ID: <span className="text-red-700">#{order.order_number}</span> ({order.items?.length || 0} items)
+                          Order ID: <span className="text-red-700">#{order.orderNumber}</span> ({order.items?.length || 0} items)
                         </h2>
                         <p className="text-sm text-gray-600 mt-1">
-                          Order Date: {formatDate(order.created_at)} | Total: {formatCurrency(order.total_amount)}
+                          Order Date: {formatDate(order.createdAt)} | Total: {formatCurrency(order.totalAmount)}
                         </p>
                       </div>
 
@@ -220,7 +204,7 @@ export default function OrdersPage() {
                           {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                         </span>
                         <Link
-                          href={`/account/orders/${order.id}`}
+                          href={`/account/orders/${order.orderNumber}`}
                           className="bg-red-700 hover:bg-red-800 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2"
                         >
                           View Details
@@ -239,8 +223,8 @@ export default function OrdersPage() {
                             {/* Product Image */}
                             <div className="aspect-square bg-gray-100 rounded-lg mb-3 overflow-hidden relative">
                               <Image
-                                src={item.product_image || '/placeholder-image.jpg'}
-                                alt={item.product_name || 'Product image'}
+                                src={item.image || '/placeholder-image.jpg'}
+                                alt={item.productName || 'Product image'}
                                 fill
                                 className="object-cover"
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -250,19 +234,19 @@ export default function OrdersPage() {
                             {/* Product Info */}
                             <div>
                               <h3 className="font-semibold text-gray-900 text-sm mb-2 line-clamp-2">
-                                {item.product_name}
+                                {item.productName}
                               </h3>
                               <div className="space-y-1">
                                 <div className="flex items-center justify-between">
                                   <span className="text-lg font-bold text-red-700">
-                                    {formatCurrency(item.unit_price)}
+                                    {formatCurrency(item.unitPrice)}
                                   </span>
                                   <span className="text-xs text-gray-500">
                                     Qty: {item.quantity}
                                   </span>
                                 </div>
                                 <div className="text-sm text-gray-600">
-                                  Subtotal: {formatCurrency(item.total_price)}
+                                  Subtotal: {formatCurrency(item.totalPrice)}
                                 </div>
                               </div>
                             </div>
@@ -273,7 +257,6 @@ export default function OrdersPage() {
 
                     {/* Order Actions */}
                     <div className="mt-6 pt-6 border-t border-gray-200 flex flex-wrap gap-3">
-                      
                       {order.status === 'completed' && (
                         <button className="bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium py-2 px-4 rounded-lg transition-colors">
                           Leave Review

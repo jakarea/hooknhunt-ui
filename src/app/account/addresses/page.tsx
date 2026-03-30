@@ -8,14 +8,16 @@ import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import toast, { Toaster } from 'react-hot-toast';
 import { Address } from '@/types';
+import { bangladeshDivisions } from '@/data/bangladesh-divisions';
 
 interface FormData {
   type: 'shipping' | 'billing';
   full_name: string;
   address_line1: string;
   address_line2: string;
-  city: string;
   district: string;
+  thana: string;
+  division: string;
   post_code: string;
   phone: string;
   is_default: boolean;
@@ -26,11 +28,34 @@ const emptyForm: FormData = {
   full_name: '',
   address_line1: '',
   address_line2: '',
-  city: '',
   district: '',
+  thana: '',
+  division: '',
   post_code: '',
   phone: '',
   is_default: false,
+};
+
+const getAllDistricts = (): { name: string; division: string }[] => {
+  const districts: { name: string; division: string }[] = [];
+  bangladeshDivisions.forEach(div => {
+    div.districts.forEach(d => {
+      districts.push({ name: d.name, division: div.name });
+    });
+  });
+  return districts.sort((a, b) => a.name.localeCompare(b.name));
+};
+
+const getThanasForDistrict = (districtName: string): string[] => {
+  for (const div of bangladeshDivisions) {
+    const found = div.districts.find(d => d.name === districtName);
+    if (found) return found.thanas.map(t => t.name);
+  }
+  return [];
+};
+
+const getDivisionForDistrict = (districtName: string): string => {
+  return getAllDistricts().find(d => d.name === districtName)?.division || '';
 };
 
 export default function AddressesPage() {
@@ -85,8 +110,9 @@ export default function AddressesPage() {
         full_name: address.full_name,
         address_line1: address.address_line1,
         address_line2: address.address_line2 || '',
-        city: address.city,
         district: address.district || '',
+        thana: (address as unknown as Record<string, unknown>).thana as string || '',
+        division: address.division || getDivisionForDistrict(address.district || ''),
         post_code: address.post_code || '',
         phone: address.phone,
         is_default: address.is_default || false,
@@ -111,13 +137,17 @@ export default function AddressesPage() {
     try {
       // Transform type field to backend-expected boolean fields
       const payload = {
-        ...formData,
+        full_name: formData.full_name,
+        phone: formData.phone,
+        address_line1: formData.address_line1,
+        address_line2: formData.address_line2 || undefined,
+        city: formData.thana, // Map thana to city
+        division: formData.division || undefined,
+        postal_code: formData.post_code || undefined,
+        is_default: formData.is_default,
         is_shipping_address: formData.type === 'shipping',
         is_billing_address: formData.type === 'billing',
       };
-
-      // Remove the type field as backend doesn't expect it
-      delete (payload as any).type;
 
       if (editingAddress) {
         await api.updateAddress(editingAddress.id, payload);
@@ -130,9 +160,11 @@ export default function AddressesPage() {
       await fetchAddresses();
       handleCloseModal();
     } catch (error: unknown) {
-      console.error('Failed to save address:', error);
-      const err = error as { errors?: Record<string, string[]> };
-      const errorMessage = err.errors ? Object.values(err.errors).flat()[0] : 'Failed to save address';
+      const err = error as { message?: string; errors?: Record<string, string[]>; status?: number };
+      const validationErrors = err.errors && typeof err.errors === 'object' && Object.keys(err.errors).length > 0
+        ? Object.values(err.errors).flat()[0]
+        : null;
+      const errorMessage = validationErrors || err.message || 'Failed to save address. Please try again.';
       toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -343,7 +375,11 @@ export default function AddressesPage() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                         <p className="text-sm text-gray-600">
-                          {address.city}, {address.district}
+                          {[
+                            (address as unknown as Record<string, unknown>).thana as string,
+                            address.district,
+                            address.division,
+                          ].filter(Boolean).join(', ')}
                           {address.post_code && ` - ${address.post_code}`}
                         </p>
                       </div>
@@ -582,26 +618,36 @@ export default function AddressesPage() {
                 />
               </div>
 
-              {/* City & District Row */}
-              <div className="grid grid-cols-2 gap-3">
+              {/* Division > District > Thana (cascading selects) */}
+              <div className="space-y-3">
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                     <span className="flex items-center gap-1.5">
                       <svg className="w-3 h-3 text-[#ec3137]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H15a2 2 0 012 2v2.945c0 .343-.028.678-.08 1H21m-3 0H3.055zM9 6.75a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                       </svg>
-                      City *
+                      Division *
                     </span>
                   </label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
+                  <select
+                    name="division"
+                    value={formData.division}
+                    onChange={(e) => {
+                      setFormData(prev => ({
+                        ...prev,
+                        division: e.target.value,
+                        district: '',
+                        thana: '',
+                      }));
+                    }}
                     required
                     className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200"
-                    placeholder="City"
-                  />
+                  >
+                    <option value="">Select Division</option>
+                    {bangladeshDivisions.map(div => (
+                      <option key={div.name} value={div.name}>{div.name}</option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
@@ -613,15 +659,50 @@ export default function AddressesPage() {
                       District *
                     </span>
                   </label>
-                  <input
-                    type="text"
+                  <select
                     name="district"
                     value={formData.district}
+                    onChange={(e) => {
+                      setFormData(prev => ({
+                        ...prev,
+                        district: e.target.value,
+                        thana: '',
+                      }));
+                    }}
+                    required
+                    disabled={!formData.division}
+                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  >
+                    <option value="">{formData.division ? 'Select District' : 'Select Division First'}</option>
+                    {formData.division && bangladeshDivisions
+                      .find(div => div.name === formData.division)?.districts.map(d => (
+                        <option key={d.name} value={d.name}>{d.name}</option>
+                      ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+                    <span className="flex items-center gap-1.5">
+                      <svg className="w-3 h-3 text-[#ec3137]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                      Thana *
+                    </span>
+                  </label>
+                  <select
+                    name="thana"
+                    value={formData.thana}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200"
-                    placeholder="District"
-                  />
+                    disabled={!formData.district}
+                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  >
+                    <option value="">{formData.district ? 'Select Thana' : 'Select District First'}</option>
+                    {formData.district && getThanasForDistrict(formData.district).map(thana => (
+                      <option key={thana} value={thana}>{thana}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
 

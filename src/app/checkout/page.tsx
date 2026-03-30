@@ -276,8 +276,16 @@ export default function CheckoutPage() {
     }
 
     // Validate form
-    if (!formData.name || !formData.phone || !formData.address || !formData.district || !formData.thana) {
-      alert('Please fill in all required fields');
+    const needManualAddress = !isAuthenticated || addresses.length === 0 || useDifferentAddress;
+    const missingFields: string[] = [];
+    if (!formData.name) missingFields.push('Full Name');
+    if (!formData.phone) missingFields.push('Phone Number');
+    if (!formData.address) missingFields.push('Address');
+    if (!formData.division) missingFields.push('Division');
+    if (!formData.district) missingFields.push('District');
+    if (needManualAddress && !formData.thana) missingFields.push('Thana');
+    if (missingFields.length > 0) {
+      alert(`Please fill in the following required fields:\n${missingFields.join(', ')}`);
       return;
     }
 
@@ -287,7 +295,7 @@ export default function CheckoutPage() {
       // Prepare order items
       const orderItems = cartItems.map(item => ({
         product_id: item.product.id,
-        variant_id: item.variant?.id || null,
+        variant_id: item.variant?.id || item.product.variant_id || null,
         product_name: item.product.name,
         product_sku: item.variant?.sku || null,
         product_image: item.product.image || '/placeholder-product.png',
@@ -324,26 +332,29 @@ export default function CheckoutPage() {
       };
 
       // Place the order via API
-      const response = await api.post('/store/orders', orderData);
+      const response = await api.post('/store/orders', orderData) as Record<string, unknown>;
 
-      if (response && 'order' in response) {
-        const order = (response as Record<string, unknown>).order as Record<string, unknown>;
+      // The API returns { status, message, data: { id, orderNumber, ... } }
+      const orderData_result = (response?.data || response) as Record<string, unknown>;
 
+      if (response && orderData_result?.id) {
         // Check if OTP verification is required
-        if ((response as Record<string, unknown>).verification_required) {
+        if (response.verification_required) {
           // Show OTP verification modal
           setPendingOrder({
-            id: order.id as number,
-            order_number: order.order_number as string,
-            phone_number: (order.phone_number as string) || formData.phone,
-            total_amount: order.total_amount as number,
-            customer_name: order.customer_name as string,
+            id: orderData_result.id as number,
+            order_number: orderData_result.orderNumber as string,
+            phone_number: (orderData_result.phone_number as string) || formData.phone,
+            total_amount: orderData_result.totalAmount as number,
+            customer_name: ((orderData_result.customer as Record<string, string>)?.name) || formData.name,
           });
           setShowOtpModal(true);
         } else {
           // No verification required, proceed normally
           clearCart();
-          router.push(`/order-success?orderId=${order.order_number as string}&total=${order.payable_amount as number}&name=${encodeURIComponent(order.customer_name as string)}`);
+          const orderNumber = orderData_result.orderNumber as string;
+          const totalAmount = orderData_result.dueAmount as number || orderData_result.totalAmount as number;
+          router.push(`/order-success?orderId=${orderNumber}&total=${totalAmount}&name=${encodeURIComponent(formData.name)}`);
         }
       } else {
         throw new Error('Invalid response from server');
@@ -623,9 +634,34 @@ export default function CheckoutPage() {
                 </>
               )}
 
-              {/* District, Thana, and Division Fields - Show when guest or user wants different address */}
+              {/* Division, District, Thana Fields - Show when guest or user wants different address */}
               {(!isAuthenticated || addresses.length === 0 || useDifferentAddress) && (
                 <>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Division <span className="text-red-600">*</span>
+                    </label>
+                    <select
+                      name="division"
+                      value={formData.division}
+                      onChange={(e) => {
+                        setFormData(prev => ({
+                          ...prev,
+                          division: e.target.value,
+                          district: '',
+                          thana: '',
+                        }));
+                      }}
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
+                      required
+                    >
+                      <option value="">Select Division</option>
+                      {bangladeshDivisions.map(div => (
+                        <option key={div.name} value={div.name}>{div.name}</option>
+                      ))}
+                    </select>
+                  </div>
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                       District <span className="text-red-600">*</span>
@@ -634,28 +670,27 @@ export default function CheckoutPage() {
                       name="district"
                       value={formData.district}
                       onChange={(e) => {
-                        const district = e.target.value;
                         setFormData(prev => ({
                           ...prev,
-                          district,
-                          thana: '', // Reset thana when district changes
+                          district: e.target.value,
+                          thana: '',
                         }));
                       }}
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
+                      disabled={!formData.division}
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
                       required
                     >
-                      <option value="">Select District</option>
-                      {getAllDistricts().map((district) => (
-                        <option key={district.name} value={district.name}>
-                          {district.name}
-                        </option>
-                      ))}
+                      <option value="">{formData.division ? 'Select District' : 'Select Division First'}</option>
+                      {formData.division && bangladeshDivisions
+                        .find(div => div.name === formData.division)?.districts.map(d => (
+                          <option key={d.name} value={d.name}>{d.name}</option>
+                        ))}
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Thana/City <span className="text-red-600">*</span>
+                      Thana <span className="text-red-600">*</span>
                     </label>
                     <select
                       name="thana"
@@ -665,23 +700,12 @@ export default function CheckoutPage() {
                       className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
                       required
                     >
-                      <option value="">{
-                        formData.district ? 'Select Thana/City' : 'Select District First'
-                      }</option>
-                      {formData.district && getThanasForDistrict(formData.district).map((thana) => (
-                        <option key={thana.name} value={thana.name}>
-                          {thana.name}
-                        </option>
+                      <option value="">{formData.district ? 'Select Thana' : 'Select District First'}</option>
+                      {formData.district && getThanasForDistrict(formData.district).map(thana => (
+                        <option key={thana.name} value={thana.name}>{thana.name}</option>
                       ))}
                     </select>
                   </div>
-
-                  {/* Hidden Division Field */}
-                  <input
-                    type="hidden"
-                    name="division"
-                    value={formData.division}
-                  />
                 </>
               )}
 

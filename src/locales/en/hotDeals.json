@@ -1,6 +1,6 @@
 {
   "title": "Hot Deals",
-  "subtitle": "{count} products on sale",
+  "subtitle": "{{count}} products on sale",
   "newsletter": {
     "title": "Don't Miss Out!",
     "description": "Subscribe to our newsletter and get notified about exclusive hot deals and special offers.",

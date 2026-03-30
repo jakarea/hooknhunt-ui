@@ -455,6 +455,10 @@ class ApiClient {
     async getOrder(orderId) {
         return this.request(`/store/account/orders/${orderId}`, {}, true);
     }
+    // Public: Categories
+    async getCategories() {
+        return this.request('/store/categories', {});
+    }
     // Contact Form Submission (Public Endpoint)
     async submitContactForm(data) {
         return this.request('/public/contact/submit', {
@@ -2910,11 +2914,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modu
 var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/node_modules/react-i18next/dist/es/useTranslation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/src/context/CartContext.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/src/context/AuthContext.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/src/lib/api.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$data$2f$static$2d$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/src/data/static-products.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$components$2f$layout$2f$TopBar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooknhunt-ui/src/components/layout/TopBar.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -2930,12 +2936,32 @@ function Header() {
     const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isNavSticky, setIsNavSticky] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [categories, setCategories] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$data$2f$static$2d$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["staticCategories"]);
     const { getCartCount, toggleCart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"])();
     const { isAuthenticated, isLoading } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
     // Prevent hydration mismatch
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Header.useEffect": ()=>{
             setMounted(true);
+        }
+    }["Header.useEffect"], []);
+    // Fetch categories from API
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "Header.useEffect": ()=>{
+            const fetchCategories = {
+                "Header.useEffect.fetchCategories": async ()=>{
+                    try {
+                        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].getCategories();
+                        const data = response.data;
+                        if (Array.isArray(data) && data.length > 0) {
+                            setCategories(data);
+                        }
+                    } catch  {
+                    // Keep static fallback
+                    }
+                }
+            }["Header.useEffect.fetchCategories"];
+            fetchCategories();
         }
     }["Header.useEffect"], []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -2987,7 +3013,7 @@ function Header() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$components$2f$layout$2f$TopBar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                lineNumber: 49,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3009,12 +3035,12 @@ function Header() {
                                     priority: true
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                    lineNumber: 57,
+                                    lineNumber: 77,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                lineNumber: 56,
+                                lineNumber: 76,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3028,7 +3054,7 @@ function Header() {
                                             className: "w-full h-10 px-4 pr-12 text-sm border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:border-[#bc1215] transition-colors bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100"
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 70,
+                                            lineNumber: 90,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3045,28 +3071,28 @@ function Header() {
                                                     d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                    lineNumber: 77,
+                                                    lineNumber: 97,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 76,
+                                                lineNumber: 96,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 75,
+                                            lineNumber: 95,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                    lineNumber: 69,
+                                    lineNumber: 89,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                lineNumber: 68,
+                                lineNumber: 88,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3088,12 +3114,12 @@ function Header() {
                                                     d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                    lineNumber: 88,
+                                                    lineNumber: 108,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 87,
+                                                lineNumber: 107,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3101,13 +3127,13 @@ function Header() {
                                                 children: isAuthenticated ? t('header.account') : t('header.login')
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 90,
+                                                lineNumber: 110,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                        lineNumber: 86,
+                                        lineNumber: 106,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3128,12 +3154,12 @@ function Header() {
                                                         d: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                        lineNumber: 102,
+                                                        lineNumber: 122,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                    lineNumber: 101,
+                                                    lineNumber: 121,
                                                     columnNumber: 19
                                                 }, this),
                                                 mounted && getCartCount() > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3141,18 +3167,18 @@ function Header() {
                                                     children: getCartCount()
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                    lineNumber: 105,
+                                                    lineNumber: 125,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 100,
+                                            lineNumber: 120,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                        lineNumber: 96,
+                                        lineNumber: 116,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3171,7 +3197,7 @@ function Header() {
                                                 d: "M6 18L18 6M6 6l12 12"
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 121,
+                                                lineNumber: 141,
                                                 columnNumber: 21
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                                 strokeLinecap: "round",
@@ -3180,39 +3206,39 @@ function Header() {
                                                 d: "M4 6h16M4 12h16M4 18h16"
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 123,
+                                                lineNumber: 143,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 119,
+                                            lineNumber: 139,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                        lineNumber: 114,
+                                        lineNumber: 134,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                lineNumber: 84,
+                                lineNumber: 104,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                        lineNumber: 54,
+                        lineNumber: 74,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                    lineNumber: 53,
+                    lineNumber: 73,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                lineNumber: 52,
+                lineNumber: 72,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3230,7 +3256,7 @@ function Header() {
                                             children: item.icon
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 142,
+                                            lineNumber: 162,
                                             columnNumber: 31
                                         }, this),
                                         item.label,
@@ -3238,13 +3264,13 @@ function Header() {
                                             className: "absolute bottom-0 left-0 w-full h-0.5 bg-[#ec3137] transform scale-x-0 group-hover:scale-x-100 transition-transform"
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 144,
+                                            lineNumber: 164,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, item.href, true, {
                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                    lineNumber: 137,
+                                    lineNumber: 157,
                                     columnNumber: 15
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3259,7 +3285,7 @@ function Header() {
                                                 children: "📁"
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 155,
+                                                lineNumber: 175,
                                                 columnNumber: 17
                                             }, this),
                                             t('nav.category'),
@@ -3275,54 +3301,54 @@ function Header() {
                                                     d: "M19 9l-7 7-7-7"
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                    lineNumber: 158,
+                                                    lineNumber: 178,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 157,
+                                                lineNumber: 177,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "absolute bottom-0 left-0 w-full h-0.5 bg-[#bc1215] transform scale-x-0 group-hover:scale-x-100 transition-transform"
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 160,
+                                                lineNumber: 180,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                        lineNumber: 154,
+                                        lineNumber: 174,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: `absolute top-full left-0 mt-1 w-56 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50 transition-opacity duration-200 ${isCategoryDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`,
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "max-h-[400px] overflow-y-auto",
-                                            children: __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$data$2f$static$2d$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["staticCategories"].map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                            children: categories.map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                     href: `/products?category=${category.slug}`,
                                                     className: "block px-4 py-2 text-sm md:text-base text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] hover:text-[#bc1215] transition-colors",
                                                     children: category.name
                                                 }, category.id, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                    lineNumber: 167,
+                                                    lineNumber: 187,
                                                     columnNumber: 21
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 165,
+                                            lineNumber: 185,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                        lineNumber: 164,
+                                        lineNumber: 184,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                lineNumber: 149,
+                                lineNumber: 169,
                                 columnNumber: 13
                             }, this),
                             navItemsAfterCategory.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -3333,7 +3359,7 @@ function Header() {
                                             children: item.icon
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 186,
+                                            lineNumber: 206,
                                             columnNumber: 31
                                         }, this),
                                         item.label,
@@ -3341,29 +3367,29 @@ function Header() {
                                             className: "absolute bottom-0 left-0 w-full h-0.5 bg-[#bc1215] transform scale-x-0 group-hover:scale-x-100 transition-transform"
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 188,
+                                            lineNumber: 208,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, item.href, true, {
                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                    lineNumber: 181,
+                                    lineNumber: 201,
                                     columnNumber: 15
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                        lineNumber: 135,
+                        lineNumber: 155,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                    lineNumber: 134,
+                    lineNumber: 154,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                lineNumber: 133,
+                lineNumber: 153,
                 columnNumber: 7
             }, this),
             isMenuOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3380,7 +3406,7 @@ function Header() {
                                     className: "w-full h-10 px-4 pr-12 text-sm border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:border-[#bc1215] bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100"
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                    lineNumber: 201,
+                                    lineNumber: 221,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3397,23 +3423,23 @@ function Header() {
                                             d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                                         }, void 0, false, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 208,
+                                            lineNumber: 228,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                        lineNumber: 207,
+                                        lineNumber: 227,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                    lineNumber: 206,
+                                    lineNumber: 226,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                            lineNumber: 200,
+                            lineNumber: 220,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -3428,14 +3454,14 @@ function Header() {
                                                 children: item.icon
                                             }, void 0, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 222,
+                                                lineNumber: 242,
                                                 columnNumber: 33
                                             }, this),
                                             item.label
                                         ]
                                     }, item.href, true, {
                                         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                        lineNumber: 216,
+                                        lineNumber: 236,
                                         columnNumber: 17
                                     }, this)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3448,14 +3474,14 @@ function Header() {
                                                     children: "📁"
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                    lineNumber: 230,
+                                                    lineNumber: 250,
                                                     columnNumber: 19
                                                 }, this),
                                                 t('nav.category')
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 229,
+                                            lineNumber: 249,
                                             columnNumber: 17
                                         }, this),
                                         __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$data$2f$static$2d$products$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["staticCategories"].map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -3465,13 +3491,13 @@ function Header() {
                                                 children: category.name
                                             }, category.id, false, {
                                                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                lineNumber: 234,
+                                                lineNumber: 254,
                                                 columnNumber: 19
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                    lineNumber: 228,
+                                    lineNumber: 248,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3485,46 +3511,46 @@ function Header() {
                                                     children: item.icon
                                                 }, void 0, false, {
                                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                                    lineNumber: 254,
+                                                    lineNumber: 274,
                                                     columnNumber: 35
                                                 }, this),
                                                 item.label
                                             ]
                                         }, item.href, true, {
                                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                            lineNumber: 248,
+                                            lineNumber: 268,
                                             columnNumber: 19
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                                    lineNumber: 246,
+                                    lineNumber: 266,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                            lineNumber: 214,
+                            lineNumber: 234,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                    lineNumber: 198,
+                    lineNumber: 218,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-                lineNumber: 197,
+                lineNumber: 217,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/hooknhunt-ui/src/components/layout/Header.tsx",
-        lineNumber: 47,
+        lineNumber: 67,
         columnNumber: 5
     }, this);
 }
-_s(Header, "9Vk5QXpoHWJk/GarjXMHPGkU8qc=", false, function() {
+_s(Header, "D6m8uWzQyEHGZx0qDI8a8eSw5gQ=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$node_modules$2f$react$2d$i18next$2f$dist$2f$es$2f$useTranslation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTranslation"],
         __TURBOPACK__imported__module__$5b$project$5d2f$hooknhunt$2d$ui$2f$src$2f$context$2f$CartContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"],

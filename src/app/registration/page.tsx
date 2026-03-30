@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import OtpVerification from '@/components/OtpVerification';
 
 export default function RegistrationPage() {
     const [formData, setFormData] = useState({
@@ -19,9 +18,8 @@ export default function RegistrationPage() {
     const [error, setError] = useState('');
     const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
     const [agreedToTerms, setAgreedToTerms] = useState(false);
-    const [step, setStep] = useState<'register' | 'verify'>('register');
     const router = useRouter();
-    const { register, sendOtp, verifyOtp } = useAuth();
+    const { register, sendOtp } = useAuth();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fieldName = e.target.name;
@@ -52,7 +50,7 @@ export default function RegistrationPage() {
         setIsLoading(true);
 
         // Validate phone number (Bangladesh format)
-        const phoneRegex = /^01[3-9]\d{8}$/;
+        const phoneRegex = /^01\d{9}$/;
         if (!phoneRegex.test(formData.phone)) {
             setError('Please enter a valid Bangladesh phone number (01xxxxxxxxx)');
             setIsLoading(false);
@@ -88,95 +86,69 @@ export default function RegistrationPage() {
             // Register user
             await register(formData.phone, formData.password, formData.name);
 
-            // Move to OTP verification step
-            setStep('verify');
+            // Redirect to OTP verification page
+            router.push('/verify-otp?phone=' + encodeURIComponent(formData.phone));
+            return;
         } catch (err: unknown) {
-            console.error('Registration error:', err);
-
             // Clear loading state
             setIsLoading(false);
 
             // Handle different types of errors
             if (err && typeof err === 'object' && 'status' in err) {
-                const errorObj = err as { status: number; message?: string; errors?: Record<string, string[]> };
+                const errorObj = err as { status: number; message?: string; errors?: Record<string, string[] | string> };
+                const errorMsg = errorObj.message || 'Registration failed.';
 
-                // Handle validation errors (422)
+                // Check if phone already exists
+                const isPhoneTaken =
+                    errorObj.status === 422 &&
+                    (errorMsg.toLowerCase().includes('already') ||
+                     errorMsg.toLowerCase().includes('taken') ||
+                     errorMsg.toLowerCase().includes('unique'));
+
+                if (isPhoneTaken) {
+                    // Backend returns phone_verified: true/false to differentiate
+                    const errorData = err as { phone_verified?: boolean };
+                    const isVerified = errorData.phone_verified === true;
+
+                    if (isVerified) {
+                        // Phone registered AND verified — show message with login link
+                        setError('');
+                        setFieldErrors({
+                            phone: 'This number is already registered. Sign in instead.',
+                        });
+                    } else {
+                        // Phone registered but NOT verified — send OTP and redirect
+                        try {
+                            await sendOtp(formData.phone);
+                        } catch {
+                            // OTP may already be sent
+                        }
+                        router.push('/verify-otp?phone=' + encodeURIComponent(formData.phone) + '&from=register');
+                    }
+                    return;
+                }
+
+                // Handle validation errors (422) with field details
                 if (errorObj.status === 422 && errorObj.errors) {
-                    // Set field-specific errors
-                    const fieldErrors: Record<string, string> = {};
+                    const parsed: Record<string, string> = {};
                     Object.entries(errorObj.errors).forEach(([field, messages]) => {
-                        // Map Laravel field names to form field names
                         const fieldName = field.replace('phone_number', 'phone');
-                        fieldErrors[fieldName] = Array.isArray(messages) ? messages[0] : messages;
+                        parsed[fieldName] = Array.isArray(messages) ? messages[0] : messages;
                     });
-
-                    setFieldErrors(fieldErrors);
-
-                    // Also set general error message
+                    setFieldErrors(parsed);
                     const allErrors = Object.values(errorObj.errors).flat();
-                    setError(allErrors[0] || 'Please fix the errors below.');
-                }
-                // Handle phone number already exists error
-                else if (errorObj.status === 422) {
-                    setFieldErrors({ phone: 'Phone number already registered. Please use a different number.' });
-                    setError('This phone number is already registered.');
-                }
-                // Handle other server errors
-                else {
-                    setError(errorObj.message || 'Registration failed. Please try again.');
+                    setError(allErrors[0] || errorMsg);
+                } else {
+                    setError(errorMsg);
                 }
             } else {
                 setError('Registration failed. Please check your connection and try again.');
             }
-            return; // Don't proceed to finally block
+            return;
         } finally {
             setIsLoading(false);
         }
     };
-
-    const handleVerifyOtp = async (otp: string) => {
-        await verifyOtp(formData.phone, otp);
-        // On success, redirect to account page
-        router.push('/account');
-    };
-
-    const handleResendOtp = async () => {
-        await sendOtp(formData.phone);
-    };
-
-    if (step === 'verify') {
-        return (
-            <div className="min-h-screen bg-[#fcf8f6] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md w-full">
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-                        <OtpVerification
-                            phone={formData.phone}
-                            onVerify={handleVerifyOtp}
-                            onResend={handleResendOtp}
-                            isLoading={isLoading}
-                        />
-
-                        {/* Back to Registration */}
-                        <div className="mt-6 text-center">
-                            <button
-                                onClick={() => setStep('register')}
-                                className="text-sm text-gray-600 hover:text-red-700 transition-colors"
-                            >
-                                ← Change Phone Number
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Back to Home */}
-                    <div className="mt-6 text-center">
-                        <Link href="/" className="text-sm text-gray-600 hover:text-red-700 transition-colors">
-                            ← Back to Home
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="min-h-screen bg-[#fcf8f6] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -260,7 +232,14 @@ export default function RegistrationPage() {
                                 />
                             </div>
                             {fieldErrors.phone ? (
-                                <p className="mt-1 text-xs text-red-600">{fieldErrors.phone}</p>
+                                <p className="mt-1 text-xs text-red-600">
+                                    {fieldErrors.phone}
+                                    {fieldErrors.phone.includes('Sign in') && (
+                                        <Link href="/login" className="ml-1 font-semibold underline text-red-700 hover:text-red-800">
+                                            Sign In
+                                        </Link>
+                                    )}
+                                </p>
                             ) : (
                                 <p className="mt-1 text-xs text-gray-500">Format: 01xxxxxxxxx (Bangladesh number)</p>
                             )}

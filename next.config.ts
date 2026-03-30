@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "http",
+        hostname: "192.168.0.166",
+      },
+      {
+        protocol: "https",
+        hostname: "hooknhunt-api.test",
+      },
     ],
   },
 };

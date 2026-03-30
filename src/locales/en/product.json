@@ -8,8 +8,8 @@
     "inStock": "In Stock",
     "outOfStock": "Out of Stock",
     "lowStock": "Low Stock",
-    "available": "{count} available",
-    "status": "Status: {status}"
+    "available": "{{count}} available",
+    "status": "Status: {{status}}"
   },
   "buttons": {
     "addToCart": "Add to Cart",
@@ -24,9 +24,9 @@
   },
   "variants": {
     "title": "Select Variant",
-    "selectOption": "Select {option}",
+    "selectOption": "Select {{option}}",
     "price": "Price",
-    "sku": "SKU: {sku}",
+    "sku": "SKU: {{sku}}",
     "inStock": "In Stock",
     "outOfStock": "Out of Stock",
     "selectVariant": "Please select a variant"
@@ -36,12 +36,12 @@
     "specifications": "Specifications",
     "features": "Features",
     "gallery": "Product Gallery",
-    "imageOf": "Image {current} of {total}"
+    "imageOf": "Image {{current}} of {{total}}"
   },
   "reviews": {
     "title": "Customer Reviews",
     "rating": "Rating",
-    "basedOn": "Based on {count} reviews",
+    "basedOn": "Based on {{count}} reviews",
     "seeAll": "See all reviews →",
     "writeReview": "Write a Review",
     "noReviews": "No reviews yet.",
@@ -53,7 +53,7 @@
   },
   "offers": {
     "limitedTime": "Limited Time Offer!",
-    "save": "Save ৳{amount}"
+    "save": "Save ৳{{amount}}"
   },
   "share": {
     "title": "Share this product",

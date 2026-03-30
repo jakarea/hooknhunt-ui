@@ -1,6 +1,6 @@
 // API Client for Hook & Hunt Storefront
 
-import { User, Address } from '@/types';
+import { User, Address, Category } from '@/types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.0.166:8000/api/v2';
 
@@ -131,7 +131,7 @@ class ApiClient {
     return this.request('/store/auth/register', {
       method: 'POST',
       body: JSON.stringify({
-        phone_number: phone,
+        phone,
         password,
         password_confirmation: password,
         name
@@ -142,14 +142,14 @@ class ApiClient {
   async sendOtp(phone: string): Promise<ApiResponse> {
     return this.request('/store/auth/send-otp', {
       method: 'POST',
-      body: JSON.stringify({ phone_number: phone }),
+      body: JSON.stringify({ phone }),
     });
   }
 
   async verifyOtp(phone: string, otp: string): Promise<ApiResponse<{ user: User; access_token?: string; token?: string }>> {
     const response = await this.request<{ user: User; access_token?: string; token?: string }>('/store/auth/verify-otp', {
       method: 'POST',
-      body: JSON.stringify({ phone_number: phone, otp_code: otp }),
+      body: JSON.stringify({ phone, otp }),
     });
 
     // Store token if verification successful (check both possible response structures)
@@ -164,7 +164,7 @@ class ApiClient {
   async sendResetOtp(phone: string): Promise<ApiResponse<{ message: string; otp_code?: string }>> {
     return this.request<{ message: string; otp_code?: string }>('/store/auth/send-reset-otp', {
       method: 'POST',
-      body: JSON.stringify({ phone_number: phone }),
+      body: JSON.stringify({ phone }),
     });
   }
 
@@ -172,8 +172,8 @@ class ApiClient {
     return this.request('/store/auth/reset-password', {
       method: 'POST',
       body: JSON.stringify({
-        phone_number: phone,
-        otp_code: otp,
+        phone,
+        otp,
         password,
         password_confirmation: passwordConfirmation
       }),
@@ -244,8 +244,51 @@ class ApiClient {
     return this.request('/store/account/orders', {}, true);
   }
 
-  async getOrder(orderId: number): Promise<ApiResponse> {
+  async getOrder(orderId: number | string): Promise<ApiResponse> {
     return this.request(`/store/account/orders/${orderId}`, {}, true);
+  }
+
+  // Authenticated: Order summary (stats + recent orders)
+  async getOrderSummary(): Promise<ApiResponse> {
+    return this.request('/store/account/orders/summary', {}, true);
+  }
+
+  // Public: Categories (paginated — returns { data: { data: Category[], ... } })
+  async getCategories(): Promise<ApiResponse<{ data: Category[]; total: number }>> {
+    return this.request('/store/categories', {});
+  }
+
+  // Public: Products (paginated with filters)
+  async getProducts(params?: {
+    category_id?: number;
+    search?: string;
+    sort_by?: string;
+    page?: number;
+    per_page?: number;
+  }): Promise<ApiResponse<{ data: unknown[]; total: number; last_page: number; current_page: number; next_page_url: string | null }>> {
+    const query = new URLSearchParams();
+    if (params?.category_id) query.set('category_id', String(params.category_id));
+    if (params?.search) query.set('search', params.search);
+    if (params?.sort_by) query.set('sort_by', params.sort_by);
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    const qs = query.toString();
+    return this.request(`/store/products${qs ? `?${qs}` : ''}`, {});
+  }
+
+  // Public: Single product by slug
+  async getProduct(slug: string): Promise<ApiResponse> {
+    return this.request(`/store/products/${slug}`, {});
+  }
+
+  // Public: Related products
+  async getRelatedProducts(slug: string, limit: number = 6): Promise<ApiResponse> {
+    return this.request(`/store/products/${slug}/related?limit=${limit}`, {});
+  }
+
+  // Public: Hot deals products
+  async getHotDeals(limit: number = 12): Promise<ApiResponse> {
+    return this.request(`/store/products/hot-deals?limit=${limit}`, {});
   }
 
   // Contact Form Submission (Public Endpoint)

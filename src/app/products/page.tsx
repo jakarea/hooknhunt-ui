@@ -5,8 +5,16 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import ProductCard from '@/components/product/ProductCard';
 import { Product } from '@/types';
-import { staticProducts, staticCategories } from '@/data/static-products';
+import { useCategoryStore } from '@/stores/categoryStore';
+import { useProductStore, ProductFilters } from '@/stores/productStore';
 import { useTranslation } from 'react-i18next';
+
+const SORT_MAP: Record<string, string> = {
+  'best-selling': 'created_at_desc',
+  'newest': 'created_at_desc',
+  'price-low': 'price_asc',
+  'price-high': 'price_desc',
+};
 
 function ProductsPageContent() {
   const { t } = useTranslation();
@@ -18,41 +26,64 @@ function ProductsPageContent() {
   const [priceRange, setPriceRange] = useState<string[]>([]);
   const [minRating, setMinRating] = useState<number>(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [displayCount, setDisplayCount] = useState(12); // Initial load: 12 products
-  const [isLoading, setIsLoading] = useState(false);
-  const categories = staticCategories;
-  const products = staticProducts;
+
+  const categories = useCategoryStore((s) => s.categories);
+  const fetchCategories = useCategoryStore((s) => s.fetchCategories);
+
+  const products = useProductStore((s) => s.products);
+  const loading = useProductStore((s) => s.loading);
+  const hasMore = useProductStore((s) => s.hasMore);
+  const fetched = useProductStore((s) => s.fetched);
+  const fetchProducts = useProductStore((s) => s.fetchProducts);
+  const loadMore = useProductStore((s) => s.loadMore);
   const observerTarget = useRef<HTMLDivElement>(null);
 
+  // Resolve category_id from selected slug
+  const getCategoryId = useCallback((): number | undefined => {
+    if (selectedCategories.includes('all') || selectedCategories.length === 0) return undefined;
+    const cat = categories.find((c) => c.slug === selectedCategories[0]);
+    return cat?.id;
+  }, [selectedCategories, categories]);
+
+  // Build API filters from current selections
+  const buildFilters = useCallback((): ProductFilters => {
+    const filters: ProductFilters = {};
+    const categoryId = getCategoryId();
+    if (categoryId) filters.category_id = categoryId;
+    const apiSort = SORT_MAP[sortBy];
+    if (apiSort) filters.sort_by = apiSort;
+    return filters;
+  }, [getCategoryId, sortBy]);
+
+  // Fetch categories from API
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  // Fetch products when filters change
+  useEffect(() => {
+    fetchProducts(buildFilters(), true);
+  }, [buildFilters, fetchProducts]);
+
+  // Sync URL category param
   useEffect(() => {
     if (categoryParam) {
       setSelectedCategories([categoryParam]);
     }
   }, [categoryParam]);
 
-  // Filter products by category - memoized for performance
+  // Client-side filters (price, rating) applied to API products
   const filteredProducts = useMemo(() => {
-    return products.filter(product => {
-      if (selectedCategories.includes('all')) return true;
-      return selectedCategories.some(categorySlug => {
-        const category = categories.find(c => c.slug === categorySlug);
-        if (!category) return false;
-        return product.category_id === category.id || product.category === category.name;
-      });
-    });
-  }, [products, selectedCategories, categories]);
-
-  // Apply additional filters - memoized for performance
-  const additionalFilteredProducts = useMemo(() => {
-    return filteredProducts.filter(product => {
+    return products.filter((product: Product) => {
       if (minRating > 0 && (product.rating || 0) < minRating) return false;
 
       if (priceRange.length > 0) {
-        const inRange = priceRange.some(range => {
-          if (range === 'under-1000') return (product.price || 0) < 1000;
-          if (range === '1000-5000') return (product.price || 0) >= 1000 && (product.price || 0) < 5000;
-          if (range === '5000-10000') return (product.price || 0) >= 5000 && (product.price || 0) < 10000;
-          if (range === '10000-plus') return (product.price || 0) >= 10000;
+        const productPrice = product.price || product.actual_price || 0;
+        const inRange = priceRange.some((range: string) => {
+          if (range === 'under-1000') return productPrice < 1000;
+          if (range === '1000-5000') return productPrice >= 1000 && productPrice < 5000;
+          if (range === '5000-10000') return productPrice >= 5000 && productPrice < 10000;
+          if (range === '10000-plus') return productPrice >= 10000;
           return false;
         });
         if (!inRange) return false;
@@ -60,56 +91,29 @@ function ProductsPageContent() {
 
       return true;
     });
-  }, [filteredProducts, priceRange, minRating]);
+  }, [products, priceRange, minRating]);
 
-  // Sort products - memoized for performance
+  // Client-side sort for discount (API doesn't support it)
   const sortedProducts = useMemo(() => {
-    return [...additionalFilteredProducts].sort((a, b) => {
-      switch (sortBy) {
-        case 'price-low':
-          return (a.price || 0) - (b.price || 0);
-        case 'price-high':
-          return (b.price || 0) - (a.price || 0);
-        case 'discount':
-          const aPrice = a.price || 0;
-          const bPrice = b.price || 0;
-          const aDiscount = a.originalPrice && a.originalPrice > aPrice
-            ? ((a.originalPrice - aPrice) / a.originalPrice)
-            : 0;
-          const bDiscount = b.originalPrice && b.originalPrice > bPrice
-            ? ((b.originalPrice - bPrice) / b.originalPrice)
-            : 0;
-          return bDiscount - aDiscount;
-        case 'newest':
-          return b.id - a.id;
-        case 'best-selling':
-          return (b.rating || 0) - (a.rating || 0);
-        default:
-          return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
-      }
+    if (sortBy !== 'discount') return filteredProducts;
+
+    return [...filteredProducts].sort((a: Product, b: Product) => {
+      const aPrice = a.price || a.actual_price || 0;
+      const bPrice = b.price || b.actual_price || 0;
+      const aOriginal = a.originalPrice || a.compare_at_price || 0;
+      const bOriginal = b.originalPrice || b.compare_at_price || 0;
+      const aDiscount = aOriginal > aPrice ? (aOriginal - aPrice) / aOriginal : 0;
+      const bDiscount = bOriginal > bPrice ? (bOriginal - bPrice) / bOriginal : 0;
+      return bDiscount - aDiscount;
     });
-  }, [additionalFilteredProducts, sortBy]);
-
-  // Reset display count when filters change
-  useEffect(() => {
-    setDisplayCount(12);
-  }, [selectedCategories, sortBy, priceRange, minRating]);
-
-  const loadMoreProducts = useCallback(() => {
-    setIsLoading(true);
-    // Simulate loading delay
-    setTimeout(() => {
-      setDisplayCount(prev => prev + 12);
-      setIsLoading(false);
-    }, 500);
-  }, []);
+  }, [filteredProducts, sortBy]);
 
   // Infinite scroll observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !isLoading && displayCount < sortedProducts.length) {
-          loadMoreProducts();
+        if (entries[0].isIntersecting && !loading && hasMore) {
+          loadMore();
         }
       },
       { threshold: 0.1 }
@@ -125,12 +129,12 @@ function ProductsPageContent() {
         observer.unobserve(currentTarget);
       }
     };
-  }, [isLoading, displayCount, sortedProducts.length, loadMoreProducts]);
+  }, [loading, hasMore, loadMore]);
 
   const handlePriceRangeChange = (range: string) => {
-    setPriceRange(prev =>
+    setPriceRange((prev) =>
       prev.includes(range)
-        ? prev.filter(r => r !== range)
+        ? prev.filter((r) => r !== range)
         : [...prev, range]
     );
   };
@@ -296,20 +300,8 @@ function ProductsPageContent() {
                       />
                       <span className="text-sm sm:text-base">{t('allProducts')}</span>
                     </span>
-                    <span className={`text-xs px-2.5 py-1 rounded-full ${selectedCategories.includes('all')
-                      ? 'bg-white/20 text-white'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                      }`}>
-                      {products.length}
-                    </span>
                   </button>
                   {categories.map(category => {
-                    const categoryProductCount = products.filter(p =>
-                      p.category_id === category.id || p.category === category.name
-                    ).length;
-
-                    if (categoryProductCount === 0) return null;
-
                     const isSelected = selectedCategories.includes(category.slug);
                     return (
                       <button
@@ -352,12 +344,6 @@ function ProductsPageContent() {
                             className="w-5 h-5 text-[#bc1215] border-gray-300 focus:ring-[#bc1215] rounded"
                           />
                           <span className="text-sm sm:text-base">{category.name}</span>
-                        </span>
-                        <span className={`text-xs px-2.5 py-1 rounded-full ${isSelected
-                          ? 'bg-white/20 text-white'
-                          : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                          }`}>
-                          {categoryProductCount}
                         </span>
                       </button>
                     );
@@ -472,43 +458,50 @@ function ProductsPageContent() {
               </div>
             </div>
 
-            {/* Products Grid */}
-            {sortedProducts.length > 0 ? (
+            {/* Skeleton Loading */}
+            {loading && !fetched ? (
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                    <div className="aspect-square bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                    <div className="p-2.5 space-y-2">
+                      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                      <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : sortedProducts.length > 0 ? (
               <>
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
-                  {sortedProducts.slice(0, displayCount).map(product => (
+                  {sortedProducts.map(product => (
                     <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
 
-                {/* Modern Loading Indicator - Calm & Smooth */}
-                {displayCount < sortedProducts.length && (
-                  <div ref={observerTarget} className="flex justify-center items-center py-12 sm:py-16">
-                    {isLoading ? (
-                      <div className="flex flex-col items-center gap-4">
-                        <div className="relative">
-                          <div className="w-14 h-14 sm:w-16 sm:h-16 border-4 border-gray-200 dark:border-gray-700 rounded-full"></div>
-                          <div className="w-14 h-14 sm:w-16 sm:h-16 border-4 border-[#bc1215] border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
-                        </div>
-                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 font-medium">{t('loading')}</p>
+                {/* Loading More Indicator */}
+                <div ref={observerTarget} className="flex justify-center items-center py-12 sm:py-16">
+                  {loading && fetched ? (
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="relative">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 border-4 border-gray-200 dark:border-gray-700 rounded-full"></div>
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 border-4 border-[#bc1215] border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
                       </div>
-                    ) : (
-                      <div className="h-16 sm:h-20"></div>
-                    )}
-                  </div>
-                )}
-
-                {/* All Products Loaded Message */}
-                {displayCount >= sortedProducts.length && sortedProducts.length > 12 && (
-                  <div className="text-center py-8 border-t border-gray-200 dark:border-gray-800 mt-8">
-                    <p className="text-gray-600 dark:text-gray-400">
-                      You&apos;ve reached the end. Showing all {sortedProducts.length} products.
-                    </p>
-                  </div>
-                )}
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 font-medium">{t('loading')}</p>
+                    </div>
+                  ) : !hasMore && sortedProducts.length > 12 ? (
+                    <div className="text-center py-8 border-t border-gray-200 dark:border-gray-800 mt-8 w-full">
+                      <p className="text-gray-600 dark:text-gray-400">
+                        You&apos;ve reached the end. Showing all {sortedProducts.length} products.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="h-16 sm:h-20"></div>
+                  )}
+                </div>
               </>
             ) : (
-              /* Modern Empty State - Calm & Helpful */
+              /* Empty State */
               <div className="text-center py-16 sm:py-24 px-4">
                 <div className="relative w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-6 sm:mb-8">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#bc1215]/10 to-green-500/10 rounded-full blur-xl"></div>
