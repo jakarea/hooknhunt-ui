@@ -412,3 +412,11 @@ button, .btn, [role="button"] {
 button:hover, .btn:hover, [role="button"]:hover {
   cursor: pointer;
 }
+
+/* Force word break on product description HTML content */
+.product-description,
+.product-description * {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}

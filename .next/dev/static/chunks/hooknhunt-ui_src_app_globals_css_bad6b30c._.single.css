@@ -3500,6 +3500,12 @@ button, .btn, [role="button"], button:hover, .btn:hover, [role="button"]:hover {
   cursor: pointer;
 }
 
+.product-description, .product-description * {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
 .hover\:-translate-y-2:hover {
   --tw-translate-y: -.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -5217,6 +5223,31 @@ button, .btn, [role="button"], button:hover, .btn:hover, [role="button"]:hover {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity, 1));
   }
+}
+
+.\[\&_img\]\:my-4 img {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.\[\&_img\]\:aspect-auto img {
+  aspect-ratio: auto;
+}
+
+.\[\&_img\]\:h-auto img {
+  height: auto;
+}
+
+.\[\&_img\]\:max-w-full img {
+  max-width: 100%;
+}
+
+.\[\&_img\]\:rounded-lg img {
+  border-radius: .5rem;
+}
+
+.\[\&_p\]\:mb-4 p {
+  margin-bottom: 1rem;
 }
 
 /*# sourceMappingURL=hooknhunt-ui_src_app_globals_css_bad6b30c._.single.css.map*/

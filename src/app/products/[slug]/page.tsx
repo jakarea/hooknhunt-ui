@@ -11,6 +11,19 @@ import { Product as StaticProduct } from '@/types';
 import api from '@/lib/api';
 import { useTranslation } from 'react-i18next';
 
+// Decode double-encoded HTML from API & replace Quill's &nbsp; with normal spaces
+// API returns entity-encoded HTML (e.g. &lt;p&gt;text&amp;nbsp;more&lt;/p&gt;)
+// We need to: 1) decode entities once to get real HTML, 2) replace &nbsp; with regular spaces
+function decodeHtmlEntities(html: string): string {
+  if (typeof document === 'undefined') return html;
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = html;
+  // textarea.innerHTML now has the single-decoded HTML with \u00A0 chars
+  const decoded = textarea.innerHTML;
+  // Replace non-breaking spaces (\u00A0) and literal &nbsp; with normal spaces
+  return decoded.replace(/\u00A0/g, ' ').replace(/&nbsp;/g, ' ');
+}
+
 // Types matching actual API response (camelCase)
 interface ApiVariant {
   id: number;
@@ -901,27 +914,17 @@ function ProductDetailPageContent() {
                 {t('details.description')}
               </h2>
               <div className="prose prose-lg max-w-none dark:prose-invert">
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                  {product.description || 'No description available for this product.'}
-                </p>
-                {product.meta_description && (
+                {product.description ? (
+                  <div
+                    className="product-description text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 overflow-hidden [&_img]:rounded-lg [&_img]:max-w-full [&_img]:h-auto [&_img]:aspect-auto [&_p]:mb-4 [&_img]:my-4"
+                    style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+                    dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(product.description) }}
+                  />
+                ) : (
                   <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                    {product.meta_description}
+                    No description available for this product.
                   </p>
                 )}
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                  This premium fishing equipment is designed for both amateur and professional anglers.
-                  Crafted with high-quality materials and precision engineering, it delivers exceptional
-                  performance in various fishing conditions.
-                </p>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">{t('details.features')}:</h3>
-                <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                  <li>Premium quality construction for durability</li>
-                  <li>Ergonomic design for comfortable use</li>
-                  <li>Weather-resistant materials</li>
-                  <li>Suitable for both freshwater and saltwater fishing</li>
-                  <li>Backed by manufacturer warranty</li>
-                </ul>
               </div>
             </div>
 
