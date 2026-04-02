@@ -11,17 +11,28 @@ import { Product as StaticProduct } from '@/types';
 import api from '@/lib/api';
 import { useTranslation } from 'react-i18next';
 
-// Decode double-encoded HTML from API & replace Quill's &nbsp; with normal spaces
-// API returns entity-encoded HTML (e.g. &lt;p&gt;text&amp;nbsp;more&lt;/p&gt;)
-// We need to: 1) decode entities once to get real HTML, 2) replace &nbsp; with regular spaces
+// Decode entity-encoded HTML from API (e.g. &lt;p&gt;text&amp;nbsp;more&lt;/p&gt;)
+// Uses pure regex so it works during SSR (no document needed)
+// Handles double-encoded HTML: first pass decodes numeric/char entities,
+// second pass catches any remaining named entities after &amp; → &
 function decodeHtmlEntities(html: string): string {
-  if (typeof document === 'undefined') return html;
-  const textarea = document.createElement('textarea');
-  textarea.innerHTML = html;
-  // textarea.innerHTML now has the single-decoded HTML with \u00A0 chars
-  const decoded = textarea.innerHTML;
-  // Replace non-breaking spaces (\u00A0) and literal &nbsp; with normal spaces
-  return decoded.replace(/\u00A0/g, ' ').replace(/&nbsp;/g, ' ');
+  let result = html;
+  // Pass 1: Decode specific named entities (must decode &amp; LAST in this group)
+  result = result
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&');
+  // Pass 2: Decode numeric entities (decimal &#123; and hex &#x1A;)
+  result = result.replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)));
+  result = result.replace(/&#x([0-9a-fA-F]+);/g, (_, code) => String.fromCharCode(parseInt(code, 16)));
+  // Clean up non-breaking spaces
+  result = result.replace(/\u00A0/g, ' ');
+  return result;
 }
 
 // Types matching actual API response (camelCase)
@@ -101,6 +112,7 @@ interface Product {
   };
   description: string;
   short_description: string;
+  highlights: string[];
   meta_title: string;
   meta_description: string;
   variants: Variant[];
@@ -186,6 +198,7 @@ function ProductDetailPageContent() {
       },
       description: apiProduct.description || '',
       short_description: apiProduct.shortDescription || '',
+      highlights: (apiProduct.highlights || []).map(h => h.replace(/\u00A0/g, ' ')),
       meta_title: apiProduct.seoTitle || apiProduct.name,
       meta_description: apiProduct.seoDescription || apiProduct.shortDescription || '',
       variants: uiVariants,
@@ -696,8 +709,8 @@ function ProductDetailPageContent() {
               </div>
             )}
 
-{/* Product Highlights - Short Description */}
-            {product.short_description && product.short_description !== product.description && (
+{/* Product Highlights */}
+            {product.highlights && product.highlights.length > 0 && (
               <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 shadow-sm border border-green-100 dark:border-green-800">
                 <div className="flex items-start gap-3">
                   <div className="shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
@@ -708,12 +721,12 @@ function ProductDetailPageContent() {
                   <div className="flex-1">
                     <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2">Product Highlights</h4>
                     <ul className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
-                      {product.short_description.split(/[,.-]/).filter((item: string) => item.trim()).map((item: string, index: number) => (
+                      {product.highlights.map((item: string, index: number) => (
                         <li key={index} className="flex items-start gap-2">
                           <svg className="w-4 h-4 text-green-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
-                          <span>{item.trim()}</span>
+                          <span>{item}</span>
                         </li>
                       ))}
                     </ul>
