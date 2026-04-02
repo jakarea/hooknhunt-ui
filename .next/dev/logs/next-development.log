@@ -108,3 +108,2242 @@ Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
 [00:34:01.602] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
 [00:34:01.602] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1774968332_69cbde0c1f157_EVA-Big-Belly-Sea-Fishing-Float.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
 Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[01:00:16.954] Server  LOG     ✓ Compiled in 165ms
+[01:00:17.445] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float"}
+[01:00:17.445] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:00:17.445] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:00:17.445] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:04:47.314] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:04:47.465] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:04:47.465] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float"}
+[01:04:47.465] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:04:47.465] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:04:47.465] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:04:47.465] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:04:47.465] Browser LOG     Theme initialized to light mode
+[01:04:47.465] Browser LOG     HTML classes: 
+[01:04:47.465] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:04:48.149] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:04:48.149] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:04:48.149] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:36.332] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[01:11:36.332] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:11:36.332] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:11:36.332] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:11:36.332] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:11:36.332] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:11:36.332] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:11:36.332] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:11:36.332] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:11:36.592] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:36.592] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:36.592] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:36.592] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:36.592] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:36.592] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:36.592] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:36.592] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:39.187] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-amp-stream-fishing"}
+[01:11:39.187] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-amp-stream-fishing/related?limit=6"}
+[01:11:39.187] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-amp-stream-fishing"}
+[01:11:39.187] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-amp-stream-fishing/related?limit=6"}
+[01:11:39.187] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:39.187] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:39.187] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:11:39.303] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:16.751] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?category_id=3&sort_by=created_at_desc&page=1&per_page=12"}
+[01:12:16.751] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?category_id=3&sort_by=created_at_desc&page=1&per_page=12"}
+[01:12:16.751] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?category_id=3&sort_by=created_at_desc&page=1&per_page=12"}
+[01:12:16.751] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:16.751] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:16.751] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:23.224] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:23.225] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:12:23.225] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:14:10.313] Server  LOG     ✓ Compiled in 268ms
+[01:14:10.407] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:14:10.407] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:14:10.765] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:14:10.765] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:14:56.582] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/auth/login"}
+[01:14:57.148] Browser LOG     🔍 [API_DEBUG] Response: {"ok":false,"status":401,"statusText":""}
+[01:14:57.148] Browser LOG     🔍 [API_DEBUG] Error thrown: {"errors":{"email":null,"phone":"01728247398"},"message":"Invalid id or password","response":{},"status":401}
+[01:14:57.148] Browser LOG     🔍 [API_DEBUG] Catch error: {"errors":{"email":null,"phone":"01728247398"},"message":"Invalid id or password","response":{},"status":401}
+[01:15:18.363] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/auth/send-reset-otp"}
+[01:15:18.364] Browser LOG     🔍 [API_DEBUG] Response: {"ok":false,"status":500,"statusText":""}
+[01:15:18.364] Browser LOG     🔍 [API_DEBUG] Error thrown: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:15:18.364] Browser LOG     🔍 [API_DEBUG] Catch error: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:15:18.364] Browser ERROR   Send reset OTP failed: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:15:28.995] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/auth/send-reset-otp"}
+[01:15:28.996] Browser LOG     🔍 [API_DEBUG] Response: {"ok":false,"status":500,"statusText":""}
+[01:15:28.996] Browser LOG     🔍 [API_DEBUG] Error thrown: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:15:28.996] Browser LOG     🔍 [API_DEBUG] Catch error: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:15:28.996] Browser ERROR   Send reset OTP failed: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:16:16.543] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:16:16.769] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:16:16.769] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:16:16.769] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:16:16.769] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:16:16.769] Browser LOG     Theme initialized to light mode
+[01:16:16.769] Browser LOG     HTML classes: 
+[01:16:16.769] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:16:16.769] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:20:14.808] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/auth/send-reset-otp"}
+[01:20:14.977] Browser LOG     🔍 [API_DEBUG] Response: {"ok":false,"status":500,"statusText":""}
+[01:20:14.977] Browser LOG     🔍 [API_DEBUG] Error thrown: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:20:14.977] Browser LOG     🔍 [API_DEBUG] Catch error: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:20:14.977] Browser ERROR   Send reset OTP failed: {"errors":"Call to undefined method App\\Http\\Controllers\\Api\\V2\\AuthController::sendResetOtp()","message":"সার্ভার এরর","response":{},"status":500}
+[01:23:56.695] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/src/lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:23:56.697] Server  LOG     ✓ Compiled in 258ms
+[01:23:57.943] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:23:58.438] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <body className="inter_5972..." suppressHydrationWarning={true}>
+      <ErrorBoundary>
+        <LanguageProvider>
+          <Providers>
+            <I18nextProvider i18n={{observers:{}, ...}}>
+              <ThemeProvider>
+                <AuthProvider>
+                  <CartProvider>
+                    <Header>
+                      <header className="bg-white d...">
+                        <TopBar>
+                        <div>
+                        <div className={"hidden l..."}>
+                          <div className="max-w-[134...">
+                            <nav className="flex items...">
+                              <LinkComponent>
+                              <LinkComponent>
+                              <LinkComponent>
+                              <div
+                                className="relative group"
+                                onMouseEnter={function onMouseEnter}
+                                onMouseLeave={function onMouseLeave}
+-                               bis_skin_checked="1"
+                              >
+                                <button>
+                                <div
+                                  className="absolute top-full left-0 mt-1 w-56 bg-white dark:bg-[#1a1a1a] rounded-lg ..."
+-                                 bis_skin_checked="1"
+                                >
+                                  <div
+                                    className="max-h-[400px] overflow-y-auto"
+-                                   bis_skin_checked="1"
+                                  >
+                              ...
+                    ...
+                      <InnerLayoutRouter url="/forgot-pa..." tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="/hooknhunt...">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function ForgotPasswordPage} serverProvidedParams={{...}}>
+                            <ForgotPasswordPage params={Promise} searchParams={Promise}>
+                              <div
+                                className="min-h-screen bg-[#fcf8f6] flex items-center justify-center py-12 px-4 sm:px..."
+-                               bis_skin_checked="1"
+                              >
+                                <Fe position="top-right" toastOptions={{duration:4000, ...}}>
+                                  <div
+                                    data-rht-toaster=""
+                                    style={{position:"fixed",zIndex:9999,top:16,left:16,right:16,bottom:16,pointerEvents:"none"}}
+                                    className={undefined}
+                                    onMouseEnter={function}
+                                    onMouseLeave={function}
+-                                   bis_skin_checked="1"
+                                  >
+                                <div
+                                  className="max-w-md w-full space-y-8"
+-                                 bis_skin_checked="1"
+                                >
+                                  <div
+                                    className="text-center"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="mx-auto h-16 w-16 flex items-center justify-center mb-4"
+-                                     bis_skin_checked="1"
+                                    >
+                                    ...
+                                  <div
+                                    className="bg-white rounded-xl shadow-sm border border-gray-200 p-8"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <form onSubmit={function handleSubmitPhone} className="space-y-6">
+                                      <div
+-                                       bis_skin_checked="1"
+                                      >
+                                        <label>
+                                        <div
+                                          className="relative"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events..."
+-                                           bis_skin_checked="1"
+                                          >
+                                          ...
+                                        ...
+                                      ...
+                                    <div
+                                      className="mt-6 text-center"
+-                                     bis_skin_checked="1"
+                                    >
+                                  <div
+                                    className="text-center"
+-                                   bis_skin_checked="1"
+                                  >
+                        ...
+                    <Footer>
+                      <footer className="bg-gray-10...">
+                        <div
+                          className="max-w-[1192px] mx-auto px-4 py-12"
+-                         bis_skin_checked="1"
+                        >
+                          <div
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12"
+-                           bis_skin_checked="1"
+                          >
+                            <div
+                              className="col-span-1"
+-                             bis_skin_checked="1"
+                            >
+                              <LinkComponent href="/" className="inline-blo...">
+                                <a className="inline-blo..." ref={function} onClick={function onClick} ...>
+                                  <div
+                                    className="bg-white p-2.5 rounded-lg"
+-                                   bis_skin_checked="1"
+                                  >
+                              <p>
+                              <div
+                                className="flex items-center gap-3 mt-6"
+-                               bis_skin_checked="1"
+                              >
+                            <div
+-                             bis_skin_checked="1"
+                            >
+                            <div
+-                             bis_skin_checked="1"
+                            >
+                            <div
+-                             bis_skin_checked="1"
+                            >
+                              <h3>
+                              <ul className="space-y-4">
+                                <li className="flex items...">
+                                  <div
+                                    className="w-10 h-10 bg-gray-200 dark:bg-[#2a2a2a] rounded-full flex items-center ..."
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+-                                   bis_skin_checked="1"
+                                  >
+                                <li className="flex items...">
+                                  <div
+                                    className="w-10 h-10 bg-gray-200 dark:bg-[#2a2a2a] rounded-full flex items-center ..."
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+-                                   bis_skin_checked="1"
+                                  >
+                                <li className="flex items...">
+                                  <div
+                                    className="w-10 h-10 bg-gray-200 dark:bg-[#2a2a2a] rounded-full flex items-center ..."
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+-                                   bis_skin_checked="1"
+                                  >
+                        <div
+                          className="border-t border-gray-300 dark:border-gray-800"
+-                         bis_skin_checked="1"
+                        >
+                          <div
+                            className="max-w-[1192px] mx-auto px-4 py-6"
+-                           bis_skin_checked="1"
+                          >
+                            <div
+                              className="flex flex-col md:flex-row justify-between items-center gap-4"
+-                             bis_skin_checked="1"
+                            >
+                              <p>
+                              <div
+                                className="flex items-center gap-4"
+-                               bis_skin_checked="1"
+                              >
+                                <span>
+                                <div
+                                  className="flex gap-2"
+-                                 bis_skin_checked="1"
+                                >
+                                  <div
+                                    className="bg-white px-3 py-1.5 rounded-lg"
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+                                    className="bg-white px-3 py-1.5 rounded-lg"
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+                                    className="bg-white px-3 py-1.5 rounded-lg"
+-                                   bis_skin_checked="1"
+                                  >
+                    ...
+
+[01:23:58.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:23:58.439] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:23:58.439] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:23:58.439] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:23:58.439] Browser LOG     Theme initialized to light mode
+[01:23:58.439] Browser LOG     HTML classes: 
+[01:23:58.439] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:23:59.293] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:24:23.771] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[01:24:23.771] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:24:23.771] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:24:23.771] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:24:23.771] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:24:23.771] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:24:23.771] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:24:23.771] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:24:23.771] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:24:24.152] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:24:24.152] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:24:24.152] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:24:24.152] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:24:24.152] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:24:24.152] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:24:24.152] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:24:24.152] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:25:21.908] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/src/lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:25:21.924] Server  LOG     ✓ Compiled in 116ms
+[01:25:22.961] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:25:23.110] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:25:23.110] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:25:23.110] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:25:23.110] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:25:23.110] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:25:23.110] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:25:23.110] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:25:23.110] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:25:23.110] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:25:23.110] Browser LOG     Theme initialized to light mode
+[01:25:23.110] Browser LOG     HTML classes: 
+[01:25:23.110] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:25:24.318] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:25:24.333] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:25:24.333] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:25:24.333] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:25:24.621] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:25:24.621] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:26:38.148] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:26:38.519] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:26:38.519] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:26:38.519] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:26:38.520] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:26:38.520] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:26:38.520] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:26:38.520] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:26:38.520] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:26:38.520] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:26:38.520] Browser LOG     Theme initialized to light mode
+[01:26:38.520] Browser LOG     HTML classes: 
+[01:26:38.520] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:26:39.210] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:26:39.210] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:26:39.210] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:26:39.210] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:26:39.210] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:26:39.210] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:29:57.439] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:30:40.315] Server  LOG     ✓ Compiled in 302ms
+[01:30:41.086] Server  LOG     ✓ Compiled in 57ms
+[01:30:42.135] Server  LOG     ✓ Compiled in 75ms
+[01:30:43.144] Server  LOG     ✓ Compiled in 64ms
+[01:30:44.238] Server  LOG     ✓ Compiled in 138ms
+[01:31:43.920] Server  LOG     ✓ Compiled in 115ms
+[01:31:44.435] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:31:44.435] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:31:44.898] Server  LOG     ✓ Compiled in 89ms
+[01:31:45.863] Server  LOG     ✓ Compiled in 42ms
+[01:31:46.894] Server  LOG     ✓ Compiled in 59ms
+[01:31:47.903] Server  LOG     ✓ Compiled in 59ms
+[01:31:48.919] Server  LOG     ✓ Compiled in 58ms
+[01:31:49.949] Server  LOG     ✓ Compiled in 71ms
+[01:31:50.435] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:31:50.435] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:31:50.941] Server  LOG     ✓ Compiled in 50ms
+[01:31:51.952] Server  LOG     ✓ Compiled in 49ms
+[01:31:53.113] Server  LOG     ✓ Compiled in 165ms
+[01:31:53.437] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:31:53.437] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:31:54.060] Server  LOG     ✓ Compiled in 75ms
+[01:31:55.124] Server  LOG     ✓ Compiled in 117ms
+[01:31:56.104] Server  LOG     ✓ Compiled in 96ms
+[01:31:56.181] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:31:56.297] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:31:57.080] Server  LOG     ✓ Compiled in 56ms
+[01:31:58.092] Server  LOG     ✓ Compiled in 52ms
+[01:32:23.481] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:32:23.922] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:32:23.922] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:32:23.922] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:32:23.922] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:32:23.922] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:32:23.922] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:32:23.922] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:32:23.922] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:32:23.922] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:32:23.922] Browser LOG     Theme initialized to light mode
+[01:32:23.922] Browser LOG     HTML classes: 
+[01:32:23.922] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:32:24.570] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:32:24.570] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:32:24.570] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:32:24.570] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:32:24.570] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:32:24.570] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:32:24.691] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1774967824_69cbdc1044a82_fishing-rod.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[01:33:15.760] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/src/lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:33:15.762] Server  LOG     ✓ Compiled in 160ms
+[01:33:16.600] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:33:17.079] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:33:17.079] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:33:17.079] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:33:17.079] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:33:17.079] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:33:17.079] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:33:17.079] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:33:17.079] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:33:17.079] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:33:17.079] Browser LOG     Theme initialized to light mode
+[01:33:17.079] Browser LOG     HTML classes: 
+[01:33:17.079] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:33:17.753] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:17.753] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:17.753] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:17.753] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:17.753] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:17.753] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:17.857] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1774967824_69cbdc1044a82_fishing-rod.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[01:33:33.321] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/src/lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:33:33.337] Server  LOG     ✓ Compiled in 263ms
+[01:33:34.150] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:33:34.924] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <body className="inter_5972..." suppressHydrationWarning={true}>
+      <ErrorBoundary>
+        <LanguageProvider>
+          <Providers>
+            <I18nextProvider i18n={{observers:{}, ...}}>
+              <ThemeProvider>
+                <AuthProvider>
+                  <CartProvider>
+                    <Header>
+                    ...
+                      <SegmentViewNode type="page" pagePath="/hooknhunt...">
+                        <SegmentTrieNode>
+                        <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                          <Home params={Promise} searchParams={Promise}>
+                            <div className="bg-[#fcf8f6]">
+                              <HeroSlider>
+                                <section className="w-full bg-...">
+                                  <div
+                                    className="absolute inset-0 overflow-hidden pointer-events-none"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="absolute top-20 left-10 w-20 h-20 bg-[#bc1215]/20 rounded-full blur-x..."
+-                                     bis_skin_checked="1"
+                                    >
+                                    <div
+                                      className="absolute bottom-20 right-10 w-32 h-32 bg-[#046bd2]/20 rounded-full bl..."
+-                                     bis_skin_checked="1"
+                                    >
+                                    <div
+                                      className="absolute top-1/2 left-1/4 w-16 h-16 bg-yellow-400/10 rounded-full blu..."
+-                                     bis_skin_checked="1"
+                                    >
+                                  <div
+                                    className="relative w-full h-[350px] md:h-[400px] lg:h-[450px] overflow-hidden"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="relative h-full"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="absolute inset-0 transition-all duration-1000 ease-in-out opacity-1..."
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="absolute inset-0"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <img>
+                                          <ImagePreload>
+                                          <div
+                                            className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to..."
+-                                           bis_skin_checked="1"
+                                          >
+                                          <div
+                                            className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent..."
+-                                           bis_skin_checked="1"
+                                          >
+                                        <div
+                                          className="relative h-full flex items-center"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 w-full"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="max-w-2xl"
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="inline-block mb-4 animate-fadeInUp"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <div
+                                                className="inline-block mb-4 animate-fadeInUp delay-200"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <h2>
+                                              <p>
+                                              <div
+                                                className="flex flex-wrap gap-3 mb-8 animate-fadeInUp delay-500"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <div
+                                                className="flex flex-wrap gap-4 animate-fadeInUp delay-600"
+-                                               bis_skin_checked="1"
+                                              >
+                                      <div
+                                        className="absolute inset-0 transition-all duration-1000 ease-in-out opacity-0..."
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="absolute inset-0"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <img>
+                                          <div
+                                            className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to..."
+-                                           bis_skin_checked="1"
+                                          >
+                                          <div
+                                            className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent..."
+-                                           bis_skin_checked="1"
+                                          >
+                                        <div
+                                          className="relative h-full flex items-center"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 w-full"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="max-w-2xl"
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="inline-block mb-4 animate-fadeInUp"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <div
+                                                className="inline-block mb-4 animate-fadeInUp delay-200"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <h2>
+                                              <p>
+                                              <div
+                                                className="flex flex-wrap gap-3 mb-8 animate-fadeInUp delay-500"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <div
+                                                className="flex flex-wrap gap-4 animate-fadeInUp delay-600"
+-                                               bis_skin_checked="1"
+                                              >
+                                      <div
+                                        className="absolute inset-0 transition-all duration-1000 ease-in-out opacity-0..."
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="absolute inset-0"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <img>
+                                          <div
+                                            className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to..."
+-                                           bis_skin_checked="1"
+                                          >
+                                          <div
+                                            className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent..."
+-                                           bis_skin_checked="1"
+                                          >
+                                        <div
+                                          className="relative h-full flex items-center"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 w-full"
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="max-w-2xl"
+-                                             bis_skin_checked="1"
+                                            >
+                                              <div
+                                                className="inline-block mb-4 animate-fadeInUp"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <div
+                                                className="inline-block mb-4 animate-fadeInUp delay-200"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <h2>
+                                              <p>
+                                              <div
+                                                className="flex flex-wrap gap-3 mb-8 animate-fadeInUp delay-500"
+-                                               bis_skin_checked="1"
+                                              >
+                                              <div
+                                                className="flex flex-wrap gap-4 animate-fadeInUp delay-600"
+-                                               bis_skin_checked="1"
+                                              >
+                                    <button>
+                                    <button>
+                                    <div
+                                      className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-10"
+-                                     bis_skin_checked="1"
+                                    >
+                                    <div
+                                      className="absolute bottom-0 left-0 w-full h-1 bg-white/10"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="h-full bg-gradient-to-r from-[#bc1215] to-[#046bd2] transition-all ..."
+                                        style={{width:"33.3333333..."}}
+-                                       bis_skin_checked="1"
+                                      >
+                              <TrendingProduct>
+                                <section className="max-w-[134...">
+                                  <div
+                                    className="flex flex-col md:flex-row justify-between items-start md:items-center m..."
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="flex-1"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="flex items-center gap-3 mb-3"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="w-1 h-8 bg-gradient-to-b from-[#ec3137] to-[#046bd2]"
+-                                         bis_skin_checked="1"
+                                        >
+                                        ...
+                                      ...
+                                    ...
+                                  <div
+                                    className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="animate-pulse"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="aspect-square bg-gray-200 rounded"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-2 h-4 bg-gray-200 rounded w-3/4"
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="mt-1 h-4 bg-gray-200 rounded w-1/2"
+-                                       bis_skin_checked="1"
+                                      >
+                              <Categories>
+                                <section className="py-20 bg-w...">
+                                  <div
+                                    className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="text-center mb-16"
+-                                     bis_skin_checked="1"
+                                    >
+                                    <div
+                                      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 m..."
+-                                     bis_skin_checked="1"
+                                    >
+                              <RecentlySold>
+                                <section className="bg-gray-50...">
+                                  <div
+                                    className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="flex flex-col md:flex-row justify-between items-start md:items-center..."
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="flex-1"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="flex items-center gap-3 mb-3"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="w-1 h-8 bg-green-500"
+-                                           bis_skin_checked="1"
+                                          >
+                                          ...
+                                        ...
+                                      ...
+                                    <div
+                                      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                              <NewArrivals>
+                                <section className="bg-gray-50...">
+                                  <div
+                                    className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="flex flex-col md:flex-row justify-between items-start md:items-center..."
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="flex-1"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="flex items-center gap-3 mb-3"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="w-1 h-8 bg-[#046bd2]"
+-                                           bis_skin_checked="1"
+                                          >
+                                          ...
+                                        ...
+                                      ...
+                                    <div
+                                      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                              <section className="max-w-[134...">
+                                <div
+                                  className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+-                                 bis_skin_checked="1"
+                                >
+                                  <LinkComponent href="/products?..." className="group rela...">
+                                    <a className="group rela..." ref={function} onClick={function onClick} ...>
+                                      <div
+                                        className="relative h-72 lg:h-80 bg-gradient-to-br from-[#046bd2] to-[#0353a5]"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <img>
+                                        <div
+                                          className="absolute inset-0 bg-gradient-to-r from-[#046bd2]/80 to-transparent"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="absolute inset-0 flex flex-col items-start justify-center text-wh..."
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="transform group-hover:translate-x-2 transition-transform durati..."
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm text-xs f..."
+-                                             bis_skin_checked="1"
+                                            >
++                                             সীমিত অফার
+                                            ...
+                                        <div
+                                          className="absolute top-0 right-0 w-32 h-32 bg-white/10 transform rotate-45 ..."
+-                                         bis_skin_checked="1"
+                                        >
+                                  <LinkComponent href="/products?..." className="group rela...">
+                                    <a className="group rela..." ref={function} onClick={function onClick} ...>
+                                      <div
+                                        className="relative h-72 lg:h-80 bg-gradient-to-br from-[#ec3137] to-[#8a0f12]"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <img>
+                                        <div
+                                          className="absolute inset-0 bg-gradient-to-r from-[#ec3137]/80 to-transparent"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="absolute inset-0 flex flex-col items-start justify-center text-wh..."
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="transform group-hover:translate-x-2 transition-transform durati..."
+-                                           bis_skin_checked="1"
+                                          >
+                                            <div
+                                              className="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm text-xs f..."
+-                                             bis_skin_checked="1"
+                                            >
++                                             বেস্ট সেলার
+                                            ...
+                                        <div
+                                          className="absolute top-0 right-0 w-32 h-32 bg-white/10 transform rotate-45 ..."
+-                                         bis_skin_checked="1"
+                                        >
+                              <RecomendedYou>
+                                <section className="bg-gray-50...">
+                                  <div
+                                    className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="flex flex-col md:flex-row justify-between items-start md:items-center..."
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="flex-1"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="flex items-center gap-3 mb-3"
+-                                         bis_skin_checked="1"
+                                        >
+                                          <div
+                                            className="w-1 h-8 bg-purple-600"
+-                                           bis_skin_checked="1"
+                                          >
+                                          ...
+                                        ...
+                                      ...
+                                    <div
+                                      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                                      <div
+                                        className="animate-pulse"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="aspect-square bg-gray-200 dark:bg-gray-700 rounded"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"
+-                                         bis_skin_checked="1"
+                                        >
+                                        <div
+                                          className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"
+-                                         bis_skin_checked="1"
+                                        >
+                              <section className="bg-gray-50...">
+                                <div
+                                  className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12"
+-                                 bis_skin_checked="1"
+                                >
+                                  <div
+                                    className="text-center mb-16"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-[#046bd2]/..."
+-                                     bis_skin_checked="1"
+                                    >
+                                    ...
+                                  <div
+                                    className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="group bg-white dark:bg-gray-900 p-8 shadow-lg hover:shadow-2xl transi..."
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="absolute top-0 right-0 w-20 h-20 bg-[#ec3137]/5 transform rotate-45..."
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="flex items-center mb-5"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="w-14 h-14 bg-gradient-to-br from-[#ec3137] to-[#8a0f12] flex item..."
+-                                         bis_skin_checked="1"
+                                        >
++                                         M
+                                        <div
+-                                         bis_skin_checked="1"
+                                        >
+                                          <h4>
+                                          <div
+                                            className="flex items-center mt-1"
+-                                           bis_skin_checked="1"
+                                          >
+                                      <div
+                                        className="relative"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="group bg-white dark:bg-gray-900 p-8 shadow-lg hover:shadow-2xl transi..."
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="absolute top-0 right-0 w-20 h-20 bg-[#046bd2]/5 transform rotate-45..."
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="flex items-center mb-5"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="w-14 h-14 bg-gradient-to-br from-[#046bd2] to-[#0353a5] flex item..."
+-                                         bis_skin_checked="1"
+                                        >
++                                         A
+                                        <div
+-                                         bis_skin_checked="1"
+                                        >
+                                          <h4>
+                                          <div
+                                            className="flex items-center mt-1"
+-                                           bis_skin_checked="1"
+                                          >
+                                      <div
+                                        className="relative"
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="group bg-white dark:bg-gray-900 p-8 shadow-lg hover:shadow-2xl transi..."
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="absolute top-0 right-0 w-20 h-20 bg-[#ec3137]/5 transform rotate-45..."
+-                                       bis_skin_checked="1"
+                                      >
+                                      <div
+                                        className="flex items-center mb-5"
+-                                       bis_skin_checked="1"
+                                      >
+                                        <div
+                                          className="w-14 h-14 bg-gradient-to-br from-[#ec3137] to-[#8a0f12] flex item..."
+-                                         bis_skin_checked="1"
+                                        >
++                                         F
+                                        <div
+-                                         bis_skin_checked="1"
+                                        >
+                                          <h4>
+                                          <div
+                                            className="flex items-center mt-1"
+-                                           bis_skin_checked="1"
+                                          >
+                                      <div
+                                        className="relative"
+-                                       bis_skin_checked="1"
+                                      >
+                              <section className="bg-gradien...">
+                                <div
+                                  className="absolute inset-0 opacity-10"
+-                                 bis_skin_checked="1"
+                                >
+                                  <div
+                                    className="absolute top-10 left-10 w-64 h-64 bg-white transform rotate-45"
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+                                    className="absolute bottom-10 right-10 w-64 h-64 bg-white transform -rotate-45"
+-                                   bis_skin_checked="1"
+                                  >
+                                <div
+                                  className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 relative z-10"
+-                                 bis_skin_checked="1"
+                                >
+                                  <div
+                                    className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12"
+-                                   bis_skin_checked="1"
+                                  >
+                                    <div
+                                      className="group text-center transform hover:scale-105 transition-all duration-500"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="w-20 h-20 bg-white/20 backdrop-blur-sm flex items-center justify-ce..."
+-                                       bis_skin_checked="1"
+                                      >
+                                      <h3>
+                                      <p>
+                                      <div
+                                        className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all d..."
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="group text-center transform hover:scale-105 transition-all duration-500"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="w-20 h-20 bg-white/20 backdrop-blur-sm flex items-center justify-ce..."
+-                                       bis_skin_checked="1"
+                                      >
+                                      <h3>
+                                      <p>
+                                      <div
+                                        className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all d..."
+-                                       bis_skin_checked="1"
+                                      >
+                                    <div
+                                      className="group text-center transform hover:scale-105 transition-all duration-500"
+-                                     bis_skin_checked="1"
+                                    >
+                                      <div
+                                        className="w-20 h-20 bg-white/20 backdrop-blur-sm flex items-center justify-ce..."
+-                                       bis_skin_checked="1"
+                                      >
+                                      <h3>
+                                      <p>
+                                      <div
+                                        className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all d..."
+-                                       bis_skin_checked="1"
+                                      >
+                              ...
+                      ...
+                    <Footer>
+                      <footer className="bg-gray-10...">
+                        <div
+                          className="max-w-[1192px] mx-auto px-4 py-12"
+-                         bis_skin_checked="1"
+                        >
+                          <div
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12"
+-                           bis_skin_checked="1"
+                          >
+                            <div
+                              className="col-span-1"
+-                             bis_skin_checked="1"
+                            >
+                              <LinkComponent href="/" className="inline-blo...">
+                                <a className="inline-blo..." ref={function} onClick={function onClick} ...>
+                                  <div
+                                    className="bg-white p-2.5 rounded-lg"
+-                                   bis_skin_checked="1"
+                                  >
+                              <p>
+                              <div
+                                className="flex items-center gap-3 mt-6"
+-                               bis_skin_checked="1"
+                              >
+                            <div
+-                             bis_skin_checked="1"
+                            >
+                            <div
+-                             bis_skin_checked="1"
+                            >
+                            <div
+-                             bis_skin_checked="1"
+                            >
+                              <h3>
+                              <ul className="space-y-4">
+                                <li className="flex items...">
+                                  <div
+                                    className="w-10 h-10 bg-gray-200 dark:bg-[#2a2a2a] rounded-full flex items-center ..."
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+-                                   bis_skin_checked="1"
+                                  >
+                                <li className="flex items...">
+                                  <div
+                                    className="w-10 h-10 bg-gray-200 dark:bg-[#2a2a2a] rounded-full flex items-center ..."
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+-                                   bis_skin_checked="1"
+                                  >
+                                <li className="flex items...">
+                                  <div
+                                    className="w-10 h-10 bg-gray-200 dark:bg-[#2a2a2a] rounded-full flex items-center ..."
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+-                                   bis_skin_checked="1"
+                                  >
+                        <div
+                          className="border-t border-gray-300 dark:border-gray-800"
+-                         bis_skin_checked="1"
+                        >
+                          <div
+                            className="max-w-[1192px] mx-auto px-4 py-6"
+-                           bis_skin_checked="1"
+                          >
+                            <div
+                              className="flex flex-col md:flex-row justify-between items-center gap-4"
+-                             bis_skin_checked="1"
+                            >
+                              <p>
+                              <div
+                                className="flex items-center gap-4"
+-                               bis_skin_checked="1"
+                              >
+                                <span>
+                                <div
+                                  className="flex gap-2"
+-                                 bis_skin_checked="1"
+                                >
+                                  <div
+                                    className="bg-white px-3 py-1.5 rounded-lg"
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+                                    className="bg-white px-3 py-1.5 rounded-lg"
+-                                   bis_skin_checked="1"
+                                  >
+                                  <div
+                                    className="bg-white px-3 py-1.5 rounded-lg"
+-                                   bis_skin_checked="1"
+                                  >
+                    ...
+
+[01:33:34.924] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:33:34.924] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:33:34.924] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:33:34.924] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:33:34.924] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:33:34.924] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:33:34.924] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:33:34.924] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:33:34.924] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:33:34.924] Browser LOG     Theme initialized to light mode
+[01:33:34.924] Browser LOG     HTML classes: 
+[01:33:34.924] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:33:35.537] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:35.538] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:35.538] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:35.538] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:35.675] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:33:35.675] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1774967824_69cbdc1044a82_fishing-rod.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[01:33:35.858] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:17.950] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/src/lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:34:17.971] Server  LOG     ✓ Compiled in 23ms
+[01:34:18.603] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:34:18.819] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:34:18.819] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:34:18.819] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:34:18.819] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:34:18.819] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:34:18.819] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:34:18.819] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:34:18.819] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:34:18.819] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:34:18.819] Browser LOG     Theme initialized to light mode
+[01:34:18.819] Browser LOG     HTML classes: 
+[01:34:18.819] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:34:19.040] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:19.040] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:19.040] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:19.040] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:19.040] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:19.040] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:19.040] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1774967824_69cbdc1044a82_fishing-rod.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[01:34:54.643] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/src/lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:34:54.659] Server  LOG     ✓ Compiled in 34ms
+[01:34:55.161] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:34:55.355] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:34:55.355] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:34:55.355] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:34:55.355] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:34:55.355] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:34:55.355] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:34:55.355] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:34:55.355] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:34:55.355] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:34:55.355] Browser LOG     Theme initialized to light mode
+[01:34:55.355] Browser LOG     HTML classes: 
+[01:34:55.355] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:34:55.502] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:55.502] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:55.502] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:55.502] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:55.502] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:34:55.502] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:35:23.868] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/src/lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:35:23.982] Server  LOG     ✓ Compiled in 43ms
+[01:35:24.281] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:35:24.640] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:35:24.640] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:35:24.640] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:35:24.640] Browser LOG     Theme initialized to light mode
+[01:35:24.640] Browser LOG     HTML classes: 
+[01:35:24.640] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:35:24.640] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:37:14.781] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./hooknhunt-ui/src/lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:37:14.800] Server  LOG     ✓ Compiled in 30ms
+[01:37:15.344] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:37:15.560] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:37:15.560] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:37:15.560] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:37:15.560] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:37:15.560] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:37:15.560] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:37:15.560] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:37:15.560] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:37:15.560] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:37:15.560] Browser LOG     Theme initialized to light mode
+[01:37:15.560] Browser LOG     HTML classes: 
+[01:37:15.560] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:37:16.158] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:37:16.160] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:37:16.160] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:37:16.160] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:37:16.160] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:37:16.160] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:38:51.498] Server  LOG     ✓ Compiled in 104ms
+[01:38:54.477] Server  LOG     ✓ Compiled in 49ms
+[01:42:40.849] Server  LOG     ✓ Compiled in 271ms
+[01:43:52.182] Server  LOG     ✓ Compiled in 153ms
+[01:45:26.841] Server  LOG     ✓ Compiled in 80ms
+[01:45:40.254] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:45:40.470] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:45:40.470] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:45:40.470] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:45:40.470] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:45:40.470] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:45:40.470] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:45:40.470] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:45:40.470] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:45:40.470] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:45:40.470] Browser LOG     Theme initialized to light mode
+[01:45:40.470] Browser LOG     HTML classes: 
+[01:45:40.470] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:45:41.140] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:45:41.141] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:45:41.141] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:45:41.141] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:45:41.141] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:45:41.141] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:45:41.276] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1774967824_69cbdc1044a82_fishing-rod.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[01:46:10.411] Server  LOG     ✓ Compiled in 156ms
+[01:46:23.068] Server  LOG     ✓ Compiled in 97ms
+[01:46:47.783] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:46:48.003] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:46:48.003] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:46:48.003] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:46:48.003] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:46:48.003] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:46:48.003] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:46:48.003] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:46:48.003] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:46:48.003] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:46:48.003] Browser LOG     Theme initialized to light mode
+[01:46:48.003] Browser LOG     HTML classes: 
+[01:46:48.003] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:46:48.607] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:46:48.608] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:46:48.608] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:46:48.608] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:46:48.608] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:46:48.608] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:46:48.742] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1774967824_69cbdc1044a82_fishing-rod.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[01:47:57.513] Server  LOG     ✓ Compiled in 182ms
+[01:48:34.308] Server  LOG     ✓ Compiled in 179ms
+[01:49:26.797] Server  LOG     ✓ Compiled in 108ms
+[01:50:00.177] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[01:50:00.177] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/hot-deals?limit=24"}
+[01:50:00.177] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/hot-deals?limit=24"}
+[01:50:00.297] Server  LOG     ✓ Compiled in 98ms
+[01:50:01.169] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:01.170] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:07.483] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:50:07.483] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:50:07.483] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:07.483] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:14.593] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:50:14.594] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:51:41.457] Server  LOG     ✓ Compiled in 236ms
+[01:51:41.598] Browser ERROR   ./hooknhunt-ui/src/components/home/TrendingProduct.tsx:73:1
+Parsing ecmascript source code failed
+  71 |     </section>
+  72 |   );
+> 73 | }
+     | ^
+  74 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+[01:51:52.273] Server  ERROR   ⨯ ./hooknhunt-ui/src/components/home/TrendingProduct.tsx:73:1
+Parsing ecmascript source code failed
+  71 |     </section>
+  72 |   );
+> 73 | }
+     | ^
+  74 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+
+[01:51:52.400] Browser ERROR   ./hooknhunt-ui/src/components/home/TrendingProduct.tsx:73:1
+Parsing ecmascript source code failed
+  71 |     </section>
+  72 |   );
+> 73 | }
+     | ^
+  74 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+[01:51:53.249] Browser ERROR   ./hooknhunt-ui/src/components/home/TrendingProduct.tsx:73:1
+Parsing ecmascript source code failed
+  71 |     </section>
+  72 |   );
+> 73 | }
+     | ^
+  74 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+[01:51:53.413] Browser ERROR   ./hooknhunt-ui/src/components/home/TrendingProduct.tsx:73:1
+Parsing ecmascript source code failed
+  71 |     </section>
+  72 |   );
+> 73 | }
+     | ^
+  74 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+[01:51:53.946] Browser ERROR   uncaughtError: Error: ./hooknhunt-ui/src/components/home/TrendingProduct.tsx:73:1
+Parsing ecmascript source code failed
+  71 |     </section>
+  72 |   );
+> 73 | }
+     | ^
+  74 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+
+[01:51:54.153] Browser ERROR   ./hooknhunt-ui/src/components/home/TrendingProduct.tsx:73:1
+Parsing ecmascript source code failed
+  71 |     </section>
+  72 |   );
+> 73 | }
+     | ^
+  74 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+[01:51:54.153] Browser ERROR   ./hooknhunt-ui/src/components/home/TrendingProduct.tsx:73:1
+Parsing ecmascript source code failed
+  71 |     </section>
+  72 |   );
+> 73 | }
+     | ^
+  74 |
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/components/home/TrendingProduct.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+[01:51:55.388] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:51:55.614] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:51:55.614] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:51:55.614] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:51:55.614] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:51:55.614] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:51:55.614] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:51:55.614] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:51:55.614] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:51:55.614] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:51:55.614] Browser LOG     Theme initialized to light mode
+[01:51:55.614] Browser LOG     HTML classes: 
+[01:51:55.614] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:51:55.903] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:51:55.903] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:51:55.903] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:51:55.903] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:51:55.903] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:51:55.904] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:06.910] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:53:07.152] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:53:07.152] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:53:07.152] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:53:07.152] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:53:07.152] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:53:07.152] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:53:07.152] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:53:07.152] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:53:07.152] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:53:07.152] Browser LOG     Theme initialized to light mode
+[01:53:07.152] Browser LOG     HTML classes: 
+[01:53:07.152] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:53:07.320] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:07.320] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:07.320] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:07.320] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:07.320] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:07.320] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:15.567] Server  LOG     ✓ Compiled in 136ms
+[01:53:45.472] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:53:45.709] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:53:45.709] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:53:45.709] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:53:45.709] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:53:45.709] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:53:45.709] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:53:45.709] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:53:45.709] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:53:45.709] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:53:45.709] Browser LOG     Theme initialized to light mode
+[01:53:45.709] Browser LOG     HTML classes: 
+[01:53:45.709] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:53:46.184] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:46.184] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:46.184] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:46.184] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:46.184] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:53:46.184] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:55:23.827] Server  LOG     ✓ Compiled in 265ms
+[01:55:51.065] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:55:51.283] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:55:51.283] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[01:55:51.283] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:55:51.283] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[01:55:51.283] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[01:55:51.283] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[01:55:51.283] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:55:51.283] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:55:51.283] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:55:51.283] Browser LOG     Theme initialized to light mode
+[01:55:51.283] Browser LOG     HTML classes: 
+[01:55:51.283] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:55:51.924] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:55:51.924] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:55:51.924] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:55:51.924] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:55:51.924] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:55:51.924] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:56:31.069] Server  LOG     ✓ Compiled in 119ms
+[01:58:26.905] Server  LOG     ✓ Compiled in 149ms
+[01:58:27.012] Browser ERROR   ./hooknhunt-ui/src/app/page.tsx:93:18
+Parsing ecmascript source code failed
+  91 |           </Link>
+  92 |         </div>
+> 93 |       </section >
+     |                  ^
+> 94 |
+     | ^
+> 95 |       {/* Recommended for You - Personalization */}
+     | ^^^^^^^
+  96 |       <RecomendedYou />
+  97 |
+  98 |       {/* Customer Reviews - Trust & Social Proof */}
+
+Expected '</', got 'jsx text (
+
+      )'
+
+Import traces:
+  Client Component Browser:
+    ./hooknhunt-ui/src/app/page.tsx [Client Component Browser]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./hooknhunt-ui/src/app/page.tsx [Client Component SSR]
+    ./hooknhunt-ui/src/app/page.tsx [Server Component]
+[01:59:35.586] Server  LOG     ✓ Compiled in 219ms
+[02:01:44.795] Server  LOG     ✓ Compiled in 183ms
+[02:03:31.663] Server  LOG     ✓ Compiled in 117ms
+[02:04:15.665] Server  LOG     ✓ Compiled in 117ms
+[02:05:54.722] Server  LOG     ✓ Compiled in 158ms
+[02:05:57.146] Server  LOG     ✓ Compiled in 54ms
+[02:06:54.371] Server  LOG     ✓ Compiled in 129ms
+[02:07:23.947] Server  LOG     ✓ Compiled in 84ms
+[02:08:34.140] Server  LOG     ✓ Compiled in 125ms
+[02:08:37.689] Server  LOG     ✓ Compiled in 220ms
+[02:08:43.661] Server  LOG     ✓ Compiled in 50ms
+[02:08:46.819] Server  LOG     ✓ Compiled in 48ms
+[02:08:50.343] Server  LOG     ✓ Compiled in 90ms
+[02:08:53.694] Server  LOG     ✓ Compiled in 55ms
+[03:43:43.969] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[03:43:43.969] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float"}
+[03:43:43.969] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[03:43:43.969] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float"}
+[03:43:43.969] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[03:43:44.850] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:43:44.850] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:43:44.850] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:43:44.850] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:44:52.635] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[03:44:52.635] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[03:44:52.635] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[03:44:52.635] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[03:44:52.635] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[03:44:52.635] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[03:44:52.635] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[03:44:52.635] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[03:44:52.863] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:44:52.863] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:44:52.863] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:44:52.863] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:44:52.863] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:44:52.863] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:44:52.863] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:44:52.863] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:32.407] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:45:32.595] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[03:45:32.595] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[03:45:32.595] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[03:45:32.595] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[03:45:32.595] Browser LOG     Theme initialized to light mode
+[03:45:32.595] Browser LOG     HTML classes: 
+[03:45:32.595] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[03:45:33.040] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:35.288] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[03:45:35.288] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[03:45:35.288] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[03:45:35.288] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[03:45:35.288] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[03:45:35.288] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
+[03:45:35.288] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
+[03:45:35.288] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[03:45:35.288] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
+[03:45:35.471] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:35.471] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:35.471] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:35.471] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:35.471] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:35.471] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:35.471] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:45:35.471] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:47:00.907] Server  LOG     ✓ Compiled in 165ms
+[03:47:04.328] Server  LOG     ✓ Compiled in 230ms
+[03:47:07.730] Server  LOG     ✓ Compiled in 71ms
+[03:47:12.835] Server  LOG     ✓ Compiled in 60ms
+[03:48:56.573] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float"}
+[03:48:56.573] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[03:48:56.573] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float"}
+[03:48:56.573] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[03:48:57.089] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:48:57.089] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:48:57.089] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:48:57.089] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:49:00.581] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[03:49:00.581] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
+[03:49:00.709] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[03:49:00.709] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}

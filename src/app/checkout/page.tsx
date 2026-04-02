@@ -381,8 +381,8 @@ export default function CheckoutPage() {
 
   // Handle OTP verification
   const handleOtpVerification = async () => {
-    if (!otpCode || otpCode.length !== 6) {
-      setOtpError('Please enter a valid 6-digit OTP code');
+    if (!otpCode || otpCode.length !== 5) {
+      setOtpError('Please enter a valid 5-digit OTP code');
       return;
     }
 
@@ -1183,19 +1183,19 @@ export default function CheckoutPage() {
             {/* Instructions */}
             <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
               <p className="text-sm text-blue-900 dark:text-blue-100 text-center">
-                We've sent a 6-digit verification code to <strong>{pendingOrder.phone_number}</strong>. Please enter the code below to confirm your order.
+                We've sent a 5-digit verification code to <strong>{pendingOrder.phone_number}</strong>. Please enter the code below to confirm your order.
               </p>
             </div>
 
             {/* OTP Input */}
             <div className="mb-4">
               <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 text-center">
-                Enter 6-digit OTP Code
+                Enter 5-digit OTP Code
               </label>
               <input
                 type="text"
                 inputMode="numeric"
-                maxLength={6}
+                maxLength={5}
                 value={otpCode}
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, '');
@@ -1222,7 +1222,7 @@ export default function CheckoutPage() {
             {/* Verify Button */}
             <button
               onClick={handleOtpVerification}
-              disabled={otpLoading || otpCode.length !== 6}
+              disabled={otpLoading || otpCode.length !== 5}
               className="w-full py-4 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] hover:from-[#8a0f12] hover:to-[#ec3137] text-white font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg transform hover:scale-[1.02] rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none mb-3"
             >
               {otpLoading ? (

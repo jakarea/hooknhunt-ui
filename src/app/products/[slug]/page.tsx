@@ -198,7 +198,7 @@ function ProductDetailPageContent() {
       },
       description: apiProduct.description || '',
       short_description: apiProduct.shortDescription || '',
-      highlights: (apiProduct.highlights || []).map(h => h.replace(/\u00A0/g, ' ')),
+      highlights: (apiProduct.highlights || []).map(h => decodeHtmlEntities(h.replace(/\u00A0/g, ' '))),
       meta_title: apiProduct.seoTitle || apiProduct.name,
       meta_description: apiProduct.seoDescription || apiProduct.shortDescription || '',
       variants: uiVariants,

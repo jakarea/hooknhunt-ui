@@ -27,7 +27,19 @@ export const useCategoryStore = create<CategoryState>((set, get) => ({
 
       // API returns paginated: { data: { data: Category[], total: number } }
       const paginatedData = response.data as unknown as { data: Category[]; total: number };
-      const categories = paginatedData?.data ?? [];
+      const rawCategories = paginatedData?.data ?? [];
+
+      // Decode HTML entities in category names (API returns e.g. "Bags &amp; Accessories")
+      const categories = rawCategories.map(cat => ({
+        ...cat,
+        name: cat.name
+          .replace(/&amp;/g, '&')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&quot;/g, '"')
+          .replace(/&#39;/g, "'")
+          .replace(/&nbsp;/g, ' '),
+      }));
 
       set({ categories, loading: false, fetched: true });
     } catch (error: unknown) {

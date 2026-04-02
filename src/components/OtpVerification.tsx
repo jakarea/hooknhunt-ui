@@ -113,7 +113,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
           Verify Your Phone
         </h2>
         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-          We&apos;ve sent a 6-digit code to <span className="font-semibold">{phone}</span>
+          We&apos;ve sent a 5-digit code to <span className="font-semibold">{phone}</span>
         </p>
       </div>
 
