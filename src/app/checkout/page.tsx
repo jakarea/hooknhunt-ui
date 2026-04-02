@@ -1203,7 +1203,7 @@ export default function CheckoutPage() {
                   setOtpError('');
                 }}
                 className="w-full px-4 py-4 text-2xl text-center tracking-widest border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors font-mono"
-                placeholder="000000"
+                placeholder="00000"
               />
             </div>
 

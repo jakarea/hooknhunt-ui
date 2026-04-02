@@ -9,8 +9,10 @@ interface OtpVerificationProps {
   isLoading?: boolean;
 }
 
+const OTP_LENGTH = 5;
+
 export default function OtpVerification({ phone, onVerify, onResend, isLoading = false }: OtpVerificationProps) {
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [otp, setOtp] = useState<string[]>(Array(OTP_LENGTH).fill(''));
   const [error, setError] = useState('');
   const [countdown, setCountdown] = useState(60);
   const [canResend, setCanResend] = useState(false);
@@ -35,12 +37,12 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
     setError('');
 
     // Auto-focus next input
-    if (value && index < 5) {
+    if (value && index < OTP_LENGTH - 1) {
       inputRefs.current[index + 1]?.focus();
     }
 
     // Auto-submit when all digits are filled
-    if (newOtp.every(digit => digit) && index === 5) {
+    if (newOtp.every(digit => digit) && index === OTP_LENGTH - 1) {
       handleSubmit(newOtp.join(''));
     }
   };
@@ -53,18 +55,18 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
 
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();
-    const pastedData = e.clipboardData.getData('text').slice(0, 6);
-    if (!/^\d+$/.test(pastedData)) return;
-
-    const newOtp = pastedData.split('').concat(Array(6).fill('')).slice(0, 6);
+    const pastedData = e.clipboardData.getData('text').slice(0, OTP_LENGTH);
+    if (!/^\d*$/.test(pastedData)) return;
+    const newOtp = pastedData.split('').concat(Array(OTP_LENGTH).fill('')).slice(0, OTP_LENGTH);
     setOtp(newOtp);
 
-    // Focus last filled input or next empty
     const lastFilledIndex = newOtp.findIndex(digit => !digit) - 1;
-    const focusIndex = lastFilledIndex >= 0 ? lastFilledIndex : 5;
-    inputRefs.current[focusIndex]?.focus();
+    if (lastFilledIndex >= 0) {
+      inputRefs.current[lastFilledIndex]?.focus();
+    } else {
+      inputRefs.current[OTP_LENGTH - 1]?.focus();
+    }
 
-    // Auto-submit if complete
     if (newOtp.every(digit => digit)) {
       handleSubmit(newOtp.join(''));
     }
@@ -77,7 +79,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
     } catch (err: unknown) {
       const error = err as Error;
       setError(error.message || 'Invalid OTP. Please try again.');
-      setOtp(['', '', '', '', '', '']);
+      setOtp(Array(OTP_LENGTH).fill(''));
       inputRefs.current[0]?.focus();
     }
   };
@@ -88,7 +90,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
     setError('');
     setCountdown(60);
     setCanResend(false);
-    setOtp(['', '', '', '', '', '']);
+    setOtp(Array(OTP_LENGTH).fill(''));
 
     try {
       await onResend();
@@ -113,7 +115,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
           Verify Your Phone
         </h2>
         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-          We&apos;ve sent a 5-digit code to <span className="font-semibold">{phone}</span>
+          We&apos;ve sent a {OTP_LENGTH}-digit code to <span className="font-semibold">{phone}</span>
         </p>
       </div>
 
