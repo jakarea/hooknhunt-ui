@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import ProductCard from '@/components/product/ProductCard';
 import api from '@/lib/api';
 import { mapApiProduct, ApiProduct } from '@/stores/productStore';
 import { Product } from '@/types';
 
 export default function RecomendedYou() {
+  const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,13 +36,13 @@ export default function RecomendedYou() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-1 h-8 bg-purple-600"></div>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">Recommended for You</h2>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">{t('home.recommended.title')}</h2>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl ml-4">Curated picks based on your preferences</p>
+            <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl ml-4">{t('home.recommended.subtitle')}</p>
           </div>
           <Link href="/products?sort=recommended" className="group">
-            <span className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-              View All Recommended
+            <span className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 rounded-lg">
+              {t('home.recommended.viewAllLink')}
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>

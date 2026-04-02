@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import ProductCard from '@/components/product/ProductCard';
 import api from '@/lib/api';
 import { mapApiProduct, ApiProduct } from '@/stores/productStore';
 import { Product } from '@/types';
 
 export default function NewArrivals() {
+  const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,19 +30,19 @@ export default function NewArrivals() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="bg-gray-50 dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
+    <section className="bg-[#fcf8f6] dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
       <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-1 h-8 bg-[#046bd2]"></div>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">New Arrivals</h2>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">{t('home.newArrival.title')}</h2>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl ml-4">Fresh products just added</p>
+            <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl ml-4">{t('home.newArrival.subtitle')}</p>
           </div>
           <Link href="/products?sort=newest" className="group">
-            <span className="inline-flex items-center gap-2 px-6 py-3 bg-[#046bd2] text-white font-semibold hover:bg-[#0353a5] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-              View All New Arrivals
+            <span className="inline-flex items-center gap-2 px-6 py-3 bg-[#046bd2] text-white font-semibold hover:bg-[#0353a5] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 rounded-lg">
+              {t('home.newArrival.viewAll')}
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>

@@ -98,7 +98,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
           {/* Discount Badge */}
           {discount > 0 && (
-            <div className="absolute top-2 right-2 bg-[#bc1215] text-white px-2 py-1 text-xs font-bold">
+            <div className="absolute top-2 right-2 bg-[#bc1215] text-white px-2 py-1 text-xs font-bold rounded-lg">
               {t('productCard.discount', { percent: discount })}
             </div>
           )}
@@ -162,7 +162,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         ) : productInCart ? (
           <button
             onClick={handleViewCart}
-            className="w-full py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02]"
+            className="w-full py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -176,7 +176,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </button>
         ) : (variant_count > 1) ? (
           // Multiple variants - show "View Details" button
-          <Link href={`/products/${product.slug}`} className="w-full py-2.5 bg-gray-600 hover:bg-gray-700 text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02]">
+          <Link href={`/products/${product.slug}`} className="w-full py-2.5 bg-gray-600 hover:bg-gray-700 text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -188,7 +188,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <button
             onClick={handleAddToCart}
             disabled={stock === 0 || price <= 0}
-            className={`w-full py-2.5 bg-[#bc1215] hover:bg-[#8a0e10] text-white font-semibold text-xs transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transform hover:scale-[1.02] ${isAdding ? 'scale-95 bg-[#8a0e10]' : ''
+            className={`w-full py-2.5 bg-[#bc1215] hover:bg-[#8a0e10] text-white font-semibold text-xs transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg ${isAdding ? 'scale-95 bg-[#8a0e10]' : ''
               }`}
           >
             <svg

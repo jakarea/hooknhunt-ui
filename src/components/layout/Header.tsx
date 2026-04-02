@@ -56,7 +56,7 @@ export default function Header() {
       <TopBar />
 
       {/* Main Header */}
-      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
+      <div className="bg-[#fcf8f6] dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
           <div className="flex items-center justify-between gap-4 py-3 sm:py-4">
             {/* Logo */}
@@ -77,7 +77,7 @@ export default function Header() {
                 <input
                   type="text"
                   placeholder={t('header.search')}
-                  className="w-full h-10 px-4 pr-12 text-sm border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:border-[#bc1215] transition-colors bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100"
+                  className="w-full h-10 px-4 pr-12 text-sm border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:border-[#bc1215] transition-colors bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 placeholder-gray-400"
                 />
                 <button className="absolute right-0 top-0 h-10 px-4 bg-[#bc1215] text-white rounded-r-md hover:bg-[#8a0e10] transition-colors">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,7 +218,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800 shadow-lg">
+        <div className="lg:hidden bg-[#fcf8f6] dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800 shadow-lg">
           <div className="px-4 py-4 space-y-4 max-h-[70vh] overflow-y-auto">
             {/* Mobile Search */}
             <div className="relative">

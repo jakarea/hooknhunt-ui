@@ -86,7 +86,8 @@ const resources = {
 
       // Home Page
       'home.categories.title': 'Shop by Category',
-      'home.categories.subtitle': 'Explore our wide range of fishing equipment',
+      'home.categories.subtitle': 'Find exactly what you\'re looking for',
+      'home.categories.viewAll': 'View All Categories',
 
       // Banners
       'home.banners.rods.title': 'Premium Rods',
@@ -101,9 +102,9 @@ const resources = {
       'home.popular.viewAll': 'View All',
 
       // New Arrival
-      'home.newArrival.title': 'New Arrival',
-      'home.newArrival.subtitle': 'Latest fishing equipment just arrived',
-      'home.newArrival.viewAll': 'View All',
+      'home.newArrival.title': 'New Arrivals',
+      'home.newArrival.subtitle': 'Fresh products just added',
+      'home.newArrival.viewAll': 'View All New Arrivals',
 
       // Best Deals
       'home.deals.title': 'Best Deals',
@@ -111,32 +112,50 @@ const resources = {
 
       // Trending Products
       'home.trending.title': 'Trending Products',
-      'home.trending.subtitle': 'Most popular items right now',
-      'home.trending.viewAll': 'View All',
+      'home.trending.subtitle': "Discover what's hot and popular right now",
+      'home.trending.viewAll': 'View All Trending',
 
       // Recently Sold
       'home.recentlySold.title': 'Recently Sold',
-      'home.recentlySold.subtitle': 'Products our customers just purchased',
-      'home.recentlySold.viewAll': 'View All',
+      'home.recentlySold.subtitle': 'See what others are buying',
+      'home.recentlySold.viewAll': 'View All Recently Sold',
 
       // Recommended for You
       'home.recommended.title': 'Recommended for You',
       'home.recommended.subtitle': 'Handpicked products based on your interests',
       'home.recommended.viewAll': 'View All',
+      'home.recommended.viewAllLink': 'View All Recommended',
 
       // Customer Reviews
       'home.reviews.title': 'Customer Reviews',
       'home.reviews.subtitle': 'What our customers say about us',
-      'home.reviews.review1.text': 'Excellent quality fishing rods! Fast delivery and great customer service. Very satisfied with my purchase.',
-      'home.reviews.review2.text': 'Best fishing equipment store in Bangladesh. Highly recommended for all fishing enthusiasts!',
-      'home.reviews.review3.text': 'Amazing products at competitive prices. Great variety and helpful staff. Will definitely buy again!',
+      'home.reviews.badge': 'Customer Feedback',
+      'home.reviews.headerSubtitle': 'See what our customers are saying',
+      'home.reviews.review1.name': 'Mohammed Rahman',
+      'home.reviews.review1.text': 'Amazing quality! The fishing rod exceeded my expectations. Highly recommended for serious anglers.',
+      'home.reviews.review2.name': 'Ahmed Khan',
+      'home.reviews.review2.text': 'Fast shipping and excellent customer service. The product arrived in perfect condition.',
+      'home.reviews.review3.name': 'Farhan Hossain',
+      'home.reviews.review3.text': 'Great value for money. The quality is outstanding and the price is very reasonable.',
 
       'home.features.shipping.title': 'Free Shipping',
       'home.features.shipping.description': 'On orders over 5000 BDT',
+      'home.features.shipping.featureDesc': 'Free delivery on orders over ৳5,000',
       'home.features.payment.title': 'Secure Payment',
       'home.features.payment.description': '100% secure transactions',
+      'home.features.payment.featureDesc': 'Safe and secure payment processing',
       'home.features.returns.title': 'Easy Returns',
       'home.features.returns.description': '7-day return policy',
+      'home.features.returns.featureDesc': '7-day hassle-free returns',
+
+      // Home Banners (mid-page)
+      'home.banner.rods.badge': 'Limited Offer',
+      'home.banner.rods.title': 'Fishing Rods Collection',
+      'home.banner.rods.subtitle': 'Professional grade rods for every angler',
+      'home.banner.reels.badge': 'Best Seller',
+      'home.banner.reels.title': 'Fishing Reels Collection',
+      'home.banner.reels.subtitle': 'High-performance reels for smooth fishing',
+      'home.banner.shopNow': 'Shop Now',
 
       // Hot Deals
       'hotDeals.title': 'Hot Deals',
@@ -403,6 +422,7 @@ const resources = {
       'hero.slide2.subtitle': 'মসৃণ। শক্তিশালী। নির্ভরযোগ্য।',
       'hero.slide2.description': 'আমাদের প্রিমিয়াম ফিশিং রিলের নির্বাচন সহ নির্ভুল ইঞ্জিনিয়ারিং অনুভব করুন',
       'hero.slide2.cta': 'রিল দেখুন',
+      'hero.slide3.title': 'লোর ও টোপ',
       'hero.slide3.subtitle': 'প্রতিটি মাছের কাছে অপ্রতিরোধ্য',
       'hero.slide3.description': 'সমস্ত মাছ ধরার অবস্থার জন্য আমাদের বিস্তৃত পরিসীমা লোর এবং টোপ ব্রাউজ করুন',
       'hero.slide3.cta': 'সংগ্রহ দেখুন',
@@ -410,7 +430,8 @@ const resources = {
 
       // Home Page
       'home.categories.title': 'ক্যাটাগরি অনুযায়ী কিনুন',
-      'home.categories.subtitle': 'আমাদের বিস্তৃত মাছ ধরার সরঞ্জাম দেখুন',
+      'home.categories.subtitle': 'আপনি যা খুঁজছেন তা সহজেই পান',
+      'home.categories.viewAll': 'সব ক্যাটাগরি দেখুন',
 
       // Banners
       'home.banners.rods.title': 'প্রিমিয়াম রড',
@@ -425,9 +446,9 @@ const resources = {
       'home.popular.viewAll': 'সব দেখুন',
 
       // New Arrival
-      'home.newArrival.title': 'নতুন আগমন',
-      'home.newArrival.subtitle': 'সদ্য আগত সর্বশেষ মাছ ধরার সরঞ্জাম',
-      'home.newArrival.viewAll': 'সব দেখুন',
+      'home.newArrival.title': 'নতুন পণ্য',
+      'home.newArrival.subtitle': 'সদ্য যুক্ত নতুন পণ্যসমূহ',
+      'home.newArrival.viewAll': 'সব নতুন পণ্য দেখুন',
 
       // Best Deals
       'home.deals.title': 'সেরা ডিল',
@@ -435,32 +456,50 @@ const resources = {
 
       // Trending Products
       'home.trending.title': 'ট্রেন্ডিং পণ্য',
-      'home.trending.subtitle': 'এই মুহূর্তে সবচেয়ে জনপ্রিয় আইটেম',
-      'home.trending.viewAll': 'সব দেখুন',
+      'home.trending.subtitle': 'এই মুহূর্তে সবচেয়ে জনপ্রিয় পণ্যগুলো দেখুন',
+      'home.trending.viewAll': 'সব ট্রেন্ডিং পণ্য দেখুন',
 
       // Recently Sold
       'home.recentlySold.title': 'সদ্য বিক্রিত',
-      'home.recentlySold.subtitle': 'আমাদের গ্রাহকরা সদ্য ক্রয় করেছেন',
-      'home.recentlySold.viewAll': 'সব দেখুন',
+      'home.recentlySold.subtitle': 'অন্যরা কী কিনছেন দেখুন',
+      'home.recentlySold.viewAll': 'সব সদ্য বিক্রিত পণ্য দেখুন',
 
       // Recommended for You
       'home.recommended.title': 'আপনার জন্য সুপারিশকৃত',
-      'home.recommended.subtitle': 'আপনার পছন্দের ভিত্তিতে নির্বাচিত পণ্য',
+      'home.recommended.subtitle': 'আপনার পছন্দের ভিত্তিতে বাছাই করা পণ্য',
       'home.recommended.viewAll': 'সব দেখুন',
+      'home.recommended.viewAllLink': 'সব সুপারিশকৃত পণ্য দেখুন',
 
       // Customer Reviews
       'home.reviews.title': 'গ্রাহক পর্যালোচনা',
       'home.reviews.subtitle': 'আমাদের গ্রাহকরা আমাদের সম্পর্কে কী বলেন',
-      'home.reviews.review1.text': 'চমৎকার মানের ফিশিং রড! দ্রুত ডেলিভারি এবং দুর্দান্ত গ্রাহক সেবা। আমার ক্রয়ে খুবই সন্তুষ্ট।',
-      'home.reviews.review2.text': 'বাংলাদেশের সেরা মাছ ধরার সরঞ্জামের দোকান। সকল মাছ ধরার উৎসাহীদের জন্য অত্যন্ত সুপারিশকৃত!',
-      'home.reviews.review3.text': 'প্রতিযোগিতামূলক দামে আশ্চর্যজনক পণ্য। দুর্দান্ত বৈচিত্র্য এবং সহায়ক কর্মী। অবশ্যই আবার কিনব!',
+      'home.reviews.badge': 'গ্রাহকদের মতামত',
+      'home.reviews.headerSubtitle': 'আমাদের গ্রাহকরা কী বলছেন দেখুন',
+      'home.reviews.review1.name': 'মোহাম্মদ রহমান',
+      'home.reviews.review1.text': 'অসাধারণ মান! ফিশিং রডটি আমার প্রত্যাশার চেয়ে অনেক ভালো। পেশাদার জেলেদের জন্য জোরালো সুপারিশ।',
+      'home.reviews.review2.name': 'আহমেদ খান',
+      'home.reviews.review2.text': 'দ্রুত ডেলিভারি এবং চমৎকার গ্রাহক সেবা। পণ্যটি নিখুঁত অবস্থায় পৌঁছেছে।',
+      'home.reviews.review3.name': 'ফারহান হোসেন',
+      'home.reviews.review3.text': 'দামের তুলনায় চমৎকার মান। পণ্যের গুণমান অসাধারণ এবং দাম অনেক সাশ্রয়ী।',
 
-      'home.features.shipping.title': 'বিনামূল্যে শিপিং',
-      'home.features.shipping.description': '৫০০০ টাকার উপরে অর্ডারে',
+      'home.features.shipping.title': 'বিনামূল্যে ডেলিভারি',
+      'home.features.shipping.description': '৫,০০০ টাকার উপরে অর্ডারে',
+      'home.features.shipping.featureDesc': '৫,০০০ টাকার উপরে অর্ডারে বিনামূল্যে ডেলিভারি',
       'home.features.payment.title': 'নিরাপদ পেমেন্ট',
       'home.features.payment.description': '১০০% নিরাপদ লেনদেন',
+      'home.features.payment.featureDesc': 'নিরাপদ ও সুরক্ষিত পেমেন্ট প্রক্রিয়া',
       'home.features.returns.title': 'সহজ রিটার্ন',
       'home.features.returns.description': '৭ দিনের রিটার্ন নীতি',
+      'home.features.returns.featureDesc': '৭ দিনের মধ্যে ঝামেলামুক্ত রিটার্ন',
+
+      // Home Banners (mid-page)
+      'home.banner.rods.badge': 'সীমিত অফার',
+      'home.banner.rods.title': 'ফিশিং রড কালেকশন',
+      'home.banner.rods.subtitle': 'প্রতিটি জেলের জন্য পেশাদার মানের রড',
+      'home.banner.reels.badge': 'বেস্ট সেলার',
+      'home.banner.reels.title': 'ফিশিং রিল কালেকশন',
+      'home.banner.reels.subtitle': 'মসৃণ মাছ ধরার জন্য হাই-পারফরম্যান্স রিল',
+      'home.banner.shopNow': 'এখনই কিনুন',
 
       // Hot Deals
       'hotDeals.title': 'হট ডিলস',
