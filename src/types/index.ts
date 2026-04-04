@@ -335,6 +335,22 @@ export interface SaleItem {
   updated_at: string;
 }
 
+// ✅ Slider (from /store/sliders API)
+export interface Slider {
+  image_url: string | null;
+  video_url: string | null;
+  capsule_title: string;
+  title: string;
+  sub_title: string;
+  features: string;
+  features_list: string[];
+  cta1_label: string | null;
+  cta1_link: string | null;
+  cta2_label: string | null;
+  cta2_link: string | null;
+  sort_order: number;
+}
+
 // ========================================
 // New Product Module Types (table.txt)
 // ========================================

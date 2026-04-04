@@ -1,30 +1,24 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
+import { useCouponStore } from '@/stores/couponStore';
 import AnimatedCounter from '@/components/common/AnimatedCounter';
 import { Address } from '@/types';
-import { OrderResponse } from '@/types/api';
 import { bangladeshDivisions } from '@/data/bangladesh-divisions';
 
 type PaymentMethod = 'cod' | 'sslcommerz';
-
-// Coupon types
-const availableCoupons = {
-  'SAVE10': { type: 'percentage' as const, value: 10 },
-  'SAVE100': { type: 'fixed' as const, value: 100 },
-  'SAVE200': { type: 'fixed' as const, value: 200 },
-  'FREESHIP': { type: 'shipping' as const, value: 0 },
-  'WELCOME20': { type: 'percentage' as const, value: 20 },
-};
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { cartItems, getCartTotal, clearCart, removeFromCart, updateQuantity } = useCart();
   const { user, isAuthenticated } = useAuth();
+  const { t } = useTranslation();
+  const couponStore = useCouponStore();
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
@@ -32,15 +26,8 @@ export default function CheckoutPage() {
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
   const [useDifferentAddress, setUseDifferentAddress] = useState(false);
 
-  // Coupon state
+  // Coupon input (local state only for the text field)
   const [couponCode, setCouponCode] = useState('');
-  const [appliedCoupon, setAppliedCoupon] = useState<{
-    code: string;
-    type: 'percentage' | 'fixed' | 'shipping';
-    value: number;
-  } | null>(null);
-  const [couponError, setCouponError] = useState('');
-  const [couponSuccess, setCouponSuccess] = useState('');
 
   // Customer info
   const [formData, setFormData] = useState({
@@ -100,11 +87,15 @@ export default function CheckoutPage() {
   const [otpLoading, setOtpLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
 
+  // Ref to prevent empty-cart redirect while order is being placed
+  const orderPlacedRef = useRef(false);
+
   useEffect(() => {
-    if (cartItems.length === 0) {
+    // Don't redirect if order is being placed (cart cleared intentionally)
+    if (cartItems.length === 0 && !showOtpModal && !orderPlacedRef.current) {
       router.push('/cart');
     }
-  }, [cartItems, router]);
+  }, [cartItems, router, showOtpModal]);
 
   // Pre-fill user data and fetch addresses when user is logged in
   useEffect(() => {
@@ -188,18 +179,10 @@ export default function CheckoutPage() {
   const deliveryCharge = 60;
   const freeDeliveryThreshold = 500;
 
-  let couponDiscount = 0;
-  let freeShipping = false;
-
-  if (appliedCoupon) {
-    if (appliedCoupon.type === 'percentage') {
-      couponDiscount = Math.round((subtotal * appliedCoupon.value) / 100);
-    } else if (appliedCoupon.type === 'fixed') {
-      couponDiscount = Math.min(appliedCoupon.value, subtotal);
-    } else if (appliedCoupon.type === 'shipping') {
-      freeShipping = true;
-    }
-  }
+  // Read coupon values from Zustand store (backend is source of truth)
+  const appliedCoupon = couponStore.appliedCoupon;
+  const couponDiscount = appliedCoupon?.discountAmount ?? 0;
+  const freeShipping = appliedCoupon?.type === 'shipping';
 
   const subtotalAfterCoupon = subtotal - couponDiscount;
   const totalCharges = freeShipping ? 0 : deliveryCharge;
@@ -216,49 +199,35 @@ export default function CheckoutPage() {
   }, 0);
   const totalSavings = (originalSubtotal - subtotal) + couponDiscount + (freeShipping ? deliveryCharge : 0);
 
-  // Apply coupon
-  const applyCoupon = () => {
-    setCouponError('');
-    setCouponSuccess('');
+  // Fetch auto-apply coupons on mount
+  useEffect(() => {
+    if (subtotal > 0) {
+      couponStore.fetchAutoApplyCoupons(subtotal);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  // Re-validate coupon when cart total changes
+  useEffect(() => {
+    if (couponStore.appliedCoupon && subtotal > 0) {
+      couponStore.validateAndApply(couponStore.appliedCoupon.code, subtotal);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subtotal]);
+
+  // Apply coupon via store
+  const handleApplyCoupon = async () => {
     const trimmedCode = couponCode.trim().toUpperCase();
-
-    if (!trimmedCode) {
-      setCouponError('Please enter a coupon code');
-      return;
+    if (!trimmedCode) return;
+    const success = await couponStore.validateAndApply(trimmedCode, subtotal);
+    if (success) {
+      setCouponCode('');
     }
-
-    const coupon = availableCoupons[trimmedCode as keyof typeof availableCoupons];
-
-    if (!coupon) {
-      setCouponError('Invalid coupon code');
-      return;
-    }
-
-    if (appliedCoupon && appliedCoupon.code === trimmedCode) {
-      setCouponError('This coupon is already applied');
-      return;
-    }
-
-    setAppliedCoupon({
-      code: trimmedCode,
-      type: coupon.type,
-      value: coupon.value,
-    });
-
-    setCouponSuccess(`Coupon "${trimmedCode}" applied successfully!`);
-    setCouponCode('');
-
-    setTimeout(() => {
-      setCouponSuccess('');
-    }, 3000);
   };
 
-  // Remove coupon
-  const removeCoupon = () => {
-    setAppliedCoupon(null);
-    setCouponError('');
-    setCouponSuccess('');
+  // Remove coupon via store
+  const handleRemoveCoupon = () => {
+    couponStore.removeCoupon();
     setCouponCode('');
   };
 
@@ -327,6 +296,7 @@ export default function CheckoutPage() {
         subtotal: subtotal,
         delivery_charge: deliveryCharge,
         coupon_discount: couponDiscount,
+        coupon_code: appliedCoupon?.code ?? null,
         total_amount: subtotal,
         payable_amount: payableTotal,
       };
@@ -351,10 +321,17 @@ export default function CheckoutPage() {
           setShowOtpModal(true);
         } else {
           // No verification required, proceed normally
+          orderPlacedRef.current = true;
           clearCart();
           const orderNumber = orderData_result.orderNumber as string;
           const totalAmount = orderData_result.dueAmount as number || orderData_result.totalAmount as number;
-          router.push(`/order-success?orderId=${orderNumber}&total=${totalAmount}&name=${encodeURIComponent(formData.name)}`);
+          const redirectUrl = `/order-success?invoice=${orderNumber}&total=${totalAmount}&name=${encodeURIComponent(formData.name)}`;
+          try {
+            router.push(redirectUrl);
+          } catch {
+            // Fallback: use window.location
+            window.location.href = redirectUrl;
+          }
         }
       } else {
         throw new Error('Invalid response from server');
@@ -400,10 +377,11 @@ export default function CheckoutPage() {
 
       // OTP verified successfully
       setShowOtpModal(false);
+      orderPlacedRef.current = true;
       clearCart();
 
       // Redirect to success page
-      router.push(`/order-success?orderId=${pendingOrder?.order_number}&total=${pendingOrder?.total_amount}&name=${encodeURIComponent(pendingOrder?.customer_name || '')}`);
+      router.push(`/order-success?invoice=${pendingOrder?.order_number}&total=${pendingOrder?.total_amount}&name=${encodeURIComponent(pendingOrder?.customer_name || '')}`);
 
     } catch (error: any) {
       console.error('OTP verification failed:', error);
@@ -908,7 +886,7 @@ export default function CheckoutPage() {
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
                     </svg>
-                    Apply Voucher or Promo Code
+                    {t('checkout.applyCoupon')}
                   </h3>
 
                   {appliedCoupon ? (
@@ -923,16 +901,16 @@ export default function CheckoutPage() {
                               {appliedCoupon.code}
                             </p>
                             <p className="text-xs text-green-700 dark:text-green-300">
-                              {appliedCoupon.type === 'percentage' && `${appliedCoupon.value}% discount applied`}
-                              {appliedCoupon.type === 'fixed' && `৳${appliedCoupon.value} discount applied`}
-                              {appliedCoupon.type === 'shipping' && 'Free shipping applied'}
+                              {appliedCoupon.type === 'percentage' && `${appliedCoupon.value}${t('checkout.percentageDiscount')}`}
+                              {appliedCoupon.type === 'fixed' && `৳${appliedCoupon.discountAmount}${t('checkout.fixedDiscount')}`}
+                              {appliedCoupon.type === 'shipping' && t('checkout.freeShippingApplied')}
                             </p>
                           </div>
                         </div>
                         <button
-                          onClick={removeCoupon}
+                          onClick={handleRemoveCoupon}
                           className="text-green-700 dark:text-green-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
-                          aria-label="Remove coupon"
+                          aria-label={t('checkout.removeCoupon')}
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -946,53 +924,71 @@ export default function CheckoutPage() {
                         <input
                           type="text"
                           value={couponCode}
-                          onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                          onKeyDown={(e) => e.key === 'Enter' && applyCoupon()}
-                          placeholder="Enter code"
+                          onChange={(e) => {
+                            setCouponCode(e.target.value.toUpperCase());
+                            if (couponStore.error) couponStore.clearError();
+                          }}
+                          onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
+                          placeholder={t('checkout.enterCode')}
                           className="flex-1 px-4 py-2.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
                         />
                         <button
-                          onClick={applyCoupon}
-                          className="px-6 py-2.5 bg-[#ec3137] hover:bg-[#8a0f12] text-white font-semibold rounded-lg transition-colors"
+                          onClick={handleApplyCoupon}
+                          disabled={couponStore.isValidating || !couponCode.trim()}
+                          className="px-6 py-2.5 bg-[#ec3137] hover:bg-[#8a0f12] disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors flex items-center gap-1.5"
                         >
-                          Apply
+                          {couponStore.isValidating ? (
+                            <>
+                              <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                              </svg>
+                              {t('checkout.validating')}
+                            </>
+                          ) : t('checkout.apply')}
                         </button>
                       </div>
 
-                      {couponError && (
+                      {couponStore.error && (
                         <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
                           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                           </svg>
-                          {couponError}
+                          {couponStore.error}
                         </p>
                       )}
+                    </div>
+                  )}
 
-                      {couponSuccess && (
-                        <p className="mt-2 text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                          {couponSuccess}
-                        </p>
-                      )}
-
-                      <div className="mt-3 text-xs text-gray-600 dark:text-gray-400">
-                        <p className="font-semibold mb-1">Try these codes:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {Object.entries(availableCoupons).map(([code]) => (
+                  {/* Auto-apply coupon suggestions */}
+                  {!appliedCoupon && couponStore.autoApplyCoupons.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+                      <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
+                        {t('checkout.availableOffers')}
+                      </p>
+                      <div className="space-y-2">
+                        {couponStore.autoApplyCoupons.map((offer) => (
+                          <div
+                            key={offer.code}
+                            className="flex items-center justify-between p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg"
+                          >
+                            <div>
+                              <p className="text-xs font-bold text-blue-900 dark:text-blue-100">
+                                {offer.code}
+                              </p>
+                              <p className="text-[10px] text-blue-700 dark:text-blue-300">
+                                {offer.description || `৳${offer.discountAmount} ${t('checkout.discount')}`}
+                              </p>
+                            </div>
                             <button
-                              key={code}
-                              onClick={() => {
-                                setCouponCode(code);
-                                setCouponError('');
-                              }}
-                              className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs font-mono transition-colors"
+                              onClick={() => couponStore.validateAndApply(offer.code, subtotal)}
+                              disabled={couponStore.isValidating}
+                              className="px-3 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-white hover:bg-[#ec3137] dark:hover:text-white dark:hover:bg-[#ec3137] border border-blue-300 dark:border-blue-700 rounded transition-colors disabled:opacity-50"
                             >
-                              {code}
+                              {t('checkout.applyOffer')}
                             </button>
-                          ))}
-                        </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}

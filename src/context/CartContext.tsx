@@ -2,10 +2,12 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { CartProduct, CartItem } from '@/types';
+import { useCrossSellModal, CrossSaleProduct } from '@/stores/crossSellModalStore';
+import { useCrossCartStore } from '@/stores/crossCartStore';
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: CartProduct, quantity?: number) => void;
+  addToCart: (product: CartProduct, quantity?: number, crossSaleProducts?: CrossSaleProduct[]) => void;
   removeFromCart: (cartItemId: number) => void;
   updateQuantity: (cartItemId: number, quantity: number) => void;
   clearCart: () => void;
@@ -41,7 +43,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product: CartProduct, quantity: number = 1) => {
+  const addToCart = (product: CartProduct, quantity: number = 1, crossSaleProducts: CrossSaleProduct[] = []) => {
     setCartItems(prevItems => {
       // Check if exact same product variant already exists
       const existingItem = prevItems.find(item =>
@@ -74,12 +76,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
     });
 
-    // Open cart sidebar when item is added
+    // Store cross-sell data in modal store (for sidebar) and cross-cart store (for cart page)
+    if (crossSaleProducts.length > 0) {
+      useCrossSellModal.getState().setProducts(crossSaleProducts);
+      useCrossCartStore.getState().addCrossSells(product.id, crossSaleProducts);
+    }
     setIsCartOpen(true);
   };
 
   const removeFromCart = (cartItemId: number) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== cartItemId));
+    setCartItems(prevItems => {
+      const removed = prevItems.find(item => item.id === cartItemId);
+      if (removed) {
+        useCrossCartStore.getState().removeCrossSells(removed.product.id);
+      }
+      return prevItems.filter(item => item.id !== cartItemId);
+    });
+    // Clear sidebar cross-sells so "You might also like" disappears immediately
+    useCrossSellModal.getState().setProducts([]);
   };
 
   const updateQuantity = (cartItemId: number, quantity: number) => {
@@ -99,6 +113,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => {
     setCartItems([]);
+    useCrossCartStore.getState().clearAll();
   };
 
   const isInCart = (productId: number, variantId?: number) => {

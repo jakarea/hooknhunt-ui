@@ -10,6 +10,7 @@ import { useCart } from '@/context/CartContext';
 import { Product as StaticProduct } from '@/types';
 import api from '@/lib/api';
 import { useTranslation } from 'react-i18next';
+import { CrossSaleProduct } from '@/stores/crossSellModalStore';
 
 // Decode entity-encoded HTML from API (e.g. &lt;p&gt;text&amp;nbsp;more&lt;/p&gt;)
 // Uses pure regex so it works during SSR (no document needed)
@@ -71,6 +72,14 @@ interface ApiProduct {
   category: { id: number; name: string; slug: string } | null;
   brand: { id: number; name: string } | null;
   variants: ApiVariant[];
+  crossSaleProducts?: {
+    id: number;
+    title: string;
+    slug: string;
+    thumbnail: { id: number; fullUrl: string; alt: string } | null;
+    retailPrice: number;
+    retailOfferPrice: number | null;
+  }[];
 }
 
 // UI-facing types (kept for template compatibility)
@@ -132,6 +141,7 @@ function ProductDetailPageContent() {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
+  const [crossSaleProducts, setCrossSaleProducts] = useState<CrossSaleProduct[]>([]);
 
   const handleImageChange = useCallback((index: number) => {
     if (index === selectedImage) return;
@@ -286,6 +296,7 @@ function ProductDetailPageContent() {
 
         const mapped = mapApiProduct(apiProduct);
         setProduct(mapped);
+        setCrossSaleProducts(apiProduct.crossSaleProducts || []);
 
         if (mapped.variants.length > 0) {
           setSelectedVariant(mapped.variants[0]);
@@ -826,7 +837,7 @@ function ProductDetailPageContent() {
                           slug: product.slug,
                           stock: currentStock
                         };
-                        addToCart(productToAdd, quantity);
+                        addToCart(productToAdd, quantity, crossSaleProducts);
                       }}
                       className="w-full py-3 sm:py-3.5 min-h-[48px] border-2 border-[#bc1215] text-[#bc1215] hover:bg-[#bc1215] hover:text-white font-bold text-sm transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-x-2 shadow-md rounded-xl"
                       disabled={!isInStock}

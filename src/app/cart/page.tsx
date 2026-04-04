@@ -6,8 +6,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import AnimatedCounter from '@/components/common/AnimatedCounter';
-import { useTranslation } from '../../../node_modules/react-i18next';
+import { useTranslation } from 'react-i18next';
 import DeleteConfirmModal from '@/components/cart/DeleteConfirmModal';
+import CrossSellSection from '@/components/cart/CrossSellSection';
 
 export default function CartPage() {
   const router = useRouter();
@@ -178,12 +179,12 @@ export default function CartPage() {
         <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-4">
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
-              Home
+              {t('common.home')}
             </Link>
             <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <span className="text-gray-900 dark:text-white font-medium">Shopping Cart</span>
+            <span className="text-gray-900 dark:text-white font-medium">{t('cart.page.title')}</span>
           </div>
         </div>
       </div>
@@ -204,14 +205,14 @@ export default function CartPage() {
                   />
                 </div>
                 <span className="ml-3 text-lg font-semibold text-gray-900 dark:text-white">
-                  Select All ({getCartCount()} {getCartCount() === 1 ? 'Item' : 'Items'})
+                  {t('cart.page.selectAll')} ({getCartCount()} {getCartCount() === 1 ? t('cart.page.item') : t('cart.page.items')})
                 </span>
               </label>
             </div>
 
             {/* Total Display */}
             <div className="flex items-center gap-2 text-right">
-              <span className="text-gray-700 dark:text-gray-300 font-medium">Your total:</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium">{t('cart.page.yourTotal')}</span>
               {hasDiscount && (
                 <span className="text-lg text-red-600 dark:text-red-400 line-through font-semibold">
                   ৳{originalTotal.toLocaleString()}
@@ -228,28 +229,28 @@ export default function CartPage() {
       <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-2">
             {cartItems.map((item, index) => {
               const isSelected = selectedItems.has(item.product.id);
 
               return (
                 <div
                   key={item.id}
-                  className={`bg-white dark:bg-[#0a0a0a] border-2 ${
+                  className={`bg-white dark:bg-[#0a0a0a] border ${
                     isSelected
-                      ? 'border-[#ec3137] shadow-md'
+                      ? 'border-[#ec3137] shadow-sm'
                       : 'border-gray-200 dark:border-gray-800'
-                  } p-6 transition-all duration-300 animate-slideIn`}
+                  } p-3 sm:p-4 transition-all duration-300 animate-slideIn rounded-lg`}
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  <div className="flex gap-4">
+                  <div className="flex gap-3">
                     {/* Checkbox */}
-                    <div className="flex-shrink-0 pt-1">
+                    <div className="flex-shrink-0 pt-0.5">
                       <input
                         type="checkbox"
                         checked={isSelected}
                         onChange={() => toggleItemSelection(item.product.id)}
-                        className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 cursor-pointer"
+                        className="w-4 h-4 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 cursor-pointer"
                       />
                     </div>
 
@@ -258,37 +259,37 @@ export default function CartPage() {
                       href={`/products/${item.product.slug}`}
                       className="flex-shrink-0 group"
                     >
-                      <div className="relative w-24 h-24 sm:w-32 sm:h-32 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 dark:bg-gray-800 overflow-hidden rounded-md">
                         <Image
                           src={item.product.image || '/placeholder-image.jpg'}
                           alt={item.product.name || 'Product'}
                           fill
                           className="object-cover group-hover:scale-110 transition-transform duration-300"
-                          sizes="(max-width: 640px) 96px, 128px"
+                          sizes="(max-width: 640px) 64px, 80px"
                         />
                       </div>
                     </Link>
 
                     {/* Product Info */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex justify-between gap-4 mb-3">
+                      <div className="flex justify-between gap-2">
                         <Link href={`/products/${item.product.slug}`}>
-                          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white hover:text-[#ec3137] transition-colors line-clamp-2">
+                          <h3 className="text-sm font-semibold text-gray-900 dark:text-white hover:text-[#ec3137] transition-colors line-clamp-1 leading-tight">
                             {item.product.name}
                           </h3>
                           {item.product.variant_name && (
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              Variant: {item.product.variant_name}
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
+                              {item.product.variant_name}
                             </p>
                           )}
                         </Link>
                         {/* Remove Button - Desktop */}
                         <button
                           onClick={() => handleDeleteClick(item.id, item.product.name || 'Product')}
-                          className="hidden sm:flex flex-shrink-0 p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
+                          className="hidden sm:flex flex-shrink-0 p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
                           aria-label="Remove item"
                         >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -299,81 +300,69 @@ export default function CartPage() {
                         </button>
                       </div>
 
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 capitalize">
-                        {item.product.variant_name || ''}
-                      </p>
-
-                      <div className="flex flex-wrap items-center justify-between gap-4">
+                      <div className="flex items-center justify-between gap-3 mt-1.5">
                         {/* Price */}
-                        <div>
-                          <p className="text-xl sm:text-2xl font-bold text-[#ec3137]">
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-sm sm:text-base font-bold text-[#ec3137]">
                             ৳{(item.product.price || 0).toLocaleString()}
-                          </p>
+                          </span>
                           {item.product.originalPrice && (
-                            <p className="text-sm text-gray-500 dark:text-gray-400 line-through">
+                            <span className="text-xs text-gray-400 line-through">
                               ৳{(item.product.originalPrice || 0).toLocaleString()}
-                            </p>
+                            </span>
                           )}
                         </div>
 
-                        {/* Quantity Controls */}
-                        <div className="flex items-center gap-3">
+                        {/* Quantity + Subtotal */}
+                        <div className="flex items-center gap-2">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white transition-colors rounded"
+                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:border-[#ec3137] text-gray-600 dark:text-gray-300 transition-colors rounded"
                             aria-label="Decrease quantity"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" />
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
                             </svg>
                           </button>
 
-                          <span className="w-10 sm:w-12 text-center font-bold text-gray-900 dark:text-white text-base sm:text-lg">
+                          <span className="w-6 text-center font-semibold text-gray-900 dark:text-white text-sm">
                             {item.quantity}
                           </span>
 
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             disabled={item.quantity >= (item.product.stock || 999)}
-                            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed rounded"
+                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:border-[#ec3137] text-gray-600 dark:text-gray-300 transition-colors disabled:opacity-40 disabled:cursor-not-allowed rounded"
                             aria-label="Increase quantity"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={3}
-                                d="M12 4v16m8-8H4"
-                              />
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
                             </svg>
                           </button>
 
-                          {/* Subtotal */}
-                          <div className="hidden md:block ml-4 min-w-[100px] text-right">
-                            <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Subtotal</p>
-                            <p className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
-                              ৳{((item.product.price || 0) * item.quantity).toLocaleString()}
-                            </p>
-                          </div>
+                          {/* Subtotal - Desktop */}
+                          <span className="hidden md:inline ml-2 text-sm font-bold text-gray-900 dark:text-white">
+                            ৳{((item.product.price || 0) * item.quantity).toLocaleString()}
+                          </span>
                         </div>
                       </div>
 
                       {/* Stock Warning */}
                       {item.quantity >= (item.product.stock || 999) && (
-                        <p className="text-xs text-orange-600 dark:text-orange-400 mt-2 flex items-center gap-1">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <p className="text-[10px] text-orange-600 dark:text-orange-400 mt-1 flex items-center gap-1">
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                           </svg>
-                          Only {item.product.stock} available
+                          {t('cart.page.only')} {item.product.stock} {t('cart.page.available')}
                         </p>
                       )}
 
                       {/* Mobile Remove Button */}
                       <button
                         onClick={() => handleDeleteClick(item.id, item.product.name || 'Product')}
-                        className="sm:hidden mt-4 text-sm text-red-600 hover:text-red-700 flex items-center gap-1 font-medium"
+                        className="sm:hidden mt-2 text-xs text-red-600 hover:text-red-700 flex items-center gap-1 font-medium"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -381,7 +370,7 @@ export default function CartPage() {
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                           />
                         </svg>
-                        Remove
+                        {t('cart.page.remove')}
                       </button>
                     </div>
                   </div>
@@ -398,9 +387,12 @@ export default function CartPage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                Continue Shopping
+                {t('cart.page.continueShopping')}
               </Link>
             </div>
+
+            {/* Cross-Sell Section */}
+            <CrossSellSection />
           </div>
 
           {/* Order Summary */}
@@ -408,9 +400,9 @@ export default function CartPage() {
             <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 sticky top-24 rounded-lg overflow-hidden">
               {/* Header */}
               <div className="bg-gradient-to-r from-[#ec3137] to-[#8a0f12] text-white p-6">
-                <h2 className="text-2xl font-bold">Order Summary</h2>
+                <h2 className="text-2xl font-bold">{t('cart.page.orderSummary')}</h2>
                 <p className="text-sm text-white/90 mt-1">
-                  {getSelectedCount()} selected {getSelectedCount() === 1 ? 'item' : 'items'}
+                  {getSelectedCount()} {t('cart.page.selected')} {getSelectedCount() === 1 ? t('cart.page.item') : t('cart.page.items')}
                 </p>
               </div>
 
@@ -421,7 +413,7 @@ export default function CartPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     <p className="text-gray-600 dark:text-gray-400">
-                      No items selected
+                      {t('cart.page.noItemsSelected')}
                     </p>
                   </div>
                 ) : (
@@ -429,7 +421,7 @@ export default function CartPage() {
                     {/* Summary Items */}
                     <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-800">
                       <div className="flex justify-between text-gray-700 dark:text-gray-300">
-                        <span>Subtotal ({getSelectedCount()} {getSelectedCount() === 1 ? 'item' : 'items'})</span>
+                        <span>{t('cart.page.subtotal')} ({getSelectedCount()} {getSelectedCount() === 1 ? t('cart.page.item') : t('cart.page.items')})</span>
                         <span className="font-bold text-gray-900 dark:text-white">
                           <AnimatedCounter
                             value={subtotal}
@@ -440,7 +432,7 @@ export default function CartPage() {
                       </div>
                       {hasDiscount && (
                         <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
-                          <span>Product Discount</span>
+                          <span>{t('cart.page.productDiscount')}</span>
                           <span className="font-semibold">
                             -<AnimatedCounter
                               value={originalTotal - subtotal}
@@ -451,10 +443,10 @@ export default function CartPage() {
                         </div>
                       )}
                       <div className="flex justify-between text-gray-700 dark:text-gray-300">
-                        <span>Shipping</span>
+                        <span>{t('cart.page.shipping')}</span>
                         <span className="font-bold">
                           {shipping === 0 ? (
-                            <span className="text-green-600 dark:text-green-400">FREE</span>
+                            <span className="text-green-600 dark:text-green-400">{t('common.free')}</span>
                           ) : (
                             <span className="text-gray-900 dark:text-white">
                               <AnimatedCounter
@@ -471,7 +463,7 @@ export default function CartPage() {
                     {/* Total */}
                     <div className="mb-6">
                       <div className="flex justify-between items-center">
-                        <span className="text-xl font-bold text-gray-900 dark:text-white">Total</span>
+                        <span className="text-xl font-bold text-gray-900 dark:text-white">{t('cart.page.total')}</span>
                         <div className="text-right">
                           {hasDiscount && (
                             <p className="text-sm text-gray-500 dark:text-gray-400 line-through">
@@ -487,7 +479,7 @@ export default function CartPage() {
                           </span>
                           {hasDiscount && (
                             <p className="text-xs text-green-600 dark:text-green-400 mt-1">
-                              You saved <AnimatedCounter
+                              {t('cart.page.youSaved')} <AnimatedCounter
                                 value={originalTotal - subtotal}
                                 prefix="৳"
                                 duration={600}
@@ -507,10 +499,10 @@ export default function CartPage() {
                           </svg>
                           <div>
                             <p className="text-sm font-semibold text-orange-900 dark:text-orange-200 mb-1">
-                              Almost there!
+                              {t('cart.page.almostThere')}
                             </p>
                             <p className="text-sm text-orange-800 dark:text-orange-300">
-                              Add <strong>৳{(shippingThreshold - subtotal).toLocaleString()}</strong> more to get FREE shipping!
+                              {t('cart.page.addMore')} <strong>৳{(shippingThreshold - subtotal).toLocaleString()}</strong> {t('cart.page.moreToGetFreeShipping')}
                             </p>
                           </div>
                         </div>
@@ -523,7 +515,7 @@ export default function CartPage() {
                       disabled={selectedItems.size === 0}
                       className="w-full py-4 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] hover:from-[#8a0f12] hover:to-[#ec3137] text-white font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg transform hover:scale-[1.02] rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none mb-4"
                     >
-                      <span>Proceed to Checkout</span>
+                      <span>{t('cart.page.proceedToCheckout')}</span>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
@@ -541,7 +533,7 @@ export default function CartPage() {
                             />
                           </svg>
                         </div>
-                        <span className="font-medium text-gray-900 dark:text-white">Secure Checkout</span>
+                        <span className="font-medium text-gray-900 dark:text-white">{t('cart.page.secureCheckout')}</span>
                       </div>
                       <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
                         <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0">
@@ -551,7 +543,7 @@ export default function CartPage() {
                           </svg>
                         </div>
                         <span className="font-medium text-gray-900 dark:text-white">
-                          Free Shipping Over ৳{shippingThreshold.toLocaleString()}
+                          {t('cart.page.freeShippingOver')} ৳{shippingThreshold.toLocaleString()}
                         </span>
                       </div>
                       <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
@@ -560,7 +552,7 @@ export default function CartPage() {
                             <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
                           </svg>
                         </div>
-                        <span className="font-medium text-gray-900 dark:text-white">30-Day Easy Returns</span>
+                        <span className="font-medium text-gray-900 dark:text-white">{t('cart.page.easyReturns')}</span>
                       </div>
                     </div>
                   </>

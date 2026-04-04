@@ -1,6 +1,6 @@
 // API Client for Hook & Hunt Storefront
 
-import { User, Address, Category } from '@/types';
+import { User, Address, Category, Slider } from '@/types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.0.166:8000/api/v2';
 
@@ -291,6 +291,11 @@ class ApiClient {
     return this.request(`/store/products/hot-deals?limit=${limit}`, {});
   }
 
+  // Public: Sliders for home page banner
+  async getSliders(): Promise<ApiResponse<Slider[]>> {
+    return this.request('/store/sliders', {});
+  }
+
   // Contact Form Submission (Public Endpoint)
   async submitContactForm(data: {
     name: string;
@@ -306,8 +311,33 @@ class ApiClient {
     });
   }
 
+  // Coupon endpoints (public)
+  async validateCoupon(code: string, cartTotal: number): Promise<ApiResponse> {
+    return this.request('/store/coupons/validate', {
+      method: 'POST',
+      body: JSON.stringify({ code, cart_total: cartTotal }),
+    });
+  }
+
+  async getAutoApplyCoupons(cartTotal: number): Promise<ApiResponse> {
+    return this.request(`/store/coupons/auto-apply?cart_total=${cartTotal}`, {});
+  }
+
+  // Thank-you product (public)
+  async getThankYouProducts(limit: number = 1): Promise<ApiResponse> {
+    return this.request(`/store/thank-you-products?limit=${limit}`, {});
+  }
+
+  // Add thank-you product to existing order (public, 1-min window)
+  async addThankYouToOrder(invoiceNo: string, productId: number): Promise<ApiResponse> {
+    return this.request(`/store/orders/${invoiceNo}/thank-you`, {
+      method: 'POST',
+      body: JSON.stringify({ product_id: productId }),
+    });
+  }
+
   // Generic POST method for other API calls
-  async post<T = unknown>(endpoint: string, data: any, includeAuth: boolean = false): Promise<ApiResponse<T>> {
+  async post<T = unknown>(endpoint: string, data: unknown, includeAuth: boolean = false): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: JSON.stringify(data),

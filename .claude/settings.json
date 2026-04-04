@@ -22,7 +22,13 @@
       "Bash(mysql -u root -h 127.0.0.1 -P 3306 hooknhut -e \"DESCRIBE sales_orders;\")",
       "Bash(mysql -u root -h 127.0.0.1 -P 3306 hooknhut -e \"SELECT id, customer_id, channel, status, total_amount, paid_amount, created_at FROM sales_orders ORDER BY id DESC LIMIT 10;\")",
       "Bash(mysql -u root -h 127.0.0.1 -P 3306 hooknhut -e \"SELECT id, user_id, name, phone FROM customers;\")",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Read(//Users/jakareaparvez/Sites/**)",
+      "Bash(md5 /Users/jakareaparvez/Sites/hooknhunt-ui/src/components/cart/CrossSellModal.tsx)",
+      "Bash(node -e \"const path = require\\('path'\\); const layoutDir = '/Users/jakareaparvez/Sites/hooknhunt-ui/src/app'; const importPath = '@/components/cart/CrossSellModal'; console.log\\(path.resolve\\(layoutDir, importPath.replace\\('@', '..'\\)\\) + '.tsx'\\)\")",
+      "Bash(ls -la /Users/jakareaparvez/Sites/hooknhunt-ui/src/components/cart/CrossSellModal*)",
+      "Bash(ls -la /Users/jakareaparvez/Sites/hooknhunt-ui/src/stores/cross*)",
+      "Bash(grep -r \"NEXT_PUBLIC_API_URL\" /Users/jakareaparvez/Sites/hooknhunt-ui/.env*)"
     ],
     "additionalDirectories": [
       "/Users/jakareaparvez/Sites/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website",
