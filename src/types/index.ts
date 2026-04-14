@@ -398,3 +398,21 @@ export interface Inventory {
   last_purchase_cost_bdt: number; // Last recorded Landed Cost (COGS) in BDT
   updated_at: string;
 }
+
+// ========================================
+// Payment Types (SSL Commerz)
+// ========================================
+
+// Re-export payment types from payment.ts for convenience
+export type {
+  CustomerAddress,
+  InitiatePaymentRequest,
+  InitiatePaymentResponse,
+  PaymentStatusResponse,
+  PaymentStatusType,
+  EmiOption,
+  EmiOptionsResponse,
+  PaymentCallbackResponse,
+  PaymentError,
+  PaymentErrorType,
+} from './payment';

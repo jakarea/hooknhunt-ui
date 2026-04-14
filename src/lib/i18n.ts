@@ -16,6 +16,8 @@ import enProduct from '../locales/en/product.json';
 import bnProduct from '../locales/bn/product.json';
 import enProducts from '../locales/en/products.json';
 import bnProducts from '../locales/bn/products.json';
+import enPayment from '../locales/en/payment.json';
+import bnPayment from '../locales/bn/payment.json';
 
 // Translation resources
 const resources = {
@@ -411,7 +413,8 @@ const resources = {
       ...enTrackOrder,
       ...enProductCard,
       ...enProduct,
-      ...enProducts
+      ...enProducts,
+      ...enPayment.payment
 
     },
   },
@@ -804,7 +807,8 @@ const resources = {
       ...bnTrackOrder,
       ...bnProductCard,
       ...bnProduct,
-      ...bnProducts
+      ...bnProducts,
+      ...bnPayment.payment
 
     },
   },

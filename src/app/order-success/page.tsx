@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import api from '@/lib/api';
 import { useTranslation } from 'react-i18next';
@@ -27,7 +27,6 @@ interface ThankYouProduct {
 type GiftStatus = 'loading' | 'offering' | 'adding' | 'added' | 'expired' | 'error' | 'unavailable';
 
 function OrderSuccessContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const { clearCart } = useCart();
   const { t } = useTranslation();
@@ -80,13 +79,33 @@ function OrderSuccessContent() {
   }, []);
 
   // 60-second countdown timer for exclusive offer
-  useEffect(() => {
-    if (giftStatus !== 'offering' && giftStatus !== 'error') return;
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isActiveRef = useRef(false);
+  const statusRef = useRef(giftStatus);
 
-    const interval = setInterval(() => {
+  // Keep statusRef in sync
+  useEffect(() => {
+    statusRef.current = giftStatus;
+  }, [giftStatus]);
+
+  useEffect(() => {
+    // Only start if we're in offering state and not already running
+    if (isActiveRef.current || giftStatus !== 'offering') return;
+
+    isActiveRef.current = true;
+
+    intervalRef.current = setInterval(() => {
+      if (statusRef.current !== 'offering') {
+        clearInterval(intervalRef.current!);
+        isActiveRef.current = false;
+        return;
+      }
+
       setTimeLeft(prev => {
         if (prev <= 1) {
-          clearInterval(interval);
+          clearInterval(intervalRef.current!);
+          intervalRef.current = null;
+          isActiveRef.current = false;
           setGiftStatus('expired');
           return 0;
         }
@@ -94,8 +113,16 @@ function OrderSuccessContent() {
       });
     }, 1000);
 
-    return () => clearInterval(interval);
-  }, [giftStatus]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      isActiveRef.current = false;
+    };
+    // Empty deps - only run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleAddGift = async () => {
     if (!giftProduct || !invoiceNo) return;
@@ -145,7 +172,7 @@ function OrderSuccessContent() {
       {/* Confetti */}
       {showConfetti && (
         <div className="fixed inset-0 pointer-events-none z-50">
-          {[...Array(50)].map((_, i) => (
+          {[...Array(20)].map((_, i) => (
             <div
               key={i}
               className="absolute animate-confetti"

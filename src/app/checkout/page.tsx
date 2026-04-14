@@ -7,9 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { useCouponStore } from '@/stores/couponStore';
+import { usePayment } from '@/hooks/usePayment';
 import AnimatedCounter from '@/components/common/AnimatedCounter';
 import { Address } from '@/types';
 import { bangladeshDivisions } from '@/data/bangladesh-divisions';
+import toast from 'react-hot-toast';
 
 type PaymentMethod = 'cod' | 'sslcommerz';
 
@@ -19,12 +21,19 @@ export default function CheckoutPage() {
   const { user, isAuthenticated } = useAuth();
   const { t } = useTranslation();
   const couponStore = useCouponStore();
+  const { initiateAndPay, loading: paymentLoading } = usePayment();
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
   const [useDifferentAddress, setUseDifferentAddress] = useState(false);
+
+  // Payment processing state
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+
+  // EMI option state
+  const [selectedEmiBank, setSelectedEmiBank] = useState<number>(0);
 
   // Coupon input (local state only for the text field)
   const [couponCode, setCouponCode] = useState('');
@@ -240,7 +249,7 @@ export default function CheckoutPage() {
 
   const handleCheckout = async () => {
     if (!agreeToTerms) {
-      alert('Please agree to the terms and conditions');
+      toast.error('Please agree to the terms and conditions');
       return;
     }
 
@@ -250,15 +259,17 @@ export default function CheckoutPage() {
     if (!formData.name) missingFields.push('Full Name');
     if (!formData.phone) missingFields.push('Phone Number');
     if (!formData.address) missingFields.push('Address');
+    if (!formData.city) missingFields.push('City');
     if (!formData.division) missingFields.push('Division');
     if (!formData.district) missingFields.push('District');
     if (needManualAddress && !formData.thana) missingFields.push('Thana');
     if (missingFields.length > 0) {
-      alert(`Please fill in the following required fields:\n${missingFields.join(', ')}`);
+      toast.error(`Please fill in the following required fields:\n${missingFields.join(', ')}`);
       return;
     }
 
     try {
+      setIsProcessingPayment(true);
       const api = (await import('@/lib/api')).default;
 
       // Prepare order items
@@ -276,7 +287,7 @@ export default function CheckoutPage() {
 
       // Prepare payment details
       const paymentDetails = paymentMethod === 'sslcommerz'
-        ? 'Payment via SSLCommerz'
+        ? `Payment via SSLCommerz${selectedEmiBank > 0 ? ` (EMI - Bank ${selectedEmiBank})` : ''}`
         : 'Cash on delivery';
 
       // Order data
@@ -289,7 +300,7 @@ export default function CheckoutPage() {
         shipping_district: formData.district,
         shipping_thana: formData.thana,
         shipping_division: formData.division,
-        payment_method: paymentMethod,
+        payment_method: paymentMethod, // Send sslcommerz, backend will handle pending state
         payment_details: paymentDetails,
         notes: formData.notes || null,
         items: orderItems,
@@ -308,22 +319,58 @@ export default function CheckoutPage() {
       const orderData_result = (response?.data || response) as Record<string, unknown>;
 
       if (response && orderData_result?.id) {
-        // Check if OTP verification is required
+        const orderId = orderData_result.id as number;
+        const orderNumber = orderData_result.orderNumber as string;
+
+        // Handle SSL Commerz payment
+        if (paymentMethod === 'sslcommerz') {
+          try {
+            // Initiate SSL Commerz payment
+            await initiateAndPay({
+              sales_order_id: orderId,
+              customer_name: formData.name,
+              customer_email: formData.email || undefined,
+              customer_phone: formData.phone,
+              customer_address: {
+                address_line1: formData.address,
+                address_line2: formData.thana || undefined,
+                city: formData.city,
+                district: formData.district,
+                country: 'Bangladesh',
+                postal_code: undefined,
+              },
+              emi_option: selectedEmiBank,
+            });
+            // Payment initiated successfully - gateway will open in new tab
+            return;
+          } catch (paymentErr: unknown) {
+            setIsProcessingPayment(false);
+            const apiErr = paymentErr as {
+              response?: { data?: { errors?: Record<string, string[]>; message?: string; error?: string }; status?: number };
+              message?: string;
+            };
+            const errorMsg = apiErr.response?.data?.error || apiErr.response?.data?.message || apiErr.message || 'Payment initiation failed. Please try again.';
+            toast.error(errorMsg);
+            return;
+          }
+        }
+
+        // Check if OTP verification is required for COD
         if (response.verification_required) {
           // Show OTP verification modal
           setPendingOrder({
-            id: orderData_result.id as number,
-            order_number: orderData_result.orderNumber as string,
+            id: orderId,
+            order_number: orderNumber,
             phone_number: (orderData_result.phone_number as string) || formData.phone,
             total_amount: orderData_result.totalAmount as number,
             customer_name: ((orderData_result.customer as Record<string, string>)?.name) || formData.name,
           });
           setShowOtpModal(true);
+          setIsProcessingPayment(false);
         } else {
           // No verification required, proceed normally
           orderPlacedRef.current = true;
           clearCart();
-          const orderNumber = orderData_result.orderNumber as string;
           const totalAmount = orderData_result.dueAmount as number || orderData_result.totalAmount as number;
           const redirectUrl = `/order-success?invoice=${orderNumber}&total=${totalAmount}&name=${encodeURIComponent(formData.name)}`;
           try {
@@ -664,6 +711,21 @@ export default function CheckoutPage() {
                           <option key={d.name} value={d.name}>{d.name}</option>
                         ))}
                     </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      City <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      placeholder="e.g., Pabna"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
+                      required
+                    />
                   </div>
 
                   <div>
@@ -1108,13 +1170,25 @@ export default function CheckoutPage() {
                 {/* Checkout Button */}
                 <button
                   onClick={handleCheckout}
-                  disabled={!agreeToTerms}
+                  disabled={!agreeToTerms || isProcessingPayment || paymentLoading}
                   className="w-full py-4 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] hover:from-[#8a0f12] hover:to-[#ec3137] text-white font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg transform hover:scale-[1.02] rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>Place Order</span>
+                  {isProcessingPayment || paymentLoading ? (
+                    <>
+                      <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Processing...</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>{paymentMethod === 'sslcommerz' ? `Pay ৳${payableTotal}` : 'Place Order'}</span>
+                    </>
+                  )}
                 </button>
 
                 {/* Trust Badges */}
@@ -1248,6 +1322,42 @@ export default function CheckoutPage() {
               >
                 {resendLoading ? 'Sending...' : "Didn't receive code? Resend OTP"}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Payment Processing Overlay */}
+      {(isProcessingPayment || paymentLoading) && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300">
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 relative">
+                <div className="absolute inset-0 border-4 border-[#ec3137]/20 rounded-full"></div>
+                <div className="absolute inset-0 border-4 border-[#ec3137] border-t-transparent rounded-full animate-spin"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <svg className="w-8 h-8 text-[#ec3137]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              Processing Payment
+            </h2>
+
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Please wait while we initiate your payment...
+            </p>
+
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+              <p className="text-sm text-blue-900 dark:text-blue-100">
+                You will be redirected to SSL Commerz payment gateway shortly.
+              </p>
+              <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
+                Please do not close this window.
+              </p>
             </div>
           </div>
         </div>

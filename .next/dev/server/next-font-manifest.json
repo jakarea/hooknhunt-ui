@@ -1,39 +1,15 @@
 {
   "app": {
-    "[project]/hooknhunt-ui/src/app/_not-found/page": [
+    "[project]/src/app/cart/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/hooknhunt-ui/src/app/account/page": [
+    "[project]/src/app/checkout/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/hooknhunt-ui/src/app/cart/page": [
+    "[project]/src/app/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ],
-    "[project]/hooknhunt-ui/src/app/checkout/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/hooknhunt-ui/src/app/hot-deals/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/hooknhunt-ui/src/app/login/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/hooknhunt-ui/src/app/order-success/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/hooknhunt-ui/src/app/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/hooknhunt-ui/src/app/products/[slug]/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/hooknhunt-ui/src/app/products/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/hooknhunt-ui/src/app/registration/page": [
-      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
-    ],
-    "[project]/hooknhunt-ui/src/app/track-order/page": [
+    "[project]/src/app/products/[slug]/page": [
       "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
     ]
   },

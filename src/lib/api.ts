@@ -336,6 +336,100 @@ class ApiClient {
     });
   }
 
+  // ==================== SSL Commerz Payment Methods ====================
+
+  /**
+   * Initiate payment for an order via SSL Commerz
+   * POST /store/payments/initiate
+   */
+  async initiatePayment(data: {
+    sales_order_id: number;
+    customer_name: string;
+    customer_email?: string;
+    customer_phone: string;
+    customer_address: {
+      address_line1: string;
+      address_line2?: string;
+      city: string;
+      district?: string;
+      country: string;
+      postal_code?: string;
+    };
+    emi_option?: number;
+  }): Promise<ApiResponse<{
+    payment_id: number;
+    gateway_url: string;
+    tran_id: string;
+    amount: number;
+    currency: string;
+    sandbox: boolean;
+  }>> {
+    return this.request('/store/payments/initiate', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * Get EMI options for a payment amount
+   * POST /store/payments/emi-options
+   */
+  async getEmiOptions(amount: number): Promise<ApiResponse<{
+    amount: number;
+    currency: string;
+    emi_enabled: boolean;
+    min_amount: number;
+    options: Array<{
+      tenure: number;
+      interest_rate: number;
+      monthly_payment: number;
+      total_amount: number;
+      total_interest: number;
+    }>;
+    banks: Record<number | string, string>;
+  }>> {
+    return this.request('/store/payments/emi-options', {
+      method: 'POST',
+      body: JSON.stringify({ amount }),
+    });
+  }
+
+  /**
+   * Get payment status by transaction ID
+   * GET /store/payments/status/{tran_id}
+   */
+  async getPaymentStatus(tranId: string): Promise<ApiResponse<{
+    payment_id: number;
+    tran_id: string;
+    amount: number;
+    status: 'pending' | 'processing' | 'paid' | 'failed' | 'cancelled' | 'refunded';
+    paid_at?: string;
+    order_id: number;
+    order_invoice: string;
+    order_payment_status: 'unpaid' | 'paid' | 'partial';
+  }>> {
+    return this.request(`/store/payments/status/${tranId}`, {}, true);
+  }
+
+  /**
+   * Verify payment callback from SSL Commerz
+   * POST /store/payments/callback
+   */
+  async verifyPaymentCallback(callbackData: Record<string, unknown>): Promise<ApiResponse<{
+    payment_id: number;
+    tran_id: string;
+    order_id: number;
+    order_invoice: string;
+    amount: number;
+    status: string;
+    callback_type: 'success' | 'fail' | 'cancel';
+  }>> {
+    return this.request('/store/payments/callback', {
+      method: 'POST',
+      body: JSON.stringify(callbackData),
+    });
+  }
+
   // Generic POST method for other API calls
   async post<T = unknown>(endpoint: string, data: unknown, includeAuth: boolean = false): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {

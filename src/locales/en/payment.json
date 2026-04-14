@@ -1,0 +1,97 @@
+{
+  "payment": {
+    "title": "Payment",
+    "processing": "Processing Payment...",
+    "verifying": "Verifying Payment...",
+    "success": "Payment Successful!",
+    "failed": "Payment Failed",
+    "cancelled": "Payment Cancelled",
+    "initiating": "Initiating payment...",
+    "redirecting": "Redirecting to payment gateway...",
+    "pleaseWait": "Please wait...",
+    "doNotClose": "Please do not close this window",
+
+    "sslCommerz": {
+      "title": "SSL Commerz",
+      "description": "Pay securely with Card, Mobile Banking, or Net Banking",
+      "methods": "Payment Methods",
+      "card": "Card",
+      "mobileBanking": "Mobile Banking",
+      "internetBanking": "Internet Banking",
+      "wallet": "Mobile Wallet"
+    },
+
+    "emi": {
+      "title": "EMI Options",
+      "available": "EMI Available",
+      "tenure": "Tenure",
+      "monthlyPayment": "Monthly Payment",
+      "totalAmount": "Total Amount",
+      "totalInterest": "Total Interest",
+      "selectBank": "Select Bank",
+      "allBanks": "All Banks",
+      "noEmi": "No EMI",
+      "months": "months",
+      "minAmount": "Minimum amount for EMI is ৳{{minAmount}}",
+      "interestRate": "{{rate}}% interest"
+    },
+
+    "errors": {
+      "validation": "Please check your information",
+      "orderNotFound": "Order not found. Please check your order ID.",
+      "alreadyPaid": "This order has already been paid.",
+      "paymentFailed": "Payment failed. Please try again.",
+      "networkError": "Network error. Please check your connection.",
+      "invalidCallback": "Invalid payment response.",
+      "tryAgain": "Try Again",
+      "contactSupport": "Contact Support"
+    },
+
+    "callback": {
+      "success": {
+        "title": "Payment Successful!",
+        "message": "Thank you for your payment. Your order is being processed.",
+        "redirecting": "Redirecting to your order details...",
+        "viewOrder": "View Order"
+      },
+      "failed": {
+        "title": "Payment Failed",
+        "message": "Unfortunately, your payment could not be processed.",
+        "reason": "Reason",
+        "whatToDo": "What you can do:",
+        "tryDifferent": "Try again with a different payment method",
+        "checkBalance": "Check if your card has sufficient balance",
+        "verifyDetails": "Verify your card details are correct",
+        "contactBank": "Contact your bank for more information"
+      },
+      "cancelled": {
+        "title": "Payment Cancelled",
+        "message": "You have cancelled the payment process. No charges were made to your account.",
+        "orderSaved": "Your order is saved!",
+        "retryLater": "You can complete your payment later. Go to \"My Orders\" to retry payment.",
+        "tryAgain": "Try Payment Again",
+        "myOrders": "My Orders"
+      }
+    },
+
+    "placeholders": {
+      "cardNumber": "Card Number",
+      "expiryDate": "Expiry Date (MM/YY)",
+      "cvv": "CVV",
+      "cardHolder": "Cardholder Name"
+    },
+
+    "buttons": {
+      "payNow": "Pay Now",
+      "proceed": "Proceed to Payment",
+      "cancel": "Cancel Payment",
+      "retry": "Try Again"
+    },
+
+    "security": {
+      "securedBy": "Secured by",
+      "sslSecure": "SSL Secured",
+      "yourDataIsSafe": "Your payment information is secure and encrypted"
+    }
+  }
+}

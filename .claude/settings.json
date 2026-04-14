@@ -28,12 +28,25 @@
       "Bash(node -e \"const path = require\\('path'\\); const layoutDir = '/Users/jakareaparvez/Sites/hooknhunt-ui/src/app'; const importPath = '@/components/cart/CrossSellModal'; console.log\\(path.resolve\\(layoutDir, importPath.replace\\('@', '..'\\)\\) + '.tsx'\\)\")",
       "Bash(ls -la /Users/jakareaparvez/Sites/hooknhunt-ui/src/components/cart/CrossSellModal*)",
       "Bash(ls -la /Users/jakareaparvez/Sites/hooknhunt-ui/src/stores/cross*)",
-      "Bash(grep -r \"NEXT_PUBLIC_API_URL\" /Users/jakareaparvez/Sites/hooknhunt-ui/.env*)"
+      "Bash(grep -r \"NEXT_PUBLIC_API_URL\" /Users/jakareaparvez/Sites/hooknhunt-ui/.env*)",
+      "Bash(npm install:*)",
+      "Bash(php artisan:*)",
+      "Read(//Users/jakareaparrez/Sites/hooknhunt-api/storage/logs/**)",
+      "Bash(php -l /Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website/OrderController.php)",
+      "Bash(mysql -u root -p'' hooknhut -e \"SELECT id, invoice_no, total_amount, due_amount, payment_status, payment_method FROM sales_orders ORDER BY id DESC LIMIT 3\")",
+      "Bash(mysql -u root hooknhut -e \"SELECT id, invoice_no, total_amount, due_amount, payment_status, payment_method FROM sales_orders ORDER BY id DESC LIMIT 3\")"
     ],
     "additionalDirectories": [
       "/Users/jakareaparvez/Sites/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website",
       "/Users/jakareaparvez/Sites/hooknhunt/hooknhunt-api/routes",
-      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website"
+      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website",
+      "/Users/jakareaparvez/Sites/hooknhunt-api",
+      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/storage/logs",
+      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/routes",
+      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2",
+      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Services",
+      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/database/migrations",
+      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Models"
     ]
   }
 }
