@@ -1,12 +1,41 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '../../../node_modules/react-i18next';
+import { Category } from '@/types';
 
 export default function Footer() {
   const { t } = useTranslation();
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const api = (await import('@/lib/api')).default;
+        const response = await api.getCategories();
+        if (response.data?.data) {
+          // Sort by sort_order ascending and take top 6
+          const sortedCategories = response.data.data
+            .sort((a: Category, b: Category) => (a.sort_order || 0) - (b.sort_order || 0))
+            .slice(0, 6)
+            .map((cat: Category) => ({
+              ...cat,
+              name: cat.name.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+            }));
+          setCategories(sortedCategories);
+        }
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   return (
     <footer className="bg-gray-100 dark:bg-[#1a1a1a] text-gray-800 dark:text-gray-300 transition-colors duration-200">
@@ -66,38 +95,27 @@ export default function Footer() {
           {/* Product Categories */}
           <div>
             <h3 className="text-gray-900 dark:text-white font-bold text-[17px] mb-5">{t('footer.categories')}</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/products?category=rods" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
-                  <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
-                  {t('nav.rods')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=reels" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
-                  <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
-                  {t('nav.reels')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=lures" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
-                  <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
-                  {t('nav.lures')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=lines" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
-                  <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
-                  {t('nav.lines')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=accessories" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
-                  <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
-                  {t('nav.accessories')}
-                </Link>
-              </li>
-            </ul>
+            {loading ? (
+              <div className="space-y-3">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                ))}
+              </div>
+            ) : (
+              <ul className="space-y-3">
+                {categories.map((category) => (
+                  <li key={category.id}>
+                    <Link
+                      href={`/products?category=${category.slug}`}
+                      className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group"
+                    >
+                      <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Customer Service */}
@@ -105,7 +123,7 @@ export default function Footer() {
             <h3 className="text-gray-900 dark:text-white font-bold text-[17px] mb-5">{t('footer.customerService')}</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
+                <Link href="/about-us" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
                   <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
                   {t('footer.aboutUs')}
                 </Link>
@@ -117,27 +135,21 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
+                <Link href="/delivery-policy" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
                   <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
                   {t('footer.shipping')}
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
+                <Link href="/refund-policy" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
                   <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
                   {t('footer.returns')}
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
+                <Link href="/privacy-policy" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
                   <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
                   {t('footer.privacy')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group">
-                  <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
-                  {t('footer.terms')}
                 </Link>
               </li>
             </ul>
@@ -166,7 +178,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-gray-900 dark:text-white font-medium text-[17px] mb-0.5">{t('footer.phone')}</p>
-                  <a href="tel:+8809613244200" className="text-gray-600 dark:text-gray-400 text-[17px] hover:text-[#ec3137] transition-colors">
+                  <a href="tel:+8801975244202" className="text-gray-600 dark:text-gray-400 text-[17px] hover:text-[#ec3137] transition-colors">
                     {t('footer.phoneNumber')}
                   </a>
                 </div>

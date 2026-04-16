@@ -15,7 +15,8 @@
     "addToCart": "কার্টে যোগ করুন",
     "buyNow": "এখনই কিনুন",
     "viewCart": "কার্ট দেখুন",
-    "selectVariant": "ভ্যারিয়েন্ট নির্বাচন করুন"
+    "selectVariant": "ভ্যারিয়েন্ট নির্বাচন করুন",
+    "orderViaWhatsapp": "হোয়াটসঅ্যাপে অর্ডার করুন"
   },
   "quantity": {
     "label": "পরিমাণ",
@@ -67,5 +68,33 @@
   "wishlist": {
     "addToWishlist": "উইশলিস্টে যোগ করুন",
     "inWishlist": "উইশলিস্টে আছে"
+  },
+  "labels": {
+    "productId": "আইডি:",
+    "productSku": "এসকেইউ:",
+    "selectedVariant": "নির্বাচিত ভ্যারিয়েন্ট:",
+    "selectVariantAria": "ভ্যারিয়েন্ট নির্বাচন করুন: {{name}}",
+    "highlights": "পণ্যের বৈশিষ্ট্য",
+    "inBox": "বাক্সে যা আছে",
+    "warranty": "ওয়ান্টি",
+    "notAvailable": "উপলব্ধ নেই"
+  },
+  "trustBadges": {
+    "freeShipping": {
+      "title": "বিনামূল্যে শিপিং",
+      "description": "৳1000 এর উপরে অর্ডার বিনামূল্যে শিপিং"
+    },
+    "securePayment": {
+      "title": "নিরাপদ পেমেন্ট",
+      "description": "100% নিরাপদ পেমেন্ট পদ্ধতি"
+    },
+    "easyReturns": {
+      "title": "সহজ রিটার্ন",
+      "description": "7 দিনের রিটার্ন নীতি"
+    },
+    "fastDelivery": {
+      "title": "দ্রুত ডেলিভারি",
+      "description": "2-3 কার্যদিনের মধ্যে শিপিং হয়"
+    }
   }
 }

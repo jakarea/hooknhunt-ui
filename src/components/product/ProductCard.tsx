@@ -31,7 +31,6 @@ export default function ProductCard({ product }: ProductCardProps) {
   const name = product.name ?? product.title;
   const stock = product.stock ?? product.inventory_quantity;
   const variant_count = product.variant_count || 0;
-  const price_range_display = product.price_range_display || '';
 
   const discount = originalPrice && price
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
@@ -140,10 +139,10 @@ export default function ProductCard({ product }: ProductCardProps) {
                 )}
               </div>
             ) : (
-              // Multiple variants - show price range
+              // Multiple variants - show minimum price only
               <div className="flex flex-col gap-1">
                 <span className="text-sm lg:text-base font-bold text-[#bc1215]">
-                  {price_range_display || (price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceVaries'))}
+                  {price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceVaries')}
                 </span>
                 <span className="text-xs text-gray-500">
                   {t('productCard.variantsAvailable', { count: variant_count })}

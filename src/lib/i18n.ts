@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from '../../node_modules/react-i18next';
 import enInventory from '../locales/en/inventory.json';
-import bnInventory from '../locales/en/inventory.json';
+import bnInventory from '../locales/bn/inventory.json';
 import enSidebar from '../locales/en/sidebar.json';
 import bnSidebar from '../locales/bn/sidebar.json';
 import enContact from '../locales/en/contact.json';
@@ -18,6 +18,8 @@ import enProducts from '../locales/en/products.json';
 import bnProducts from '../locales/bn/products.json';
 import enPayment from '../locales/en/payment.json';
 import bnPayment from '../locales/bn/payment.json';
+import enPolicies from '../locales/en/policies.json';
+import bnPolicies from '../locales/bn/policies.json';
 
 // Translation resources
 const resources = {
@@ -26,7 +28,7 @@ const resources = {
       // Header
       'header.welcome': 'Welcome to Hook & Hunt - Hunting Happiness',
       'header.welcomeShort': 'Hook & Hunt',
-      'header.phone': 'Call us: 01841544590',
+      'header.phone': 'Call us: 8801975244202',
       'header.search': 'Search for products...',
       'header.cart': 'Cart',
       'header.account': 'Account',
@@ -66,7 +68,7 @@ const resources = {
       'footer.phone': 'Phone',
       'footer.email': 'Email',
       'footer.address': 'Holding - 3528/3, Biddut Nagar, Rail-Gate, Bogura Sadar, Bogura 5800.',
-      'footer.phoneNumber': '+88 09613 244 200',
+      'footer.phoneNumber': '+8801975244202',
       'footer.emailAddress': 'Support@hooknhunt.com',
       'footer.copyright': '2025 Hook & Hunt. All rights reserved.',
       'footer.weAccept': 'We Accept:',
@@ -209,6 +211,13 @@ const resources = {
       'cart.sidebar.proceedToCheckout': 'Proceed to Checkout',
       'cart.sidebar.shippingNote': 'Shipping and taxes calculated at checkout',
       'cart.sidebar.maxStock': 'Max stock reached',
+      'cart.sidebar.subtotal': 'Subtotal:',
+      'cart.sidebar.youMightAlsoLike': 'You might also like',
+      'cart.sidebar.add': '+ Add',
+      'cart.sidebar.close': 'Close cart',
+      'cart.sidebar.remove': 'Remove item',
+      'cart.sidebar.decrease': 'Decrease quantity',
+      'cart.sidebar.increase': 'Increase quantity',
 
       // Cart Page
       'cart.page.title': 'Shopping Cart',
@@ -310,6 +319,53 @@ const resources = {
       'checkout.validating': 'Validating...',
       'checkout.removeCoupon': 'Remove coupon',
       'checkout.discount': 'discount applied',
+      'checkout.division': 'Division',
+      'checkout.thana': 'Thana',
+      'checkout.selectDivision': 'Select Division',
+      'checkout.selectDistrict': 'Select District',
+      'checkout.selectThana': 'Select Thana',
+      'checkout.selectDivisionFirst': 'Select Division First',
+      'checkout.selectDistrictFirst': 'Select District First',
+      'checkout.deliveryAddress': 'Delivery Address',
+      'checkout.homeAddress': 'Home',
+      'checkout.defaultAddress': 'Default',
+      'checkout.useDifferentAddress': 'Use a different address for this order',
+      'checkout.prefilledFromAccount': 'Prefilled from your account',
+      'checkout.item': 'item',
+      'checkout.items': 'items',
+      'checkout.processing': 'Processing...',
+      'checkout.processingPayment': 'Processing Payment',
+      'checkout.sslcommerzTitle': 'SSLCommerz',
+      'checkout.sslcommerzDesc': 'Pay securely with Card, Mobile Banking, or Net Banking',
+      'checkout.redirectingToSsl': 'You will be redirected to SSL Commerz payment gateway shortly.',
+      'checkout.placingCodOrder': 'Placing your Cash on Delivery order...',
+      'checkout.pay': 'Pay',
+      'checkout.notes': 'Order Notes (Optional)',
+      'checkout.notesPlaceholder': 'Any special instructions for your order...',
+      'checkout.addMoreForFreeShipping': 'Add <strong>৳{{amount}}</strong> more to get FREE shipping!',
+      'checkout.qty': 'Qty:',
+      'checkout.each': 'each',
+      'checkout.removeItem': 'Remove item',
+      'checkout.pleaseWaitProcessOrder': 'Please wait while we process your order...',
+      'checkout.doNotCloseWindow': 'Please do not close this window.',
+      'checkout.pleaseWaitConfirmOrder': 'Please wait while we confirm your order.',
+      'checkout.verificationCodeSent': 'We\'ve sent a 5-digit verification code to <strong>{{phone}}</strong>. Please enter the code below to confirm your order.',
+      'checkout.otpVerification': 'OTP Verification',
+      'checkout.enterOtp': 'Enter OTP',
+      'checkout.otpPlaceholder': 'Enter 5-digit code',
+      'checkout.verifyOtp': 'Verify OTP',
+      'checkout.resendOtp': 'Resend OTP',
+      'checkout.resendOtpIn': 'Resend in {{seconds}}s',
+      'checkout.otpExpired': 'OTP expired',
+      'checkout.expiredResend': 'Expired - Resend',
+      'checkout.confirmYourOrder': 'Confirm Your Order',
+      'checkout.orderNumber': 'Order #',
+      'checkout.verifying': 'Verifying...',
+      'checkout.verifyCompleteOrder': 'Verify & Complete Order',
+      'checkout.sending': 'Sending...',
+      'checkout.didntReceiveCode': "Didn't receive code? Resend OTP",
+      'checkout.editCart': 'Edit Cart',
+      'checkout.secureCheckout': 'Secure Checkout',
 
       // Order Success / Thank You
       'orderSuccess.title': 'Thank You, {{name}}!',
@@ -414,6 +470,9 @@ const resources = {
       ...enProductCard,
       ...enProduct,
       ...enProducts,
+      'buttons.buyNow': enProduct.buttons.buyNow,
+      'buttons.addToCart': enProduct.buttons.addToCart,
+      'buttons.orderViaWhatsapp': enProduct.buttons.orderViaWhatsapp,
       ...enPayment.payment
 
     },
@@ -423,7 +482,7 @@ const resources = {
       // Header
       'header.welcome': 'হুক এন্ড হান্ট এ স্বাগতম - সুখের শিকার',
       'header.welcomeShort': 'হুক এন্ড হান্ট',
-      'header.phone': 'কল করুন: 01841544590',
+      'header.phone': 'কল করুন: 8801975244202',
       'header.search': 'পণ্য খুঁজুন...',
       'header.cart': 'কার্ট',
       'header.account': 'অ্যাকাউন্ট',
@@ -463,7 +522,7 @@ const resources = {
       'footer.phone': 'ফোন',
       'footer.email': 'ইমেইল',
       'footer.address': 'হোল্ডিং - ৩৫২৮/৩, বিদ্যুৎ নগর, রেল-গেট, বগুড়া সদর, বগুড়া ৫৮০০।',
-      'footer.phoneNumber': '+৮৮ ০৯৬১৩ ২৪৪ ২০০',
+      'footer.phoneNumber': '+8801975244202',
       'footer.emailAddress': 'Support@hooknhunt.com',
       'footer.copyright': '২০২৫ হুক এন্ড হান্ট। সর্বস্বত্ব সংরক্ষিত।',
       'footer.weAccept': 'আমরা গ্রহণ করি:',
@@ -606,6 +665,13 @@ const resources = {
       'cart.sidebar.proceedToCheckout': 'চেকআউট করুন',
       'cart.sidebar.shippingNote': 'চেকআউটে শিপিং এবং ট্যাক্স হিসাব করা হবে',
       'cart.sidebar.maxStock': 'সর্বোচ্চ স্টক পৌঁছেছে',
+      'cart.sidebar.subtotal': 'সাবটোটাল:',
+      'cart.sidebar.youMightAlsoLike': 'আপনার হয়তো এগুলোও পছন্দ হবে',
+      'cart.sidebar.add': '+ যোগ করুন',
+      'cart.sidebar.close': 'কার্ট বন্ধ করুন',
+      'cart.sidebar.remove': 'আইটেম সরান',
+      'cart.sidebar.decrease': 'পরিমাণ কমান',
+      'cart.sidebar.increase': 'পরিমাণ বাড়ান',
 
       // Cart Page
       'cart.page.title': 'শপিং কার্ট',
@@ -707,6 +773,53 @@ const resources = {
       'checkout.validating': 'যাচাই করা হচ্ছে...',
       'checkout.removeCoupon': 'কুপন সরান',
       'checkout.discount': 'ছাড় প্রয়োগ করা হয়েছে',
+      'checkout.division': 'বিভাগ',
+      'checkout.thana': 'থানা',
+      'checkout.selectDivision': 'বিভাগ নির্বাচন করুন',
+      'checkout.selectDistrict': 'জেলা নির্বাচন করুন',
+      'checkout.selectThana': 'থানা নির্বাচন করুন',
+      'checkout.selectDivisionFirst': 'প্রথমে বিভাগ নির্বাচন করুন',
+      'checkout.selectDistrictFirst': 'প্রথমে জেলা নির্বাচন করুন',
+      'checkout.deliveryAddress': 'ডেলিভারি ঠিকানা',
+      'checkout.homeAddress': 'বাসা',
+      'checkout.defaultAddress': 'ডিফল্ট',
+      'checkout.useDifferentAddress': 'এই অর্ডারের জন্য অন্য ঠিকানা ব্যবহার করুন',
+      'checkout.prefilledFromAccount': 'আপনার অ্যাকাউন্ট থেকে পূরণ করা হয়েছে',
+      'checkout.item': 'পণ্য',
+      'checkout.items': 'পণ্য',
+      'checkout.processing': 'প্রক্রিয়া করা হচ্ছে...',
+      'checkout.processingPayment': 'পেমেন্ট প্রক্রিয়া করা হচ্ছে',
+      'checkout.sslcommerzTitle': 'এসএসএলকমার্জ',
+      'checkout.sslcommerzDesc': 'কার্ড, মোবাইল ব্যাংকিং বা নেট ব্যাংকিংয়ের মাধ্যমে নিরাপদে পেমেন্ট করুন',
+      'checkout.redirectingToSsl': 'আপনি শীঘ্রই এসএসএল কমার্জ পেমেন্ট গেটওয়েতে পুনঃনির্দেশিত হবেন।',
+      'checkout.placingCodOrder': 'আপনার ক্যাশ অন ডেলিভারি অর্ডার প্রক্রিয়া করা হচ্ছে...',
+      'checkout.pay': 'পেমেন্ট করুন',
+      'checkout.notes': 'অর্ডার নোট (ঐচ্ছিক)',
+      'checkout.notesPlaceholder': 'আপনার অর্ডারের জন্য কোনো বিশেষ নির্দেশনা...',
+      'checkout.addMoreForFreeShipping': 'বিনামূল্যে শিপিং পেতে আরও <strong>৳{{amount}}</strong> যোগ করুন!',
+      'checkout.qty': 'পরিমাণ:',
+      'checkout.each': 'প্রতি',
+      'checkout.removeItem': 'আইটেম সরান',
+      'checkout.pleaseWaitProcessOrder': 'অনুগ্রহ করে অপেক্ষা করুন, আমরা আপনার অর্ডার প্রক্রিয়া করছি...',
+      'checkout.doNotCloseWindow': 'অনুগ্রহ করে এই উইন্ডোটি বন্ধ করবেন না।',
+      'checkout.pleaseWaitConfirmOrder': 'অনুগ্রহ করে অপেক্ষা করুন, আমরা আপনার অর্ডার নিশ্চিত করছি...',
+      'checkout.verificationCodeSent': 'আমরা <strong>{{phone}}</strong>-এ একটি 5 ডিজিটের যাচাই কোড পাঠিয়েছি। অনুগ্রহ করে আপনার অর্ডার নিশ্চিত করতে নিচের কোডটি লিখুন।',
+      'checkout.otpVerification': 'ওটিপি যাচাই',
+      'checkout.enterOtp': 'ওটিপি লিখুন',
+      'checkout.otpPlaceholder': '5 ডিজিটের কোড লিখুন',
+      'checkout.verifyOtp': 'ওটিপি যাচাই করুন',
+      'checkout.resendOtp': 'ওটিপি পুনরায় পাঠান',
+      'checkout.resendOtpIn': '{{seconds}}সেকেন্ডে পুনরায় পাঠান',
+      'checkout.otpExpired': 'ওটিপির মেয়াদ শেষ হয়ে গেছে',
+      'checkout.expiredResend': 'মেয়াদ শেষ - পুনরায় পাঠান',
+      'checkout.confirmYourOrder': 'আপনার অর্ডার নিশ্চিত করুন',
+      'checkout.orderNumber': 'অর্ডার #',
+      'checkout.verifying': 'যাচাই করা হচ্ছে...',
+      'checkout.verifyCompleteOrder': 'যাচাই করুন এবং অর্ডার সম্পূর্ণ করুন',
+      'checkout.sending': 'পাঠানো হচ্ছে...',
+      'checkout.didntReceiveCode': 'কোড পাননি? ওটিপি পুনরায় পাঠান',
+      'checkout.editCart': 'কার্ট সম্পাদনা করুন',
+      'checkout.secureCheckout': 'নিরাপদ চেকআউট',
 
       // Order Success / Thank You
       'orderSuccess.title': 'ধন্যবাদ, {{name}}!',
@@ -808,6 +921,9 @@ const resources = {
       ...bnProductCard,
       ...bnProduct,
       ...bnProducts,
+      'buttons.buyNow': bnProduct.buttons.buyNow,
+      'buttons.addToCart': bnProduct.buttons.addToCart,
+      'buttons.orderViaWhatsapp': bnProduct.buttons.orderViaWhatsapp,
       ...bnPayment.payment
 
     },
@@ -818,11 +934,13 @@ const resources = {
   ...(resources as Record<string, Record<string, unknown>>).en,
   contact: enContact,
   hotDeals: enHotDeals,
+  policies: enPolicies,
 };
 (resources as Record<string, Record<string, unknown>>).bn = {
   ...(resources as Record<string, Record<string, unknown>>).bn,
   contact: bnContact,
   hotDeals: bnHotDeals,
+  policies: bnPolicies,
 };
 
 i18n

@@ -428,7 +428,9 @@ function ProductDetailPageContent() {
             <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <span className="text-gray-900 dark:text-white font-medium">{product.name}</span>
+            <span className="text-gray-900 dark:text-white font-medium">
+              {product.name.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
+            </span>
           </div>
         </div>
       </div>
@@ -587,11 +589,11 @@ function ProductDetailPageContent() {
               
               <div className="flex items-start justify-between gap-3 mb-3">
                 <h1 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white leading-tight flex-1 line-clamp-2 min-h-[2.8rem] sm:min-h-[3rem]">
-                  {product.name}
+                  {product.name.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
                 </h1>
                 {product.categories && product.categories.length > 0 && (
                   <span className="flex-shrink-0 px-2 py-1 bg-[#bc1215] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">
-                    {product.categories[0].name}
+                    {product.categories[0].name.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
                   </span>
                 )}
               </div>
@@ -602,14 +604,14 @@ function ProductDetailPageContent() {
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                   </svg>
-                  <span className="font-medium">ID: {product.id}</span>
+                  <span className="font-medium">{t('labels.productId')} {product.id}</span>
                 </span>
                 {selectedVariant && (
                   <span className="flex items-center gap-1 px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded-full">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                    <span className="font-medium">SKU: {selectedVariant.sku}</span>
+                    <span className="font-medium">{t('labels.productSku')} {selectedVariant.sku}</span>
                   </span>
                 )}
                 <span className={`flex items-center gap-1 px-2 py-1 rounded-full ${isInStock ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'}`}>
@@ -646,7 +648,7 @@ function ProductDetailPageContent() {
               </div>
               {product.variant_count > 1 && selectedVariant && (
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                  Selected variant: <span className="font-medium text-gray-700 dark:text-gray-300">{selectedVariant.name}</span>
+                  {t('labels.selectedVariant')} <span className="font-medium text-gray-700 dark:text-gray-300">{selectedVariant.name}</span>
                 </p>
               )}
             </div>
@@ -672,7 +674,7 @@ function ProductDetailPageContent() {
                             ? 'border-[#bc1215] bg-[#bc1215] text-white shadow-md'
                             : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#bc1215] dark:hover:border-[#bc1215] hover:text-[#bc1215] dark:hover:text-[#bc1215] bg-white dark:bg-gray-700'
                         }`}
-                        aria-label={`Select variant: ${variant.name}`}
+                        aria-label={t('labels.selectVariantAria', { name: variant.name })}
                       >
                         <span className="flex items-center gap-2">
                           {isSelected && (
@@ -730,7 +732,7 @@ function ProductDetailPageContent() {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2">Product Highlights</h4>
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{t('labels.highlights')}</h4>
                     <ul className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
                       {product.highlights.map((item: string, index: number) => (
                         <li key={index} className="flex items-start gap-2">
@@ -856,7 +858,7 @@ function ProductDetailPageContent() {
 
                   {/* WhatsApp Order Button */}
                   <a
-                    href={`https://wa.me/8801841544590?text=${encodeURIComponent(
+                    href={`https://wa.me/8801975244202?text=${encodeURIComponent(
                       `Hi, I'm interested in buying: ${product.name}\nPrice: ৳${currentPrice.toLocaleString()}\n${selectedVariant ? `Variant: ${selectedVariant.name}\n` : ''}Please provide more details.`
                     )}`}
                     target="_blank"
@@ -871,7 +873,7 @@ function ProductDetailPageContent() {
                         <path d="M26.576 5.363c-2.69-2.69-6.406-4.354-10.511-4.354-8.209 0-14.865 6.655-14.865 14.865 0 2.732.737 5.291 2.022 7.491l-0.038-0.070-2.109 7.702 7.879-2.067c2.051 1.139 4.498 1.809 7.102 1.809h0.006c8.209-0.003 14.862-6.659 14.862-14.868 0-4.103-1.662-7.817-4.349-10.507l0 0zM16.062 28.228h-0.005c-0 0-0.001 0-0.001 0-2.319 0-4.489-0.64-6.342-1.753l0.056 0.031-0.451-0.267-4.675 1.227 1.247-4.559-0.294-0.467c-1.185-1.862-1.889-4.131-1.889-6.565 0-6.822 5.531-12.353 12.353-12.353s12.353 5.531 12.353 12.353c0 6.822-5.53 12.353-12.353 12.353h-0zM22.838 18.977c-0.371-0.186-2.197-1.083-2.537-1.208-0.341-0.124-0.589-0.185-0.837 0.187-0.246 0.371-0.958 1.207-1.175 1.455-0.216 0.249-0.434 0.279-0.805 0.094-1.15-0.466-2.138-1.087-2.997-1.852l0.010 0.009c-0.799-0.74-1.484-1.587-2.037-2.521l-0.028-0.052c-0.216-0.371-0.023-0.572 0.162-0.757 0.167-0.166 0.372-0.434 0.557-0.65 0.146-0.179 0.271-0.384 0.366-0.604l0.006-0.017c0.043-0.087 0.068-0.188 0.068-0.296 0-0.131-0.037-0.253-0.101-0.357l0.002 0.003c-0.094-0.186-0.836-2.014-1.145-2.758-0.302-0.724-0.609-0.625-0.836-0.637-0.216-0.010-0.464-0.012-0.712-0.012-0.395 0.010-0.746 0.188-0.988 0.463l-0.001 0.002c-0.802 0.761-1.3 1.834-1.3 3.023 0 0.026 0 0.053 0.001 0.079l-0-0.004c0.131 1.467 0.681 2.784 1.527 3.857l-0.012-0.015c1.604 2.379 3.742 4.282 6.251 5.564l0.094 0.043c0.548 0.248 1.25 0.513 1.968 0.74l0.149 0.041c0.442 0.14 0.951 0.221 1.479 0.221 0.303 0 0.601-0.027 0.889-0.078l-0.031 0.004c1.069-0.223 1.956-0.868 2.497-1.749l0.009-0.017c0.165-0.366 0.261-0.793 0.261-1.242 0-0.185-0.016-0.366-0.047-0.542l0.003 0.019c-0.092-0.155-0.34-0.247-0.712-0.434z"></path>
                       </g>
                     </svg>
-                    Order via WhatsApp
+                    {t('buttons.orderViaWhatsapp')}
                   </a>
                 </>
               ) : (
@@ -893,8 +895,8 @@ function ProductDetailPageContent() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
               </svg>
               <div>
-                <p className="font-semibold text-sm">Free Shipping</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">On orders over ৳1000</p>
+                <p className="font-semibold text-sm">{t('trustBadges.freeShipping.title')}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{t('trustBadges.freeShipping.description')}</p>
               </div>
             </div>
             <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3">
@@ -902,8 +904,8 @@ function ProductDetailPageContent() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               <div>
-                <p className="font-semibold text-sm">Secure Payment</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">100% secure payment methods</p>
+                <p className="font-semibold text-sm">{t('trustBadges.securePayment.title')}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{t('trustBadges.securePayment.description')}</p>
               </div>
             </div>
             <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3">
@@ -911,17 +913,17 @@ function ProductDetailPageContent() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
               <div>
-                <p className="font-semibold text-sm">Easy Returns</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">7-day return policy</p>
+                <p className="font-semibold text-sm">{t('trustBadges.easyReturns.title')}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{t('trustBadges.easyReturns.description')}</p>
               </div>
             </div>
             <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-3 text-[#bc1215] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-3 text-[#bc1215] flex-shrink-0 mt:0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
-                <p className="font-semibold text-sm">Fast Delivery</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Ships within 2-3 business days</p>
+                <p className="font-semibold text-sm">{t('trustBadges.fastDelivery.title')}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{t('trustBadges.fastDelivery.description')}</p>
               </div>
             </div>
           </div>

@@ -77,7 +77,7 @@ export default function FloatingActionButton() {
       ),
       label: 'WhatsApp',
       action: () => {
-        window.open('https://wa.me/8801841544590', '_blank');
+        window.open('https://wa.me/8801975244202', '_blank');
         setShowQuickActions(false);
       },
       color: 'bg-green-500 hover:bg-green-600',

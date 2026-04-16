@@ -15,7 +15,8 @@
     "addToCart": "Add to Cart",
     "buyNow": "Buy Now",
     "viewCart": "View Cart",
-    "selectVariant": "Select Variant"
+    "selectVariant": "Select Variant",
+    "orderViaWhatsapp": "Order via WhatsApp"
   },
   "quantity": {
     "label": "Quantity",
@@ -67,5 +68,33 @@
   "wishlist": {
     "addToWishlist": "Add to Wishlist",
     "inWishlist": "In Wishlist"
+  },
+  "labels": {
+    "productId": "ID:",
+    "productSku": "SKU:",
+    "selectedVariant": "Selected variant:",
+    "selectVariantAria": "Select variant: {{name}}",
+    "highlights": "Product Highlights",
+    "inBox": "In Box",
+    "warranty": "Warranty",
+    "notAvailable": "Not Available"
+  },
+  "trustBadges": {
+    "freeShipping": {
+      "title": "Free Shipping",
+      "description": "On orders over ৳1000"
+    },
+    "securePayment": {
+      "title": "Secure Payment",
+      "description": "100% secure payment methods"
+    },
+    "easyReturns": {
+      "title": "Easy Returns",
+      "description": "7-day return policy"
+    },
+    "fastDelivery": {
+      "title": "Fast Delivery",
+      "description": "Ships within 2-3 business days"
+    }
   }
 }

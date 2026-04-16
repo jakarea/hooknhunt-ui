@@ -6,7 +6,7 @@
 export interface CustomerAddress {
   address_line1: string;
   address_line2?: string;
-  city: string;
+  city?: string;
   district?: string;
   country: string;
   postal_code?: string;

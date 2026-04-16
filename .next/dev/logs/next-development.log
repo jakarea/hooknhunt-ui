@@ -1,62 +1,34 @@
-[00:00:00.936] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.014] Server  LOG     ✓ Ready in 808ms
-[00:00:22.451] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:22.667] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
-[00:00:22.667] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/sliders"}
-[00:00:22.667] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=1&per_page=12"}
-[00:00:22.667] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
-[00:00:22.667] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=2&per_page=6"}
-[00:00:22.667] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?sort_by=created_at_desc&page=1&per_page=12"}
-[00:00:22.667] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products?page=3&per_page=6"}
-[00:00:22.667] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
-[00:00:22.667] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
-[00:00:22.667] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:00:22.667] Browser LOG     Theme initialized to light mode
-[00:00:22.667] Browser LOG     HTML classes: 
-[00:00:22.667] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:00:23.130] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:23.130] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:23.130] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:23.130] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:23.130] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:23.130] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:23.130] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:25.726] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:00:25.727] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
-[00:00:25.727] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
-[00:00:25.727] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
-[00:00:25.727] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
-[00:00:25.922] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:25.922] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:25.922] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:25.922] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:28.875] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/coupons/auto-apply?cart_total=984"}
-[00:00:28.875] Browser LOG     🔍 [API_DEBUG] Response: {"ok":false,"status":404,"statusText":""}
-[00:00:28.875] Browser LOG     🔍 [API_DEBUG] Error thrown: {"errors":"আপনি যে এপিআই এন্ডপয়েন্টটি খুঁজছেন তা আমাদের সিস্টেমে নেই।","message":"লিংকটি খুঁজে পাওয়া যায়নি","response":{},"status":404}
-[00:00:28.875] Browser LOG     🔍 [API_DEBUG] Catch error: {"errors":"আপনি যে এপিআই এন্ডপয়েন্টটি খুঁজছেন তা আমাদের সিস্টেমে নেই।","message":"লিংকটি খুঁজে পাওয়া যায়নি","response":{},"status":404}
-[00:01:08.159] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:08.447] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
-[00:01:08.447] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
-[00:01:08.447] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
-[00:01:08.447] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:01:08.447] Browser LOG     Theme initialized to light mode
-[00:01:08.447] Browser LOG     HTML classes: 
-[00:01:08.447] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:01:09.049] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:01:15.393] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:01:15.393] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/coupons/auto-apply?cart_total=984"}
-[00:01:15.393] Browser LOG     🔍 [API_DEBUG] Response: {"ok":false,"status":404,"statusText":""}
-[00:01:15.393] Browser LOG     🔍 [API_DEBUG] Error thrown: {"errors":"আপনি যে এপিআই এন্ডপয়েন্টটি খুঁজছেন তা আমাদের সিস্টেমে নেই।","message":"লিংকটি খুঁজে পাওয়া যায়নি","response":{},"status":404}
-[00:01:15.393] Browser LOG     🔍 [API_DEBUG] Catch error: {"errors":"আপনি যে এপিআই এন্ডপয়েন্টটি খুঁজছেন তা আমাদের সিস্টেমে নেই।","message":"লিংকটি খুঁজে পাওয়া যায়নি","response":{},"status":404}
-[00:01:38.852] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/orders"}
-[00:01:39.012] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":201,"statusText":""}
-[00:01:39.012] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/payments/initiate"}
-[00:01:39.804] Browser LOG     🔍 [API_DEBUG] Response: {"ok":false,"status":500,"statusText":""}
-[00:01:39.804] Browser LOG     🔍 [API_DEBUG] Error thrown: {"errors":{},"message":"An error occurred","response":{},"status":500}
-[00:01:39.804] Browser LOG     🔍 [API_DEBUG] Catch error: {"errors":{},"message":"An error occurred","response":{},"status":500}
-[00:11:36.536] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/orders"}
-[00:11:36.839] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":201,"statusText":""}
-[00:11:36.839] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"POST","url":"https://hooknhunt-api.test/api/v2/store/payments/initiate"}
-[00:11:37.441] Browser LOG     🔍 [API_DEBUG] Response: {"ok":false,"status":500,"statusText":""}
-[00:11:37.441] Browser LOG     🔍 [API_DEBUG] Error thrown: {"errors":{},"message":"An error occurred","response":{},"status":500}
-[00:11:37.441] Browser LOG     🔍 [API_DEBUG] Catch error: {"errors":{},"message":"An error occurred","response":{},"status":500}
+[00:00:00.720] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:00.796] Server  LOG     ✓ Ready in 627ms
+[00:00:01.753] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-ampampampampampamp-stream-fishing"}
+[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-ampampampampampamp-stream-fishing/related?limit=6"}
+[00:00:02.927] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[00:00:02.927] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[00:00:02.927] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[00:00:02.927] Browser LOG     Theme initialized to light mode
+[00:00:02.927] Browser LOG     HTML classes: 
+[00:00:02.927] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:01:58.696] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1775008736_69cc7be027ef1_hook-and-hunt-carbon-ultra-light-stream-fishing-rod-short-section-soft-tone.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:02:00.263] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:00.408] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:02:00.408] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-ampampampampampamp-stream-fishing"}
+[00:02:00.408] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-ampampampampampamp-stream-fishing/related?limit=6"}
+[00:02:00.408] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[00:02:00.408] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[00:02:00.408] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[00:02:00.408] Browser LOG     Theme initialized to light mode
+[00:02:00.408] Browser LOG     HTML classes: 
+[00:02:00.408] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[00:02:00.408] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:02:01.121] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:02:01.121] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:02:01.121] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:02:01.121] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}

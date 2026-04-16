@@ -1,0 +1,33 @@
+{
+  "inventory": {
+    "title": "ইনভেন্টরি",
+    "subtitle": "আপনার বর্তমান স্টক স্তর পরিচালনা করুন",
+    "noVariants": "কোন ভেরিয়েন্ট নেই",
+    "noItems": "কোন ইনভেন্টরি আইটেম পাওয়া যায়নি",
+    "stats": {
+      "totalItems": "মোট আইটেম",
+      "totalQuantity": "মোট পরিমাণ",
+      "totalValue": "মোট মূল্য",
+      "alerts": "সতর্কতা",
+      "alertsDetail": "{{out}} আউট, {{low}} কম"
+    },
+    "filters": {
+      "title": "ফিল্টার",
+      "searchPlaceholder": "পণ্য খুঁজুন...",
+      "stockStatusPlaceholder": "স্টক স্ট্যাটাস",
+      "allStatus": "সব স্ট্যাটাস",
+      "locationPlaceholder": "অবস্থান অনুযায়ে ফিল্টার...",
+      "clear": "ফিল্টার সাফ করুন"
+    },
+    "currentStock": {
+      "title": "বর্তমান স্টক",
+      "showing": "{{total}} আইটেমের {{from}} থেকে {{to}} দেখানো হচ্ছে"
+    },
+    "table": {
+      "product": "পণ্য",
+      "variant": "ভেরিয়েন্ট",
+      "sku": "SKU",
+      "landedCost": "ল্যান্ডেড খরচ"
+    }
+  }
+}

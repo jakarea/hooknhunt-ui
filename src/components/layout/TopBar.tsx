@@ -23,11 +23,11 @@ export default function TopBar() {
           {/* Right Section */}
           <div className="flex items-center space-x-6">
             {/* Phone */}
-            <a href="tel:01841544590" className="flex items-center hover:opacity-80 transition-opacity">
+            <a href="tel:8801975244202" className="flex items-center hover:opacity-80 transition-opacity">
               <svg className="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
               </svg>
-              <span className="hidden sm:inline">01841544590</span>
+              <span className="hidden sm:inline">8801975244202</span>
             </a>
 
             {/* Language Switcher */}

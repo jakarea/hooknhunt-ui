@@ -1,0 +1,152 @@
+{
+  "refund": {
+    "title": "Refund Policy",
+    "intro": "Thank you for shopping at Hook & Hunt. We appreciate your business and want to ensure your satisfaction with our products. Please read the following refund policy carefully.",
+    "eligibility": {
+      "title": "Eligibility for Refund",
+      "condition1": "To be eligible for a refund, the item must be unused and in the same condition that you received it. It must also be in the original packaging.",
+      "condition2": "Items that are damaged, used, or not in their original condition may not be eligible for a refund.",
+      "condition3": "Refund requests must be made within 7 days of receiving the product."
+    },
+    "process": {
+      "title": "Refund Process",
+      "step1": "To initiate a refund, please contact our customer service team at support@hooknhunt.com or +8801975244202 with your order number and details of the issue.",
+      "step2": "Our team will review your request and notify you of the approval or rejection of your refund.",
+      "step3": "If your refund is approved, it will be processed, and a credit will automatically be applied to your original method of payment within 5-7 business days."
+    },
+    "lateRefunds": {
+      "title": "Late or Missing Refunds",
+      "info1": "If you haven't received a refund within the specified time frame (5 to 7 working days after initiating refund), please check your bank account again and contact your card issuer bank or MFS. It may take some time before your refund is officially posted.",
+      "info2": "If you've done all of this and still have not received your refund, please contact us at support@hooknhunt.com."
+    },
+    "changes": {
+      "title": "Changes to this Refund Policy",
+      "text": "We reserve the right to modify this refund policy at any time. Changes and clarifications will take effect immediately upon posting on our website. By making a purchase on our website, you agree to and accept the terms of this refund policy. If you have any questions or concerns, please contact our customer service team."
+    },
+    "outro": "Thank you for shopping with Hook & Hunt."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "This Privacy Policy describes how Hook & Hunt (\"we,\" \"us,\" or \"our\") collects, uses, shares, and protects the information obtained from users (\"you\" or \"your\") of our e-commerce website hooknhunt.com.",
+    "informationCollect": {
+      "title": "Information We Collect",
+      "subtitle": "We may collect personal information such as:",
+      "items.0": "Name",
+      "items.1": "Contact information including email address, mailing address, and phone number",
+      "items.2": "Payment details",
+      "items.3": "Demographic information",
+      "items.4": "Preferences and interests",
+      "collectWhen": "We collect this information when you:",
+      "collectWhenItems.0": "Make a purchase",
+      "collectWhenItems.1": "Create an account",
+      "collectWhenItems.2": "Sign up for newsletters or promotions",
+      "collectWhenItems.3": "Contact our customer support",
+      "collectWhenItems.4": "Interact with our website through cookies and similar technologies"
+    },
+    "informationUse": {
+      "title": "How We Use Your Information",
+      "intro": "We use the collected information for the following purposes:",
+      "items.0": "To process your orders and payments",
+      "items.1": "To personalize your shopping experience",
+      "items.2": "To improve our products and services",
+      "items.3": "To send promotional emails and newsletters",
+      "items.4": "To communicate with you regarding your orders, inquiries, or account-related matters"
+    },
+    "informationShare": {
+      "title": "Information Sharing",
+      "intro": "We may share your information with:",
+      "items.0": "Service providers who assist us in operating our website or conducting our business",
+      "items.1": "Third-party partners for marketing or promotional purposes",
+      "items.2": "Law enforcement or government agencies when required by law or to protect our rights"
+    },
+    "dataSecurity": {
+      "title": "Data Security",
+      "text": "We implement appropriate security measures to protect your information. However, please note that no method of transmission over the internet or electronic storage is entirely secure."
+    },
+    "yourRights": {
+      "title": "Your Rights",
+      "intro": "You have the right to:",
+      "items.0": "Access, update, or delete your personal information",
+      "items.1": "Object to the processing of your data",
+      "items.2": "Opt-out of receiving marketing communications"
+    },
+    "cookies": {
+      "title": "Cookies",
+      "text": "Our website uses cookies and similar technologies to enhance your browsing experience. You can manage your cookie preferences through your browser settings."
+    },
+    "changes": {
+      "title": "Changes to This Privacy Policy",
+      "text": "We reserve the right to update or modify this Privacy Policy at any time. Any changes will be effective immediately upon posting the revised policy on our website."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "text": "If you have any questions, concerns, or requests regarding this Privacy Policy or the handling of your personal information, please contact us at support@hooknhunt.com.",
+      "updated": "This Privacy Policy was last updated on April 2026."
+    }
+  },
+  "delivery": {
+    "title": "Delivery Policy",
+    "intro": "Thank you for choosing Hook & Hunt as your trusted online product provider. This Delivery Policy outlines the terms and conditions regarding the delivery of products purchased through our platform. By placing an order with us, you agree to comply with and be bound by the following policies:",
+    "processingTime": {
+      "title": "Order Processing Time",
+      "info1": "Orders are typically processed within 1-2 business days from the date of purchase.",
+      "info2": "Processing times may vary depending on the nature of the product or service."
+    },
+    "deliveryMethods": {
+      "title": "Delivery Methods",
+      "text": "We offer various delivery methods, including standard shipping, express shipping, and courier delivery, depending on the nature of the product and your location."
+    },
+    "shippingAddresses": {
+      "title": "Shipping Addresses",
+      "text": "It is the responsibility of the customer to provide accurate and complete shipping information. We are not responsible for items delivered to incorrect addresses provided by the customer."
+    },
+    "restrictions": {
+      "title": "Shipping Restrictions",
+      "text": "Some products may have shipping restrictions based on geographic location or local regulations. Customers are responsible for checking and complying with these restrictions before placing an order."
+    },
+    "confirmation": {
+      "title": "Delivery Confirmation",
+      "text": "Upon successful delivery, customers will receive a confirmation SMS with relevant details, including tracking information (if applicable)."
+    },
+    "delays": {
+      "title": "Shipping Delays",
+      "text": "While we strive to meet all delivery timelines, unforeseen circumstances such as weather conditions, courier delays, or other external factors may cause delays. We appreciate your understanding in such situations."
+    },
+    "returns": {
+      "title": "Returns Due to Non-Delivery",
+      "text": "If a product is returned to us due to non-delivery (e.g., incorrect address provided), the customer will be responsible for any additional shipping charges."
+    },
+    "contact": {
+      "title": "Contact Information",
+      "text": "If you have any questions or concerns regarding your order or our delivery policy, please contact our customer service team at support@hooknhunt.com or +8801975244202."
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "intro": "Hook & Hunt is an online destination committed to providing high-quality fishing equipment and accessories for anglers across Bangladesh. Established in 2024, we have been dedicated to offering a wide range of fishing gear to meet various needs and preferences.",
+    "mission": {
+      "title": "Our Mission",
+      "text": "At Hook & Hunt, our mission is to provide fishermen with reliable, high-quality fishing equipment at competitive prices. We strive to be the trusted partner for every fishing enthusiast, from beginners to professionals. Through our commitment to excellence and customer satisfaction, we aim to make fishing more accessible and enjoyable for everyone."
+    },
+    "offer": {
+      "title": "What We Offer",
+      "text": "We specialize in offering a diverse selection of fishing equipment and accessories, carefully curated to ensure quality, durability, and performance. Our product range includes fishing rods, reels, lines, lures, baits, tackle boxes, and outdoor gear. Each item is selected with attention to detail and designed to meet the evolving needs of anglers."
+    },
+    "whyChoose": {
+      "title": "Why Choose Us",
+      "items.0": "Quality Assurance: We source our products from reputable suppliers and brands, ensuring high-quality standards.",
+      "items.1": "Exceptional Customer Service: Our dedicated customer support team is here to assist you and ensure a smooth shopping experience.",
+      "items.2": "Secure Shopping: We prioritize the security of your transactions and personal information through secure payment methods and data encryption.",
+      "items.3": "Fast and Reliable Shipping: We aim for prompt order processing and reliable shipping to get your purchases to you swiftly."
+    },
+    "commitment": {
+      "title": "Our Commitment",
+      "text": "We are committed to fostering lasting relationships with our customers by delivering excellence in product quality, service, and reliability. Hook & Hunt strives to evolve continually, exploring new trends and expanding our product range to meet your ever-changing needs."
+    },
+    "connect": {
+      "title": "Connect With Us",
+      "text": "Follow us on social media platforms to stay updated on our latest products, promotions, and exciting offers. Feel free to contact us at support@hooknhunt.com for any inquiries or assistance."
+    },
+    "outro": "Thank you for choosing Hook & Hunt. We appreciate your trust and support in our journey to provide you with exceptional products and service."
+  }
+}

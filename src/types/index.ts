@@ -23,7 +23,7 @@ export interface User {
   role?: string;
   customer_profile?: CustomerProfile | null;
   address?: string;
-  city?: string;
+  thana?: string;
   district?: string;
   email_verified_at?: string;
   phone_verified_at?: string;
@@ -42,7 +42,8 @@ export interface Address {
   address_line2?: string;
   area?: string;
   type?: 'shipping' | 'billing'; // Derived from is_shipping_address/is_billing_address
-  city: string;
+  thana?: string;
+  city?: string; // Legacy - still in DB for backward compatibility
   district?: string;
   post_code?: string;
   division?: string;

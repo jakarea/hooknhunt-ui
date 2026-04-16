@@ -86,7 +86,7 @@ export default function CartSidebar() {
               </p>
             </div>
           </div>
-          <button onClick={closeCart} className="p-1.5 hover:bg-white/20 rounded-full transition-colors" aria-label="Close cart">
+          <button onClick={closeCart} className="p-1.5 hover:bg-white/20 rounded-full transition-colors" aria-label={t('cart.sidebar.close')}>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -134,7 +134,7 @@ export default function CartSidebar() {
                         <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">{item.product.variant_name}</p>
                       )}
                     </Link>
-                    <button onClick={() => removeFromCart(item.id)} className="p-0.5 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0" aria-label="Remove">
+                    <button onClick={() => removeFromCart(item.id)} className="p-0.5 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0" aria-label={t('cart.sidebar.remove')}>
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
@@ -142,11 +142,11 @@ export default function CartSidebar() {
                   </div>
                   <div className="flex items-center justify-between mt-1.5">
                     <div className="flex items-center gap-1">
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="w-5 h-5 flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded hover:border-[#ec3137] transition-colors" aria-label="Decrease">
+                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="w-5 h-5 flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded hover:border-[#ec3137] transition-colors" aria-label={t('cart.sidebar.decrease')}>
                         <svg className="w-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" /></svg>
                       </button>
                       <span className="w-5 text-center font-semibold text-gray-900 dark:text-white text-xs">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} disabled={item.quantity >= (item.product.stock || 999)} className="w-5 h-5 flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded hover:border-[#ec3137] transition-colors disabled:opacity-40 disabled:cursor-not-allowed" aria-label="Increase">
+                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} disabled={item.quantity >= (item.product.stock || 999)} className="w-5 h-5 flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded hover:border-[#ec3137] transition-colors disabled:opacity-40 disabled:cursor-not-allowed" aria-label={t('cart.sidebar.increase')}>
                         <svg className="w-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" /></svg>
                       </button>
                     </div>
@@ -164,7 +164,7 @@ export default function CartSidebar() {
         {/* Cross-Sell — dynamic from API */}
         {cartItems.length > 0 && crossSellProducts.length > 0 && (
           <div className="flex-shrink-0 border-t border-gray-200 dark:border-gray-800 px-3 py-2 bg-white dark:bg-[#0a0a0a]">
-            <h4 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-1.5">You might also like</h4>
+            <h4 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-1.5">{t('cart.sidebar.youMightAlsoLike')}</h4>
             <div className="grid grid-cols-2 gap-2">
               {crossSellProducts.filter(p => !cartItems.some(item => item.product.id === p.id)).slice(0, 2).map((product) => {
                 const imageUrl = product.thumbnail?.fullUrl || '';
@@ -210,7 +210,7 @@ export default function CartSidebar() {
                           });
                         }}
                         className="mt-1 w-full py-1 bg-[#ec3137] hover:bg-[#8a0f12] text-white text-[11px] font-bold rounded transition-colors"
-                      >+ Add</button>
+                      >{t('cart.sidebar.add')}</button>
                     </div>
                   </Link>
                 );
@@ -223,7 +223,7 @@ export default function CartSidebar() {
         {cartItems.length > 0 && (
           <div className="border-t border-gray-200 dark:border-gray-800 px-3 py-2.5 space-y-2 bg-gray-50 dark:bg-[#0f0f0f] flex-shrink-0">
             <div className="flex justify-between items-center">
-              <span className="font-semibold text-gray-700 dark:text-gray-300 text-xs">Subtotal:</span>
+              <span className="font-semibold text-gray-700 dark:text-gray-300 text-xs">{t('cart.sidebar.subtotal')}</span>
               <span className="font-bold text-base text-[#ec3137]">
                 <AnimatedCounter value={getCartTotal()} prefix="৳" duration={600} />
               </span>
