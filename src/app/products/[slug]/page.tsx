@@ -142,6 +142,7 @@ function ProductDetailPageContent() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
   const [crossSaleProducts, setCrossSaleProducts] = useState<CrossSaleProduct[]>([]);
+  const [showAllHighlights, setShowAllHighlights] = useState(false);
 
   const handleImageChange = useCallback((index: number) => {
     if (index === selectedImage) return;
@@ -732,9 +733,14 @@ function ProductDetailPageContent() {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2">{t('labels.highlights')}</h4>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-sm font-bold text-gray-900 dark:text-white">{t('labels.highlights')}</h4>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {showAllHighlights ? product.highlights.length : Math.min(3, product.highlights.length)} / {product.highlights.length}
+                      </span>
+                    </div>
                     <ul className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
-                      {product.highlights.map((item: string, index: number) => (
+                      {(showAllHighlights ? product.highlights : product.highlights.slice(0, 7)).map((item: string, index: number) => (
                         <li key={index} className="flex items-start gap-2">
                           <svg className="w-4 h-4 text-green-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -743,6 +749,19 @@ function ProductDetailPageContent() {
                         </li>
                       ))}
                     </ul>
+                    {product.highlights.length > 7 && (
+                      <div className="flex justify-end mt-2">
+                        <button
+                          onClick={() => setShowAllHighlights(!showAllHighlights)}
+                          className="text-xs font-semibold text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors flex items-center gap-1"
+                        >
+                          {showAllHighlights ? t('labels.showLess') : t('labels.showMore')}
+                          <svg className={`w-3 h-3 transition-transform ${showAllHighlights ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

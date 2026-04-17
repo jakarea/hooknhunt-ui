@@ -75,6 +75,8 @@
     "selectedVariant": "নির্বাচিত ভ্যারিয়েন্ট:",
     "selectVariantAria": "ভ্যারিয়েন্ট নির্বাচন করুন: {{name}}",
     "highlights": "পণ্যের বৈশিষ্ট্য",
+    "showMore": "আরও দেখুন",
+    "showLess": "কম দেখুন",
     "inBox": "বাক্সে যা আছে",
     "warranty": "ওয়ান্টি",
     "notAvailable": "উপলব্ধ নেই"

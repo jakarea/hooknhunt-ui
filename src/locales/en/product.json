@@ -75,6 +75,8 @@
     "selectedVariant": "Selected variant:",
     "selectVariantAria": "Select variant: {{name}}",
     "highlights": "Product Highlights",
+    "showMore": "Show more",
+    "showLess": "Show less",
     "inBox": "In Box",
     "warranty": "Warranty",
     "notAvailable": "Not Available"

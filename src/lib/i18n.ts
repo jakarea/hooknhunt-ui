@@ -473,6 +473,8 @@ const resources = {
       'buttons.buyNow': enProduct.buttons.buyNow,
       'buttons.addToCart': enProduct.buttons.addToCart,
       'buttons.orderViaWhatsapp': enProduct.buttons.orderViaWhatsapp,
+      'labels.showMore': enProduct.labels.showMore,
+      'labels.showLess': enProduct.labels.showLess,
       ...enPayment.payment
 
     },
@@ -924,6 +926,8 @@ const resources = {
       'buttons.buyNow': bnProduct.buttons.buyNow,
       'buttons.addToCart': bnProduct.buttons.addToCart,
       'buttons.orderViaWhatsapp': bnProduct.buttons.orderViaWhatsapp,
+      'labels.showMore': bnProduct.labels.showMore,
+      'labels.showLess': bnProduct.labels.showLess,
       ...bnPayment.payment
 
     },

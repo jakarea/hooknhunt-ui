@@ -1,34 +1,84 @@
-[00:00:00.720] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:00.796] Server  LOG     ✓ Ready in 627ms
-[00:00:01.753] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
-[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-ampampampampampamp-stream-fishing"}
-[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-ampampampampampamp-stream-fishing/related?limit=6"}
-[00:00:02.927] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
-[00:00:02.927] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
-[00:00:02.927] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:00:02.927] Browser LOG     Theme initialized to light mode
-[00:00:02.927] Browser LOG     HTML classes: 
-[00:00:02.927] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
-[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:00:02.927] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:01:58.696] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1775008736_69cc7be027ef1_hook-and-hunt-carbon-ultra-light-stream-fishing-rod-short-section-soft-tone.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[00:00:00.794] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:00.900] Server  LOG     ✓ Ready in 714ms
+[00:00:02.126] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.885] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:00:02.885] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
+[00:00:02.885] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[00:00:02.885] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[00:00:02.885] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[00:00:02.885] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[00:00:02.885] Browser LOG     Theme initialized to light mode
+[00:00:02.886] Browser LOG     HTML classes: 
+[00:00:02.886] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[00:00:02.886] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[00:00:03.826] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:03.826] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:03.826] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[00:00:03.826] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:02:01.949] Browser WARN    Image with src "https://hooknhunt-api.test/storage/uploads/1774968332_69cbde0c1f157_EVA-Big-Belly-Sea-Fishing-Float.webp" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
 Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
-[00:02:00.263] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:00.408] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
-[00:02:00.408] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-ampampampampampamp-stream-fishing"}
-[00:02:00.408] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/short-section-stream-fishing-rod-ultra-light-soft-tone-hand-rod-for-river-ampampampampampamp-stream-fishing/related?limit=6"}
-[00:02:00.408] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
-[00:02:00.408] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
-[00:02:00.408] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
-[00:02:00.408] Browser LOG     Theme initialized to light mode
-[00:02:00.408] Browser LOG     HTML classes: 
-[00:02:00.408] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
-[00:02:00.408] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
-[00:02:01.121] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:02:01.121] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:02:01.121] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
-[00:02:01.121] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:02:03.988] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:02:04.341] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:02:04.341] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
+[01:02:04.341] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:02:04.341] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:02:04.341] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:02:04.341] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:02:04.341] Browser LOG     Theme initialized to light mode
+[01:02:04.341] Browser LOG     HTML classes: 
+[01:02:04.341] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:02:04.341] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:02:06.991] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:02:06.991] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:02:06.991] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:02:06.991] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:02:55.825] Server  LOG     ✓ Compiled in 950ms
+[01:02:56.812] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
+[01:02:56.812] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:02:56.812] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:02:56.812] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:15.207] Server  LOG     ✓ Compiled in 174ms
+[01:03:15.808] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
+[01:03:15.808] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:03:15.808] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:15.808] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:25.612] Server  LOG     ✓ Compiled in 140ms
+[01:03:26.098] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
+[01:03:26.099] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:03:26.099] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:26.099] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:28.669] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:03:29.015] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:03:29.016] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
+[01:03:29.016] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:03:29.016] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:03:29.016] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:03:29.016] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:03:29.016] Browser LOG     Theme initialized to light mode
+[01:03:29.016] Browser LOG     HTML classes: 
+[01:03:29.016] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:03:29.016] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:03:30.124] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:30.125] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:30.125] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:30.125] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:58.135] Server  LOG     ✓ Compiled in 193ms
+[01:03:58.808] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
+[01:03:58.808] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:03:58.808] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:03:58.808] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:04:02.065] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:04:02.364] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:04:02.365] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float"}
+[01:04:02.365] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/products/khucra-nam-10-gm-eva-big-belly-sea-fishing-float/related?limit=6"}
+[01:04:02.365] Browser LOG     🔍 [AUTH_DEBUG] Token from localStorage: NOT FOUND
+[01:04:02.365] Browser LOG     🔍 [AUTH_DEBUG] ❌ No token found
+[01:04:02.365] Browser LOG     🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false
+[01:04:02.365] Browser LOG     Theme initialized to light mode
+[01:04:02.365] Browser LOG     HTML classes: 
+[01:04:02.365] Browser LOG     Body classes: inter_5972bc34-module__OU16Qa__className antialiased bg-white text-gray-900 transition-colors duration-200
+[01:04:02.365] Browser LOG     🔍 [API_DEBUG] Request: {"hasToken":false,"includeAuth":false,"method":"GET","url":"https://hooknhunt-api.test/api/v2/store/categories"}
+[01:04:03.209] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:04:03.210] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:04:03.210] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
+[01:04:03.345] Browser LOG     🔍 [API_DEBUG] Response: {"ok":true,"status":200,"statusText":""}
