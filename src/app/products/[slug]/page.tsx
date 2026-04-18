@@ -155,6 +155,28 @@ function ProductDetailPageContent() {
   const [crossSaleProducts, setCrossSaleProducts] = useState<CrossSaleProduct[]>([]);
   const [showAllHighlights, setShowAllHighlights] = useState(false);
 
+  // Get localized content based on current language (must be after all useState, before useCallback)
+  const productName = useMemo(() => {
+    if (!product) return '';
+    // Try to get Bangla name if language is 'bn', otherwise fallback to English or default
+    if (language === 'bn' && (product as any).name_bn) return (product as any).name_bn;
+    return (product as any).name_en || product.name || '';
+  }, [product, language]);
+
+  const productDescription = useMemo(() => {
+    if (!product) return '';
+    // Try to get Bangla description if language is 'bn', otherwise fallback to English or default
+    if (language === 'bn' && (product as any).description_bn) return (product as any).description_bn;
+    return (product as any).description_en || product.description || '';
+  }, [product, language]);
+
+  const productHighlights = useMemo(() => {
+    if (!product) return [];
+    // Try to get Bangla highlights if language is 'bn', otherwise fallback to English or default
+    if (language === 'bn' && (product as any).highlights_bn && (product as any).highlights_bn.length > 0) return (product as any).highlights_bn;
+    return ((product as any).highlights_en && (product as any).highlights_en.length > 0) ? (product as any).highlights_en : (product.highlights || []);
+  }, [product, language]);
+
   const handleImageChange = useCallback((index: number) => {
     if (index === selectedImage) return;
     setSelectedImage(index);
@@ -378,28 +400,6 @@ function ProductDetailPageContent() {
       </div>
     );
   }
-
-  // Get localized content based on current language
-  const productName = useMemo(() => {
-    if (!product) return '';
-    // Try to get Bangla name if language is 'bn', otherwise fallback to English or default
-    if (language === 'bn' && (product as any).name_bn) return (product as any).name_bn;
-    return (product as any).name_en || product.name || '';
-  }, [product, language]);
-
-  const productDescription = useMemo(() => {
-    if (!product) return '';
-    // Try to get Bangla description if language is 'bn', otherwise fallback to English or default
-    if (language === 'bn' && (product as any).description_bn) return (product as any).description_bn;
-    return (product as any).description_en || product.description || '';
-  }, [product, language]);
-
-  const productHighlights = useMemo(() => {
-    if (!product) return [];
-    // Try to get Bangla highlights if language is 'bn', otherwise fallback to English or default
-    if (language === 'bn' && (product as any).highlights_bn && (product as any).highlights_bn.length > 0) return (product as any).highlights_bn;
-    return ((product as any).highlights_en && (product as any).highlights_en.length > 0) ? (product as any).highlights_en : (product.highlights || []);
-  }, [product, language]);
 
   // Get current price based on selected variant or price range
   const currentPrice = selectedVariant ? selectedVariant.retail_price : parseFloat(product.price_range.min);
