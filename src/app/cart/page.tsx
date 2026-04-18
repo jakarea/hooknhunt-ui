@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -9,10 +9,13 @@ import AnimatedCounter from '@/components/common/AnimatedCounter';
 import { useTranslation } from 'react-i18next';
 import DeleteConfirmModal from '@/components/cart/DeleteConfirmModal';
 import CrossSellSection from '@/components/cart/CrossSellSection';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getLocalizedName } from '@/stores/productStore';
 
 export default function CartPage() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { language } = useLanguage();
   const { cartItems, removeFromCart, updateQuantity, getCartCount } = useCart();
 
   // Track selected items (all selected by default)
@@ -22,6 +25,11 @@ export default function CartPage() {
   // Delete confirmation modal state
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<{ id: number; name: string } | null>(null);
+
+  // Helper to get localized product name
+  const getLocalizedNameForProduct = useMemo(() => (product: any) => {
+    return getLocalizedName(product, language);
+  }, [language]);
 
   // Fix hydration mismatch
   useEffect(() => {
@@ -262,7 +270,7 @@ export default function CartPage() {
                       <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 dark:bg-gray-800 overflow-hidden rounded-md">
                         <Image
                           src={item.product.image || '/placeholder-image.jpg'}
-                          alt={item.product.name || 'Product'}
+                          alt={getLocalizedNameForProduct(item.product) || 'Product'}
                           fill
                           className="object-cover group-hover:scale-110 transition-transform duration-300"
                           sizes="(max-width: 640px) 64px, 80px"
@@ -275,7 +283,7 @@ export default function CartPage() {
                       <div className="flex justify-between gap-2">
                         <Link href={`/products/${item.product.slug}`}>
                           <h3 className="text-sm font-semibold text-gray-900 dark:text-white hover:text-[#ec3137] transition-colors line-clamp-1 leading-tight">
-                            {item.product.name}
+                            {getLocalizedNameForProduct(item.product)}
                           </h3>
                           {item.product.variant_name && (
                             <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
@@ -285,7 +293,7 @@ export default function CartPage() {
                         </Link>
                         {/* Remove Button - Desktop */}
                         <button
-                          onClick={() => handleDeleteClick(item.id, item.product.name || 'Product')}
+                          onClick={() => handleDeleteClick(item.id, getLocalizedNameForProduct(item.product) || 'Product')}
                           className="hidden sm:flex flex-shrink-0 p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
                           aria-label="Remove item"
                         >
@@ -359,7 +367,7 @@ export default function CartPage() {
 
                       {/* Mobile Remove Button */}
                       <button
-                        onClick={() => handleDeleteClick(item.id, item.product.name || 'Product')}
+                        onClick={() => handleDeleteClick(item.id, getLocalizedNameForProduct(item.product) || 'Product')}
                         className="sm:hidden mt-2 text-xs text-red-600 hover:text-red-700 flex items-center gap-1 font-medium"
                       >
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

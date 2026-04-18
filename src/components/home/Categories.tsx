@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { useCategoryStore } from '@/stores/categoryStore';
+import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 
 export default function Categories() {
   const { t } = useTranslation();
@@ -66,7 +67,7 @@ export default function Categories() {
                     {imageUrl ? (
                       <Image
                         src={imageUrl}
-                        alt={category.name}
+                        alt={t(getCategoryTranslationKey(category))}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 640px) 50vw, 25vw"
@@ -86,7 +87,7 @@ export default function Categories() {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
                         <h3 className="text-center text-white font-bold text-base md:text-lg leading-tight truncate max-w-[140px] md:max-w-[180px]">
-                          {category.name}
+                          {t(getCategoryTranslationKey(category))}
                         </h3>
                       </div>
                     </div>

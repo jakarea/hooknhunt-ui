@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,8 @@ import { Address } from '@/types';
 import { bangladeshDivisions } from '@/data/bangladesh-divisions';
 import { bangladeshDivisionsBn } from '@/data/bangladesh-divisions-bn';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getLocalizedName } from '@/stores/productStore';
 
 type PaymentMethod = 'cod' | 'sslcommerz';
 
@@ -21,11 +23,17 @@ export default function CheckoutPage() {
   const { cartItems, getCartTotal, clearCart, removeFromCart, updateQuantity } = useCart();
   const { user, isAuthenticated } = useAuth();
   const { t, i18n } = useTranslation();
+  const { language } = useLanguage();
   const couponStore = useCouponStore();
   const { initiateAndPay, loading: paymentLoading } = usePayment();
 
   // Select divisions data based on current language
   const divisions = i18n.language === 'bn' ? bangladeshDivisionsBn : bangladeshDivisions;
+
+  // Helper to get localized product name
+  const getLocalizedNameForProduct = useMemo(() => (product: any) => {
+    return getLocalizedName(product, language);
+  }, [language]);
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
@@ -290,7 +298,7 @@ export default function CheckoutPage() {
       const orderItems = cartItems.map(item => ({
         product_id: item.product.id,
         variant_id: item.variant?.id || item.product.variant_id || null,
-        product_name: item.product.name,
+        product_name: getLocalizedNameForProduct(item.product),
         product_sku: item.variant?.sku || null,
         product_image: item.product.image || '/placeholder-product.png',
         unit_price: item.price || 0,
@@ -856,7 +864,7 @@ export default function CheckoutPage() {
                         <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
                           <img
                             src={item.product.image || '/placeholder-product.png'}
-                            alt={item.product.name}
+                            alt={getLocalizedNameForProduct(item.product)}
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -867,7 +875,7 @@ export default function CheckoutPage() {
                             href={`/products/${item.product.slug}`}
                             className="text-sm font-semibold text-gray-900 dark:text-white hover:text-[#ec3137] dark:hover:text-[#ec3137] line-clamp-2 transition-colors"
                           >
-                            {item.product.name}
+                            {getLocalizedNameForProduct(item.product)}
                           </Link>
 
                           {item.variant && (

@@ -8,45 +8,70 @@ export interface ProductFilters {
   sort_by?: string;
 }
 
-// Helper to get language-specific content (English by default, Bangla if language is 'bn' with null check fallback)
-export function getLocalizedName<T extends { name?: string; name_en?: string; name_bn?: string }>(
+// Helper to get language-specific content (English by default, Bangla if language is 'bn')
+// Supports both naming conventions: nameBn/name_en and descriptionBn/description_en
+export function getLocalizedName<T extends { name?: string; nameBn?: string | null; name_en?: string }>(
   item: T,
   language: string
 ): string {
-  // If Bangla is requested and exists, use it
-  if (language === 'bn' && item.name_bn != null && item.name_bn !== '') return item.name_bn;
+  // If Bangla is requested and exists (try both naming conventions), use it
+  if (language === 'bn') {
+    if ((item as any).nameBn && (item as any).nameBn !== '') return (item as any).nameBn;
+    if ((item as any).name_bn && (item as any).name_bn !== '') return (item as any).name_bn;
+  }
   // Otherwise use English version if exists, or fallback to default name
-  return item.name_en || item.name || '';
+  return ((item as any).name_en || (item as any).name) || '';
 }
 
-export function getLocalizedDescription<T extends { description?: string; description_en?: string; description_bn?: string }>(
+export function getLocalizedDescription<T extends { description?: string; descriptionBn?: string | null; description_en?: string }>(
   item: T,
   language: string
 ): string {
-  // If Bangla is requested and exists, use it
-  if (language === 'bn' && item.description_bn != null && item.description_bn !== '') return item.description_bn;
-  // Otherwise use English version if exists, or fallback to default description
-  return item.description_en || item.description || '';
+  // If Bangla is requested and exists (try both naming conventions), use it
+  if (language === 'bn') {
+    if ((item as any).descriptionBn && (item as any).descriptionBn !== '') return (item as any).descriptionBn;
+    if ((item as any).description_bn && (item as any).description_bn !== '') return (item as any).description_bn;
+  }
+  // Otherwise use English version or fallback to default
+  return item.description || '';
 }
 
-export function getLocalizedShortDescription<T extends { shortDescription?: string | null; shortDescription_en?: string | null; shortDescription_bn?: string | null }>(
+export function getLocalizedShortDescription<T extends { shortDescription?: string | null; shortDescriptionBn?: string | null; shortDescription_en?: string | null }>(
   item: T,
   language: string
 ): string | null {
-  // If Bangla is requested and exists, use it
-  if (language === 'bn' && item.shortDescription_bn != null && item.shortDescription_bn !== '') return item.shortDescription_bn;
-  // Otherwise use English version if exists, or fallback to default
-  return item.shortDescription_en || item.shortDescription || null;
+  // If Bangla is requested and exists (try both naming conventions), use it
+  if (language === 'bn') {
+    if ((item as any).shortDescriptionBn && (item as any).shortDescriptionBn !== '') return (item as any).shortDescriptionBn;
+    if ((item as any).shortDescription_bn && (item as any).shortDescription_bn !== '') return (item as any).shortDescription_bn;
+  }
+  // Otherwise use English version or fallback to default
+  return item.shortDescription || null;
 }
 
-export function getLocalizedHighlights<T extends { highlights?: string[] | null; highlights_en?: string[] | null; highlights_bn?: string[] | null }>(
+export function getLocalizedHighlights<T extends { highlights?: string[] | null; highlightsBn?: string[] | null; highlights_en?: string[] | null }>(
   item: T,
   language: string
 ): string[] | null {
-  // If Bangla is requested and exists (non-empty array), use it
-  if (language === 'bn' && item.highlights_bn != null && item.highlights_bn.length > 0) return item.highlights_bn;
-  // Otherwise use English version if exists and non-empty, or fallback to default
-  return (item.highlights_en && item.highlights_en.length > 0) ? item.highlights_en : (item.highlights || null);
+  // If Bangla is requested and exists (try both naming conventions), use it
+  if (language === 'bn') {
+    if ((item as any).highlightsBn && (item as any).highlightsBn.length > 0) return (item as any).highlightsBn;
+    if ((item as any).highlights_bn && (item as any).highlights_bn.length > 0) return (item as any).highlights_bn;
+  }
+  // Otherwise use English version or fallback to default
+  return item.highlights || null;
+}
+
+export function getLocalizedIncludesInBox<T extends { includesInBox?: string[] | null; includesInBoxBn?: string[] | null }>(
+  item: T,
+  language: string
+): string[] | null {
+  // If Bangla is requested and exists, use it
+  if (language === 'bn') {
+    if ((item as any).includesInBoxBn && (item as any).includesInBoxBn.length > 0) return (item as any).includesInBoxBn;
+  }
+  // Otherwise use English version or fallback to default
+  return item.includesInBox || null;
 }
 
 // Matches actual API response (camelCase)
@@ -78,20 +103,17 @@ export interface ApiGalleryImage {
 
 export interface ApiProduct {
   id: number;
-  name: string;
-  name_en?: string;
-  name_bn?: string;
+  name: string;          // English name (default)
+  nameBn?: string | null;       // Bangla name
   slug: string;
-  description: string;
-  description_en?: string;
-  description_bn?: string;
+  description: string;  // English description (default)
+  descriptionBn?: string | null; // Bangla description
   shortDescription: string | null;
-  shortDescription_en?: string | null;
-  shortDescription_bn?: string | null;
-  highlights: string[] | null;
-  highlights_en?: string[] | null;
-  highlights_bn?: string[] | null;
-  includesInBox: string[] | null;
+  shortDescriptionBn?: string | null;
+  highlights: string[] | null;    // English highlights (default)
+  highlightsBn?: string[] | null; // Bangla highlights
+  includesInBox: string[] | null; // English includes box (default)
+  includesInBoxBn?: string[] | null; // Bangla includes box
   videoUrl: string | null;
   warrantyEnabled: boolean;
   warrantyDetails: string | null;
@@ -156,6 +178,7 @@ export const mapApiProduct = (p: ApiProduct): Product => {
     title: p.name,
     slug: p.slug,
     name: p.name,
+    nameBn: p.nameBn,
     price,
     originalPrice: originalPrice ?? undefined,
     image: imageUrl,
@@ -167,7 +190,13 @@ export const mapApiProduct = (p: ApiProduct): Product => {
     variant_count: variantCount,
     price_range_display: priceRangeDisplay,
     description: p.description || '',
+    descriptionBn: p.descriptionBn,
     short_description: p.shortDescription || '',
+    shortDescriptionBn: p.shortDescriptionBn,
+    highlights: p.highlights || null,
+    highlightsBn: p.highlightsBn || null,
+    includesInBox: p.includesInBox || null,
+    includesInBoxBn: p.includesInBoxBn || null,
     sku: firstVariant?.sku || '',
     gallery: galleryUrls,
     variants: activeVariants.map((v) => ({

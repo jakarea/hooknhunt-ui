@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getLocalizedName } from '@/stores/productStore';
 
 interface ProductCardProps {
   product: Product;
@@ -18,17 +20,21 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart, isInCart } = useCart();
   const [isAdding, setIsAdding] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { language } = useLanguage();
 
   // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Get localized product name
+  const localizedName = useMemo(() => getLocalizedName(product, language), [product, language]);
+
   // Map product properties to display properties
   const price = product.price ?? product.actual_price;
   const originalPrice = product.originalPrice ?? product.compare_at_price;
   const image = product.image ?? product.featured_image ?? null;
-  const name = product.name ?? product.title;
+  const name = localizedName;
   const stock = product.stock ?? product.inventory_quantity;
   const variant_count = product.variant_count || 0;
 

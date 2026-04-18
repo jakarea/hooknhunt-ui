@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
@@ -12,7 +12,8 @@ import api from '@/lib/api';
 import { useTranslation } from 'react-i18next';
 import { CrossSaleProduct } from '@/stores/crossSellModalStore';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { getLocalizedName, getLocalizedDescription, getLocalizedShortDescription, getLocalizedHighlights } from '@/stores/productStore';
+import { getLocalizedName, getLocalizedDescription, getLocalizedHighlights } from '@/stores/productStore';
+import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 
 // Decode entity-encoded HTML from API (e.g. &lt;p&gt;text&amp;nbsp;more&lt;/p&gt;)
 // Uses pure regex so it works during SSR (no document needed)
@@ -58,19 +59,16 @@ interface ApiVariant {
 interface ApiProduct {
   id: number;
   name: string;
-  name_en?: string;
-  name_bn?: string;
+  nameBn?: string;
   slug: string;
   description: string;
-  description_en?: string;
-  description_bn?: string;
+  descriptionBn?: string;
   shortDescription: string | null;
-  shortDescription_en?: string | null;
-  shortDescription_bn?: string | null;
+  shortDescriptionBn?: string | null;
   highlights: string[] | null;
-  highlights_en?: string[] | null;
-  highlights_bn?: string[] | null;
+  highlightsBn?: string[] | null;
   includesInBox: string[] | null;
+  includesInBoxBn?: string[] | null;
   videoUrl: string | null;
   warrantyEnabled: boolean;
   warrantyDetails: string | null;
@@ -115,6 +113,7 @@ interface Variant {
 interface Product {
   id: number;
   name: string;
+  nameBn?: string;
   slug: string;
   thumbnail_url: string;
   gallery_images: string[];
@@ -130,8 +129,11 @@ interface Product {
     stock_status: string;
   };
   description: string;
+  descriptionBn?: string | null;
   short_description: string;
+  shortDescriptionBn?: string | null;
   highlights: string[];
+  highlightsBn?: string[] | null;
   meta_title: string;
   meta_description: string;
   variants: Variant[];
@@ -158,21 +160,18 @@ function ProductDetailPageContent() {
   // Get localized content based on current language (must be after all useState, before useCallback)
   const productName = useMemo(() => {
     if (!product) return '';
-    // For now, just use the default name - language fields will be added once API returns them
-    return product.name || '';
-  }, [product]);
+    return getLocalizedName(product, language);
+  }, [product, language]);
 
   const productDescription = useMemo(() => {
     if (!product) return '';
-    // For now, just use the default description - language fields will be added once API returns them
-    return product.description || '';
-  }, [product]);
+    return getLocalizedDescription(product, language);
+  }, [product, language]);
 
   const productHighlights = useMemo(() => {
     if (!product) return [];
-    // For now, just use the default highlights - language fields will be added once API returns them
-    return product.highlights || [];
-  }, [product]);
+    return getLocalizedHighlights(product, language);
+  }, [product, language]);
 
   const handleImageChange = useCallback((index: number) => {
     if (index === selectedImage) return;
@@ -223,6 +222,7 @@ function ProductDetailPageContent() {
     return {
       id: apiProduct.id,
       name: apiProduct.name,
+      nameBn: apiProduct.nameBn,
       slug: apiProduct.slug,
       thumbnail_url: thumbnailUrl,
       gallery_images: galleryUrls,
@@ -238,8 +238,11 @@ function ProductDetailPageContent() {
         stock_status: totalStock > 0 ? 'in_stock' : 'out_of_stock',
       },
       description: apiProduct.description || '',
+      descriptionBn: apiProduct.descriptionBn,
       short_description: apiProduct.shortDescription || '',
+      shortDescriptionBn: apiProduct.shortDescriptionBn,
       highlights: (apiProduct.highlights || []).map(h => decodeHtmlEntities(h.replace(/\u00A0/g, ' '))),
+      highlightsBn: apiProduct.highlightsBn,
       meta_title: apiProduct.seoTitle || apiProduct.name,
       meta_description: apiProduct.seoDescription || apiProduct.shortDescription || '',
       variants: uiVariants,
@@ -454,7 +457,7 @@ function ProductDetailPageContent() {
                   href={`/products?category=${product.categories[0].slug}`}
                   className="hover:text-[#bc1215] transition-colors"
                 >
-                  {product.categories[0].name}
+                  {t(getCategoryTranslationKey(product.categories[0]))}
                 </Link>
               </>
             )}

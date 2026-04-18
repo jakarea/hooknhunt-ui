@@ -8,6 +8,7 @@ import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { useCategoryStore } from '@/stores/categoryStore';
 import TopBar from './TopBar';
+import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 
 export default function Header() {
   const { t } = useTranslation();
@@ -185,14 +186,14 @@ export default function Header() {
                           {imageUrl && (
                             <Image
                               src={imageUrl}
-                              alt={category.name}
+                              alt={t(getCategoryTranslationKey(category))}
                               fill
                               className="object-cover"
                               sizes="24px"
                             />
                           )}
                         </span>
-                        <span className="truncate">{category.name}</span>
+                        <span className="truncate">{t(getCategoryTranslationKey(category))}</span>
                       </Link>
                     );
                   })}
@@ -270,14 +271,14 @@ export default function Header() {
                         {imageUrl && (
                           <Image
                             src={imageUrl}
-                            alt={category.name}
+                            alt={t(getCategoryTranslationKey(category))}
                             fill
                             className="object-cover"
                             sizes="24px"
                           />
                         )}
                       </span>
-                      <span className="truncate">{category.name}</span>
+                      <span className="truncate">{t(getCategoryTranslationKey(category))}</span>
                     </Link>
                   );
                 })}

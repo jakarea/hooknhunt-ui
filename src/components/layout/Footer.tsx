@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '../../../node_modules/react-i18next';
 import { Category } from '@/types';
+import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -110,7 +111,7 @@ export default function Footer() {
                       className="text-[17px] text-gray-600 dark:text-gray-400 hover:text-[#ec3137] transition-colors flex items-center group"
                     >
                       <span className="w-1.5 h-1.5 bg-gray-600 dark:bg-gray-700 rounded-full mr-2 group-hover:bg-[#ec3137] transition-colors"></span>
-                      {category.name}
+                      {t(getCategoryTranslationKey(category))}
                     </Link>
                   </li>
                 ))}

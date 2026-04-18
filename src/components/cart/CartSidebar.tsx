@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -8,10 +8,13 @@ import { useCart } from '@/context/CartContext';
 import { useCrossSellModal } from '@/stores/crossSellModalStore';
 import AnimatedCounter from '@/components/common/AnimatedCounter';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getLocalizedName } from '@/stores/productStore';
 
 export default function CartSidebar() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { language } = useLanguage();
   const {
     cartItems,
     addToCart,
@@ -25,7 +28,12 @@ export default function CartSidebar() {
 
   const { crossSaleProducts: crossSellProducts } = useCrossSellModal();
 
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Helper to get localized product name
+  const getLocalizedNameForProduct = useMemo(() => (product: any) => {
+    return getLocalizedName(product, language);
+  }, [language]);
 
   useEffect(() => {
     setMounted(true);
@@ -118,7 +126,7 @@ export default function CartSidebar() {
                 <Link href={`/products/${item.product.slug}`} onClick={closeCart} className="flex-shrink-0 relative w-14 h-14 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-800">
                   <Image
                     src={item.product.image || '/placeholder-image.jpg'}
-                    alt={item.product.name || 'Product'}
+                    alt={getLocalizedNameForProduct(item.product) || 'Product'}
                     fill
                     className="object-cover"
                     sizes="56px"
@@ -128,7 +136,7 @@ export default function CartSidebar() {
                   <div className="flex items-start justify-between gap-1">
                     <Link href={`/products/${item.product.slug}`} onClick={closeCart} className="min-w-0">
                       <h3 className="font-medium text-gray-900 dark:text-white text-xs line-clamp-1 hover:text-[#ec3137] transition-colors leading-tight">
-                        {item.product.name}
+                        {getLocalizedNameForProduct(item.product)}
                       </h3>
                       {item.product.variant_name && (
                         <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">{item.product.variant_name}</p>

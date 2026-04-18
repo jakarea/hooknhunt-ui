@@ -20,6 +20,8 @@ import enPayment from '../locales/en/payment.json';
 import bnPayment from '../locales/bn/payment.json';
 import enPolicies from '../locales/en/policies.json';
 import bnPolicies from '../locales/bn/policies.json';
+import enCategories from '../locales/en/categories.json';
+import bnCategories from '../locales/bn/categories.json';
 
 // Translation resources
 const resources = {
@@ -475,7 +477,8 @@ const resources = {
       'buttons.orderViaWhatsapp': enProduct.buttons.orderViaWhatsapp,
       'labels.showMore': enProduct.labels.showMore,
       'labels.showLess': enProduct.labels.showLess,
-      ...enPayment.payment
+      ...enPayment.payment,
+      categoryNames: enCategories
 
     },
   },
@@ -928,7 +931,8 @@ const resources = {
       'buttons.orderViaWhatsapp': bnProduct.buttons.orderViaWhatsapp,
       'labels.showMore': bnProduct.labels.showMore,
       'labels.showLess': bnProduct.labels.showLess,
-      ...bnPayment.payment
+      ...bnPayment.payment,
+      categoryNames: bnCategories
 
     },
   },

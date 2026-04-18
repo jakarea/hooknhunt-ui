@@ -8,6 +8,7 @@ import { Product } from '@/types';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { useProductStore, ProductFilters } from '@/stores/productStore';
 import { useTranslation } from 'react-i18next';
+import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 
 const SORT_MAP: Record<string, string> = {
   'best-selling': 'created_at_desc',
@@ -227,25 +228,29 @@ function ProductsPageContent() {
                     </button>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {selectedCategories.filter(cat => cat !== 'all').map(categorySlug => (
-                      <button
-                        key={categorySlug}
-                        onClick={() => {
-                          const newCategories = selectedCategories.filter(cat => cat !== categorySlug);
-                          if (newCategories.length === 0) {
-                            setSelectedCategories(['all']);
-                          } else {
-                            setSelectedCategories(newCategories);
-                          }
-                        }}
-                        className="inline-flex items-center gap-1 px-3 py-1 bg-[#bc1215] text-white text-sm rounded-full"
-                      >
-                        {categories.find(c => c.slug === categorySlug)?.name}
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    ))}
+                    {selectedCategories.filter(cat => cat !== 'all').map(categorySlug => {
+                      const category = categories.find(c => c.slug === categorySlug);
+                      if (!category) return null;
+                      return (
+                        <button
+                          key={categorySlug}
+                          onClick={() => {
+                            const newCategories = selectedCategories.filter(cat => cat !== categorySlug);
+                            if (newCategories.length === 0) {
+                              setSelectedCategories(['all']);
+                            } else {
+                              setSelectedCategories(newCategories);
+                            }
+                          }}
+                          className="inline-flex items-center gap-1 px-3 py-1 bg-[#bc1215] text-white text-sm rounded-full"
+                        >
+                          {t(getCategoryTranslationKey(category))}
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      );
+                    })}
                     {priceRange.map(range => (
                       <button
                         key={range}
@@ -343,7 +348,7 @@ function ProductsPageContent() {
                             }}
                             className="w-5 h-5 text-[#bc1215] border-gray-300 focus:ring-[#bc1215] rounded"
                           />
-                          <span className="text-sm sm:text-base">{category.name}</span>
+                          <span className="text-sm sm:text-base">{t(getCategoryTranslationKey(category))}</span>
                         </span>
                       </button>
                     );
