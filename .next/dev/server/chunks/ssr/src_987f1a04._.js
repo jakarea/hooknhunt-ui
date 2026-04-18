@@ -885,7 +885,7 @@ function ProductDetailPageContent() {
     const currentPrice = selectedVariant ? selectedVariant.retail_price : parseFloat(product.price_range.min);
     const currentStock = selectedVariant ? selectedVariant.stock_info.available : product.stock_info.total_available;
     const isInStock = selectedVariant ? selectedVariant.stock_info.in_stock : product.stock_info.in_stock;
-    const originalPrice = product.originalPrice || 0;
+    const originalPrice = selectedVariant ? selectedVariant.original_price : product.originalPrice || 0;
     // Calculate discount percentage and saved amount
     const discountPercentage = originalPrice > 0 && originalPrice > currentPrice ? Math.round((originalPrice - currentPrice) / originalPrice * 100) : 0;
     const savedAmount = originalPrice > 0 && originalPrice > currentPrice ? originalPrice - currentPrice : 0;
