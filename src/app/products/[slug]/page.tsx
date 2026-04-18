@@ -158,24 +158,21 @@ function ProductDetailPageContent() {
   // Get localized content based on current language (must be after all useState, before useCallback)
   const productName = useMemo(() => {
     if (!product) return '';
-    // Try to get Bangla name if language is 'bn', otherwise fallback to English or default
-    if (language === 'bn' && (product as any).name_bn) return (product as any).name_bn;
-    return (product as any).name_en || product.name || '';
-  }, [product, language]);
+    // For now, just use the default name - language fields will be added once API returns them
+    return product.name || '';
+  }, [product]);
 
   const productDescription = useMemo(() => {
     if (!product) return '';
-    // Try to get Bangla description if language is 'bn', otherwise fallback to English or default
-    if (language === 'bn' && (product as any).description_bn) return (product as any).description_bn;
-    return (product as any).description_en || product.description || '';
-  }, [product, language]);
+    // For now, just use the default description - language fields will be added once API returns them
+    return product.description || '';
+  }, [product]);
 
   const productHighlights = useMemo(() => {
     if (!product) return [];
-    // Try to get Bangla highlights if language is 'bn', otherwise fallback to English or default
-    if (language === 'bn' && (product as any).highlights_bn && (product as any).highlights_bn.length > 0) return (product as any).highlights_bn;
-    return ((product as any).highlights_en && (product as any).highlights_en.length > 0) ? (product as any).highlights_en : (product.highlights || []);
-  }, [product, language]);
+    // For now, just use the default highlights - language fields will be added once API returns them
+    return product.highlights || [];
+  }, [product]);
 
   const handleImageChange = useCallback((index: number) => {
     if (index === selectedImage) return;
