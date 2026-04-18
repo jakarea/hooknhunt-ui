@@ -221,6 +221,8 @@ export interface Product {
 
   // 🎨 Display properties (for UI components)
   name?: string;        // Alias for title
+  name_en?: string;     // English name
+  name_bn?: string;     // Bangla name
   price?: number;       // Alias for actual_price
   originalPrice?: number; // Alias for compare_at_price
   image?: string;       // Alias for featured_image
@@ -242,6 +244,16 @@ export interface Product {
   variants?: ProductVariant[]; // Product variants
   meta_title?: string; // SEO meta title
   meta_description?: string; // SEO meta description
+
+  // 🌐 Language-specific content
+  description_en?: string;   // English description
+  description_bn?: string;   // Bangla description
+  shortDescription?: string | null; // Short description (alias)
+  shortDescription_en?: string | null; // English short description
+  shortDescription_bn?: string | null; // Bangla short description
+  highlights?: string[] | null; // Product highlights/bullets
+  highlights_en?: string[] | null; // English highlights
+  highlights_bn?: string[] | null; // Bangla highlights
 }
 
 

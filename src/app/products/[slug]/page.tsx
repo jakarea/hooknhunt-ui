@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
@@ -11,6 +11,8 @@ import { Product as StaticProduct } from '@/types';
 import api from '@/lib/api';
 import { useTranslation } from 'react-i18next';
 import { CrossSaleProduct } from '@/stores/crossSellModalStore';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getLocalizedName, getLocalizedDescription, getLocalizedShortDescription, getLocalizedHighlights } from '@/stores/productStore';
 
 // Decode entity-encoded HTML from API (e.g. &lt;p&gt;text&amp;nbsp;more&lt;/p&gt;)
 // Uses pure regex so it works during SSR (no document needed)
@@ -56,10 +58,18 @@ interface ApiVariant {
 interface ApiProduct {
   id: number;
   name: string;
+  name_en?: string;
+  name_bn?: string;
   slug: string;
   description: string;
+  description_en?: string;
+  description_bn?: string;
   shortDescription: string | null;
+  shortDescription_en?: string | null;
+  shortDescription_bn?: string | null;
   highlights: string[] | null;
+  highlights_en?: string[] | null;
+  highlights_bn?: string[] | null;
   includesInBox: string[] | null;
   videoUrl: string | null;
   warrantyEnabled: boolean;
@@ -129,6 +139,7 @@ interface Product {
 
 function ProductDetailPageContent() {
   const { t } = useTranslation();
+  const { language } = useLanguage();
   const params = useParams();
   const router = useRouter();
   const { addToCart, closeCart } = useCart();
@@ -368,6 +379,28 @@ function ProductDetailPageContent() {
     );
   }
 
+  // Get localized content based on current language
+  const productName = useMemo(() => {
+    if (!product) return '';
+    // Try to get Bangla name if language is 'bn', otherwise fallback to English or default
+    if (language === 'bn' && (product as any).name_bn) return (product as any).name_bn;
+    return (product as any).name_en || product.name || '';
+  }, [product, language]);
+
+  const productDescription = useMemo(() => {
+    if (!product) return '';
+    // Try to get Bangla description if language is 'bn', otherwise fallback to English or default
+    if (language === 'bn' && (product as any).description_bn) return (product as any).description_bn;
+    return (product as any).description_en || product.description || '';
+  }, [product, language]);
+
+  const productHighlights = useMemo(() => {
+    if (!product) return [];
+    // Try to get Bangla highlights if language is 'bn', otherwise fallback to English or default
+    if (language === 'bn' && (product as any).highlights_bn && (product as any).highlights_bn.length > 0) return (product as any).highlights_bn;
+    return ((product as any).highlights_en && (product as any).highlights_en.length > 0) ? (product as any).highlights_en : (product.highlights || []);
+  }, [product, language]);
+
   // Get current price based on selected variant or price range
   const currentPrice = selectedVariant ? selectedVariant.retail_price : parseFloat(product.price_range.min);
   const currentStock = selectedVariant ? selectedVariant.stock_info.available : product.stock_info.total_available;
@@ -432,7 +465,7 @@ function ProductDetailPageContent() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
             <span className="text-gray-900 dark:text-white font-medium">
-              {product.name.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
+              {productName.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
             </span>
           </div>
         </div>
@@ -469,7 +502,7 @@ function ProductDetailPageContent() {
                   >
                     <Image
                       src={img}
-                      alt={`${product.name} ${index + 1}`}
+                      alt={`${productName} ${index + 1}`}
                       fill
                       className="object-contain group-hover:scale-105 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
@@ -563,7 +596,7 @@ function ProductDetailPageContent() {
                     >
                       <Image
                         src={img}
-                        alt={`${product.name} ${index + 1}`}
+                        alt={`${productName} ${index + 1}`}
                         fill
                         className="object-cover"
                         sizes="(max-width: 640px) 20vw, (max-width: 768px) 18vw, (max-width: 1024px) 15vw, 72px"
@@ -592,7 +625,7 @@ function ProductDetailPageContent() {
               
               <div className="mb-3">
                 <h1 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white leading-tight line-clamp-2 min-h-[2.8rem] sm:min-h-[3rem]">
-                  {product.name.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
+                  {productName.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
                 </h1>
               </div>
 
@@ -721,7 +754,7 @@ function ProductDetailPageContent() {
             )}
 
 {/* Product Highlights */}
-            {product.highlights && product.highlights.length > 0 && (
+            {productHighlights && productHighlights.length > 0 && (
               <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 shadow-sm border border-green-100 dark:border-green-800">
                 <div className="flex items-start gap-3">
                   <div className="shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
@@ -733,11 +766,11 @@ function ProductDetailPageContent() {
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="text-sm font-bold text-gray-900 dark:text-white">{t('labels.highlights')}</h4>
                       <span className="text-xs text-gray-500 dark:text-gray-400">
-                        {showAllHighlights ? product.highlights.length : Math.min(3, product.highlights.length)} / {product.highlights.length}
+                        {showAllHighlights ? productHighlights.length : Math.min(3, productHighlights.length)} / {productHighlights.length}
                       </span>
                     </div>
                     <ul className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-1">
-                      {(showAllHighlights ? product.highlights : product.highlights.slice(0, 7)).map((item: string, index: number) => (
+                      {(showAllHighlights ? productHighlights : productHighlights.slice(0, 7)).map((item: string, index: number) => (
                         <li key={index} className="flex items-start gap-2">
                           <svg className="w-4 h-4 text-green-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -746,7 +779,7 @@ function ProductDetailPageContent() {
                         </li>
                       ))}
                     </ul>
-                    {product.highlights.length > 7 && (
+                    {productHighlights.length > 7 && (
                       <div className="flex justify-end mt-2">
                         <button
                           onClick={() => setShowAllHighlights(!showAllHighlights)}
@@ -809,7 +842,7 @@ function ProductDetailPageContent() {
                       onClick={() => {
                         const productToAdd = selectedVariant ? {
                           id: product.id,
-                          name: product.name,
+                          name: productName,
                           price: currentPrice,
                           image: product.thumbnail_url,
                           slug: product.slug,
@@ -818,7 +851,7 @@ function ProductDetailPageContent() {
                           stock: currentStock
                         } : {
                           id: product.id,
-                          name: product.name,
+                          name: productName,
                           price: currentPrice,
                           image: product.thumbnail_url,
                           slug: product.slug,
@@ -840,7 +873,7 @@ function ProductDetailPageContent() {
                       onClick={() => {
                         const productToAdd = selectedVariant ? {
                           id: product.id,
-                          name: product.name,
+                          name: productName,
                           price: currentPrice,
                           image: product.thumbnail_url,
                           slug: product.slug,
@@ -849,7 +882,7 @@ function ProductDetailPageContent() {
                           stock: currentStock
                         } : {
                           id: product.id,
-                          name: product.name,
+                          name: productName,
                           price: currentPrice,
                           image: product.thumbnail_url,
                           slug: product.slug,
@@ -875,7 +908,7 @@ function ProductDetailPageContent() {
                   {/* WhatsApp Order Button */}
                   <a
                     href={`https://wa.me/8801975244202?text=${encodeURIComponent(
-                      `Hi, I'm interested in buying: ${product.name}\nPrice: ৳${currentPrice.toLocaleString()}\n${selectedVariant ? `Variant: ${selectedVariant.name}\n` : ''}Please provide more details.`
+                      `Hi, I'm interested in buying: ${productName}\nPrice: ৳${currentPrice.toLocaleString()}\n${selectedVariant ? `Variant: ${selectedVariant.name}\n` : ''}Please provide more details.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -956,11 +989,11 @@ function ProductDetailPageContent() {
                 {t('details.description')}
               </h2>
               <div className="prose prose-lg max-w-none dark:prose-invert">
-                {product.description ? (
+                {productDescription ? (
                   <div
                     className="product-description text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 overflow-hidden [&_img]:rounded-lg [&_img]:max-w-full [&_img]:h-auto [&_img]:aspect-auto [&_p]:mb-4 [&_img]:my-4"
                     style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
-                    dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(product.description) }}
+                    dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(productDescription) }}
                   />
                 ) : (
                   <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">

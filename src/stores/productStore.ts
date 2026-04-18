@@ -8,6 +8,47 @@ export interface ProductFilters {
   sort_by?: string;
 }
 
+// Helper to get language-specific content (English by default, Bangla if language is 'bn' with null check fallback)
+export function getLocalizedName<T extends { name?: string; name_en?: string; name_bn?: string }>(
+  item: T,
+  language: string
+): string {
+  // If Bangla is requested and exists, use it
+  if (language === 'bn' && item.name_bn != null && item.name_bn !== '') return item.name_bn;
+  // Otherwise use English version if exists, or fallback to default name
+  return item.name_en || item.name || '';
+}
+
+export function getLocalizedDescription<T extends { description?: string; description_en?: string; description_bn?: string }>(
+  item: T,
+  language: string
+): string {
+  // If Bangla is requested and exists, use it
+  if (language === 'bn' && item.description_bn != null && item.description_bn !== '') return item.description_bn;
+  // Otherwise use English version if exists, or fallback to default description
+  return item.description_en || item.description || '';
+}
+
+export function getLocalizedShortDescription<T extends { shortDescription?: string | null; shortDescription_en?: string | null; shortDescription_bn?: string | null }>(
+  item: T,
+  language: string
+): string | null {
+  // If Bangla is requested and exists, use it
+  if (language === 'bn' && item.shortDescription_bn != null && item.shortDescription_bn !== '') return item.shortDescription_bn;
+  // Otherwise use English version if exists, or fallback to default
+  return item.shortDescription_en || item.shortDescription || null;
+}
+
+export function getLocalizedHighlights<T extends { highlights?: string[] | null; highlights_en?: string[] | null; highlights_bn?: string[] | null }>(
+  item: T,
+  language: string
+): string[] | null {
+  // If Bangla is requested and exists (non-empty array), use it
+  if (language === 'bn' && item.highlights_bn != null && item.highlights_bn.length > 0) return item.highlights_bn;
+  // Otherwise use English version if exists and non-empty, or fallback to default
+  return (item.highlights_en && item.highlights_en.length > 0) ? item.highlights_en : (item.highlights || null);
+}
+
 // Matches actual API response (camelCase)
 export interface ApiVariant {
   id: number;
@@ -38,10 +79,18 @@ export interface ApiGalleryImage {
 export interface ApiProduct {
   id: number;
   name: string;
+  name_en?: string;
+  name_bn?: string;
   slug: string;
   description: string;
+  description_en?: string;
+  description_bn?: string;
   shortDescription: string | null;
+  shortDescription_en?: string | null;
+  shortDescription_bn?: string | null;
   highlights: string[] | null;
+  highlights_en?: string[] | null;
+  highlights_bn?: string[] | null;
   includesInBox: string[] | null;
   videoUrl: string | null;
   warrantyEnabled: boolean;
