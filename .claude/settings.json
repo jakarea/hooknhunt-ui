@@ -48,7 +48,8 @@
       "Bash(grep -n \"t\\('buttons\\\\|t\\('stock\\\\|t\\('labels\\\\|t\\('variants\\\\|t\\('details\\\\|t\\('trustBadges\" /Users/jakareaparvez/Sites/hooknhunt-ui/src/app/products/[slug]/page.tsx)",
       "Bash(git rm *)",
       "Bash(git add *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git commit -m ' *)"
     ],
     "additionalDirectories": [
       "/Users/jakareaparvez/Sites/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website",

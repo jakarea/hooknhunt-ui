@@ -151,7 +151,7 @@ export const mapApiProduct = (p: ApiProduct): Product => {
     cost_bdt: 0,
     actual_price: price,
     default_price: price,
-    compare_at_price: originalPrice ?? undefined,
+    compare_at_price: originalPrice || 0,
     price_wholesale: 0,
     price_retail: price,
     price_daraz: 0,
