@@ -73,18 +73,22 @@ export const mapApiProduct = (p: ApiProduct): Product => {
   const variantCount = activeVariants.length;
   const firstVariant = activeVariants[0];
 
-  // Price from first variant
-  let price = 0;
-  let originalPrice: number | undefined;
-  if (firstVariant) {
-    const displayPrice = getDisplayPrice(firstVariant);
-    if (firstVariant.offerPrice > 0 && firstVariant.offerPrice < firstVariant.price) {
-      price = firstVariant.offerPrice;
-      originalPrice = firstVariant.price;
-    } else {
-      price = firstVariant.price;
+  // Calculate min price (lowest offer or regular) and its corresponding original price
+  const displayPrices = activeVariants.map(getDisplayPrice);
+  const minDisplayPrice = displayPrices.length > 0 ? Math.min(...displayPrices) : 0;
+
+  // Find the variant that has the minimum display price, get its original price
+  // Only set originalPrice if that variant has an actual offer
+  let originalPrice: number | undefined = undefined;
+  for (const v of activeVariants) {
+    const variantDisplayPrice = getDisplayPrice(v);
+    if (variantDisplayPrice === minDisplayPrice && v.offerPrice > 0 && v.offerPrice < v.price) {
+      originalPrice = v.price;
+      break;
     }
   }
+
+  const price = minDisplayPrice;
 
   // Price range for multi-variant
   let priceRangeDisplay = '';
@@ -104,7 +108,7 @@ export const mapApiProduct = (p: ApiProduct): Product => {
     slug: p.slug,
     name: p.name,
     price,
-    originalPrice: originalPrice ?? 0,
+    originalPrice: originalPrice ?? undefined,
     image: imageUrl,
     featured_image: imageUrl,
     stock: totalStock,
@@ -147,7 +151,7 @@ export const mapApiProduct = (p: ApiProduct): Product => {
     cost_bdt: 0,
     actual_price: price,
     default_price: price,
-    compare_at_price: originalPrice || 0,
+    compare_at_price: originalPrice ?? undefined,
     price_wholesale: 0,
     price_retail: price,
     price_daraz: 0,

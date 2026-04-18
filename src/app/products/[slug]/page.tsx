@@ -222,6 +222,7 @@ function ProductDetailPageContent() {
     const prices = activeVariants.map((v: ApiVariant) => v.offerPrice && v.offerPrice > 0 && v.offerPrice < v.price ? v.offerPrice : v.price);
     const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
     const totalStock = activeVariants.reduce((sum: number, v: ApiVariant) => sum + (v.stock || 0), 0);
+    const maxOriginalPrice = activeVariants.length > 0 ? Math.max(...activeVariants.map(v => v.price)) : 0;
 
     return {
       id: apiProduct.id,
@@ -232,6 +233,7 @@ function ProductDetailPageContent() {
       featured_image: apiProduct.thumbnail?.fullUrl || '',
       price: minPrice,
       actual_price: minPrice,
+      originalPrice: maxOriginalPrice,
       stock: totalStock,
       inventory_quantity: totalStock,
       category_id: apiProduct.category?.id || 0,
@@ -256,7 +258,7 @@ function ProductDetailPageContent() {
       exchange_rate: 0,
       cost_bdt: 0,
       default_price: minPrice,
-      compare_at_price: 0,
+      compare_at_price: maxOriginalPrice,
       price_wholesale: 0,
       price_retail: minPrice,
       price_daraz: 0,

@@ -129,21 +129,28 @@ export default function ProductCard({ product }: ProductCardProps) {
             {(variant_count === 0 || variant_count === 1) ? (
               // Single variant or no variants - show exact price
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-sm lg:text-base font-bold text-[#bc1215]">
+                <span className="text-lg lg:text-xl font-bold text-[#bc1215]">
                   {price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceUnavailable')}
                 </span>
                 {originalPrice && originalPrice > price && price > 0 && (
-                  <span className="text-xs text-gray-500 line-through">
+                  <span className="text-base lg:text-lg text-gray-400 line-through opacity-80">
                     ৳{originalPrice.toLocaleString()}
                   </span>
                 )}
               </div>
             ) : (
-              // Multiple variants - show minimum price only
+              // Multiple variants - show minimum price with strikethrough if offer exists
               <div className="flex flex-col gap-1">
-                <span className="text-sm lg:text-base font-bold text-[#bc1215]">
-                  {price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceVaries')}
-                </span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-lg lg:text-xl font-bold text-[#bc1215]">
+                    {price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceVaries')}
+                  </span>
+                  {originalPrice && originalPrice > price && price > 0 && (
+                    <span className="text-base lg:text-lg text-gray-400 line-through opacity-80">
+                      ৳{originalPrice.toLocaleString()}
+                    </span>
+                  )}
+                </div>
                 <span className="text-xs text-gray-500">
                   {t('productCard.variantsAvailable', { count: variant_count })}
                 </span>
