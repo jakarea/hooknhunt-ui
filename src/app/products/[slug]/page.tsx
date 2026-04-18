@@ -590,15 +590,10 @@ function ProductDetailPageContent() {
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm">
               {/* Customer Rating Badge */}
               
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <h1 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white leading-tight flex-1 line-clamp-2 min-h-[2.8rem] sm:min-h-[3rem]">
+              <div className="mb-3">
+                <h1 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white leading-tight line-clamp-2 min-h-[2.8rem] sm:min-h-[3rem]">
                   {product.name.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
                 </h1>
-                {product.categories && product.categories.length > 0 && (
-                  <span className="flex-shrink-0 px-2 py-1 bg-[#bc1215] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full">
-                    {product.categories[0].name.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
-                  </span>
-                )}
               </div>
 
               {/* Product Meta Information - Better organized */}
