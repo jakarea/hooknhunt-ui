@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import CartSidebar from "@/components/cart/CartSidebar";
 import CrossSellModal from "@/components/cart/CrossSellModal";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import TrackingScripts from "@/components/TrackingScripts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
 
       </head>
       <body className={`${inter.className} antialiased bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
+        <TrackingScripts />
         <ErrorBoundary>
           <LanguageProvider>
             <Providers>
