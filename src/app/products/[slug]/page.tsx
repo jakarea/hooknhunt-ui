@@ -53,6 +53,7 @@ interface ApiVariant {
   weight: string;
   size: string | null;
   color: string | null;
+  thumbnail?: string | null;
   isActive: boolean;
 }
 
@@ -213,8 +214,8 @@ function ProductDetailPageContent() {
         stock_status: v.stock > 0 ? 'in_stock' : 'out_of_stock',
       },
       image: {
-        url: thumbnailUrl,
-        thumbnail_url: thumbnailUrl,
+        url: v.thumbnail || thumbnailUrl,
+        thumbnail_url: v.thumbnail || thumbnailUrl,
         alt_text: `${apiProduct.name} - ${v.variantName}`,
       },
     }));
@@ -521,18 +522,6 @@ function ProductDetailPageContent() {
                   <span className="text-[#bc1215]">{selectedImage + 1}</span>
                   <span className="mx-1">/</span>
                   {productImages.length}
-                </div>
-              )}
-
-              {/* Offer Badge - Enhanced */}
-              {product.has_offer && discountPercentage > 0 && (
-                <div className="absolute top-4 right-4 bg-gradient-to-r from-[#bc1215] to-[#ff4757] text-white px-4 py-2 text-sm font-bold rounded-xl shadow-2xl z-10 animate-bounce">
-                  <div className="flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    {t('offers.save', { amount: savedAmount.toLocaleString() })}
-                  </div>
                 </div>
               )}
 
@@ -844,7 +833,7 @@ function ProductDetailPageContent() {
                           id: product.id,
                           name: productName,
                           price: currentPrice,
-                          image: product.thumbnail_url,
+                          image: selectedVariant.image?.url || product.thumbnail_url,
                           slug: product.slug,
                           variant_id: selectedVariant.id,
                           variant_name: selectedVariant.name,
@@ -875,7 +864,7 @@ function ProductDetailPageContent() {
                           id: product.id,
                           name: productName,
                           price: currentPrice,
-                          image: product.thumbnail_url,
+                          image: selectedVariant.image?.url || product.thumbnail_url,
                           slug: product.slug,
                           variant_id: selectedVariant.id,
                           variant_name: selectedVariant.name,
@@ -908,7 +897,7 @@ function ProductDetailPageContent() {
                   {/* WhatsApp Order Button */}
                   <a
                     href={`https://wa.me/8801975244202?text=${encodeURIComponent(
-                      `Hi, I'm interested in buying: ${productName}\nPrice: ৳${currentPrice.toLocaleString()}\n${selectedVariant ? `Variant: ${selectedVariant.name}\n` : ''}Please provide more details.`
+                      `Hi, I'm interested in buying this product:\n\n*Product:* ${productName}\n*Price:* ৳${currentPrice.toLocaleString()}\n*Product ID:* ${product.id}\n*Link:* https://www.hooknhunt.com/products/${product.slug}\n${selectedVariant ? `*Variant:* ${selectedVariant.name}\n` : ''}\nPlease provide more details.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"

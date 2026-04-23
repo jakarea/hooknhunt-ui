@@ -336,6 +336,32 @@ class ApiClient {
     });
   }
 
+  /**
+   * Calculate delivery charge based on weight and location
+   * POST /public/calculate-delivery
+   */
+  async calculateDeliveryCharge(data: {
+    weight: number;
+    division: string;
+    order_amount?: number;
+  }): Promise<ApiResponse<{
+    charge: number;
+    breakdown: {
+      total_weight: number;
+      zone: string;
+      is_inside_dhaka: boolean;
+      base_charge: number;
+      additional_kg: number;
+      per_kg_rate: number;
+    };
+    is_free_delivery: boolean;
+  }>> {
+    return this.request('/public/calculate-delivery', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
   // ==================== SSL Commerz Payment Methods ====================
 
   /**
@@ -436,6 +462,34 @@ class ApiClient {
       method: 'POST',
       body: JSON.stringify(data),
     }, includeAuth);
+  }
+
+  // Search products suggestions
+  async searchSuggestions(query: string): Promise<ApiResponse<{ suggestions: Array<{
+    id: number;
+    name: string;
+    slug: string;
+    thumbnail: string | null;
+    category: string | null;
+    price: number | null;
+  }> }>> {
+    return this.request(`/public/search/suggestions?q=${encodeURIComponent(query)}`);
+  }
+
+  // Search products
+  async searchProducts(params: {
+    q: string;
+    category_id?: number;
+    per_page?: number;
+    page?: number;
+  }): Promise<ApiResponse> {
+    const searchParams = new URLSearchParams();
+    searchParams.append('q', params.q);
+    if (params.category_id) searchParams.append('category_id', params.category_id.toString());
+    if (params.per_page) searchParams.append('per_page', params.per_page.toString());
+    if (params.page) searchParams.append('page', params.page.toString());
+
+    return this.request(`/public/search?${searchParams.toString()}`);
   }
 
   // Helper to check if user is authenticated

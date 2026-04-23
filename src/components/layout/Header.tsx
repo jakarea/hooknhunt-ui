@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -10,12 +11,30 @@ import { useCategoryStore } from '@/stores/categoryStore';
 import TopBar from './TopBar';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 
+interface SearchSuggestion {
+  id: number;
+  name: string;
+  slug: string;
+  thumbnail: string | null;
+  category: string | null;
+  price: number | null;
+}
+
 export default function Header() {
   const { t } = useTranslation();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isNavSticky, setIsNavSticky] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchSuggestions, setSearchSuggestions] = useState<SearchSuggestion[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
   const categories = useCategoryStore((s) => s.categories);
   const fetchCategories = useCategoryStore((s) => s.fetchCategories);
   const { getCartCount, toggleCart } = useCart();
@@ -38,6 +57,60 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Debounced search function
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (searchQuery.trim().length >= 2) {
+        setIsSearching(true);
+        try {
+          const api = (await import('@/lib/api')).default;
+          const response = await api.searchSuggestions(searchQuery);
+          if (response.data?.suggestions) {
+            setSearchSuggestions(response.data.suggestions);
+            setShowSuggestions(true);
+          }
+        } catch (error) {
+          console.error('Search failed:', error);
+        } finally {
+          setIsSearching(false);
+        }
+      } else {
+        setSearchSuggestions([]);
+        setShowSuggestions(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Handle search form submission
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim().length >= 2) {
+      setShowSuggestions(false);
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  // Handle suggestion click
+  const handleSuggestionClick = (slug: string) => {
+    setShowSuggestions(false);
+    setSearchQuery('');
+    router.push(`/products/${slug}`);
+  };
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const navItems = [
@@ -73,18 +146,90 @@ export default function Header() {
             </Link>
 
             {/* Search Bar - Desktop */}
-            <div className="hidden md:flex flex-1 max-w-[400px] lg:max-w-[500px]">
+            <div className="hidden md:flex flex-1 max-w-[400px] lg:max-w-[500px]" ref={searchRef}>
               <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder={t('header.search')}
-                  className="w-full h-10 px-4 pr-12 text-sm border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:border-[#bc1215] transition-colors bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 placeholder-gray-400"
-                />
-                <button className="absolute right-0 top-0 h-10 px-4 bg-[#bc1215] text-white rounded-r-md hover:bg-[#8a0e10] transition-colors">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </button>
+                <form onSubmit={handleSearch}>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder={t('header.search') || 'Search by product name, category, keyword...'}
+                      className="w-full h-10 px-4 pr-12 text-sm border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:border-[#bc1215] transition-colors bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 placeholder-gray-400"
+                    />
+                    <button
+                      type="submit"
+                      className="absolute right-0 top-0 h-10 px-4 bg-[#bc1215] text-white rounded-r-md hover:bg-[#8a0e10] transition-colors"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </form>
+
+                {/* Search Suggestions Dropdown */}
+                {showSuggestions && searchQuery.trim().length >= 2 && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 max-h-96 overflow-y-auto">
+                    {isSearching ? (
+                      <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+                        <div className="inline-block animate-spin rounded-full h-6 w-6 border-2 border-gray-300 border-t-[#bc1215]"></div>
+                      </div>
+                    ) : searchSuggestions.length > 0 ? (
+                      searchSuggestions.map((suggestion) => (
+                        <div
+                          key={suggestion.id}
+                          onClick={() => handleSuggestionClick(suggestion.slug)}
+                          className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-b-0 transition-colors"
+                        >
+                          {suggestion.thumbnail && (
+                            <Image
+                              src={suggestion.thumbnail}
+                              alt={suggestion.name}
+                              width={40}
+                              height={40}
+                              className="w-10 h-10 object-cover rounded"
+                            />
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                              {suggestion.name}
+                            </p>
+                            <div className="flex items-center gap-2 mt-0.5">
+                              {suggestion.category && (
+                                <span className="text-xs text-gray-500 dark:text-gray-400">
+                                  {suggestion.category}
+                                </span>
+                              )}
+                              {suggestion.price && (
+                                <span className="text-xs font-semibold text-[#bc1215]">
+                                  ৳{suggestion.price.toLocaleString()}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-4 text-center text-gray-500 dark:text-gray-400 text-sm">
+                        No products found
+                      </div>
+                    )}
+                    {searchSuggestions.length > 0 && (
+                      <div className="p-2 border-t border-gray-100 dark:border-gray-800">
+                        <button
+                          onClick={() => {
+                            setShowSuggestions(false);
+                            router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+                          }}
+                          className="w-full text-center text-sm text-[#bc1215] hover:text-[#8a0e10] dark:hover:text-[#ff4757] font-medium py-2 transition-colors"
+                        >
+                          View all results for "{searchQuery}"
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -222,17 +367,86 @@ export default function Header() {
         <div className="lg:hidden bg-[#fcf8f6] dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800 shadow-lg">
           <div className="px-4 py-4 space-y-4 max-h-[70vh] overflow-y-auto">
             {/* Mobile Search */}
-            <div className="relative">
-              <input
-                type="text"
-                placeholder={t('header.search')}
-                className="w-full h-10 px-4 pr-12 text-sm border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:border-[#bc1215] bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100"
-              />
-              <button className="absolute right-0 top-0 h-10 px-4 bg-[#bc1215] text-white rounded-r-md hover:bg-[#8a0e10] transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
+            <div className="relative" ref={searchRef}>
+              <form onSubmit={handleSearch}>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={t('header.search') || 'Search by product name, category, keyword...'}
+                    className="w-full h-10 px-4 pr-12 text-sm border border-gray-300 dark:border-gray-700 rounded-l-md focus:outline-none focus:border-[#bc1215] bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100"
+                  />
+                  <button
+                    type="submit"
+                    className="absolute right-0 top-0 h-10 px-4 bg-[#bc1215] text-white rounded-r-md hover:bg-[#8a0e10] transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+
+              {/* Mobile Search Suggestions */}
+              {showSuggestions && searchQuery.trim().length >= 2 && (
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 max-h-64 overflow-y-auto">
+                  {isSearching ? (
+                    <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+                      <div className="inline-block animate-spin rounded-full h-6 w-6 border-2 border-gray-300 border-t-[#bc1215]"></div>
+                    </div>
+                  ) : searchSuggestions.length > 0 ? (
+                    searchSuggestions.map((suggestion) => (
+                      <div
+                        key={suggestion.id}
+                        onClick={() => {
+                          handleSuggestionClick(suggestion.slug);
+                          setIsMenuOpen(false);
+                        }}
+                        className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-b-0"
+                      >
+                        {suggestion.thumbnail && (
+                          <Image
+                            src={suggestion.thumbnail}
+                            alt={suggestion.name}
+                            width={40}
+                            height={40}
+                            className="w-10 h-10 object-cover rounded"
+                          />
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                            {suggestion.name}
+                          </p>
+                          {suggestion.price && (
+                            <p className="text-xs font-semibold text-[#bc1215]">
+                              ৳{suggestion.price.toLocaleString()}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="p-4 text-center text-gray-500 dark:text-gray-400 text-sm">
+                      No products found
+                    </div>
+                  )}
+                  {searchSuggestions.length > 0 && (
+                    <div className="p-2 border-t border-gray-100 dark:border-gray-800">
+                      <button
+                        onClick={() => {
+                          setShowSuggestions(false);
+                          setIsMenuOpen(false);
+                          router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+                        }}
+                        className="w-full text-center text-sm text-[#bc1215] font-medium py-2"
+                      >
+                        View all results
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Mobile Navigation */}

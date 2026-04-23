@@ -14,6 +14,7 @@ interface OrderItem {
   variantId: number;
   quantity: number;
   unitPrice: number;
+  originalPrice: number | null;
   totalPrice: number;
   productName: string;
   variantName: string;
@@ -289,7 +290,16 @@ export default function OrderDetailsPage() {
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-600 hidden sm:table-cell">{item.sku || '-'}</td>
                         <td className="px-6 py-4 text-center text-sm text-gray-900">{item.quantity}</td>
-                        <td className="px-6 py-4 text-right text-sm text-gray-900">{formatCurrency(item.unitPrice)}</td>
+                        <td className="px-6 py-4 text-right text-sm text-gray-900">
+                          {item.originalPrice && item.originalPrice > item.unitPrice ? (
+                            <div className="flex flex-col items-end">
+                              <span className="text-sm font-semibold text-red-600">{formatCurrency(item.unitPrice)}</span>
+                              <span className="text-xs text-gray-400 line-through">{formatCurrency(item.originalPrice)}</span>
+                            </div>
+                          ) : (
+                            <span>{formatCurrency(item.unitPrice)}</span>
+                          )}
+                        </td>
                         <td className="px-6 py-4 text-right text-sm font-medium text-gray-900">{formatCurrency(item.totalPrice)}</td>
                       </tr>
                     ))}

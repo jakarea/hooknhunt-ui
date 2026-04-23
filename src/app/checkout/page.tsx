@@ -110,6 +110,17 @@ export default function CheckoutPage() {
   // Ref to prevent empty-cart redirect while order is being placed
   const orderPlacedRef = useRef(false);
 
+  // Delivery charge state
+  const [deliveryCharge, setDeliveryCharge] = useState(60);
+  const [deliveryLoading, setDeliveryLoading] = useState(false);
+  const [deliveryBreakdown, setDeliveryBreakdown] = useState<{
+    zone: string;
+    is_inside_dhaka: boolean;
+    base_charge: number;
+    additional_kg: number;
+    per_kg_rate: number;
+  } | null>(null);
+
   useEffect(() => {
     // Don't redirect if order is being placed (cart cleared intentionally)
     if (cartItems.length === 0 && !showOtpModal && !orderPlacedRef.current) {
@@ -194,9 +205,59 @@ export default function CheckoutPage() {
     }
   }, [formData.district]);
 
+  // Calculate total weight of cart items
+  const calculateTotalWeight = () => {
+    return cartItems.reduce((total, item) => {
+      // Assume average weight of 500g per item if not specified
+      // In production, this should come from the product variant data
+      const itemWeight = 0.5; // kg
+      return total + (itemWeight * item.quantity);
+    }, 0);
+  };
+
+  // Calculate delivery charge dynamically
+  const calculateDeliveryCharge = async () => {
+    const totalWeight = calculateTotalWeight();
+    const division = formData.division;
+
+    // Need division to calculate delivery charge
+    if (!division) {
+      setDeliveryCharge(60); // Default charge
+      return;
+    }
+
+    setDeliveryLoading(true);
+    try {
+      const api = (await import('@/lib/api')).default;
+      const response = await api.calculateDeliveryCharge({
+        weight: totalWeight,
+        division: division,
+        order_amount: subtotal,
+      });
+
+      if (response.data) {
+        setDeliveryCharge(response.data.charge);
+        setDeliveryBreakdown(response.data.breakdown);
+      }
+    } catch (error) {
+      console.error('Failed to calculate delivery charge:', error);
+      setDeliveryCharge(60); // Fallback to default
+    } finally {
+      setDeliveryLoading(false);
+    }
+  };
+
+  // Calculate delivery charge when division or cart changes
+  useEffect(() => {
+    if (formData.division && cartItems.length > 0) {
+      calculateDeliveryCharge();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.division, cartItems]);
+
   // Calculations
   const subtotal = getCartTotal();
-  const deliveryCharge = 60;
+  // deliveryCharge is now state-based
   const freeDeliveryThreshold = 500;
 
   // Read coupon values from Zustand store (backend is source of truth)
@@ -913,12 +974,30 @@ export default function CheckoutPage() {
 
                             {/* Price */}
                             <div className="text-right">
-                              <p className="text-sm font-bold text-gray-900 dark:text-white">
-                                ৳{(item.price || 0) * item.quantity}
-                              </p>
-                              <p className="text-xs text-gray-600 dark:text-gray-400">
-                                ৳{item.price || 0} {t('checkout.each')}
-                              </p>
+                              {item.product.originalPrice && item.product.originalPrice > item.price ? (
+                                <>
+                                  <p className="text-sm font-bold text-[#ec3137]">
+                                    ৳{(item.price || 0) * item.quantity}
+                                  </p>
+                                  <div className="flex items-center justify-end gap-1.5">
+                                    <span className="text-xs text-gray-400 line-through">
+                                      ৳{item.product.originalPrice} {t('checkout.each')}
+                                    </span>
+                                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                                      ৳{item.price || 0} {t('checkout.each')}
+                                    </span>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="text-sm font-bold text-gray-900 dark:text-white">
+                                    ৳{(item.price || 0) * item.quantity}
+                                  </p>
+                                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                                    ৳{item.price || 0} {t('checkout.each')}
+                                  </p>
+                                </>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -1116,9 +1195,18 @@ export default function CheckoutPage() {
                           </svg>
                           {t('checkout.freeShippingApplied')}
                         </span>
+                      ) : deliveryLoading ? (
+                        <span className="text-gray-400 dark:text-gray-500">Calculing...</span>
                       ) : (
-                        <span className="text-gray-900 dark:text-white">
+                        <span className="text-gray-900 dark:text-white flex items-center gap-2">
                           <AnimatedCounter value={deliveryCharge} prefix="৳" duration={600} />
+                          {deliveryBreakdown && (
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                              ({deliveryBreakdown.zone === 'inside_dhaka' ? 'Dhaka' : deliveryBreakdown.zone === 'outside_dhaka' ? 'Outside Dhaka' : 'Flat Rate'}
+                              {deliveryBreakdown.additional_kg > 0 && ` +${deliveryBreakdown.additional_kg}kg`}
+                              )
+                            </span>
+                          )}
                         </span>
                       )}
                     </span>
