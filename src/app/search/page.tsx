@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ProductCard } from '@/components/product/ProductCard';
+import ProductCard from '@/components/product/ProductCard';
 
-export default function SearchPage() {
+function SearchPageContent() {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
@@ -35,9 +35,9 @@ export default function SearchPage() {
         q: query,
         page: currentPage,
         per_page: 24,
-      });
+      }) as any;
 
-      if (response.data?.data) {
+      if (response?.data?.data) {
         setProducts(response.data.data);
         setTotalPages(response.data.last_page || 1);
         setTotalCount(response.data.total || 0);
@@ -59,8 +59,8 @@ export default function SearchPage() {
           </h1>
           {query && (
             <p className="text-gray-600 dark:text-gray-400">
-              Showing results for <span className="font-semibold text-[#bc1215]">"{query}"</span>
-              {totalCount > 0 && <span className="ml-2">({totalCount} products found)</span>}
+              Showing results for "<span className="font-semibold text-[#bc1215]">{query}</span>"
+              {totalCount > 0 && <span> ({totalCount} found)</span>}
             </p>
           )}
         </div>
@@ -142,5 +142,17 @@ export default function SearchPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#bc1215] border-t-transparent"></div>
+      </div>
+    }>
+      <SearchPageContent />
+    </Suspense>
   );
 }
