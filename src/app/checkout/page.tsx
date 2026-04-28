@@ -45,6 +45,7 @@ export default function CheckoutPage() {
 
   // Payment processing state
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [paymentError, setPaymentError] = useState<{ message: string; type: 'eps' | 'sslcommerz' | 'general' } | null>(null);
 
   // EMI option state
@@ -428,7 +429,12 @@ export default function CheckoutPage() {
       return;
     }
 
-    setIsProcessingPayment(true);
+    // Use different loading states for COD vs payment gateways
+    if (paymentMethod === 'cod') {
+      setIsPlacingOrder(true);
+    } else {
+      setIsProcessingPayment(true);
+    }
     orderPlacedRef.current = true; // Mark that we're processing an order
 
     try {
@@ -713,6 +719,7 @@ export default function CheckoutPage() {
       }
     } finally {
       setIsProcessingPayment(false);
+      setIsPlacingOrder(false);
       orderPlacedRef.current = false; // Reset the flag
     }
   };
@@ -1563,16 +1570,16 @@ export default function CheckoutPage() {
                 {/* Checkout Button */}
                 <button
                   onClick={handleCheckout}
-                  disabled={!agreeToTerms || isProcessingPayment || paymentLoading || activeGatewayLoading}
+                  disabled={!agreeToTerms || isProcessingPayment || isPlacingOrder || paymentLoading || activeGatewayLoading}
                   className="w-full py-4 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] hover:from-[#8a0f12] hover:to-[#ec3137] text-white font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg transform hover:scale-[1.02] rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  {isProcessingPayment || paymentLoading ? (
+                  {(isProcessingPayment || isPlacingOrder || paymentLoading) ? (
                     <>
                       <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      <span>{t('checkout.processing')}</span>
+                      <span>{(paymentMethod === 'cod' ? t('checkout.placingOrder') : t('checkout.processing'))}</span>
                     </>
                   ) : (
                     <>
@@ -1720,8 +1727,8 @@ export default function CheckoutPage() {
         </div>
       )}
 
-      {/* Payment Processing Overlay */}
-      {(isProcessingPayment || paymentLoading) && (
+      {/* Payment Processing Overlay - Only for payment gateways, not COD */}
+      {(isProcessingPayment || paymentLoading) && (paymentMethod === 'sslcommerz' || paymentMethod === 'eps') && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300">
             <div className="flex justify-center mb-6">
