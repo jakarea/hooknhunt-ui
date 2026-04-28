@@ -565,14 +565,12 @@ export default function CheckoutPage() {
                 errorMsg.toLowerCase().includes('unavailable') ||
                 errorMsg.toLowerCase().includes('currently unavailable'));
 
-            // Redirect to payment failure page with error details
-            const failUrl = `/payment/callback/fail?reason=${encodeURIComponent(errorMsg)}&error_code=SSLCOMMERZ_INIT_FAILED`;
-            try {
-              router.push(failUrl);
-            } catch {
-              // Fallback: use window.location
-              window.location.href = failUrl;
-            }
+            // Set payment error state instead of redirecting
+            // The callback URLs should only be used when returning from the payment gateway
+            setPaymentError({
+              message: errorMsg,
+              type: 'sslcommerz'
+            });
             return;
           }
         }
@@ -656,14 +654,12 @@ export default function CheckoutPage() {
                 errorMsg.toLowerCase().includes('unavailable') ||
                 errorMsg.toLowerCase().includes('currently unavailable'));
 
-            // Redirect to payment failure page with error details
-            const failUrl = `/payment/callback/fail?reason=${encodeURIComponent(errorMsg)}&error_code=EPS_INIT_FAILED`;
-            try {
-              router.push(failUrl);
-            } catch {
-              // Fallback: use window.location
-              window.location.href = failUrl;
-            }
+            // Set payment error state instead of redirecting
+            // The callback URLs should only be used when returning from the payment gateway
+            setPaymentError({
+              message: errorMsg,
+              type: 'eps'
+            });
             return;
           }
         }
