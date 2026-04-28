@@ -41,13 +41,48 @@ export function usePayment() {
         sessionStorage.setItem('ssl_payment_tran_id', paymentData.tran_id);
         sessionStorage.setItem('ssl_payment_order_id', String(data.sales_order_id));
 
+        // Handle EPS probe flow - frontend calls probe directly
+        if (paymentData.use_probe && paymentData.probe_url && paymentData.payload) {
+          try {
+            const probeResponse = await fetch(paymentData.probe_url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+              body: JSON.stringify(paymentData.payload),
+            });
+
+            if (!probeResponse.ok) {
+              throw new Error(`Probe service returned ${probeResponse.status}: ${probeResponse.statusText}`);
+            }
+
+            const probeResult = await probeResponse.json();
+
+            // Check if probe returned a redirect URL
+            if (probeResult.redirectUrl || probeResult.paymentUrl || probeResult.redirect_url) {
+              const redirectUrl = probeResult.redirectUrl || probeResult.paymentUrl || probeResult.redirect_url;
+
+              // Update payment data with the actual gateway URL
+              paymentData.gateway_url = redirectUrl;
+
+              // Store the redirect URL for callback handling
+              sessionStorage.setItem('eps_gateway_url', redirectUrl);
+            }
+
+            return paymentData;
+          } catch (probeError: unknown) {
+            const errorMessage = probeError instanceof Error ? probeError.message : 'Failed to connect to payment gateway';
+            throw new PaymentError(PaymentErrorType.PAYMENT_FAILED, `EPS payment error: ${errorMessage}`);
+          }
+        }
+
         return paymentData;
       }
 
       // Handle error response (status: false, with error message directly on response)
       if ((response as any).status === false || (response as any).error) {
         const errorMessage = (response as any).error || (response as any).message || 'Payment initiation failed';
-        console.error('🔴 [Payment Error]:', errorMessage);
         throw new PaymentError(PaymentErrorType.PAYMENT_FAILED, errorMessage);
       }
 
@@ -157,7 +192,13 @@ export function usePayment() {
   const initiateAndPay = useCallback(async (data: InitiatePaymentRequest): Promise<void> => {
     try {
       const result = await initiatePayment(data);
-      redirectToGateway(result.gateway_url, result.tran_id);
+
+      // Validate required fields before redirect
+      if (!result.gateway_url) {
+        throw new PaymentError(PaymentErrorType.PAYMENT_FAILED, 'Payment gateway URL not received');
+      }
+
+      redirectToGateway(result.gateway_url, result.tran_id || '');
     } catch (err) {
       // Error is already handled in initiatePayment
       throw err;

@@ -565,29 +565,13 @@ export default function CheckoutPage() {
                 errorMsg.toLowerCase().includes('unavailable') ||
                 errorMsg.toLowerCase().includes('currently unavailable'));
 
-            // Set payment error state for display on page
-            setPaymentError({ message: errorMsg, type: 'sslcommerz' });
-
-            // Show error toast - make it very visible
-            toast.error(errorMsg, {
-              duration: 6000,
-              id: 'ssl-payment-error',
-              position: 'top-center',
-              style: {
-                background: '#ef4444',
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: '14px',
-              }
-            });
-
-            // Suggest switching to COD if gateway unavailable
-            if (isGatewayUnavailable) {
-              setTimeout(() => {
-                if (confirm('Payment gateway is currently unavailable. Would you like to pay with Cash on Delivery (COD) instead?')) {
-                  setPaymentMethod('cod');
-                }
-              }, 500);
+            // Redirect to payment failure page with error details
+            const failUrl = `/payment/callback/fail?reason=${encodeURIComponent(errorMsg)}&error_code=SSLCOMMERZ_INIT_FAILED`;
+            try {
+              router.push(failUrl);
+            } catch {
+              // Fallback: use window.location
+              window.location.href = failUrl;
             }
             return;
           }
@@ -672,29 +656,13 @@ export default function CheckoutPage() {
                 errorMsg.toLowerCase().includes('unavailable') ||
                 errorMsg.toLowerCase().includes('currently unavailable'));
 
-            // Set payment error state for display on page
-            setPaymentError({ message: errorMsg, type: 'eps' });
-
-            // Show error toast - make it very visible
-            toast.error(errorMsg, {
-              duration: 6000,
-              id: 'eps-payment-error',
-              position: 'top-center',
-              style: {
-                background: '#ef4444',
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: '14px',
-              }
-            });
-
-            // Suggest switching to COD if gateway unavailable
-            if (isGatewayUnavailable) {
-              setTimeout(() => {
-                if (confirm('Payment gateway is currently unavailable. Would you like to pay with Cash on Delivery (COD) instead?')) {
-                  setPaymentMethod('cod');
-                }
-              }, 500);
+            // Redirect to payment failure page with error details
+            const failUrl = `/payment/callback/fail?reason=${encodeURIComponent(errorMsg)}&error_code=EPS_INIT_FAILED`;
+            try {
+              router.push(failUrl);
+            } catch {
+              // Fallback: use window.location
+              window.location.href = failUrl;
             }
             return;
           }
@@ -1590,7 +1558,7 @@ export default function CheckoutPage() {
                   />
                   <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
                     {t('checkout.agreeToTerms')}{' '}
-                    <Link href="/terms" className="text-[#ec3137] hover:underline font-semibold">
+                    <Link href="/refund-policy" className="text-[#ec3137] hover:underline font-semibold">
                       {t('checkout.termsAndConditions')}
                     </Link>
                   </span>

@@ -29,12 +29,16 @@ export interface InitiatePaymentRequest {
  * Response from payment initiation
  */
 export interface InitiatePaymentResponse {
-  payment_id: number;
-  gateway_url: string;
+  payment_id?: number;
+  gateway_url?: string;
   tran_id: string;
   amount: number;
   currency: string;
-  sandbox: boolean;
+  sandbox?: boolean;
+  // EPS Probe specific fields
+  use_probe?: boolean;
+  probe_url?: string;
+  payload?: Record<string, unknown>;
 }
 
 /**
