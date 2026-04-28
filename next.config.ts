@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "hooknhunt-api.test",
       },
+      {
+        protocol: "https",
+        hostname: "probesh.hooknhunt.com",
+      },
     ],
   },
 };

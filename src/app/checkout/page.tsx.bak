@@ -37,7 +37,7 @@ export default function CheckoutPage() {
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod');
   const [activeGateway, setActiveGateway] = useState<'sslcommerz' | 'eps' | null>(null);
-  const [activeGatewayLoading, setActiveGatewayLoading] = useState(true);
+  const [gatewayConfig, setGatewayConfig] = useState<any>(null);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
@@ -45,7 +45,6 @@ export default function CheckoutPage() {
 
   // Payment processing state
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  const [paymentError, setPaymentError] = useState<{ message: string; type: 'eps' | 'sslcommerz' | 'general' } | null>(null);
 
   // EMI option state
   const [selectedEmiBank, setSelectedEmiBank] = useState<number>(0);
@@ -113,8 +112,8 @@ export default function CheckoutPage() {
   // Ref to prevent empty-cart redirect while order is being placed
   const orderPlacedRef = useRef(false);
 
-  // Delivery charge state - will be calculated dynamically from backend
-  const [deliveryCharge, setDeliveryCharge] = useState(0);
+  // Delivery charge state
+  const [deliveryCharge, setDeliveryCharge] = useState(60);
   const [deliveryLoading, setDeliveryLoading] = useState(false);
   const [deliveryBreakdown, setDeliveryBreakdown] = useState<{
     zone: string;
@@ -122,10 +121,6 @@ export default function CheckoutPage() {
     base_charge: number;
     additional_kg: number;
     per_kg_rate: number;
-  } | null>(null);
-  const [freeDeliverySettings, setFreeDeliverySettings] = useState<{
-    enabled: boolean;
-    minAmount: number;
   } | null>(null);
 
   useEffect(() => {
@@ -138,62 +133,33 @@ export default function CheckoutPage() {
   // Fetch active payment gateway on page load
   useEffect(() => {
     const fetchActiveGateway = async () => {
-      setActiveGatewayLoading(true);
       try {
         const api = (await import('@/lib/api')).default;
         const response = await api.getActivePaymentGateway();
 
-        if (response.data && response.data.activeGateway) {
-          const { activeGateway } = response.data;
+        if (response.data) {
+          const { activeGateway, sslcommerz, eps } = response.data;
           setActiveGateway(activeGateway);
+          setGatewayConfig({ sslcommerz, eps });
 
           // Automatically set payment method to active gateway
+          // If no gateway is configured, keep COD as default
           if (activeGateway === 'sslcommerz') {
             setPaymentMethod('sslcommerz');
           } else if (activeGateway === 'eps') {
             setPaymentMethod('eps');
           }
+          // If activeGateway is null or neither, keep 'cod' as default
         }
-        // If activeGateway is null or response fails, keep 'cod' as default
       } catch (error) {
         console.error('Failed to fetch active payment gateway:', error);
         // On error, default to COD
         setPaymentMethod('cod');
-        setActiveGateway(null);
-      } finally {
-        setActiveGatewayLoading(false);
       }
     };
 
     fetchActiveGateway();
-
-    // Fetch delivery settings (for free delivery threshold)
-    fetchDeliverySettings();
   }, []);
-
-  // Fetch delivery settings from API
-  const fetchDeliverySettings = async () => {
-    try {
-      const api = (await import('@/lib/api')).default;
-      // Use GET request for delivery settings
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api/v2'}/public/delivery-settings`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      }).then(res => res.json());
-
-      if (response?.data) {
-        // Store all delivery settings
-        setFreeDeliverySettings(response.data.freeDelivery);
-      }
-    } catch (error) {
-      console.error('Failed to fetch delivery settings:', error);
-      // Default to disabled if fetch fails
-      setFreeDeliverySettings({ enabled: false, minAmount: 0 });
-    }
-  };
 
   // Pre-fill user data and fetch addresses when user is logged in
   useEffect(() => {
@@ -259,8 +225,6 @@ export default function CheckoutPage() {
         division: division,
       }));
       setUseDifferentAddress(false);
-      // Recalculate delivery charge for the selected address
-      calculateDeliveryCharge();
     }
   };
 
@@ -288,7 +252,6 @@ export default function CheckoutPage() {
   const calculateDeliveryCharge = async () => {
     const totalWeight = calculateTotalWeight();
     const division = formData.division;
-    const currentSubtotal = getCartTotal(); // Use fresh subtotal value
 
     // Need division to calculate delivery charge
     if (!division) {
@@ -299,31 +262,18 @@ export default function CheckoutPage() {
     setDeliveryLoading(true);
     try {
       const api = (await import('@/lib/api')).default;
-
       const response = await api.calculateDeliveryCharge({
         weight: totalWeight,
         division: division,
-        order_amount: currentSubtotal,
+        order_amount: subtotal,
       });
 
-      // The response from backend is: {status: true, data: {charge: 90, ...}}
-      // api.request() returns the raw response, so response.data contains the charge
-      let charge = 0;
-      let breakdown = null;
-
-      // Try to extract charge from different possible response structures
-      if (response?.data?.charge !== undefined) {
-        charge = Number(response.data.charge);
-        breakdown = response.data.breakdown;
-      } else if ((response as any)?.charge !== undefined) {
-        charge = Number((response as any).charge);
-        breakdown = (response as any).breakdown;
+      if (response.data) {
+        setDeliveryCharge(response.data.charge);
+        setDeliveryBreakdown(response.data.breakdown);
       }
-
-      setDeliveryCharge(charge);
-      setDeliveryBreakdown(breakdown);
     } catch (error) {
-      console.error('🚚 [Delivery Charge API Error]:', error);
+      console.error('Failed to calculate delivery charge:', error);
       setDeliveryCharge(60); // Fallback to default
     } finally {
       setDeliveryLoading(false);
@@ -332,7 +282,7 @@ export default function CheckoutPage() {
 
   // Calculate delivery charge when division or cart changes
   useEffect(() => {
-    if (formData.division) {
+    if (formData.division && cartItems.length > 0) {
       calculateDeliveryCharge();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -341,9 +291,7 @@ export default function CheckoutPage() {
   // Calculations
   const subtotal = getCartTotal();
   // deliveryCharge is now state-based
-  // Use free delivery settings from API instead of hardcoded value
-  const freeDeliveryThreshold = freeDeliverySettings?.enabled ? (freeDeliverySettings.minAmount ?? 500) : 0;
-  const isFreeDeliveryFromSettings = freeDeliverySettings?.enabled && subtotal >= freeDeliveryThreshold;
+  const freeDeliveryThreshold = 500;
 
   // Read coupon values from Zustand store (backend is source of truth)
   const appliedCoupon = couponStore.appliedCoupon;
@@ -351,14 +299,12 @@ export default function CheckoutPage() {
   const freeShipping = appliedCoupon?.type === 'shipping';
 
   const subtotalAfterCoupon = subtotal - couponDiscount;
-  const totalCharges = freeShipping || isFreeDeliveryFromSettings ? 0 : deliveryCharge;
+  const totalCharges = freeShipping ? 0 : deliveryCharge;
   const total = subtotalAfterCoupon + totalCharges;
   const payableTotal = total;
 
-  // Calculate how much more to spend for free delivery - only if free delivery is enabled
-  const amountNeededForFreeDelivery = freeDeliverySettings?.enabled
-    ? Math.max(0, freeDeliveryThreshold - subtotal)
-    : 0;
+  // Calculate how much more to spend for free delivery
+  const amountNeededForFreeDelivery = Math.max(0, freeDeliveryThreshold - subtotal);
 
   // Calculate original total (without discount)
   const originalSubtotal = cartItems.reduce((sum, item) => {
@@ -382,6 +328,18 @@ export default function CheckoutPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subtotal]);
+
+  // Debug: Track payment loading states
+  useEffect(() => {
+    if (isProcessingPayment || paymentLoading) {
+      console.log('🔴 OVERLAY TRIGGERED:', {
+        isProcessingPayment,
+        paymentLoading,
+        paymentMethod,
+        timestamp: new Date().toISOString()
+      });
+    }
+  }, [isProcessingPayment, paymentLoading, paymentMethod]);
 
   // Apply coupon via store
   const handleApplyCoupon = async () => {
@@ -407,8 +365,10 @@ export default function CheckoutPage() {
   };
 
   const handleCheckout = async () => {
-    // Clear any previous payment errors when trying to checkout again
-    setPaymentError(null);
+    if (!agreeToTerms) {
+      toast.error('Please agree to the terms and conditions');
+      return;
+    }
 
     // Validate form
     const missingFields: string[] = [];
@@ -423,15 +383,9 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (!agreeToTerms) {
-      toast.error('Please agree to the terms and conditions');
-      return;
-    }
-
-    setIsProcessingPayment(true);
-    orderPlacedRef.current = true; // Mark that we're processing an order
-
     try {
+      setIsProcessingPayment(true);
+      console.log('🔵 Starting checkout process. Payment method:', paymentMethod);
       const api = (await import('@/lib/api')).default;
 
       // Prepare order items
@@ -440,7 +394,7 @@ export default function CheckoutPage() {
         variant_id: item.variant?.id || item.product.variant_id || null,
         product_name: getLocalizedNameForProduct(item.product),
         product_sku: item.variant?.sku || null,
-        product_image: item.product.variant_image || item.product.image || '/placeholder-product.png',
+        product_image: item.product.image || '/placeholder-product.png',
         unit_price: item.price || 0,
         quantity: item.quantity,
         total_price: (item.price || 0) * item.quantity,
@@ -485,8 +439,11 @@ export default function CheckoutPage() {
         const orderId = orderData_result.id as number;
         const orderNumber = orderData_result.orderNumber as string;
 
+        console.log('Checkout - Payment Method:', paymentMethod);
+
         // Handle SSL Commerz payment - ONLY for sslcommerz payment method
         if (paymentMethod === 'sslcommerz') {
+          console.log('🔴 SSLCommerz payment initiated - Opening payment gateway');
           try {
             // Initiate SSL Commerz payment
             await initiateAndPay({
@@ -497,7 +454,6 @@ export default function CheckoutPage() {
               customer_address: {
                 address_line1: formData.address,
                 address_line2: formData.thana || undefined,
-                city: formData.thana || '',
                 district: formData.district,
                 country: 'Bangladesh',
                 postal_code: undefined,
@@ -508,93 +464,20 @@ export default function CheckoutPage() {
             // Payment initiated successfully - gateway will open in new tab
             return;
           } catch (paymentErr: unknown) {
-            console.error('🔴 [SSLCommerz Payment Error]:', paymentErr);
-
-            // Handle different error structures
-            let errorMsg = 'Payment initiation failed. Please try again.';
-            let isGatewayUnavailable = false;
-
-            // Check if it's a PaymentError with message
-            if (paymentErr && typeof paymentErr === 'object' && 'message' in paymentErr) {
-              errorMsg = (paymentErr as { message: string }).message;
-            }
-
-            // Check for API response errors - handle multiple possible structures
+            setIsProcessingPayment(false);
             const apiErr = paymentErr as {
-              response?: {
-                data?: {
-                  errors?: Record<string, string[]> | string;
-                  message?: string;
-                  error?: string;
-                  gateway_unavailable?: boolean;
-                  status?: boolean;
-                };
-                error?: string;
-                message?: string;
-                status?: boolean;
-              };
+              response?: { data?: { errors?: Record<string, string[]>; message?: string; error?: string }; status?: number };
               message?: string;
             };
-
-            // Extract error message from different possible locations
-            // Structure 1: response.data.error (nested)
-            if (apiErr.response?.data?.error) {
-              errorMsg = apiErr.response.data.error;
-            }
-            // Structure 2: response.data.message (nested)
-            else if (apiErr.response?.data?.message) {
-              errorMsg = apiErr.response.data.message;
-            }
-            // Structure 3: response.error (direct on response)
-            else if (apiErr.response?.error) {
-              errorMsg = apiErr.response.error;
-            }
-            // Structure 4: response.message (direct on response)
-            else if (apiErr.response?.message) {
-              errorMsg = apiErr.response.message;
-            }
-            // Structure 5: error property directly on thrown object
-            else if (apiErr.message) {
-              errorMsg = apiErr.message;
-            }
-
-            // Check if gateway is unavailable
-            isGatewayUnavailable = apiErr.response?.data?.gateway_unavailable !== undefined
-              ? apiErr.response.data.gateway_unavailable
-              : (apiErr.response?.status === false ||
-                errorMsg.toLowerCase().includes('unavailable') ||
-                errorMsg.toLowerCase().includes('currently unavailable'));
-
-            // Set payment error state for display on page
-            setPaymentError({ message: errorMsg, type: 'sslcommerz' });
-
-            // Show error toast - make it very visible
-            toast.error(errorMsg, {
-              duration: 6000,
-              id: 'ssl-payment-error',
-              position: 'top-center',
-              style: {
-                background: '#ef4444',
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: '14px',
-              }
-            });
-
-            // Suggest switching to COD if gateway unavailable
-            if (isGatewayUnavailable) {
-              setTimeout(() => {
-                if (confirm('Payment gateway is currently unavailable. Would you like to pay with Cash on Delivery (COD) instead?')) {
-                  setPaymentMethod('cod');
-                }
-              }, 500);
-            }
+            const errorMsg = apiErr.response?.data?.error || apiErr.response?.data?.message || apiErr.message || 'Payment initiation failed. Please try again.';
+            toast.error(errorMsg);
             return;
           }
         }
 
         // Handle EPS payment - ONLY for eps payment method
         if (paymentMethod === 'eps') {
+          console.log('🟣 EPS payment initiated - Opening payment gateway');
           try {
             // Initiate EPS payment
             await initiateAndPay({
@@ -605,7 +488,6 @@ export default function CheckoutPage() {
               customer_address: {
                 address_line1: formData.address,
                 address_line2: formData.thana || undefined,
-                city: formData.thana || '',
                 district: formData.district,
                 country: 'Bangladesh',
                 postal_code: undefined,
@@ -615,93 +497,19 @@ export default function CheckoutPage() {
             // Payment initiated successfully - gateway will open in new tab
             return;
           } catch (paymentErr: unknown) {
-            console.error('🟣 [EPS Payment Error]:', paymentErr);
-
-            // Handle different error structures
-            let errorMsg = 'EPS payment initiation failed. Please try again.';
-            let isGatewayUnavailable = false;
-
-            // Check if it's a PaymentError with message
-            if (paymentErr && typeof paymentErr === 'object' && 'message' in paymentErr) {
-              errorMsg = (paymentErr as { message: string }).message;
-            }
-
-            // Check for API response errors - handle multiple possible structures
+            setIsProcessingPayment(false);
             const apiErr = paymentErr as {
-              response?: {
-                data?: {
-                  errors?: Record<string, string[]> | string;
-                  message?: string;
-                  error?: string;
-                  gateway_unavailable?: boolean;
-                  status?: boolean;
-                };
-                error?: string;
-                message?: string;
-                status?: boolean;
-              };
+              response?: { data?: { errors?: Record<string, string[]>; message?: string; error?: string }; status?: number };
               message?: string;
             };
-
-            // Extract error message from different possible locations
-            // Structure 1: response.data.error (nested)
-            if (apiErr.response?.data?.error) {
-              errorMsg = apiErr.response.data.error;
-            }
-            // Structure 2: response.data.message (nested)
-            else if (apiErr.response?.data?.message) {
-              errorMsg = apiErr.response.data.message;
-            }
-            // Structure 3: response.error (direct on response)
-            else if (apiErr.response?.error) {
-              errorMsg = apiErr.response.error;
-            }
-            // Structure 4: response.message (direct on response)
-            else if (apiErr.response?.message) {
-              errorMsg = apiErr.response.message;
-            }
-            // Structure 5: error property directly on thrown object
-            else if (apiErr.message) {
-              errorMsg = apiErr.message;
-            }
-
-            // Check if gateway is unavailable
-            isGatewayUnavailable = apiErr.response?.data?.gateway_unavailable !== undefined
-              ? apiErr.response.data.gateway_unavailable
-              : (apiErr.response?.status === false ||
-                errorMsg.toLowerCase().includes('unavailable') ||
-                errorMsg.toLowerCase().includes('currently unavailable'));
-
-            // Set payment error state for display on page
-            setPaymentError({ message: errorMsg, type: 'eps' });
-
-            // Show error toast - make it very visible
-            toast.error(errorMsg, {
-              duration: 6000,
-              id: 'eps-payment-error',
-              position: 'top-center',
-              style: {
-                background: '#ef4444',
-                color: '#fff',
-                fontWeight: 'bold',
-                fontSize: '14px',
-              }
-            });
-
-            // Suggest switching to COD if gateway unavailable
-            if (isGatewayUnavailable) {
-              setTimeout(() => {
-                if (confirm('Payment gateway is currently unavailable. Would you like to pay with Cash on Delivery (COD) instead?')) {
-                  setPaymentMethod('cod');
-                }
-              }, 500);
-            }
+            const errorMsg = apiErr.response?.data?.error || apiErr.response?.data?.message || apiErr.message || 'EPS payment initiation failed. Please try again.';
+            toast.error(errorMsg);
             return;
           }
         }
 
         if (paymentMethod === 'cod') {
-          // COD payment - Skipping payment gateways, proceeding with COD flow
+          console.log('💵 COD payment - Skipping payment gateways, proceeding with COD flow');
         }
 
         // Check if OTP verification is required for COD
@@ -715,8 +523,10 @@ export default function CheckoutPage() {
             customer_name: ((orderData_result.customer as Record<string, string>)?.name) || formData.name,
           });
           setShowOtpModal(true);
+          setIsProcessingPayment(false);
         } else {
           // No verification required, proceed normally
+          orderPlacedRef.current = true;
           clearCart();
           const totalAmount = orderData_result.dueAmount as number || orderData_result.totalAmount as number;
           const redirectUrl = `/order-success?invoice=${orderNumber}&total=${totalAmount}&name=${encodeURIComponent(formData.name)}`;
@@ -738,25 +548,16 @@ export default function CheckoutPage() {
       if (error.response?.status === 422 && error.response?.data?.errors) {
         const errors = error.response.data.errors;
         const errorMessages = Object.values(errors).flat();
-        toast.error(`Validation Error: ${errorMessages.join(', ')}`);
+        alert(`Validation Error: ${errorMessages.join(', ')}`);
       } else if (error.response?.status === 409) {
         // Conflict errors (duplicate phone/email)
-        toast.error(error.response?.data?.message || 'This phone number or email is already registered.');
+        alert(error.response?.data?.message || 'This phone number or email is already registered.');
       } else if (error.response?.data?.message) {
-        toast.error(`Error: ${error.response.data.message}`);
+        alert(`Error: ${error.response.data.message}`);
       } else {
-        toast.error('Order placement failed. Please try again or contact support.');
+        alert('Order placement failed. Please try again or contact support.');
       }
-    } finally {
-      setIsProcessingPayment(false);
-      orderPlacedRef.current = false; // Reset the flag
     }
-  };
-
-  // Helper function to change payment method and clear errors
-  const changePaymentMethod = (method: PaymentMethod) => {
-    setPaymentMethod(method);
-    setPaymentError(null);
   };
 
   // Handle OTP verification
@@ -1106,101 +907,75 @@ export default function CheckoutPage() {
                 {t('checkout.paymentMethod')}
               </h2>
 
-              {/* Payment Error Alert - Show prominently */}
-              {paymentError && (
-                <div className="mb-6 bg-red-50 dark:bg-red-900/20 border-2 border-red-500 dark:border-red-700 rounded-lg p-4">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-red-600 dark:text-red-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <div className="flex-1">
-                      <h4 className="font-bold text-red-900 dark:text-red-200 mb-1">
-                        Payment Error
-                      </h4>
-                      <p className="text-sm text-red-800 dark:text-red-300">
-                        {paymentError.message}
-                      </p>
-                      <p className="text-xs text-red-700 dark:text-red-400 mt-2">
-                        {paymentError.type === 'eps' && 'EPS payment gateway is currently unavailable.'}
-                        {paymentError.type === 'sslcommerz' && 'SSLCommerz payment gateway is currently unavailable.'}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setPaymentError(null)}
-                      className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                  {(paymentError?.message.toLowerCase().includes('unavailable') ||
-                   paymentError?.message.toLowerCase().includes('currently unavailable')) && (
-                    <div className="mt-3 flex gap-2">
-                      <button
-                        onClick={() => {
-                          setPaymentMethod('cod');
-                          setPaymentError(null);
-                        }}
-                        className="px-3 py-1 text-sm font-semibold bg-white dark:bg-[#1a1a1a] text-red-700 dark:text-red-300 border border-red-300 dark:border-red-700 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                      >
-                        Switch to Cash on Delivery
-                      </button>
-                      <button
-                        onClick={() => setPaymentError(null)}
-                        className="px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:underline"
-                      >
-                        Dismiss
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-
               <div className="space-y-3">
-                {/* Payment Gateway (SSLCommerz or EPS - based on active gateway) */}
-                {activeGateway && (
-                  <label
-                    className={`flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                      paymentMethod === activeGateway
-                        ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/10'
-                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="payment"
-                      value={activeGateway}
-                      checked={paymentMethod === activeGateway}
-                      onChange={() => changePaymentMethod(activeGateway)}
-                      className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 focus:ring-2 focus:ring-[#ec3137]"
-                    />
-                    <div className="flex items-center gap-3 flex-1">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${activeGateway === 'sslcommerz' ? 'bg-blue-100 dark:bg-blue-900/30' : 'bg-purple-100 dark:bg-purple-900/30'}`}>
-                        <svg className={`w-6 h-6 ${activeGateway === 'sslcommerz' ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                        </svg>
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-bold text-gray-900 dark:text-white">{t('checkout.paymentGateway')}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{t('checkout.paymentGatewayDesc')}</p>
-                        <div className="flex items-center gap-3 mt-2">
-                          {activeGateway === 'sslcommerz' ? (
-                            <img
-                              src="/SSL-Commerz-Pay-With-logo.avif"
-                              alt="SSLCommerz Payment"
-                              className="h-12 w-full object-contain"
-                            />
-                          ) : (
-                            <img
-                              src="/eps-payment-all-logo.png"
-                              alt="EPS Payment"
-                              className="h-12 w-full object-contain"
-                            />
-                          )}
-                        </div>
+                {/* SSLCommerz Payment Gateway */}
+                <label
+                  className={`flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    paymentMethod === 'sslcommerz'
+                      ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/10'
+                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="sslcommerz"
+                    checked={paymentMethod === 'sslcommerz'}
+                    onChange={() => setPaymentMethod('sslcommerz')}
+                    className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 focus:ring-2 focus:ring-[#ec3137]"
+                  />
+                  <div className="flex items-center gap-3 flex-1">
+                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-bold text-gray-900 dark:text-white">{t('checkout.sslcommerzTitle')}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{t('checkout.sslcommerzDesc')}</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full font-medium">Visa</span>
+                        <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full font-medium">Mastercard</span>
+                        <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full font-medium">bKash</span>
+                        <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full font-medium">Nagad</span>
                       </div>
                     </div>
-                  </label>
-                )}
+                  </div>
+                </label>
+
+                {/* EPS Payment Gateway */}
+                <label
+                  className={`flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    paymentMethod === 'eps'
+                      ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/10'
+                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="eps"
+                    checked={paymentMethod === 'eps'}
+                    onChange={() => setPaymentMethod('eps')}
+                    className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 focus:ring-2 focus:ring-[#ec3137]"
+                  />
+                  <div className="flex items-center gap-3 flex-1">
+                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-bold text-gray-900 dark:text-white">EPS Payment</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Internet Banking, Mobile Banking, Cards</p>
+                      <div className="flex items-center gap-2 mt-2 flex-wrap">
+                        <span className="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium">Internet Banking</span>
+                        <span className="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium">Mobile Banking</span>
+                        <span className="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium">Cards</span>
+                      </div>
+                    </div>
+                  </div>
+                </label>
 
                 {/* Cash on Delivery */}
                 <label
@@ -1215,7 +990,7 @@ export default function CheckoutPage() {
                     name="payment"
                     value="cod"
                     checked={paymentMethod === 'cod'}
-                    onChange={() => changePaymentMethod('cod')}
+                    onChange={() => setPaymentMethod('cod')}
                     className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 focus:ring-2 focus:ring-[#ec3137]"
                   />
                   <div className="flex items-center gap-3 flex-1">
@@ -1254,7 +1029,7 @@ export default function CheckoutPage() {
                         {/* Product Image */}
                         <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
                           <img
-                            src={item.product.variant_image || item.product.image || '/placeholder-product.png'}
+                            src={item.product.image || '/placeholder-product.png'}
                             alt={getLocalizedNameForProduct(item.product)}
                             className="w-full h-full object-cover"
                           />
@@ -1473,8 +1248,8 @@ export default function CheckoutPage() {
                   )}
                 </div>
 
-                {/* Free Delivery Promotion - Only show if enabled in admin settings */}
-                {!freeShipping && freeDeliverySettings?.enabled && amountNeededForFreeDelivery > 0 && (
+                {/* Free Delivery Promotion */}
+                {!freeShipping && amountNeededForFreeDelivery > 0 && (
                   <div className="mb-6 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
                     <div className="flex items-start gap-2">
                       <svg className="w-5 h-5 text-orange-600 dark:text-orange-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1542,12 +1317,9 @@ export default function CheckoutPage() {
                     </span>
 
                   </div>
-                  {/* Only show free delivery message if enabled in admin settings */}
-                  {freeDeliverySettings?.enabled && amountNeededForFreeDelivery > 0 && (
-                    <p className="text-sm text-right text-orange-800 dark:text-orange-300" dangerouslySetInnerHTML={{
-                      __html: t('checkout.addMoreForFreeShipping', { amount: amountNeededForFreeDelivery.toLocaleString() })
-                    }} />
-                  )}
+                   <p className="text-sm text-right text-orange-800 dark:text-orange-300" dangerouslySetInnerHTML={{
+                              __html: t('checkout.addMoreForFreeShipping', { amount: '200' })
+                            }} />
                 </div>
 
                 {/* Total */}
@@ -1599,7 +1371,7 @@ export default function CheckoutPage() {
                 {/* Checkout Button */}
                 <button
                   onClick={handleCheckout}
-                  disabled={!agreeToTerms || isProcessingPayment || paymentLoading || activeGatewayLoading}
+                  disabled={!agreeToTerms || isProcessingPayment || paymentLoading}
                   className="w-full py-4 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] hover:from-[#8a0f12] hover:to-[#ec3137] text-white font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg transform hover:scale-[1.02] rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {isProcessingPayment || paymentLoading ? (

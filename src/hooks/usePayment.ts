@@ -32,6 +32,7 @@ export function usePayment() {
       const api = (await import('@/lib/api')).default;
       const response = await api.initiatePayment(data);
 
+      // Handle successful response
       if (response.data) {
         const paymentData = response.data as InitiatePaymentResponse;
         setInitiatedPayment(paymentData);
@@ -41,6 +42,13 @@ export function usePayment() {
         sessionStorage.setItem('ssl_payment_order_id', String(data.sales_order_id));
 
         return paymentData;
+      }
+
+      // Handle error response (status: false, with error message directly on response)
+      if ((response as any).status === false || (response as any).error) {
+        const errorMessage = (response as any).error || (response as any).message || 'Payment initiation failed';
+        console.error('🔴 [Payment Error]:', errorMessage);
+        throw new PaymentError(PaymentErrorType.PAYMENT_FAILED, errorMessage);
       }
 
       throw new PaymentError(PaymentErrorType.PAYMENT_FAILED, 'Invalid response from payment server');
@@ -54,8 +62,13 @@ export function usePayment() {
       let errorMessage = 'Payment initiation failed. Please try again.';
       let errorType = PaymentErrorType.PAYMENT_FAILED;
 
+      // Check if it's a PaymentError (already formatted)
+      if (err instanceof PaymentError) {
+        errorMessage = err.message;
+        errorType = err.type;
+      }
       // Handle validation errors
-      if (apiError.response?.data?.errors) {
+      else if (apiError.response?.data?.errors) {
         const errors = apiError.response.data.errors;
         const errorMessages = typeof errors === 'string' ? [errors] : Object.values(errors).flat();
         errorMessage = errorMessages[0] || errorMessage;

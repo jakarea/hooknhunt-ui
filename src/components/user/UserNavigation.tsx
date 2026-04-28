@@ -27,9 +27,7 @@ export default function UserNavigation() {
 
     setIsLoggingOut(true);
     try {
-      console.log('🔵 [LOGOUT] Starting logout process...');
       await logout();
-      console.log('✅ [LOGOUT] Logout successful');
       toast.success('Logged out successfully!', {
         duration: 3000,
       });

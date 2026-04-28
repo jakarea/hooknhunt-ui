@@ -278,6 +278,8 @@ const resources = {
 
       // Payment Method
       'checkout.paymentMethod': 'Payment Method',
+      'checkout.paymentGateway': 'Payment Gateway',
+      'checkout.paymentGatewayDesc': 'Pay securely using your preferred payment method',
       'checkout.cashOnDelivery': 'Cash on Delivery',
       'checkout.payWhenReceive': 'Pay when you receive',
       'checkout.mobileWallet': 'Mobile Wallet',
@@ -736,6 +738,8 @@ const resources = {
 
       // Payment Method
       'checkout.paymentMethod': 'পেমেন্ট পদ্ধতি',
+      'checkout.paymentGateway': 'পেমেন্ট গেটওয়ে',
+      'checkout.paymentGatewayDesc': 'আপনার পছন্দের পেমেন্ট পদ্ধতি ব্যবহার করে নিরাপদে পেমেন্ট করুন',
       'checkout.cashOnDelivery': 'ক্যাশ অন ডেলিভারি',
       'checkout.payWhenReceive': 'পণ্য পেলে পেমেন্ট করুন',
       'checkout.mobileWallet': 'মোবাইল ওয়ালেট',

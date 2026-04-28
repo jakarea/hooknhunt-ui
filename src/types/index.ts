@@ -66,6 +66,7 @@ export interface CartProduct {
   stock: number;
   variant_id?: number;
   variant_name?: string;
+  variant_image?: string; // Variant-specific image if different from main product image
 }
 
 // ✅ Cart Item

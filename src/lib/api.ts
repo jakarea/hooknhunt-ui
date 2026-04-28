@@ -64,13 +64,6 @@ class ApiClient {
     const url = `${this.baseURL}${endpoint}`;
     const headers = this.getHeaders(includeAuth) as Record<string, string>;
 
-    console.log('🔍 [API_DEBUG] Request:', {
-      url,
-      method: options.method || 'GET',
-      includeAuth,
-      hasToken: !!headers['Authorization']
-    });
-
     try {
       const response = await fetch(url, {
         ...options,
@@ -78,12 +71,6 @@ class ApiClient {
           ...headers,
           ...(options.headers || {}),
         },
-      });
-
-      console.log('🔍 [API_DEBUG] Response:', {
-        status: response.status,
-        ok: response.ok,
-        statusText: response.statusText
       });
 
       const data = await response.json();
@@ -96,11 +83,8 @@ class ApiClient {
           response: response, // Add response object for better error handling
         };
 
-        console.log('🔍 [API_DEBUG] Error thrown:', error);
-
         // If unauthorized, clear auth token
         if (response.status === 401 && includeAuth) {
-          console.log('🔍 [API_DEBUG] 401 Unauthorized, clearing token');
           this.removeToken();
         }
 
@@ -109,7 +93,6 @@ class ApiClient {
 
       return data;
     } catch (error: unknown) {
-      console.log('🔍 [API_DEBUG] Catch error:', error);
 
       // If it's a network error (not a response from server)
       const networkError = error as { response?: unknown; status?: number };
@@ -362,10 +345,11 @@ class ApiClient {
     });
   }
 
-  // ==================== SSL Commerz Payment Methods ====================
+  // ==================== Payment Methods (SSL Commerz & EPS) ====================
 
   /**
-   * Initiate payment for an order via SSL Commerz
+   * Initiate payment for an order
+   * Routes to SSLCommerz or EPS based on payment_method
    * POST /store/payments/initiate
    */
   async initiatePayment(data: {
@@ -381,6 +365,7 @@ class ApiClient {
       country: string;
       postal_code?: string;
     };
+    payment_method?: 'cod' | 'sslcommerz' | 'eps';
     emi_option?: number;
   }): Promise<ApiResponse<{
     payment_id: number;
@@ -454,6 +439,17 @@ class ApiClient {
       method: 'POST',
       body: JSON.stringify(callbackData),
     });
+  }
+
+  /**
+   * Get active payment gateway configuration (public endpoint)
+   * Returns which gateway is currently active (sslcommerz, eps, or null)
+   * GET /api/v2/public/payment/gateway
+   */
+  async getActivePaymentGateway(): Promise<ApiResponse<{
+    activeGateway: 'sslcommerz' | 'eps' | null;
+  }>> {
+    return this.request('/public/payment/gateway');
   }
 
   // Generic POST method for other API calls

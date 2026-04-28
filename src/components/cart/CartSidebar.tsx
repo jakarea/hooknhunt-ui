@@ -125,7 +125,7 @@ export default function CartSidebar() {
               >
                 <Link href={`/products/${item.product.slug}`} onClick={closeCart} className="flex-shrink-0 relative w-14 h-14 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-800">
                   <Image
-                    src={item.product.image || '/placeholder-image.jpg'}
+                    src={item.product.variant_image || item.product.image || '/placeholder-image.jpg'}
                     alt={getLocalizedNameForProduct(item.product) || 'Product'}
                     fill
                     className="object-cover"

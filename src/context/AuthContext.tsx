@@ -29,41 +29,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const initializeAuth = async () => {
       const token = api.getToken();
-      console.log('🔍 [AUTH_DEBUG] Token from localStorage:', token ? 'EXISTS' : 'NOT FOUND');
 
       if (token) {
-        console.log('🔍 [AUTH_DEBUG] Validating token with API...');
 
         // First, try to use cached user data immediately for better UX
         const cachedUser = localStorage.getItem('cached_user');
         if (cachedUser) {
           try {
             const userData = JSON.parse(cachedUser);
-            console.log('🔍 [AUTH_DEBUG] ⚡ Using cached user immediately:', userData);
             setUser(userData);
             setIsAuthenticated(true);
           } catch {
-            console.log('🔍 [AUTH_DEBUG] ❌ Failed to parse cached user');
             localStorage.removeItem('cached_user');
           }
         }
 
         try {
           const response = await api.getMe();
-          console.log('🔍 [AUTH_DEBUG] API response status:', 'OK');
-          console.log('🔍 [AUTH_DEBUG] API response data:', response);
 
           // Check both possible response structures: {data: {user: ...}} or {user: ...}
           const user = (response as { data?: { user?: User } })?.data?.user || (response as { user?: User })?.user || response as User;
           if (user) {
-            console.log('🔍 [AUTH_DEBUG] ✅ User authenticated:', user);
             setUser(user);
             setIsAuthenticated(true);
             // Cache user data for offline scenarios
             localStorage.setItem('cached_user', JSON.stringify(user));
           } else {
             // Token exists but is invalid, clear it
-            console.log('🔍 [AUTH_DEBUG] ❌ Invalid response structure, clearing auth');
             api.clearAuth();
             localStorage.removeItem('cached_user');
             setUser(null);
@@ -71,33 +63,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
         } catch (error: unknown) {
           const err = error as { status?: number; message?: string };
-          console.log('🔍 [AUTH_DEBUG] ❌ API Error:', err.status, err.message);
 
           // Always clear auth on 401 unauthorized errors
           if (err.status === 401) {
-            console.log('🔍 [AUTH_DEBUG] ❌ 401 Unauthorized, clearing auth');
             api.clearAuth();
             localStorage.removeItem('cached_user');
             setUser(null);
             setIsAuthenticated(false);
           } else if (err.status === 0 && !cachedUser) {
             // Network error - only show error if we don't have cached data
-            console.log('🔍 [AUTH_DEBUG] 🌐 Network error, no cached user available');
             setUser(null);
             setIsAuthenticated(false);
-          } else {
-            console.log('🔍 [AUTH_DEBUG] 🌐 Network error but cached user is available');
           }
         }
       } else {
-        console.log('🔍 [AUTH_DEBUG] ❌ No token found');
         // Clear any stale cached user data
         localStorage.removeItem('cached_user');
         setUser(null);
         setIsAuthenticated(false);
       }
 
-      console.log('🔍 [AUTH_DEBUG] Auth initialization complete. isLoading = false');
       setIsLoading(false);
     };
 

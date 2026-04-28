@@ -21,6 +21,7 @@ export interface InitiatePaymentRequest {
   customer_email?: string;
   customer_phone: string;
   customer_address: CustomerAddress;
+  payment_method?: 'cod' | 'sslcommerz' | 'eps';
   emi_option?: number;
 }
 

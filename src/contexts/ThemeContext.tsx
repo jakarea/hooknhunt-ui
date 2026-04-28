@@ -34,11 +34,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.body.style.background = '#ffffff';
     document.body.style.color = '#171717';
     document.body.classList.remove('dark');
-
-    // Debug: Log the current state
-    console.log('Theme initialized to light mode');
-    console.log('HTML classes:', document.documentElement.className);
-    console.log('Body classes:', document.body.className);
   }, []);
 
   const toggleTheme = () => {
