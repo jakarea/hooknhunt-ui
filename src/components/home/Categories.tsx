@@ -40,10 +40,10 @@ export default function Categories() {
       <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
         {/* Simple Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h3 className="text-heading-lg md:text-heading-xl font-bold text-gray-900 dark:text-white mb-4">
             {t('home.categories.title')}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+          </h3>
+          <p className="text-body-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {t('home.categories.subtitle')}
           </p>
         </div>
@@ -86,9 +86,9 @@ export default function Categories() {
                     {/* Always-visible centered name */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
-                        <h3 className="text-center text-white font-bold text-base md:text-lg leading-tight truncate max-w-[140px] md:max-w-[180px]">
+                        <span className="text-center text-white font-semibold text-label-lg md:text-body-md leading-tight truncate max-w-[140px] md:max-w-[180px] block">
                           {t(getCategoryTranslationKey(category))}
-                        </h3>
+                        </span>
                       </div>
                     </div>
                   </div>

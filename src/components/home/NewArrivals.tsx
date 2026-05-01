@@ -36,9 +36,9 @@ export default function NewArrivals() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-1 h-8 bg-[#046bd2]"></div>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">{t('home.newArrival.title')}</h2>
+              <h3 className="text-heading-xl md:text-heading-2xl font-bold text-gray-900 dark:text-white">{t('home.newArrival.title')}</h3>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl ml-4">{t('home.newArrival.subtitle')}</p>
+            <p className="text-body-lg text-gray-600 dark:text-gray-400 ml-4">{t('home.newArrival.subtitle')}</p>
           </div>
           <Link href="/products?sort=newest" className="group">
             <span className="inline-flex items-center gap-2 px-6 py-3 bg-[#046bd2] text-white font-semibold hover:bg-[#0353a5] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 rounded-lg">

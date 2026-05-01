@@ -78,12 +78,12 @@ export default function StatsSection() {
             <svg className="w-5 h-5 text-[#ec3137]" fill="currentColor" viewBox="0 0 20 20">
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span className="text-sm font-bold text-[#ec3137] uppercase tracking-wider">Trusted by Thousands</span>
+            <span className="text-label-sm font-bold text-[#ec3137] uppercase tracking-wider">Trusted by Thousands</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h3 className="text-heading-lg md:text-heading-xl font-bold text-gray-900 dark:text-white mb-4">
             Why Choose Hook & Hunt?
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          </h3>
+          <p className="text-body-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Join thousands of satisfied customers who trust us for their fishing adventures
           </p>
         </div>
@@ -111,9 +111,9 @@ export default function StatsSection() {
                 </div>
 
                 {/* Label */}
-                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 group-hover:text-[#ec3137] transition-colors">
+                <span className="text-body-md font-semibold text-gray-700 dark:text-gray-300 group-hover:text-[#ec3137] transition-colors block">
                   {stat.label}
-                </h3>
+                </span>
 
                 {/* Decorative Line */}
                 <div className="w-12 h-1 bg-gradient-to-r from-[#ec3137] to-[#046bd2] mx-auto mt-4 group-hover:w-16 transition-all duration-300"></div>
@@ -129,21 +129,21 @@ export default function StatsSection() {
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Free Shipping</span>
+              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-300">Free Shipping</span>
             </div>
             <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Quality Guaranteed</span>
+              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-300">Quality Guaranteed</span>
             </div>
             <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
               </svg>
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Lifetime Support</span>
+              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-300">Lifetime Support</span>
             </div>
           </div>
         </div>

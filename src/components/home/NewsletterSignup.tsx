@@ -50,12 +50,12 @@ export default function NewsletterSignup() {
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
-              <span className="text-sm font-bold text-white uppercase tracking-wider">Stay Updated</span>
+              <span className="text-label-sm font-bold text-white uppercase tracking-wider">Stay Updated</span>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h3 className="text-heading-lg md:text-heading-xl font-bold text-white mb-4">
               {t('footer.newsletter.title')}
-            </h2>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+            </h3>
+            <p className="text-body-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
               {t('footer.newsletter.subtitle')}
             </p>
           </div>
@@ -102,9 +102,9 @@ export default function NewsletterSignup() {
                   <svg className="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <h3 className="text-xl font-bold text-white">Thank You!</h3>
+                  <span className="text-heading-md font-bold text-white">Thank You!</span>
                 </div>
-                <p className="text-white/90">
+                <p className="text-body-md text-white/90">
                   You&apos;ve been successfully subscribed to our newsletter. Check your email for confirmation!
                 </p>
               </div>

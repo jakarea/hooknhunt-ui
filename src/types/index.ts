@@ -206,6 +206,8 @@ export interface Product {
   has_variants: boolean;
   status: 'active' | 'inactive' | 'draft';
   featured?: boolean;   // Featured product flag
+  is_trending?: boolean; // Trending product flag
+  view_count?: number;  // Product view count for social proof
 
   // 📦 Additional Identifiers
   barcode: string;
@@ -427,3 +429,48 @@ export type {
   PaymentError,
   PaymentErrorType,
 } from './payment';
+
+// ========================================
+// Review Types
+// ========================================
+
+export interface ReviewProduct {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface ReviewScreenshot {
+  id: number;
+  full_url: string;
+}
+
+export interface Review {
+  id: number;
+  screenshot_id: number | null;
+  review_text: string;
+  rating: number; // 1-5 stars
+  is_featured: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+  screenshot: ReviewScreenshot | null;
+  screenshot_url?: string | null;
+  products: ReviewProduct[];
+}
+
+export interface ReviewFilters {
+  rating?: number;
+  product_id?: number;
+}
+
+export interface ReviewsResponse {
+  data: Review[];
+  meta: {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    has_more_pages: boolean;
+  };
+}

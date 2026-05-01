@@ -50,26 +50,17 @@ export default function ProgressiveDeliveryBreakdown({
       {/* Progressive Delivery Info */}
       {enabled ? (
         <div className="space-y-3">
-          {/* Progress Bar */}
+          {/* Amount Progress Display */}
           <div>
-            <div className="flex justify-between items-center mb-1">
+            <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Progress toward free delivery</span>
               <span className="text-sm font-bold text-violet-600 dark:text-violet-400">
                 {progress_percentage.toFixed(1)}%
               </span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
-              <div
-                className="h-2.5 rounded-full transition-all duration-500 ease-out"
-                style={{
-                  width: `${Math.min(progress_percentage, 100)}%`,
-                  backgroundColor: is_free ? '#10b981' : progress_percentage >= 80 ? '#8b5cf6' : progress_percentage >= 50 ? '#f59e0b' : '#6b7280',
-                }}
-              ></div>
-            </div>
-            <div className="flex justify-between mt-1 text-xs text-gray-600 dark:text-gray-400">
-              <span>৳{orderAmount.toLocaleString()}</span>
-              <span className="font-medium">৳{min_amount.toLocaleString()} (Free!)</span>
+            <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 rounded-lg px-3 py-2">
+              <span>Current: ৳{orderAmount.toLocaleString()}</span>
+              <span className="font-medium">Goal: ৳{min_amount.toLocaleString()}</span>
             </div>
           </div>
 

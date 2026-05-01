@@ -16,12 +16,28 @@ export default function Home() {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-[#fcf8f6]">
-      {/* Hero Slider - Full Screen */}
-      <HeroSlider />
+    <>
+      {/* Hidden H1 for SEO */}
+      <h1 className="sr-only">Hook & Hunt - Premium Fishing Accessories in Bangladesh</h1>
 
-      {/* Dynamic Trending Products */}
-      <TrendingProduct />
+      <div className="bg-[#fcf8f6]">
+        {/* Hero Slider - Full Screen */}
+        <HeroSlider />
+
+        {/* Main Page Heading - Visible H2 */}
+        <section className="py-8 sm:py-10 bg-white dark:bg-[#0a0a0a]">
+          <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 text-center">
+            <h2 className="text-heading-2xl md:text-heading-xl lg:text-display-sm font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
+              Premium Fishing Equipment in Bangladesh
+            </h2>
+            <p className="text-body-md sm:text-body-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Quality fishing rods, reels, lines, and accessories for serious anglers. Shop the best gear with Cash on Delivery nationwide.
+            </p>
+          </div>
+        </section>
+
+        {/* Dynamic Trending Products */}
+        <TrendingProduct />
 
       {/* Categories - Minimalist Style */}
       <Categories />
@@ -33,7 +49,7 @@ export default function Home() {
       <NewArrivals />
 
       {/* Promotional Banners - Mid-Page Engagement */}
-      <section className="bg-[#fcf8f6] dark:bg-[#0a0a0a] py-12" >
+      <section className="bg-[#fcf8f6] dark:bg-[#0a0a0a] py-12">
         <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           <Link href="/products?category=rods" className="group relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] rounded-xl">
@@ -48,10 +64,10 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#046bd2]/80 to-transparent"></div>
               <div className="absolute inset-0 flex flex-col items-start justify-center text-white p-8 lg:p-12">
                 <div className="transform group-hover:translate-x-2 transition-transform duration-500">
-                  <div className="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm text-xs font-bold uppercase tracking-wider mb-4">{t('home.banner.rods.badge')}</div>
-                  <h3 className="text-4xl md:text-5xl font-extrabold mb-3 leading-tight">{t('home.banner.rods.title')}</h3>
-                  <p className="text-lg md:text-xl mb-6 font-medium text-white/90">{t('home.banner.rods.subtitle')}</p>
-                  <span className="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#046bd2] font-bold text-lg hover:bg-gray-100 shadow-lg group-hover:gap-4 transition-all duration-300 rounded-lg">
+                  <div className="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm text-label-xs font-bold uppercase tracking-wider mb-4">{t('home.banner.rods.badge')}</div>
+                  <h3 className="text-display-sm md:text-display-md font-extrabold mb-3 leading-tight">{t('home.banner.rods.title')}</h3>
+                  <p className="text-body-lg md:text-body-xl mb-6 font-semibold text-white/90">{t('home.banner.rods.subtitle')}</p>
+                  <span className="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#046bd2] font-bold text-body-lg hover:bg-gray-100 shadow-lg group-hover:gap-4 transition-all duration-300 rounded-lg">
                     {t('home.banner.shopNow')}
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
@@ -75,10 +91,10 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#ec3137]/80 to-transparent"></div>
               <div className="absolute inset-0 flex flex-col items-start justify-center text-white p-8 lg:p-12">
                 <div className="transform group-hover:translate-x-2 transition-transform duration-500">
-                  <div className="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm text-xs font-bold uppercase tracking-wider mb-4">{t('home.banner.reels.badge')}</div>
-                  <h3 className="text-4xl md:text-5xl font-extrabold mb-3 leading-tight">{t('home.banner.reels.title')}</h3>
-                  <p className="text-lg md:text-xl mb-6 font-medium text-white/90">{t('home.banner.reels.subtitle')}</p>
-                  <span className="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#ec3137] font-bold text-lg hover:bg-gray-100 shadow-lg group-hover:gap-4 transition-all duration-300 rounded-lg">
+                  <div className="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm text-label-xs font-bold uppercase tracking-wider mb-4">{t('home.banner.reels.badge')}</div>
+                  <h3 className="text-display-sm md:text-display-md font-extrabold mb-3 leading-tight">{t('home.banner.reels.title')}</h3>
+                  <p className="text-body-lg md:text-body-xl mb-6 font-semibold text-white/90">{t('home.banner.reels.subtitle')}</p>
+                  <span className="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#ec3137] font-bold text-body-lg hover:bg-gray-100 shadow-lg group-hover:gap-4 transition-all duration-300 rounded-lg">
                     {t('home.banner.shopNow')}
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
@@ -91,21 +107,21 @@ export default function Home() {
           </Link>
         </div>
         </div>
-      </section >
+      </section>
       <RecomendedYou />
 
       {/* Customer Reviews - Trust & Social Proof */}
-      < section className="bg-[#fcf8f6] dark:bg-[#0f0f0f] py-20 transition-colors duration-200" >
+      <section className="bg-[#fcf8f6] dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
         <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-[#046bd2]/10 dark:bg-[#046bd2]/20 mb-4">
               <svg className="w-5 h-5 text-[#046bd2]" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
               </svg>
-              <span className="text-sm font-bold text-[#046bd2] uppercase tracking-wider">{t('home.reviews.badge')}</span>
+              <span className="text-label-sm font-bold text-[#046bd2] uppercase tracking-wider">{t('home.reviews.badge')}</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">{t('home.reviews.title')}</h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">{t('home.reviews.headerSubtitle')}</p>
+            <h3 className="text-heading-xl md:text-heading-2xl font-extrabold text-gray-900 dark:text-white mb-4">{t('home.reviews.title')}</h3>
+            <p className="text-body-lg md:text-body-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t('home.reviews.headerSubtitle')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
@@ -116,7 +132,7 @@ export default function Home() {
                   M
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white text-lg">{t('home.reviews.review1.name')}</h4>
+                  <span className="font-bold text-gray-900 dark:text-white text-body-lg block">{t('home.reviews.review1.name')}</span>
                   <div className="flex items-center mt-1">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
@@ -143,7 +159,7 @@ export default function Home() {
                   A
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white text-lg">{t('home.reviews.review2.name')}</h4>
+                  <span className="font-bold text-gray-900 dark:text-white text-body-lg block">{t('home.reviews.review2.name')}</span>
                   <div className="flex items-center mt-1">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
@@ -170,7 +186,7 @@ export default function Home() {
                   F
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white text-lg">{t('home.reviews.review3.name')}</h4>
+                  <span className="font-bold text-gray-900 dark:text-white text-body-lg block">{t('home.reviews.review3.name')}</span>
                   <div className="flex items-center mt-1">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
@@ -191,10 +207,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section >
+      </section>
 
       {/* Features - Trust Indicators */}
-      < section className="bg-gradient-to-br from-[#ec3137] to-[#8a0f12] text-white py-20 relative overflow-hidden" >
+      <section className="bg-gradient-to-br from-[#ec3137] to-[#8a0f12] text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-64 h-64 bg-white transform rotate-45"></div>
           <div className="absolute bottom-10 right-10 w-64 h-64 bg-white transform -rotate-45"></div>
@@ -218,8 +234,8 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300">{t('home.features.shipping.title')}</h3>
-              <p className="text-white/90 text-lg font-medium">{t('home.features.shipping.featureDesc')}</p>
+              <span className="text-heading-lg font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.shipping.title')}</span>
+              <p className="text-white/90 text-body-lg font-semibold">{t('home.features.shipping.featureDesc')}</p>
               <div className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all duration-300"></div>
             </div>
 
@@ -239,8 +255,8 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300">{t('home.features.payment.title')}</h3>
-              <p className="text-white/90 text-lg font-medium">{t('home.features.payment.featureDesc')}</p>
+              <span className="text-heading-lg font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.payment.title')}</span>
+              <p className="text-white/90 text-body-lg font-semibold">{t('home.features.payment.featureDesc')}</p>
               <div className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all duration-300"></div>
             </div>
 
@@ -260,16 +276,17 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300">{t('home.features.returns.title')}</h3>
-              <p className="text-white/90 text-lg font-medium">{t('home.features.returns.featureDesc')}</p>
+              <span className="text-heading-lg font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.returns.title')}</span>
+              <p className="text-white/90 text-body-lg font-semibold">{t('home.features.returns.featureDesc')}</p>
               <div className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all duration-300"></div>
             </div>
           </div>
         </div>
-      </section >
+      </section>
 
       {/* Floating Action Button */}
-      < FloatingActionButton />
-    </div >
+      <FloatingActionButton />
+    </div>
+    </>
   );
 }

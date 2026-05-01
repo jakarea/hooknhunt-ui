@@ -36,9 +36,9 @@ export default function TrendingProduct() {
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-1 h-8 bg-gradient-to-b from-[#ec3137] to-[#046bd2]"></div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">{t('home.trending.title')}</h2>
+            <h3 className="text-heading-xl md:text-heading-2xl font-bold text-gray-900 dark:text-white">{t('home.trending.title')}</h3>
           </div>
-          <p className="text-gray-600 text-lg md:text-xl ml-4">{t('home.trending.subtitle')}</p>
+          <p className="text-body-lg text-gray-600 dark:text-gray-400 ml-4">{t('home.trending.subtitle')}</p>
         </div>
         <Link href="/products?sort=trending" className="group">
           <span className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ec3137] to-[#046bd2] text-white font-semibold hover:from-[#8a0f12] hover:to-[#0353a5] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer rounded-lg">

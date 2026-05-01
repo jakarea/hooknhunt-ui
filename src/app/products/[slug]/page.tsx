@@ -14,6 +14,7 @@ import { CrossSaleProduct } from '@/stores/crossSellModalStore';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getLocalizedName, getLocalizedDescription, getLocalizedHighlights } from '@/stores/productStore';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
+import ProductReviews from '@/components/product/ProductReviews';
 
 // Decode entity-encoded HTML from API (e.g. &lt;p&gt;text&amp;nbsp;more&lt;/p&gt;)
 // Uses pure regex so it works during SSR (no document needed)
@@ -357,14 +358,14 @@ function ProductDetailPageContent() {
   // Loading state with shimmer effect
   if (loading) {
     return (
-      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Image section shimmer */}
           <div className="space-y-4">
-            <div className="aspect-square bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-lg animate-shimmer"></div>
+            <div className="aspect-square bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-xl sm:rounded-2xl animate-shimmer"></div>
             <div className="flex gap-3">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="w-20 h-20 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded animate-shimmer" style={{ animationDelay: `${i * 100}ms` }}></div>
+                <div key={i} className="w-20 h-20 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-lg animate-shimmer" style={{ animationDelay: `${i * 100}ms` }}></div>
               ))}
             </div>
           </div>
@@ -376,8 +377,8 @@ function ProductDetailPageContent() {
             <div className="h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded w-1/2 animate-shimmer"></div>
             <div className="h-10 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded w-1/4 animate-shimmer"></div>
             <div className="space-y-3">
-              <div className="h-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded animate-shimmer"></div>
-              <div className="h-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded animate-shimmer"></div>
+              <div className="h-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-lg animate-shimmer"></div>
+              <div className="h-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-lg animate-shimmer"></div>
             </div>
           </div>
         </div>
@@ -388,14 +389,14 @@ function ProductDetailPageContent() {
   // Error state
   if (error || !product) {
     return (
-      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+        <h1 className="text-heading-xl sm:text-heading-2xl lg:text-heading-3xl font-bold text-gray-900 dark:text-white mb-4">
           {error || t('details.description')}
         </h1>
-        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-8">
+        <p className="text-body-sm sm:text-body-md text-gray-600 dark:text-gray-400 mb-8">
           Sorry, we couldn&apos;t find the product you&apos;re looking for.
         </p>
-        <Link href="/products" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+        <Link href="/products" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors font-semibold text-body-sm">
           {t('breadcrumb.home')}
         </Link>
       </div>
@@ -441,35 +442,48 @@ function ProductDetailPageContent() {
   return (
     <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-6">
-        <div className="flex items-center justify-start">
-          <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-            <Link href="/" className="hover:text-[#bc1215] transition-colors">{t('breadcrumb.home')}</Link>
-            <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-4 sm:py-6">
+        <nav aria-label="Breadcrumb" className="flex items-center justify-start">
+          <ol className="flex items-center text-label-sm text-gray-500 dark:text-gray-400 flex-wrap gap-1">
+            <li>
+              <Link href="/" className="hover:text-[#bc1215] dark:hover:text-[#ff6b6b] transition-colors flex items-center gap-1">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                {t('breadcrumb.home')}
+              </Link>
+            </li>
+            <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <Link href="/products" className="hover:text-[#bc1215] transition-colors">{t('breadcrumb.products')}</Link>
+            <li>
+              <Link href="/products" className="hover:text-[#bc1215] dark:hover:text-[#ff6b6b] transition-colors">
+                {t('breadcrumb.products')}
+              </Link>
+            </li>
             {product.categories && product.categories.length > 0 && (
               <>
-                <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-                <Link
-                  href={`/products?category=${product.categories[0].slug}`}
-                  className="hover:text-[#bc1215] transition-colors"
-                >
-                  {t(getCategoryTranslationKey(product.categories[0]))}
-                </Link>
+                <li>
+                  <Link
+                    href={`/products?category=${product.categories[0].slug}`}
+                    className="hover:text-[#bc1215] dark:hover:text-[#ff6b6b] transition-colors"
+                  >
+                    {t(getCategoryTranslationKey(product.categories[0]))}
+                  </Link>
+                </li>
               </>
             )}
-            <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <span className="text-gray-900 dark:text-white font-medium">
+            <li className="text-gray-700 dark:text-gray-300 font-medium truncate max-w-[200px] sm:max-w-xs" title={productName}>
               {productName.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
-            </span>
-          </div>
-        </div>
+            </li>
+          </ol>
+        </nav>
       </div>
 
       {/* Product Section */}
@@ -607,34 +621,32 @@ function ProductDetailPageContent() {
           </div>
 
           {/* Product Information */}
-          <div className="space-y-4">
+          <div className="space-y-4 sm:space-y-5">
             {/* Product Title & Category - Enhanced */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm">
-              {/* Customer Rating Badge */}
-              
-              <div className="mb-3">
-                <h1 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white leading-tight line-clamp-2 min-h-[2.8rem] sm:min-h-[3rem]">
+            <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm">
+              <div className="mb-3 sm:mb-4">
+                <h1 className="text-heading-lg sm:text-heading-xl lg:text-heading-2xl font-bold text-gray-900 dark:text-white leading-tight line-clamp-2 min-h-[2.8rem] sm:min-h-[3.2rem]">
                   {productName.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")}
                 </h1>
               </div>
 
               {/* Product Meta Information - Better organized */}
-              <div className="flex flex-wrap items-center gap-3 text-xs text-gray-600 dark:text-gray-400 mb-3">
-                <span className="flex items-center gap-1 px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded-full">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-label-sm text-gray-600 dark:text-gray-400">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-700 rounded-full">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                   </svg>
-                  <span className="font-medium">{t('labels.productId')} {product.id}</span>
+                  <span className="font-semibold">{t('labels.productId')} {product.id}</span>
                 </span>
                 {selectedVariant && (
-                  <span className="flex items-center gap-1 px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded-full">
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-700 rounded-full">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                    <span className="font-medium">{t('labels.productSku')} {selectedVariant.sku}</span>
+                    <span className="font-semibold">{t('labels.productSku')} {selectedVariant.sku}</span>
                   </span>
                 )}
-                <span className={`flex items-center gap-1 px-2 py-1 rounded-full ${isInStock ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'}`}>
+                <span className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full font-semibold ${isInStock ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'}`}>
                   <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                     {isInStock ? (
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -642,24 +654,24 @@ function ProductDetailPageContent() {
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                     )}
                   </svg>
-                  <span className="font-medium">{isInStock ? t('stock.inStock') : t('stock.outOfStock')}</span>
+                  {isInStock ? t('stock.inStock') : t('stock.outOfStock')}
                 </span>
               </div>
             </div>
 
             {/* Price Section - Enhanced */}
-            <div className="bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100 dark:border-gray-700">
               <div className="flex items-center justify-between flex-wrap gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl sm:text-3xl font-bold text-[#bc1215]">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <span className="text-display-sm sm:text-display-md lg:text-display-lg font-bold text-[#bc1215]">
                     ৳{currentPrice.toLocaleString()}
                   </span>
                   {originalPrice > 0 && originalPrice > currentPrice && (
                     <>
-                      <span className="text-base sm:text-lg text-gray-400 line-through">
+                      <span className="text-body-lg sm:text-body-xl text-gray-400 line-through">
                         ৳{originalPrice.toLocaleString()}
                       </span>
-                      <span className="px-2.5 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-bold text-xs rounded-lg border border-green-200 dark:border-green-700">
+                      <span className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-bold text-label-sm sm:text-body-sm rounded-lg border border-green-200 dark:border-green-700 shadow-sm">
                         {t('offers.save', { amount: savedAmount.toLocaleString() })}
                       </span>
                     </>
@@ -667,21 +679,21 @@ function ProductDetailPageContent() {
                 </div>
               </div>
               {product.variant_count > 1 && selectedVariant && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                  {t('labels.selectedVariant')} <span className="font-medium text-gray-700 dark:text-gray-300">{selectedVariant.name}</span>
+                <p className="text-label-sm text-gray-500 dark:text-gray-400 mt-2 sm:mt-2.5">
+                  {t('labels.selectedVariant')} <span className="font-semibold text-gray-700 dark:text-gray-300">{selectedVariant.name}</span>
                 </p>
               )}
             </div>
 
             {/* Variant Selection - Enhanced with Static Design */}
             {product.variants && product.variants.length > 1 && (
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm space-y-4">
-                <label className="block text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider">
+              <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
+                <label className="block text-label-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">
                   {t('variants.title')}
                 </label>
 
                 {/* All variants displayed in a simple list */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 sm:gap-2.5">
                   {product.variants.map((variant) => {
                     const isSelected = selectedVariant?.id === variant.id;
 
@@ -689,10 +701,10 @@ function ProductDetailPageContent() {
                       <button
                         key={variant.id}
                         onClick={() => setSelectedVariant(variant)}
-                        className={`px-4 py-2 min-h-[44px] border-2 text-sm font-semibold rounded-lg transition-all ${
+                        className={`px-3.5 sm:px-4 py-2 min-h-[44px] border-2 text-body-sm font-semibold rounded-lg transition-all ${
                           isSelected
-                            ? 'border-[#bc1215] bg-[#bc1215] text-white shadow-md'
-                            : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#bc1215] dark:hover:border-[#bc1215] hover:text-[#bc1215] dark:hover:text-[#bc1215] bg-white dark:bg-gray-700'
+                            ? 'border-[#bc1215] bg-[#bc1215] text-white shadow-md scale-[1.02]'
+                            : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#bc1215] dark:hover:border-[#bc1215] hover:text-[#bc1215] dark:hover:text-[#bc1215] bg-white dark:bg-gray-700 hover:scale-[1.02]'
                         }`}
                         aria-label={t('labels.selectVariantAria', { name: variant.name })}
                       >
@@ -712,7 +724,7 @@ function ProductDetailPageContent() {
                 {/* Selected Variant Info */}
                 {selectedVariant && (
                   <div className="pt-3 border-t border-gray-200 dark:border-gray-700">
-                    <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center justify-between text-label-sm">
                       <span className="text-gray-600 dark:text-gray-400">
                         {t('variants.title')}: <span className="font-semibold text-gray-900 dark:text-white">{selectedVariant.name.split(' - ').pop()}</span>
                       </span>
@@ -730,15 +742,15 @@ function ProductDetailPageContent() {
 
             {/* Stock Alert - Enhanced */}
             {!isInStock && (
-              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-3 flex items-center">
-                <svg className="w-5 h-5 text-red-600 dark:text-red-400 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-center gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 dark:text-red-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="font-semibold text-sm text-red-600 dark:text-red-400">{t('stock.outOfStock')}</span>
+                <span className="font-semibold text-body-sm sm:text-body-md text-red-600 dark:text-red-400">{t('stock.outOfStock')}</span>
               </div>
             )}
 
@@ -788,36 +800,36 @@ function ProductDetailPageContent() {
             
             {/* Quantity Selector - Enhanced */}
             {(product.variant_count <= 1 || selectedVariant) && isInStock && (
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase">
+              <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-sm">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="text-label-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                     {t('quantity.label')}
                   </span>
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-9 h-9 min-h-[36px] border-2 border-gray-200 dark:border-gray-600 hover:border-[#bc1215] dark:hover:border-[#bc1215] flex items-center justify-center transition-all rounded-lg disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="w-9 h-9 sm:w-10 sm:h-10 min-h-[36px] sm:min-h-[40px] border-2 border-gray-200 dark:border-gray-600 hover:border-[#bc1215] dark:hover:border-[#bc1215] flex items-center justify-center transition-all rounded-lg disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-gray-200"
                     disabled={quantity <= 1}
                     aria-label={t('quantity.decrease')}
                   >
-                    <svg className="w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" />
                     </svg>
                   </button>
-                  <span className="text-lg font-bold text-gray-900 dark:text-white min-w-8 text-center">
+                  <span className="text-body-lg sm:text-body-xl font-bold text-gray-900 dark:text-white min-w-8 sm:min-w-10 text-center">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity(Math.min(currentStock, quantity + 1))}
-                    className="w-9 h-9 min-h-[36px] border-2 border-gray-200 dark:border-gray-600 hover:border-[#bc1215] dark:hover:border-[#bc1215] flex items-center justify-center transition-all rounded-lg disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="w-9 h-9 sm:w-10 sm:h-10 min-h-[36px] sm:min-h-[40px] border-2 border-gray-200 dark:border-gray-600 hover:border-[#bc1215] dark:hover:border-[#bc1215] flex items-center justify-center transition-all rounded-lg disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-gray-200"
                     disabled={quantity >= currentStock}
                     aria-label={t('quantity.increase')}
                   >
-                    <svg className="w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
                     </svg>
                   </button>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {currentStock}+
+                  <span className="text-label-sm text-gray-500 dark:text-gray-400">
+                    {t('stock.available', { count: currentStock })}
                   </span>
                 </div>
               </div>
@@ -926,44 +938,43 @@ function ProductDetailPageContent() {
         </div>
       </div>
 
-      <div className="max-w-[1254px] mx-auto mb-6 lg:mb-10">
+      <div className="max-w-[1254px] mx-auto mb-6 sm:mb-8 lg:mb-10">
         <div className="w-full">
-
-          <div className="grid md:grid-cols-4 gap-x-3">
-            <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+            <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow">
               <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-3 text-[#bc1215] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
               </svg>
               <div>
-                <p className="font-semibold text-sm">{t('trustBadges.freeShipping.title')}</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{t('trustBadges.freeShipping.description')}</p>
+                <p className="font-semibold text-body-sm">{t('trustBadges.freeShipping.title')}</p>
+                <p className="text-label-sm text-gray-600 dark:text-gray-400">{t('trustBadges.freeShipping.description')}</p>
               </div>
             </div>
-            <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3">
+            <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow">
               <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-3 text-[#bc1215] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               <div>
-                <p className="font-semibold text-sm">{t('trustBadges.securePayment.title')}</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{t('trustBadges.securePayment.description')}</p>
+                <p className="font-semibold text-body-sm">{t('trustBadges.securePayment.title')}</p>
+                <p className="text-label-sm text-gray-600 dark:text-gray-400">{t('trustBadges.securePayment.description')}</p>
               </div>
             </div>
-            <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3">
+            <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow">
               <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-3 text-[#bc1215] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
               <div>
-                <p className="font-semibold text-sm">{t('trustBadges.easyReturns.title')}</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{t('trustBadges.easyReturns.description')}</p>
+                <p className="font-semibold text-body-sm">{t('trustBadges.easyReturns.title')}</p>
+                <p className="text-label-sm text-gray-600 dark:text-gray-400">{t('trustBadges.easyReturns.description')}</p>
               </div>
             </div>
-            <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-3 text-[#bc1215] flex-shrink-0 mt:0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-start text-gray-700 dark:text-gray-300 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-3 text-[#bc1215] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
-                <p className="font-semibold text-sm">{t('trustBadges.fastDelivery.title')}</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{t('trustBadges.fastDelivery.description')}</p>
+                <p className="font-semibold text-body-sm">{t('trustBadges.fastDelivery.title')}</p>
+                <p className="text-label-sm text-gray-600 dark:text-gray-400">{t('trustBadges.fastDelivery.description')}</p>
               </div>
             </div>
           </div>
@@ -975,24 +986,27 @@ function ProductDetailPageContent() {
         <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
           <div className="space-y-8">
             {/* Description Section */}
-            <div className="bg-white dark:bg-[#0a0a0a] p-8">
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-6 pb-3 border-b-2 border-[#bc1215]">
+            <div className="bg-white dark:bg-[#0a0a0a] p-6 sm:p-8 lg:p-10 rounded-xl sm:rounded-2xl shadow-sm">
+              <h2 className="text-heading-xl sm:text-heading-2xl lg:text-heading-3xl font-bold text-gray-900 dark:text-white mb-6 pb-3 border-b-2 border-[#bc1215]">
                 {t('details.description')}
               </h2>
               <div className="prose prose-lg max-w-none dark:prose-invert">
                 {productDescription ? (
                   <div
-                    className="product-description text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 overflow-hidden [&_img]:rounded-lg [&_img]:max-w-full [&_img]:h-auto [&_img]:aspect-auto [&_p]:mb-4 [&_img]:my-4"
+                    className="product-description text-body-md sm:text-body-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 overflow-hidden [&_img]:rounded-lg [&_img]:max-w-full [&_img]:h-auto [&_img]:aspect-auto [&_p]:mb-4 [&_img]:my-4"
                     style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
                     dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(productDescription) }}
                   />
                 ) : (
-                  <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                  <p className="text-body-md sm:text-body-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                     No description available for this product.
                   </p>
                 )}
               </div>
             </div>
+
+            {/* Product Reviews - Customer reviews from screenshots */}
+            <ProductReviews productSlug={slug} productId={product.id} />
 
             {/* Reviews Section - Only show if reviews exist */}
             {false && (
@@ -1193,18 +1207,18 @@ function ProductDetailPageContent() {
 
       {/* Related Products */}
       {relatedProductsList.length > 0 && (
-        <section className="py-12 bg-white dark:bg-[#0a0a0a]">
+        <section className="py-10 sm:py-12 bg-white dark:bg-[#0a0a0a]">
           <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">{t('related.title')}</h2>
-              <Link href={`/products?category=${product.categories && product.categories.length > 0 ? product.categories[0].slug : ''}`} className="text-[#bc1215] hover:text-[#8a0e10] font-semibold flex items-center gap-2">
+            <div className="flex items-center justify-between mb-6 sm:mb-8">
+              <h2 className="text-heading-xl sm:text-heading-2xl lg:text-heading-3xl font-bold text-gray-900 dark:text-white">{t('related.title')}</h2>
+              <Link href={`/products?category=${product.categories && product.categories.length > 0 ? product.categories[0].slug : ''}`} className="text-[#bc1215] hover:text-[#8a0e10] dark:hover:text-[#ff6b6b] font-semibold flex items-center gap-2 text-body-sm sm:text-body-md transition-colors">
                 {t('related.viewAll')}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
               {relatedProductsList.map(relatedProduct => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}

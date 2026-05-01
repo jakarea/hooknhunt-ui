@@ -72,7 +72,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white border border-gray-200 hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col rounded-lg">
+    <div className="group bg-white border border-gray-200 hover:shadow-xl hover:border-[#ec3137]/30 transition-all duration-300 overflow-hidden h-full flex flex-col rounded-lg relative">
       <Link href={`/products/${product.slug}`} className="flex flex-col h-full">
         {/* Product Image */}
         <div className="relative overflow-hidden aspect-square bg-gray-100 p-2 flex-shrink-0">
@@ -101,24 +101,65 @@ export default function ProductCard({ product }: ProductCardProps) {
               </svg>
             </div>
           )}
-          {/* Discount Badge */}
-          {discount > 0 && (
-            <div className="absolute top-2 right-2 bg-[#bc1215] text-white px-2 py-1 text-xs font-bold rounded-lg">
-              {t('productCard.discount', { percent: discount })}
-            </div>
-          )}
-          {/* Stock Warning */}
-          {stock > 0 && stock < 10 && (
-            <div className="absolute top-2 left-2 bg-orange-500 text-white px-2 py-1 text-xs font-semibold">
-              {t('productCard.stockWarning', { count: stock })}
-            </div>
-          )}
+
+          {/* Badge Stack - Top Right */}
+          <div className="absolute top-2 right-2 flex flex-col gap-1.5 items-end">
+            {/* Trending Badge */}
+            {product.is_trending && (
+              <div className="flex items-center gap-1 bg-gradient-to-r from-red-500 to-orange-500 text-white px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg shadow-md animate-pulse">
+                <span className="text-xs">🔥</span>
+                <span>{t('productCard.trending')}</span>
+              </div>
+            )}
+
+            {/* Discount Badge */}
+            {discount > 0 && (
+              <div className="bg-[#ec3137] text-white px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg shadow-md">
+                -{discount}%
+              </div>
+            )}
+          </div>
+
+          {/* Badge Stack - Top Left */}
+          <div className="absolute top-2 left-2 flex flex-col gap-1.5 items-start">
+            {/* Low Stock Warning */}
+            {stock > 0 && stock <= 5 && (
+              <div className="flex items-center gap-1 bg-red-500 text-white px-2 py-1 text-[10px] sm:text-xs font-bold rounded-lg shadow-md">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span>{t('productCard.onlyLeft', { count: stock })}</span>
+              </div>
+            )}
+
+            {/* Stock Warning (6-9 items) */}
+            {stock > 5 && stock < 10 && (
+              <div className="flex items-center gap-1 bg-orange-500 text-white px-2 py-1 text-[10px] sm:text-xs font-semibold rounded-lg shadow-md">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{t('productCard.stockWarning', { count: stock })}</span>
+              </div>
+            )}
+          </div>
+
           {/* Out of Stock */}
           {stock === 0 && (
-            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-              <span className="bg-white text-gray-900 px-3 sm:px-4 py-1.5 sm:py-2 font-bold text-xs sm:text-sm">
+            <div className="absolute inset-0 bg-black/70 flex items-center justify-center backdrop-blur-sm">
+              <span className="bg-white text-gray-900 px-4 sm:px-5 py-2 sm:py-2.5 font-bold text-xs sm:text-sm rounded-lg shadow-lg">
                 {t('productCard.outOfStock')}
               </span>
+            </div>
+          )}
+
+          {/* View Count - Social Proof */}
+          {(product.view_count ?? 0) > 0 && (
+            <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-black/70 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-[10px] font-medium">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <span>{product.view_count}</span>
             </div>
           )}
         </div>
@@ -126,9 +167,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Product Info */}
         <div className="p-2.5 flex-1 flex flex-col">
           {/* Product Name */}
-          <h3 className="font-semibold text-gray-900 line-clamp-2 text-sm group-hover:text-[#bc1215] transition-colors min-h-[2.5rem]">
+          <span className="font-semibold text-gray-900 line-clamp-2 text-body-sm group-hover:text-[#bc1215] transition-colors min-h-[2.5rem] block">
             {name}
-          </h3>
+          </span>
 
           {/* Price or Price Range */}
           <div className="mb-1 lg:mb-2 flex-1">

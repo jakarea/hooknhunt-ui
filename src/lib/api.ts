@@ -501,6 +501,135 @@ class ApiClient {
     return this.request(`/public/search?${searchParams.toString()}`);
   }
 
+  // Review endpoints (public)
+  async getReviews(params?: { page?: number; per_page?: number; rating?: number; product_id?: number }): Promise<ApiResponse> {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    if (params?.rating) query.set('rating', String(params.rating));
+    if (params?.product_id) query.set('product_id', String(params.product_id));
+    const qs = query.toString();
+    return this.request(`/store/reviews${qs ? `?${qs}` : ''}`, {});
+  }
+
+  async getProductReviews(productSlug: string, params?: { page?: number; per_page?: number; rating?: number }): Promise<ApiResponse> {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    if (params?.rating) query.set('rating', String(params.rating));
+    const qs = query.toString();
+    return this.request(`/store/reviews/product/${productSlug}${qs ? `?${qs}` : ''}`, {});
+  }
+
+  async getFeaturedReviews(limit: number = 6): Promise<ApiResponse> {
+    return this.request(`/store/reviews/featured?limit=${limit}`, {});
+  }
+
+  // ==================== Admin Review Endpoints ====================
+
+  /**
+   * Generic request method for admin endpoints (authenticated)
+   * Use this for admin operations that need authentication
+   */
+  async adminRequest<T = unknown>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, options, true);
+  }
+
+  /**
+   * Get all reviews (admin endpoint - includes unapproved/management data)
+   * GET /api/v2/website-admin/reviews
+   */
+  async getAdminReviews(params?: {
+    page?: number;
+    per_page?: number;
+    rating?: number;
+    product_id?: number;
+    search?: string;
+  }): Promise<ApiResponse> {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    if (params?.rating) query.set('rating', String(params.rating));
+    if (params?.product_id) query.set('product_id', String(params.product_id));
+    if (params?.search) query.set('search', params.search);
+    const qs = query.toString();
+
+    return this.adminRequest(`/website-admin/reviews${qs ? `?${qs}` : ''}`);
+  }
+
+  /**
+   * Create a new review (admin endpoint)
+   * POST /api/v2/website-admin/reviews
+   */
+  async createReview(data: {
+    screenshot_id?: number | null;
+    review_text: string;
+    rating: number;
+    is_featured?: boolean;
+    sort_order?: number;
+    product_ids?: number[];
+  }): Promise<ApiResponse> {
+    return this.adminRequest('/website-admin/reviews', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * Update a review (admin endpoint)
+   * PUT /api/v2/website-admin/reviews/{id}
+   */
+  async updateReview(
+    reviewId: number,
+    data: {
+      screenshot_id?: number | null;
+      review_text?: string;
+      rating?: number;
+      is_featured?: boolean;
+      sort_order?: number;
+      product_ids?: number[];
+    }
+  ): Promise<ApiResponse> {
+    return this.adminRequest(`/website-admin/reviews/${reviewId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * Delete a review (admin endpoint)
+   * DELETE /api/v2/website-admin/reviews/{id}
+   */
+  async deleteReview(reviewId: number): Promise<ApiResponse> {
+    return this.adminRequest(`/website-admin/reviews/${reviewId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  /**
+   * Toggle featured status of a review (admin endpoint)
+   * PUT /api/v2/website-admin/reviews/{id}/toggle-featured
+   */
+  async toggleReviewFeatured(reviewId: number): Promise<ApiResponse> {
+    return this.adminRequest(`/website-admin/reviews/${reviewId}/toggle-featured`, {
+      method: 'PUT',
+    });
+  }
+
+  /**
+   * Update sort order for multiple reviews (admin endpoint)
+   * POST /api/v2/website-admin/reviews/sort-order
+   */
+  async updateReviewSortOrder(reviews: Array<{ id: number; sort_order: number }>): Promise<ApiResponse> {
+    return this.adminRequest('/website-admin/reviews/sort-order', {
+      method: 'POST',
+      body: JSON.stringify({ reviews }),
+    });
+  }
+
   // Helper to check if user is authenticated
   isAuthenticated(): boolean {
     return !!this.getToken();

@@ -9,6 +9,8 @@ export type DeliveryZone = 'inside_dhaka' | 'outside_dhaka' | 'flat_rate';
 
 export interface DeliverySettings {
   delivery_mode: DeliveryMode;
+  // CamelCase variant (API may return this)
+  deliveryMode?: DeliveryMode;
   base_weight: number;
   inside_dhaka: {
     base_charge: number;
@@ -29,6 +31,13 @@ export interface DeliverySettings {
   progressive_delivery: {
     enabled: boolean;
     min_amount: number;
+    mode?: 'linear' | 'tiered';
+  };
+  // CamelCase variant (API may return this)
+  progressiveDelivery?: {
+    enabled: boolean;
+    min_amount: number;
+    minAmount?: number;
     mode?: 'linear' | 'tiered';
   };
 }

@@ -12,6 +12,7 @@ import { usePayment } from '@/hooks/usePayment';
 import AnimatedCounter from '@/components/common/AnimatedCounter';
 import ProgressiveDeliveryBreakdown from '@/components/cart/ProgressiveDeliveryBreakdown';
 import DeliveryInfo from '@/components/checkout/DeliveryInfo';
+import CODHeroSection from '@/components/checkout/CODHeroSection';
 import { Address } from '@/types';
 import { bangladeshDivisions } from '@/data/bangladesh-divisions';
 import { bangladeshDivisionsBn } from '@/data/bangladesh-divisions-bn';
@@ -1013,6 +1014,9 @@ export default function CheckoutPage() {
               )}
               </div>
             </div>
+
+            {/* COD Hero Section - Prominent COD display */}
+            <CODHeroSection />
 
             {/* Payment Method */}
             <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 p-6 rounded-lg">
