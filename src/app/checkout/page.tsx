@@ -7,8 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { useCouponStore } from '@/stores/couponStore';
+import { useDeliveryStore } from '@/stores/deliveryStore';
 import { usePayment } from '@/hooks/usePayment';
 import AnimatedCounter from '@/components/common/AnimatedCounter';
+import ProgressiveDeliveryBreakdown from '@/components/cart/ProgressiveDeliveryBreakdown';
+import DeliveryInfo from '@/components/checkout/DeliveryInfo';
 import { Address } from '@/types';
 import { bangladeshDivisions } from '@/data/bangladesh-divisions';
 import { bangladeshDivisionsBn } from '@/data/bangladesh-divisions-bn';
@@ -114,20 +117,8 @@ export default function CheckoutPage() {
   // Ref to prevent empty-cart redirect while order is being placed
   const orderPlacedRef = useRef(false);
 
-  // Delivery charge state - will be calculated dynamically from backend
-  const [deliveryCharge, setDeliveryCharge] = useState(0);
-  const [deliveryLoading, setDeliveryLoading] = useState(false);
-  const [deliveryBreakdown, setDeliveryBreakdown] = useState<{
-    zone: string;
-    is_inside_dhaka: boolean;
-    base_charge: number;
-    additional_kg: number;
-    per_kg_rate: number;
-  } | null>(null);
-  const [freeDeliverySettings, setFreeDeliverySettings] = useState<{
-    enabled: boolean;
-    minAmount: number;
-  } | null>(null);
+  // Delivery store - single source of truth for delivery state
+  const deliveryStore = useDeliveryStore();
 
   useEffect(() => {
     // Don't redirect if order is being placed (cart cleared intentionally)
@@ -168,33 +159,9 @@ export default function CheckoutPage() {
 
     fetchActiveGateway();
 
-    // Fetch delivery settings (for free delivery threshold)
-    fetchDeliverySettings();
+    // Fetch delivery settings on page load (cached in store)
+    deliveryStore.fetchSettings();
   }, []);
-
-  // Fetch delivery settings from API
-  const fetchDeliverySettings = async () => {
-    try {
-      const api = (await import('@/lib/api')).default;
-      // Use GET request for delivery settings
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api/v2'}/public/delivery-settings`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      }).then(res => res.json());
-
-      if (response?.data) {
-        // Store all delivery settings
-        setFreeDeliverySettings(response.data.freeDelivery);
-      }
-    } catch (error) {
-      console.error('Failed to fetch delivery settings:', error);
-      // Default to disabled if fetch fails
-      setFreeDeliverySettings({ enabled: false, minAmount: 0 });
-    }
-  };
 
   // Pre-fill user data and fetch addresses when user is logged in
   useEffect(() => {
@@ -277,58 +244,29 @@ export default function CheckoutPage() {
 
   // Calculate total weight of cart items
   const calculateTotalWeight = () => {
-    return cartItems.reduce((total, item) => {
-      // Assume average weight of 500g per item if not specified
-      // In production, this should come from the product variant data
-      const itemWeight = 0.5; // kg
+    return cartItems.reduce((total: number, item) => {
+      // Try to get weight from variant data, otherwise use default
+      const itemWeight = (typeof item.variant?.weight === 'number' ? item.variant.weight : 0.5); // kg
       return total + (itemWeight * item.quantity);
     }, 0);
   };
 
-  // Calculate delivery charge dynamically
-  const calculateDeliveryCharge = async () => {
+  // Calculate delivery charge using delivery store
+  const calculateDeliveryCharge = () => {
     const totalWeight = calculateTotalWeight();
     const division = formData.division;
-    const currentSubtotal = getCartTotal(); // Use fresh subtotal value
+    const currentSubtotal = getCartTotal();
 
-    // Need division to calculate delivery charge
     if (!division) {
-      setDeliveryCharge(60); // Default charge
-      return;
+      return; // Don't calculate without division
     }
 
-    setDeliveryLoading(true);
-    try {
-      const api = (await import('@/lib/api')).default;
-
-      const response = await api.calculateDeliveryCharge({
-        weight: totalWeight,
-        division: division,
-        order_amount: currentSubtotal,
-      });
-
-      // The response from backend is: {status: true, data: {charge: 90, ...}}
-      // api.request() returns the raw response, so response.data contains the charge
-      let charge = 0;
-      let breakdown = null;
-
-      // Try to extract charge from different possible response structures
-      if (response?.data?.charge !== undefined) {
-        charge = Number(response.data.charge);
-        breakdown = response.data.breakdown;
-      } else if ((response as any)?.charge !== undefined) {
-        charge = Number((response as any).charge);
-        breakdown = (response as any).breakdown;
-      }
-
-      setDeliveryCharge(charge);
-      setDeliveryBreakdown(breakdown);
-    } catch (error) {
-      console.error('🚚 [Delivery Charge API Error]:', error);
-      setDeliveryCharge(60); // Fallback to default
-    } finally {
-      setDeliveryLoading(false);
-    }
+    // Use delivery store for calculation (with debouncing and caching)
+    deliveryStore.calculateCharge({
+      weight: totalWeight,
+      division: division,
+      order_amount: currentSubtotal,
+    });
   };
 
   // Calculate delivery charge when division or cart changes
@@ -341,10 +279,6 @@ export default function CheckoutPage() {
 
   // Calculations
   const subtotal = getCartTotal();
-  // deliveryCharge is now state-based
-  // Use free delivery settings from API instead of hardcoded value
-  const freeDeliveryThreshold = freeDeliverySettings?.enabled ? (freeDeliverySettings.minAmount ?? 500) : 0;
-  const isFreeDeliveryFromSettings = freeDeliverySettings?.enabled && subtotal >= freeDeliveryThreshold;
 
   // Read coupon values from Zustand store (backend is source of truth)
   const appliedCoupon = couponStore.appliedCoupon;
@@ -352,13 +286,20 @@ export default function CheckoutPage() {
   const freeShipping = appliedCoupon?.type === 'shipping';
 
   const subtotalAfterCoupon = subtotal - couponDiscount;
-  const totalCharges = freeShipping || isFreeDeliveryFromSettings ? 0 : deliveryCharge;
+
+  // Get delivery charge from store
+  const { charge: deliveryCharge, isFreeDelivery, isProgressiveDelivery } = deliveryStore;
+  const isFreeFromStore = isFreeDelivery();
+  const isFreeFromCoupon = freeShipping;
+
+  const totalCharges = isFreeFromCoupon || isFreeFromStore ? 0 : deliveryCharge;
   const total = subtotalAfterCoupon + totalCharges;
   const payableTotal = total;
 
-  // Calculate how much more to spend for free delivery - only if free delivery is enabled
-  const amountNeededForFreeDelivery = freeDeliverySettings?.enabled
-    ? Math.max(0, freeDeliveryThreshold - subtotal)
+  // Calculate how much more to spend for free delivery (only for progressive delivery)
+  const { breakdown } = deliveryStore;
+  const amountNeededForFreeDelivery = isProgressiveDelivery() && breakdown?.progressive_delivery?.enabled
+    ? (breakdown.progressive_delivery.amount_needed_for_free || 0)
     : 0;
 
   // Calculate original total (without discount)
@@ -366,7 +307,9 @@ export default function CheckoutPage() {
     const price = item.price || 0;
     return sum + price * item.quantity;
   }, 0);
-  const totalSavings = (originalSubtotal - subtotal) + couponDiscount + (freeShipping ? deliveryCharge : 0);
+  const totalSavings = (originalSubtotal - subtotal) + couponDiscount +
+    (freeShipping ? deliveryStore.charge : 0) +
+    (deliveryStore.breakdown?.progressive_delivery?.discount_amount || 0);
 
   // Fetch auto-apply coupons on mount
   useEffect(() => {
@@ -474,7 +417,7 @@ export default function CheckoutPage() {
         notes: formData.notes || null,
         items: orderItems,
         subtotal: subtotal,
-        delivery_charge: deliveryCharge,
+        delivery_charge: deliveryStore.charge,
         coupon_discount: couponDiscount,
         coupon_code: appliedCoupon?.code ?? null,
         total_amount: subtotal,
@@ -1444,8 +1387,8 @@ export default function CheckoutPage() {
                   )}
                 </div>
 
-                {/* Free Delivery Promotion - Only show if enabled in admin settings */}
-                {!freeShipping && freeDeliverySettings?.enabled && amountNeededForFreeDelivery > 0 && (
+                {/* Free Delivery Promotion - Only show for progressive delivery mode */}
+                {!freeShipping && deliveryStore.isProgressiveDelivery() && amountNeededForFreeDelivery > 0 && (
                   <div className="mb-6 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
                     <div className="flex items-start gap-2">
                       <svg className="w-5 h-5 text-orange-600 dark:text-orange-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1460,6 +1403,16 @@ export default function CheckoutPage() {
                         }} />
                       </div>
                     </div>
+                  </div>
+                )}
+
+                {/* Progressive Delivery Display */}
+                {deliveryStore.breakdown && deliveryStore.breakdown.progressive_delivery?.enabled && (
+                  <div className="mb-6">
+                    <ProgressiveDeliveryBreakdown
+                      breakdown={deliveryStore.breakdown}
+                      orderAmount={subtotal}
+                    />
                   </div>
                 )}
 
@@ -1486,39 +1439,8 @@ export default function CheckoutPage() {
                     </div>
                   )}
 
-                  <div className="flex justify-between text-gray-700 dark:text-gray-300">
-                    <span>{t('checkout.deliveryCharge')}</span>
-                    <span className="font-bold">
-                      {freeShipping ? (
-                        <span className="text-green-600 dark:text-green-400 flex items-center gap-1">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-                          </svg>
-                          {t('checkout.freeShippingApplied')}
-                        </span>
-                      ) : deliveryLoading ? (
-                        <span className="text-gray-400 dark:text-gray-500">Calculing...</span>
-                      ) : (
-                        <span className="text-gray-900 dark:text-white flex items-center gap-2">
-                          <AnimatedCounter value={deliveryCharge} prefix="৳" duration={600} />
-                          {deliveryBreakdown && (
-                            <span className="text-xs text-gray-500 dark:text-gray-400">
-                              ({deliveryBreakdown.zone === 'inside_dhaka' ? 'Dhaka' : deliveryBreakdown.zone === 'outside_dhaka' ? 'Outside Dhaka' : 'Flat Rate'}
-                              {deliveryBreakdown.additional_kg > 0 && ` +${deliveryBreakdown.additional_kg}kg`}
-                              )
-                            </span>
-                          )}
-                        </span>
-                      )}
-                    </span>
-
-                  </div>
-                  {/* Only show free delivery message if enabled in admin settings */}
-                  {freeDeliverySettings?.enabled && amountNeededForFreeDelivery > 0 && (
-                    <p className="text-sm text-right text-orange-800 dark:text-orange-300" dangerouslySetInnerHTML={{
-                      __html: t('checkout.addMoreForFreeShipping', { amount: amountNeededForFreeDelivery.toLocaleString() })
-                    }} />
-                  )}
+                  {/* Delivery Charge - Using new DeliveryInfo component */}
+                  <DeliveryInfo orderAmount={subtotal} freeShippingFromCoupon={freeShipping} />
                 </div>
 
                 {/* Total */}

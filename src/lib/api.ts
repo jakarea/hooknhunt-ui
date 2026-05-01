@@ -331,13 +331,26 @@ class ApiClient {
     charge: number;
     breakdown: {
       total_weight: number;
+      base_weight: number;
       zone: string;
       is_inside_dhaka: boolean;
+      is_flat_rate: boolean;
       base_charge: number;
       additional_kg: number;
       per_kg_rate: number;
+      total_charge: number;
+      free_delivery: boolean;
+      progressive_delivery: {
+        enabled: boolean;
+        order_amount?: number;
+        min_amount?: number;
+        discount_percentage?: number;
+        discount_amount?: number;
+        amount_needed_for_free?: number;
+        is_free?: boolean;
+        motivational_message?: string;
+      };
     };
-    is_free_delivery: boolean;
   }>> {
     return this.request('/public/calculate-delivery', {
       method: 'POST',

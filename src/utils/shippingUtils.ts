@@ -48,6 +48,38 @@ export interface ShippingBreakdown {
 }
 
 /**
+ * Progressive delivery types for API-based calculation
+ */
+export interface ProgressiveDeliveryInfo {
+  enabled: boolean;
+  order_amount?: number;
+  min_amount?: number;
+  discount_percentage?: number;
+  discount_amount?: number;
+  amount_needed_for_free?: number;
+  is_free?: boolean;
+}
+
+export interface DeliveryBreakdown {
+  total_weight: number;
+  base_weight: number;
+  zone: 'inside_dhaka' | 'outside_dhaka' | 'flat_rate';
+  is_inside_dhaka: boolean;
+  is_flat_rate: boolean;
+  base_charge: number;
+  additional_kg: number;
+  per_kg_rate: number;
+  total_charge: number;
+  free_delivery: boolean;
+  progressive_delivery: ProgressiveDeliveryInfo;
+}
+
+export interface DeliveryCalculationResult {
+  charge: number;
+  breakdown: DeliveryBreakdown;
+}
+
+/**
  * Calculate shipping cost based on weight, cart total, and customer type
  */
 export function calculateShippingCost(
@@ -140,3 +172,40 @@ export function findShippingZone(
 export function formatCurrency(amount: number): string {
   return `৳${amount.toFixed(0)}`;
 }
+
+/**
+ * Calculate progressive discount percentage client-side (for preview)
+ * @deprecated Use backend API for accurate calculation
+ */
+export const calculateProgressiveDiscount = (
+  orderAmount: number,
+  minAmount: number
+): number => {
+  if (minAmount <= 0 || orderAmount <= 0) {
+    return 0;
+  }
+
+  const percentage = (orderAmount / minAmount) * 100;
+  return Math.min(100, Math.max(0, percentage));
+}
+
+/**
+ * Get progress bar color based on discount percentage
+ */
+export const getProgressColor = (percentage: number): string => {
+  if (percentage >= 100) return 'green';
+  if (percentage >= 80) return 'teal';
+  if (percentage >= 50) return 'yellow';
+  return 'gray';
+}
+
+/**
+ * Get progress message based on discount percentage
+ */
+export const getProgressMessage = (percentage: number, amountNeeded: number): string => {
+  if (percentage >= 100) return '🎉 Free Delivery!';
+  if (percentage >= 80) return `Almost there! Add ৳${amountNeeded} more for free delivery`;
+  if (percentage >= 50) return `Keep going! Add ৳${amountNeeded} more for free delivery`;
+  return `Add ৳${amountNeeded} more for free delivery`;
+}
+
