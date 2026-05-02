@@ -9,10 +9,10 @@ import { useAuth } from '@/context/AuthContext';
 import { useCouponStore } from '@/stores/couponStore';
 import { useDeliveryStore } from '@/stores/deliveryStore';
 import { usePayment } from '@/hooks/usePayment';
+import { useServiceCharge } from '@/hooks/useServiceCharge';
 import AnimatedCounter from '@/components/common/AnimatedCounter';
 import ProgressiveDeliveryBreakdown from '@/components/cart/ProgressiveDeliveryBreakdown';
 import DeliveryInfo from '@/components/checkout/DeliveryInfo';
-import CODHeroSection from '@/components/checkout/CODHeroSection';
 import { Address } from '@/types';
 import { bangladeshDivisions } from '@/data/bangladesh-divisions';
 import { bangladeshDivisionsBn } from '@/data/bangladesh-divisions-bn';
@@ -121,6 +121,9 @@ export default function CheckoutPage() {
   // Delivery store - single source of truth for delivery state
   const deliveryStore = useDeliveryStore();
 
+  // Service charge settings
+  const { settings: serviceChargeSettings } = useServiceCharge();
+
   useEffect(() => {
     // Don't redirect if order is being placed (cart cleared intentionally)
     if (cartItems.length === 0 && !showOtpModal && !orderPlacedRef.current) {
@@ -149,7 +152,6 @@ export default function CheckoutPage() {
         }
         // If activeGateway is null or response fails, keep 'cod' as default
       } catch (error) {
-        console.error('Failed to fetch active payment gateway:', error);
         // On error, default to COD
         setPaymentMethod('cod');
         setActiveGateway(null);
@@ -209,7 +211,7 @@ export default function CheckoutPage() {
         }
       }
     } catch (error) {
-      console.error('Failed to fetch addresses:', error);
+      // Silent fail
     }
   };
 
@@ -293,7 +295,10 @@ export default function CheckoutPage() {
   const isFreeFromStore = isFreeDelivery();
   const isFreeFromCoupon = freeShipping;
 
-  const totalCharges = isFreeFromCoupon || isFreeFromStore ? 0 : deliveryCharge;
+  // Calculate service charge
+  const serviceCharge = serviceChargeSettings?.enabled ? (serviceChargeSettings?.amount || 0) : 0;
+
+  const totalCharges = (isFreeFromCoupon || isFreeFromStore ? 0 : deliveryCharge) + serviceCharge;
   const total = subtotalAfterCoupon + totalCharges;
   const payableTotal = total;
 
@@ -458,8 +463,6 @@ export default function CheckoutPage() {
             // Payment initiated successfully - gateway will open in new tab
             return;
           } catch (paymentErr: unknown) {
-            console.error('🔴 [SSLCommerz Payment Error]:', paymentErr);
-
             // Handle different error structures
             let errorMsg = 'Payment initiation failed. Please try again.';
             let isGatewayUnavailable = false;
@@ -547,8 +550,6 @@ export default function CheckoutPage() {
             // Payment initiated successfully - gateway will open in new tab
             return;
           } catch (paymentErr: unknown) {
-            console.error('🟣 [EPS Payment Error]:', paymentErr);
-
             // Handle different error structures
             let errorMsg = 'EPS payment initiation failed. Please try again.';
             let isGatewayUnavailable = false;
@@ -646,8 +647,6 @@ export default function CheckoutPage() {
       }
 
     } catch (error: any) {
-      console.error('Order placement failed:', error);
-
       // Handle validation errors
       if (error.response?.status === 422 && error.response?.data?.errors) {
         const errors = error.response.data.errors;
@@ -702,8 +701,6 @@ export default function CheckoutPage() {
       router.push(`/order-success?invoice=${pendingOrder?.order_number}&total=${pendingOrder?.total_amount}&name=${encodeURIComponent(pendingOrder?.customer_name || '')}`);
 
     } catch (error: any) {
-      console.error('OTP verification failed:', error);
-
       if (error.response?.data?.message) {
         setOtpError(error.response.data.message);
       } else {
@@ -729,8 +726,6 @@ export default function CheckoutPage() {
       alert('OTP has been resent to your phone number.');
 
     } catch (error: any) {
-      console.error('Resend OTP failed:', error);
-
       if (error.response?.data?.message) {
         alert(error.response.data.message);
       } else {
@@ -1015,9 +1010,6 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* COD Hero Section - Prominent COD display */}
-            <CODHeroSection />
-
             {/* Payment Method */}
             <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 p-6 rounded-lg">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
@@ -1249,18 +1241,6 @@ export default function CheckoutPage() {
                             </div>
                           </div>
                         </div>
-
-                        {/* Remove Button */}
-                        <button
-                          type="button"
-                          onClick={() => removeFromCart(item.id)}
-                          className="self-start text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors p-1"
-                          aria-label={t('checkout.removeItem')}
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
                       </div>
                     ))}
                   </div>
@@ -1445,6 +1425,21 @@ export default function CheckoutPage() {
 
                   {/* Delivery Charge - Using new DeliveryInfo component */}
                   <DeliveryInfo orderAmount={subtotal} freeShippingFromCoupon={freeShipping} />
+
+                  {/* Service Charge */}
+                  {serviceChargeSettings?.enabled && serviceCharge >= 0 && (
+                    <div className="flex justify-between text-sm text-gray-700 dark:text-gray-300">
+                      <span className="flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                        {t('checkout.serviceCharge')}
+                      </span>
+                      <span className="font-semibold">
+                        ৳{serviceCharge.toLocaleString()}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Total */}

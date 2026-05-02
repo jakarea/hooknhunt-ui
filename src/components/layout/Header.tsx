@@ -15,7 +15,7 @@ interface SearchSuggestion {
   id: number;
   name: string;
   slug: string;
-  thumbnail: string | null;
+  image: string | null;
   category: string | null;
   price: number | null;
 }
@@ -182,9 +182,9 @@ export default function Header() {
                           onClick={() => handleSuggestionClick(suggestion.slug)}
                           className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-b-0 transition-colors"
                         >
-                          {suggestion.thumbnail && (
+                          {suggestion.image && (
                             <Image
-                              src={suggestion.thumbnail}
+                              src={suggestion.image}
                               alt={suggestion.name}
                               width={40}
                               height={40}
@@ -405,9 +405,9 @@ export default function Header() {
                         }}
                         className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-b-0"
                       >
-                        {suggestion.thumbnail && (
+                        {suggestion.image && (
                           <Image
-                            src={suggestion.thumbnail}
+                            src={suggestion.image}
                             alt={suggestion.name}
                             width={40}
                             height={40}

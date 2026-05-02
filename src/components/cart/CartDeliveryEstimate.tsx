@@ -65,23 +65,20 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
 
   // Static delivery estimate for users (shown before calculation)
   const staticEstimate = (
-    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 mb-3">
-      <div className="flex items-start gap-3">
+    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-2.5 mb-2">
+      <div className="flex items-start gap-2">
         <div className="flex-shrink-0">
-          <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l4 4m0 6H4m0 0l4-4m-4 4l4 4" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h18M3 10h18M3 17h18" />
           </svg>
         </div>
         <div className="flex-1">
-          <p className="text-body-sm font-bold text-gray-900 dark:text-white mb-1">
+          <p className="text-xs font-bold text-gray-900 dark:text-white mb-0.5">
             Delivery Estimate
           </p>
-          <p className="text-label-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
             Inside Dhaka: ৳60-100 | Outside Dhaka: ৳120-150
-          </p>
-          <p className="text-label-xs text-gray-500 dark:text-gray-500 mt-1">
-            Final charge calculated at checkout based on your location
           </p>
         </div>
       </div>
@@ -93,10 +90,10 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
     return (
       <>
         {staticEstimate}
-        <div className="flex items-center justify-between py-2">
-          <span className="text-label-xs text-gray-500 dark:text-gray-400 font-semibold">Calculating exact delivery...</span>
+        <div className="flex items-center justify-between py-1">
+          <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Calculating exact delivery...</span>
           <div className="flex items-center gap-2">
-            <div className="animate-spin h-4 w-4 border-2 border-[#ec3137] border-t-transparent rounded-full" />
+            <div className="animate-spin h-3 w-3 border-2 border-[#ec3137] border-t-transparent rounded-full" />
           </div>
         </div>
       </>
@@ -115,6 +112,8 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
     const progressiveData = breakdown?.progressiveDelivery || breakdown?.progressive_delivery;
     const is_free = progressiveData?.isFree ?? progressiveData?.is_free ?? false;
     const motivationalMessageFromAPI = progressiveData?.motivationalMessage ?? progressiveData?.motivational_message ?? '';
+    const remainingAmount = progressiveData?.remainingAmount ?? progressiveData?.remaining_amount ?? 0;
+    const nextTierCharge = progressiveData?.nextTierCharge ?? progressiveData?.next_tier_charge ?? 0;
 
     // Show motivational message from API if available (takes priority over simple free message)
     if (motivationalMessageFromAPI && motivationalMessageFromAPI.length > 0) {
@@ -122,36 +121,63 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
       const highlightColor = isAlmostFree ? 'green' : 'orange';
 
       return (
-        <div className="space-y-2">
-          {/* Prominent motivational message at the top */}
-          <div className={`relative ${highlightColor === 'green' ? 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 border-green-300 dark:border-green-700' : 'bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 border-orange-300 dark:border-orange-700'} border rounded-xl p-4 shadow-sm`}>
-            {/* Attention icon */}
-            <div className="absolute -top-2 -right-2">
-              <span className={`flex h-7 w-7 ${highlightColor === 'green' ? 'bg-green-500' : 'bg-orange-500'} text-white rounded-full items-center justify-center text-sm font-bold shadow-md animate-pulse`}>
-                ⚡
-              </span>
-            </div>
-            <div className="flex items-center gap-3 pr-6">
+        <div className="space-y-1.5">
+          {/* Compact motivational message */}
+          <div className={`relative ${highlightColor === 'green' ? 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 border-green-300 dark:border-green-700' : 'bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 border-orange-300 dark:border-orange-700'} border rounded-lg p-2.5 shadow-sm`}>
+            <div className="flex items-center gap-2">
               <div className={`flex-shrink-0 ${highlightColor === 'green' ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400'}`}>
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6 4 4" />
                 </svg>
               </div>
-              <div className="flex-1">
-                <p className={`text-body-md font-bold ${highlightColor === 'green' ? 'text-green-800 dark:text-green-200' : 'text-orange-800 dark:text-orange-200'} leading-snug`}>
+              <div className="flex-1 min-w-0">
+                <p className={`text-xs font-bold ${highlightColor === 'green' ? 'text-green-800 dark:text-green-200' : 'text-orange-800 dark:text-orange-200'} leading-tight`}>
                   {motivationalMessageFromAPI}
                 </p>
-                <p className="text-label-xs text-gray-600 dark:text-gray-400 mt-1 font-semibold">
-                  {highlightColor === 'green' ? 'You are so close!' : 'Boost your cart & save!'}
-                </p>
+                {!isAlmostFree && (
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 font-semibold">
+                    Boost your cart & save!
+                  </p>
+                )}
               </div>
             </div>
           </div>
 
           {/* Delivery charge (smaller, below message) */}
-          <div className="flex items-center justify-between py-1.5">
-            <span className="text-label-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
-            <span className="text-body-sm font-bold text-gray-700 dark:text-gray-300">
+          <div className="flex items-center justify-between py-1">
+            <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
+            <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
+              ৳{charge.toFixed(0)}
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    // Fallback: If no motivational message from API but we have progressive data, calculate and show
+    if (remainingAmount > 0 && nextTierCharge > 0) {
+      return (
+        <div className="space-y-1.5">
+          <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 border border-orange-300 dark:border-orange-700 rounded-lg p-2.5 shadow-sm">
+            <div className="flex items-center gap-2">
+              <div className="flex-shrink-0 text-orange-600 dark:text-orange-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6 4 4" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-bold text-orange-800 dark:text-orange-200 leading-tight">
+                  Add ৳{remainingAmount.toLocaleString()} more get delivery in ৳{nextTierCharge}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 font-semibold">
+                  Boost your cart & save!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center justify-between py-1">
+            <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
+            <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
               ৳{charge.toFixed(0)}
             </span>
           </div>
@@ -161,9 +187,9 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
 
     // Fallback: If no motivational message from API yet, show loading or simple delivery
     return (
-      <div className="flex items-center justify-between py-2">
-        <span className="text-label-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
-        <span className="text-body-sm font-bold text-gray-700 dark:text-gray-300">
+      <div className="flex items-center justify-between py-1.5">
+        <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
+        <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
           ৳{charge.toFixed(0)}
         </span>
       </div>
@@ -173,9 +199,9 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
   // Free delivery mode
   if (deliveryMode === 'free_delivery') {
     return (
-      <div className="flex items-center justify-between py-2">
-        <span className="text-label-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
-        <span className="text-body-sm font-bold text-green-600 dark:text-green-400 flex items-center gap-1.5">
+      <div className="flex items-center justify-between py-1">
+        <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
+        <span className="text-sm font-bold text-green-600 dark:text-green-400 flex items-center gap-1">
           🎉 FREE!
         </span>
       </div>
@@ -184,9 +210,9 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
 
   // Standard delivery charge
   return (
-    <div className="flex items-center justify-between py-2">
-      <span className="text-label-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery (Inside Dhaka)</span>
-      <span className="text-body-md font-bold text-[#ec3137]">
+    <div className="flex items-center justify-between py-1.5">
+      <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery (Inside Dhaka)</span>
+      <span className="text-sm font-bold text-[#ec3137]">
         ৳{charge.toFixed(0)}
       </span>
     </div>

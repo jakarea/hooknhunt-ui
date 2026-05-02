@@ -160,14 +160,14 @@ export interface Category {
 // ✅ Product
 export interface Product {
   id: number;
-  product_code: string; // internal unique code
+  product_code: string | null; // internal unique code
 
   // 🏷️ Basic Info
   title: string;
   slug: string;
   sku: string;
   description: string;
-  short_description: string;
+  short_description?: string;
   supplier_id: number;
   product_link: string;
   category_id: number;

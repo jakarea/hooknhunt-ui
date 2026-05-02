@@ -60,6 +60,7 @@ interface ApiVariant {
 
 interface ApiProduct {
   id: number;
+  productCode: string | null;
   name: string;
   nameBn?: string;
   slug: string;
@@ -114,6 +115,7 @@ interface Variant {
 
 interface Product {
   id: number;
+  product_code: string | null;
   name: string;
   nameBn?: string;
   slug: string;
@@ -223,6 +225,7 @@ function ProductDetailPageContent() {
 
     return {
       id: apiProduct.id,
+      product_code: apiProduct.productCode,
       name: apiProduct.name,
       nameBn: apiProduct.nameBn,
       slug: apiProduct.slug,
@@ -276,7 +279,7 @@ function ProductDetailPageContent() {
       variant_count: activeVariants.length,
       description: apiProduct.description || '',
       short_description: apiProduct.shortDescription || '',
-      product_code: '',
+      product_code: null,
       sku: activeVariants[0]?.sku || '',
       tags: [],
       gallery: apiProduct.galleryImages?.map((img: { fullUrl: string }) => img.fullUrl) || [],
@@ -354,6 +357,17 @@ function ProductDetailPageContent() {
     fetchData();
     return () => { cancelled = true; };
   }, [slug, mapApiProduct, mapToProductCard]);
+
+  // Auto-scroll to selected thumbnail
+  useEffect(() => {
+    const container = document.getElementById('thumbnails-container');
+    if (container && selectedImage >= 6) {
+      const thumbnailWidth = container.firstChild ? (container.firstChild as HTMLElement).offsetWidth : 70;
+      const gap = 6; // gap-1.5 = 6px
+      const scrollPosition = (selectedImage - 2) * (thumbnailWidth + gap);
+      container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+    }
+  }, [selectedImage]);
 
   // Loading state with shimmer effect
   if (loading) {
@@ -433,14 +447,34 @@ function ProductDetailPageContent() {
 
   const productImages = [
     product.thumbnail_url,
-    ...galleryImages
+    ...galleryImages,
+    // Add variant thumbnails (unique ones only)
+    ...product.variants
+      .map(v => v.image?.url)
+      .filter((img, index, self) =>
+        img &&
+        img.trim() !== '' &&
+        img !== product.thumbnail_url &&
+        !galleryImages.includes(img) &&
+        self.indexOf(img) === index
+      )
   ].filter(img => img && img.trim() !== '');
 
   // Related products come from API (fetched in useEffect)
   const relatedProductsList = relatedProducts;
 
   return (
-    <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
+    <>
+      <style jsx global>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+      <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
       <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-4 sm:py-6">
         <nav aria-label="Breadcrumb" className="flex items-center justify-start">
@@ -585,36 +619,81 @@ function ProductDetailPageContent() {
             {/* Thumbnail Navigation - Enhanced with better touch targets */}
             {productImages.length > 1 && (
               <div className="bg-white rounded-xl p-2 sm:p-3 shadow-lg border border-gray-100">
-                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-1.5 sm:gap-2">
-                  {productImages.map((img, index) => (
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  {/* Left Arrow */}
+                  {productImages.length > 6 && (
                     <button
-                      key={index}
-                      onClick={() => handleImageChange(index)}
-                      className={`relative aspect-square min-w-[60px] min-h-[60px] sm:min-w-0 sm:min-h-0 rounded-lg overflow-hidden transition-all duration-300 ${
-                        selectedImage === index
-                          ? 'ring-2 ring-[#bc1215] ring-offset-2 scale-105 shadow-md'
-                          : 'opacity-60 hover:opacity-100 hover:scale-105'
-                      }`}
-                      aria-label={`View image ${index + 1} of ${productImages.length}`}
+                      onClick={() => {
+                        const container = document.getElementById('thumbnails-container');
+                        if (container) {
+                          const scrollAmount = 200;
+                          container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                        }
+                      }}
+                      className="w-8 h-8 sm:w-10 sm:h-10 min-w-[32px] sm:min-w-[40px] min-h-[32px] sm:min-h-[40px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-lg transition-all flex-shrink-0"
+                      aria-label="Scroll thumbnails left"
                     >
-                      <Image
-                        src={img}
-                        alt={`${productName} ${index + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 20vw, (max-width: 768px) 18vw, (max-width: 1024px) 15vw, 72px"
-                      />
-                      {selectedImage === index && (
-                        <div className="absolute inset-0 bg-[#bc1215]/10 flex items-center justify-center">
-                          <div className="w-5 h-5 sm:w-6 sm:h-6 bg-[#bc1215] rounded-full flex items-center justify-center">
-                            <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                        </div>
-                      )}
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                      </svg>
                     </button>
-                  ))}
+                  )}
+
+                  {/* Thumbnails Scrollable Container */}
+                  <div
+                    id="thumbnails-container"
+                    className="flex gap-1.5 sm:gap-2 overflow-x-auto overflow-y-hidden scroll-smooth no-scrollbar"
+                    style={{ maxHeight: '90px' }}
+                  >
+                    {productImages.map((img, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleImageChange(index)}
+                        className={`relative aspect-square min-w-[50px] min-h-[50px] w-[50px] sm:w-[70px] sm:min-w-[70px] sm:h-[70px] flex-shrink-0 rounded-lg overflow-hidden transition-all duration-300 ${
+                          selectedImage === index
+                            ? 'opacity-100'
+                            : 'opacity-60 hover:opacity-100'
+                        }`}
+                        aria-label={`View image ${index + 1} of ${productImages.length}`}
+                      >
+                        <Image
+                          src={img}
+                          alt={`${productName} ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 70px, 80px"
+                        />
+                        {selectedImage === index && (
+                          <div className="absolute inset-0 bg-[#bc1215]/10 flex items-center justify-center">
+                            <div className="w-5 h-5 sm:w-6 sm:h-6 bg-[#bc1215] rounded-full flex items-center justify-center">
+                              <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Right Arrow */}
+                  {productImages.length > 6 && (
+                    <button
+                      onClick={() => {
+                        const container = document.getElementById('thumbnails-container');
+                        if (container) {
+                          const scrollAmount = 200;
+                          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                        }
+                      }}
+                      className="w-8 h-8 sm:w-10 sm:h-10 min-w-[32px] sm:min-w-[40px] min-h-[32px] sm:min-h-[40px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-lg transition-all flex-shrink-0"
+                      aria-label="Scroll thumbnails right"
+                    >
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
             )}
@@ -636,7 +715,7 @@ function ProductDetailPageContent() {
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                   </svg>
-                  <span className="font-semibold">{t('labels.productId')} {product.id}</span>
+                  <span className="font-semibold">{t('labels.productId')} {product.product_code || product.id}</span>
                 </span>
                 {selectedVariant && (
                   <span className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-700 rounded-full">
@@ -697,10 +776,21 @@ function ProductDetailPageContent() {
                   {product.variants.map((variant) => {
                     const isSelected = selectedVariant?.id === variant.id;
 
+                    const handleVariantClick = () => {
+                      setSelectedVariant(variant);
+                      // Find and display variant image
+                      if (variant.image?.url) {
+                        const imageIndex = productImages.findIndex(img => img === variant.image.url);
+                        if (imageIndex !== -1) {
+                          setSelectedImage(imageIndex);
+                        }
+                      }
+                    };
+
                     return (
                       <button
                         key={variant.id}
-                        onClick={() => setSelectedVariant(variant)}
+                        onClick={handleVariantClick}
                         className={`px-3.5 sm:px-4 py-2 min-h-[44px] border-2 text-body-sm font-semibold rounded-lg transition-all ${
                           isSelected
                             ? 'border-[#bc1215] bg-[#bc1215] text-white shadow-md scale-[1.02]'
@@ -1218,8 +1308,8 @@ function ProductDetailPageContent() {
                 </svg>
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
-              {relatedProductsList.map(relatedProduct => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5">
+              {relatedProductsList.slice(0, 5).map(relatedProduct => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}
             </div>
@@ -1227,6 +1317,7 @@ function ProductDetailPageContent() {
         </section>
       )}
     </div>
+    </>
   );
 }
 

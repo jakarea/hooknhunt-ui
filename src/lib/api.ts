@@ -478,7 +478,7 @@ class ApiClient {
     id: number;
     name: string;
     slug: string;
-    thumbnail: string | null;
+    image: string | null;
     category: string | null;
     price: number | null;
   }> }>> {

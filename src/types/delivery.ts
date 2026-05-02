@@ -7,6 +7,11 @@ export type DeliveryMode = 'standard' | 'flat_rate' | 'free_delivery' | 'progres
 
 export type DeliveryZone = 'inside_dhaka' | 'outside_dhaka' | 'flat_rate';
 
+export interface ServiceChargeSettings {
+  enabled: boolean;
+  amount: number;
+}
+
 export interface DeliverySettings {
   delivery_mode: DeliveryMode;
   // CamelCase variant (API may return this)
@@ -51,6 +56,8 @@ export interface ProgressiveDeliveryInfo {
   amount_needed_for_free?: number;
   is_free?: boolean;
   motivational_message?: string;
+  remaining_amount?: number;
+  next_tier_charge?: number;
 
   // CamelCase variants (API returns these)
   orderAmount?: number;
@@ -60,6 +67,8 @@ export interface ProgressiveDeliveryInfo {
   amountNeededForFree?: number;
   isFree?: boolean;
   motivationalMessage?: string;
+  remainingAmount?: number;
+  nextTierCharge?: number;
 }
 
 export interface DeliveryBreakdown {
