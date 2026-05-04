@@ -4,14 +4,14 @@ import { useEffect } from 'react'
 
 interface TrackingData {
   facebook: {
-    pixel_id: string | null
-    pixel_code: string | null
+    pixelId: string | null
+    pixelCode: string | null
   }
   google: {
-    analytics_id: string | null
-    analytics_code: string | null
-    tag_manager_id: string | null
-    tag_manager_code: string | null
+    analyticsId: string | null
+    analyticsCode: string | null
+    tagManagerId: string | null
+    tagManagerCode: string | null
   }
 }
 
@@ -36,13 +36,13 @@ export default function TrackingScripts() {
         // ============================================
         // FACEBOOK PIXEL
         // ============================================
-        const { pixel_id, pixel_code } = data.facebook
+        const { pixelId, pixelCode } = data.facebook
 
         // Priority: Custom code > ID
-        if (pixel_code && pixel_code.trim()) {
+        if (pixelCode && pixelCode.trim()) {
           // Use custom code
-          injectScriptToHead(pixel_code.trim(), 'facebook-pixel-custom')
-        } else if (pixel_id && pixel_id.trim()) {
+          injectScriptToHead(pixelCode.trim(), 'facebook-pixel-custom')
+        } else if (pixelId && pixelId.trim()) {
           // Generate standard Facebook Pixel script
           const standardPixelScript = `
             !function(f,b,e,v,n,t,s)
@@ -53,27 +53,27 @@ export default function TrackingScripts() {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${pixel_id.trim()}');
+            fbq('init', '${pixelId.trim()}');
             fbq('track', 'PageView');
           `
           injectScriptToHead(standardPixelScript, 'facebook-pixel-standard')
-          injectNoscriptToBody(`<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixel_id.trim()}&ev=PageView&noscript=1"/>`, 'facebook-pixel-noscript')
+          injectNoscriptToBody(`<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixelId.trim()}&ev=PageView&noscript=1"/>`, 'facebook-pixel-noscript')
         }
 
         // ============================================
         // GOOGLE ANALYTICS (GA4)
         // ============================================
-        const { analytics_id, analytics_code } = data.google
+        const { analyticsId, analyticsCode } = data.google
 
         // Priority: Custom code > ID
-        if (analytics_code && analytics_code.trim()) {
+        if (analyticsCode && analyticsCode.trim()) {
           // Use custom code
-          injectScriptToHead(analytics_code.trim(), 'google-analytics-custom', true)
-        } else if (analytics_id && analytics_id.trim()) {
+          injectScriptToHead(analyticsCode.trim(), 'google-analytics-custom', true)
+        } else if (analyticsId && analyticsId.trim()) {
           // Generate standard GA4 script
           const gaScript1 = document.createElement('script')
           gaScript1.async = true
-          gaScript1.src = `https://www.googletagmanager.com/gtag/js?id=${analytics_id.trim()}`
+          gaScript1.src = `https://www.googletagmanager.com/gtag/js?id=${analyticsId.trim()}`
           gaScript1.id = 'google-analytics-gtag'
           document.head.appendChild(gaScript1)
 
@@ -83,7 +83,7 @@ export default function TrackingScripts() {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${analytics_id.trim()}');
+            gtag('config', '${analyticsId.trim()}');
           `
           document.head.appendChild(gaScript2)
         }
@@ -91,19 +91,19 @@ export default function TrackingScripts() {
         // ============================================
         // GOOGLE TAG MANAGER (GTM)
         // ============================================
-        const { tag_manager_id, tag_manager_code } = data.google
+        const { tagManagerId, tagManagerCode } = data.google
 
         // Priority: Custom code > ID
-        if (tag_manager_code && tag_manager_code.trim()) {
+        if (tagManagerCode && tagManagerCode.trim()) {
           // Use custom code
-          const parts = tag_manager_code.trim().split(/<noscript>|<\/noscript>/i)
+          const parts = tagManagerCode.trim().split(/<noscript>|<\/noscript>/i)
           if (parts[0]) {
             injectScriptToHead(parts[0].trim(), 'gtm-custom-script')
           }
           if (parts[1]) {
             injectNoscriptToBody(parts[1].trim(), 'gtm-custom-noscript')
           }
-        } else if (tag_manager_id && tag_manager_id.trim()) {
+        } else if (tagManagerId && tagManagerId.trim()) {
           // Generate standard GTM script
           const gtmScript = document.createElement('script')
           gtmScript.id = 'gtm-standard'
@@ -112,11 +112,11 @@ export default function TrackingScripts() {
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${tag_manager_id.trim()}');
+            })(window,document,'script','dataLayer','${tagManagerId.trim()}');
           `
           document.head.appendChild(gtmScript)
 
-          injectNoscriptToBody(`<iframe src="https://www.googletagmanager.com/ns.html?id=${tag_manager_id.trim()}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`, 'gtm-standard-noscript')
+          injectNoscriptToBody(`<iframe src="https://www.googletagmanager.com/ns.html?id=${tagManagerId.trim()}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`, 'gtm-standard-noscript')
         }
 
       } catch (error) {

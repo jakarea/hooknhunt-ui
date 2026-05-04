@@ -121,6 +121,7 @@ export default function Header() {
 
   const navItemsAfterCategory = [
     { href: '/track-order', label: t('nav.trackOrder'), icon: '📦' },
+    { href: '/reviews', label: t('nav.reviews'), icon: '⭐' },
     { href: '/contact', label: t('nav.contact'), icon: '📞' },
   ];
 
