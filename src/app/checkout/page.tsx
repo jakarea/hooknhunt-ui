@@ -744,7 +744,7 @@ export default function CheckoutPage() {
     <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
       <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-4">
+        <div className="container py-4">
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
               {t('common.home')}
@@ -763,7 +763,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-8">
+      <div className="container py-8">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-8">
           {t('checkout.title')}
         </h1>

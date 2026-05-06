@@ -39,7 +39,7 @@ export default function Home() {
 
       {/* Promotional Banners - Mid-Page Engagement */}
       <section className="bg-[#fee1e1] dark:bg-[#0a0a0a] py-12">
-        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+        <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           <Link href="/products?category=rods" className="group relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] rounded-xl">
             <div className="relative h-72 lg:h-80 bg-gradient-to-br from-[#046bd2] to-[#0353a5]">
@@ -101,7 +101,7 @@ export default function Home() {
 
       {/* Customer Reviews - Trust & Social Proof */}
       <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
-        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+        <div className="container">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-[#046bd2]/10 dark:bg-[#046bd2]/20 mb-4">
               <svg className="w-5 h-5 text-[#046bd2]" fill="currentColor" viewBox="0 0 20 20">
@@ -205,7 +205,7 @@ export default function Home() {
           <div className="absolute bottom-10 right-10 w-64 h-64 bg-white transform -rotate-45"></div>
         </div>
 
-        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 relative z-10">
+        <div className="container relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             <div className="group text-center transform hover:scale-105 transition-all duration-500">
               <div className="w-20 h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-xl">

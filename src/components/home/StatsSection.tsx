@@ -71,7 +71,7 @@ export default function StatsSection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-[#ec3137]/5 to-[#046bd2]/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 relative z-10">
+      <div className="container relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#ec3137]/10 dark:bg-[#ec3137]/20 mb-4">

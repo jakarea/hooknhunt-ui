@@ -53,7 +53,7 @@ function SearchPageContent() {
     <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a]">
       {/* Header Section */}
       <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="container py-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Search Results
           </h1>
@@ -67,7 +67,7 @@ function SearchPageContent() {
       </div>
 
       {/* Products Grid */}
-      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="container py-8">
         {loading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {[...Array(8)].map((_, i) => (

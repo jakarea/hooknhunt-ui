@@ -12,7 +12,7 @@ export default function TopBar() {
 
   return (
     <div className="bg-[#bc1215] text-white">
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+      <div className="container">
         <div className="flex justify-between items-center h-9 text-sm">
           {/* Tagline */}
           <div className="flex items-center">

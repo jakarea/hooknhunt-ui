@@ -41,7 +41,7 @@ export default function NewsletterSignup() {
         <div className="absolute bottom-10 left-10 w-40 h-40 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 relative z-10">
+      <div className="container relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Header */}
           <div className="mb-8">

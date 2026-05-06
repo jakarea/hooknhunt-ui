@@ -51,7 +51,7 @@ export default function TrustBar() {
 
   return (
     <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-[1344px] mx-auto px-3 sm:px-4 lg:px-8 xl:px-12">
+      <div className="container">
         <div className="flex items-center justify-center gap-2 sm:gap-6 py-2.5 sm:py-3 overflow-x-auto">
           {trustItems.map((item, index) => (
             <div

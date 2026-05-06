@@ -153,7 +153,7 @@ function ProductsPageContent() {
     <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
       <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-3 sm:py-4">
+        <div className="container py-3 sm:py-4">
           <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
             <Link href="/" className="hover:text-[#bc1215] transition-colors">{t('breadcrumb.home')}</Link>
             <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,7 +175,7 @@ function ProductsPageContent() {
       </div>
 
 
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-8">
+      <div className="container py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Mobile Filter Toggle */}
           <button

@@ -30,9 +30,9 @@ export default function TrendingProduct() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="bg-[#fee1e1] py-20">
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+    <section className="bg-[#fee1e1] py-10">
+      <div className="container">
+      {/* <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-1 h-8 bg-gradient-to-b from-[#ec3137] to-[#046bd2]"></div>
@@ -48,8 +48,12 @@ export default function TrendingProduct() {
             </svg>
           </span>
         </Link>
-      </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3">
+      </div> */}
+
+      <div className="bg-[#fef2f2] p-3 lg:p-4 rounded-lg shadow border border-[#ffa2a2]">
+      <h3 className="text-heading-base md:text-heading-xl font-bold text-black dark:text-white mb-2 lg:mb-3">{t('home.trending.title')}</h3>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 ">
         {loading
           ? Array.from({ length: 12 }).map((_, i) => (
               <div key={i} className="animate-pulse">
@@ -67,6 +71,7 @@ export default function TrendingProduct() {
                 <ProductCard product={product} />
               </div>
             ))}
+      </div>
       </div>
       </div>
     </section>

@@ -372,7 +372,7 @@ function ProductDetailPageContent() {
   // Loading state with shimmer effect
   if (loading) {
     return (
-      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="container py-12 sm:py-16">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Image section shimmer */}
           <div className="space-y-4">
@@ -403,7 +403,7 @@ function ProductDetailPageContent() {
   // Error state
   if (error || !product) {
     return (
-      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+      <div className="container py-12 sm:py-16 text-center">
         <h1 className="text-heading-xl sm:text-heading-2xl lg:text-heading-3xl font-bold text-gray-900 dark:text-white mb-4">
           {error || t('details.description')}
         </h1>
@@ -476,7 +476,7 @@ function ProductDetailPageContent() {
       `}</style>
       <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-4 sm:py-6">
+      <div className="container py-4 sm:py-6">
         <nav aria-label="Breadcrumb" className="flex items-center justify-start">
           <ol className="flex items-center text-label-sm text-gray-500 dark:text-gray-400 flex-wrap gap-1">
             <li>
@@ -521,7 +521,7 @@ function ProductDetailPageContent() {
       </div>
 
       {/* Product Section */}
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 pb-6">
+      <div className="container pb-6">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Images Gallery - Professional Slider */}
           <div className="space-y-4">
@@ -1073,7 +1073,7 @@ function ProductDetailPageContent() {
 
       {/* Product Details - All Sections */}
       <div className="bg-gray-50 dark:bg-[#0f0f0f] py-12">
-        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+        <div className="container">
           <div className="space-y-8">
             {/* Description Section */}
             <div className="bg-white dark:bg-[#0a0a0a] p-6 sm:p-8 lg:p-10 rounded-xl sm:rounded-2xl shadow-sm">
@@ -1298,7 +1298,7 @@ function ProductDetailPageContent() {
       {/* Related Products */}
       {relatedProductsList.length > 0 && (
         <section className="py-10 sm:py-12 bg-white dark:bg-[#0a0a0a]">
-          <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+          <div className="container">
             <div className="flex items-center justify-between mb-6 sm:mb-8">
               <h2 className="text-heading-xl sm:text-heading-2xl lg:text-heading-3xl font-bold text-gray-900 dark:text-white">{t('related.title')}</h2>
               <Link href={`/products?category=${product.categories && product.categories.length > 0 ? product.categories[0].slug : ''}`} className="text-[#bc1215] hover:text-[#8a0e10] dark:hover:text-[#ff6b6b] font-semibold flex items-center gap-2 text-body-sm sm:text-body-md transition-colors">
