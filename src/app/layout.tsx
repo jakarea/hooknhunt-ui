@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Anek_Bangla,Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -12,8 +12,14 @@ import WhatsAppFloatingButton from "@/components/common/WhatsAppFloatingButton";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import TrackingScripts from "@/components/TrackingScripts";
 
-const inter = Inter({
+const notoSansBengali = Noto_Sans_Bengali({
   subsets: ["latin"],
+  weight: ["400", "500", "700"]
+});
+
+const anekBangla = Anek_Bangla({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"]
 });
 
 export const metadata: Metadata = {
@@ -31,7 +37,7 @@ export default function RootLayout({
       <head>
 
       </head>
-      <body className={`${inter.className} antialiased bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
+      <body className={`${notoSansBengali.className} ${anekBangla.className} antialiased bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
         <TrackingScripts />
         <ErrorBoundary>
           <LanguageProvider>

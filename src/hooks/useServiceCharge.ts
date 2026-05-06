@@ -20,7 +20,7 @@ export function useServiceCharge() {
   useEffect(() => {
     const fetchServiceCharge = async () => {
       try {
-        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api/v2'}/public/settings/website`;
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || 'https://probesh.hooknhunt.com/api/v2'}/public/settings/website`;
 
         const response = await fetch(apiUrl, {
           method: 'GET',

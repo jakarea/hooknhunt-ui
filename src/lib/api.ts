@@ -2,7 +2,7 @@
 
 import { User, Address, Category, Slider } from '@/types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.0.166:8000/api/v2';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://probesh.hooknhunt.com/api/v2';
 
 interface ApiResponse<T = unknown> {
   data?: T;

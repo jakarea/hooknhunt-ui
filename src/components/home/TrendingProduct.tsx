@@ -30,7 +30,7 @@ export default function TrendingProduct() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="bg-[#fcf8f6] py-20">
+    <section className="bg-[#fee1e1] py-20">
       <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
         <div className="flex-1">
@@ -49,7 +49,7 @@ export default function TrendingProduct() {
           </span>
         </Link>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3">
         {loading
           ? Array.from({ length: 12 }).map((_, i) => (
               <div key={i} className="animate-pulse">

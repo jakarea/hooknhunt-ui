@@ -196,7 +196,7 @@ export default function HeroSlider() {
   if (slideCount === 0) return null;
 
   return (
-    <section className="w-full bg-gray-900 dark:bg-black relative overflow-hidden">
+    <section className="w-full bg-gray-900 dark:bg-black relative overflow-hidden max-w-[1192px] mx-auto">
       {/* Floating Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-20 h-20 bg-[#bc1215]/20 rounded-full blur-xl animate-pulse" />
@@ -204,7 +204,7 @@ export default function HeroSlider() {
         <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-yellow-400/10 rounded-full blur-lg animate-bounce" />
       </div>
 
-      <div className="relative w-full h-[350px] md:h-[400px] lg:h-[450px] overflow-hidden">
+      <div className="relative w-full h-[300px] md:h-[360px] lg:h-[400px] overflow-hidden">
         <div className="relative h-full">
           {sliders.map((slide, index) => {
             const videoId = slide.video_url ? extractYoutubeId(slide.video_url) : null;
@@ -239,11 +239,11 @@ export default function HeroSlider() {
                 </div>
 
                 {/* Content */}
-                <SlideContent
+                {/* <SlideContent
                   slide={slide}
                   isTransitioning={isTransitioning}
                   viewAllLabel={viewAllLabel}
-                />
+                /> */}
               </div>
             );
           })}
@@ -252,7 +252,7 @@ export default function HeroSlider() {
         {slideCount > 1 && (
           <>
             {/* Navigation Arrows */}
-            <button
+            {/* <button
               onClick={prevSlide}
               disabled={isTransitioning}
               className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 glass-button text-white flex items-center justify-center transition-all duration-300 hover:scale-110 z-10 group disabled:opacity-50 disabled:cursor-not-allowed rounded-full"
@@ -271,7 +271,7 @@ export default function HeroSlider() {
               <svg className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
-            </button>
+            </button> */}
 
             {/* Dots Indicator */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-10">
@@ -282,16 +282,16 @@ export default function HeroSlider() {
                   disabled={isTransitioning}
                   className={`transition-all duration-500 rounded-full flex items-center gap-2 cursor-pointer ${
                     index === currentSlide
-                      ? 'w-12 h-3 bg-[#bc1215] shadow-lg'
-                      : 'w-3 h-3 glass-button hover:scale-125'
+                      ? 'w-2.5 h-2.5 bg-[#fff] shadow-lg'
+                      : 'w-2.5 h-2.5 hover:scale-125 bg-gray-500'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 >
-                  {index === currentSlide && (
+                  {/* {index === currentSlide && (
                     <span className="text-xs text-white font-bold ml-2">
                       {index + 1}
                     </span>
-                  )}
+                  )} */}
                 </button>
               ))}
             </div>

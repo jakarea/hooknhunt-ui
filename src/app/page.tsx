@@ -20,21 +20,10 @@ export default function Home() {
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Hook & Hunt - Premium Fishing Accessories in Bangladesh</h1>
 
-      <div className="bg-[#fcf8f6]">
+      <div className="bg-[#fee1e1]">
         {/* Hero Slider - Full Screen */}
         <HeroSlider />
 
-        {/* Main Page Heading - Visible H2 */}
-        <section className="py-8 sm:py-10 bg-white dark:bg-[#0a0a0a]">
-          <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 text-center">
-            <h2 className="text-heading-2xl md:text-heading-xl lg:text-display-sm font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
-              Premium Fishing Equipment in Bangladesh
-            </h2>
-            <p className="text-body-md sm:text-body-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Quality fishing rods, reels, lines, and accessories for serious anglers. Shop the best gear with Cash on Delivery nationwide.
-            </p>
-          </div>
-        </section>
 
         {/* Dynamic Trending Products */}
         <TrendingProduct />
@@ -49,7 +38,7 @@ export default function Home() {
       <NewArrivals />
 
       {/* Promotional Banners - Mid-Page Engagement */}
-      <section className="bg-[#fcf8f6] dark:bg-[#0a0a0a] py-12">
+      <section className="bg-[#fee1e1] dark:bg-[#0a0a0a] py-12">
         <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           <Link href="/products?category=rods" className="group relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] rounded-xl">
@@ -111,7 +100,7 @@ export default function Home() {
       <RecomendedYou />
 
       {/* Customer Reviews - Trust & Social Proof */}
-      <section className="bg-[#fcf8f6] dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
+      <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
         <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-[#046bd2]/10 dark:bg-[#046bd2]/20 mb-4">
