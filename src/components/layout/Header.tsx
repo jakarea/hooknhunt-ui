@@ -10,7 +10,6 @@ import { useAuth } from '@/context/AuthContext';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { useTheme } from '@/contexts/ThemeContext';
 import LanguageSwitcher from './LanguageSwitcher';
-import SocialLinks from './SocialLinks';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 
 interface SearchSuggestion {
@@ -136,15 +135,13 @@ export default function Header() {
           <div className="flex items-center justify-between gap-2 sm:gap-4 py-3 sm:py-4">
             {/* Left: Logo */}
             <Link href="/" className="flex-shrink-0">
-              <div className="bg-white p-2 rounded-lg shadow-sm">
-                <Image
+               <Image
                   src="/hook-and-hunt-logo.svg"
                   alt="Hook & Hunt"
-                  width={140}
-                  height={46}
-                  className="h-9 sm:h-10 w-auto"
+                  width={150}
+                  height={50}
+                  className="h-9 sm:h-10 lg:h-12 w-auto"
                 />
-              </div>
             </Link>
 
             {/* Welcome - Hidden on small screens */}
@@ -153,7 +150,7 @@ export default function Header() {
             </div> */}
 
             {/* Center: Search Bar - Desktop */}
-            <div className="hidden md:flex flex-1 max-w-xl" ref={searchRef}>
+            <div className="hidden md:flex flex-1 max-w-md" ref={searchRef}>
               <div className="relative w-full">
                 <form onSubmit={handleSearch}>
                   <div className="relative flex items-center">
@@ -238,11 +235,11 @@ export default function Header() {
             {/* Right: Top Bar Elements + Actions */}
             <div className="flex items-center gap-2 sm:gap-3">
               {/* Phone - Desktop */}
-              <a href="tel:8801975244202" className="hidden xl:flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-300 hover:text-[#bc1215] dark:hover:text-[#ff4757] transition-colors px-2 py-1.5 rounded-lg hover:bg-white/50">
-                <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <a href="tel:8801975244202" className="hidden xl:flex items-center gap-1.5 text-sm text-white bg-[#ec3137] px-3 py-1.5 rounded-lg hover:bg-[#c5282d] transition-colors">
+                <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <span className="hidden 2xl:inline font-medium">8801975244202</span>
+                <span className="hidden 2xl:inline font-medium text-white">8801975244202</span>
               </a>
 
               {/* Language Switcher - Desktop */}
@@ -253,29 +250,24 @@ export default function Header() {
               {/* Theme Toggle - Desktop */}
               <button
                 onClick={toggleTheme}
-                className="hidden lg:block p-1.5 sm:p-2 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
+                className="hidden lg:flex w-9 h-9 bg-[#ec3137]/90 hover:bg-[#ec3137]/70 transition-colors rounded-lg items-center justify-center"
                 aria-label="Toggle theme"
               >
-                <svg className="w-4 h-4 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               </button>
-
-              {/* Social Links - Desktop */}
-              <div className="hidden xl:block">
-                <SocialLinks />
-              </div>
 
               {/* Account */}
               {mounted && !isLoading && (
                 <Link
                   href={isAuthenticated ? "/account" : "/login"}
-                  className="hidden lg:flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
+                  className="hidden lg:flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-[#ec3137]/90 hover:bg-[#ec3137]/70 transition-colors"
                 >
-                  <svg className="w-4 sm:w-5 h-4 sm:h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 sm:w-5 h-4 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <span className="text-sm font-medium text-white">
                     {isAuthenticated ? t('header.account') : t('header.login')}
                   </span>
                 </Link>
@@ -284,13 +276,13 @@ export default function Header() {
               {/* Cart */}
               <button
                 onClick={toggleCart}
-                className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg hover:bg-white/50 dark:hover:bg-white/10 transition-colors"
+                className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#8a0f12] hover:bg-[#6b0c0e] transition-colors"
               >
-                <svg className="w-4 sm:w-5 h-4 sm:h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 sm:w-5 h-4 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 {mounted && getCartCount() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#bc1215] text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 shadow-sm">
+                  <span className="absolute -top-1 -right-1 bg-white text-[#8a0f12] text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 shadow-sm">
                     {getCartCount()}
                   </span>
                 )}
@@ -298,11 +290,11 @@ export default function Header() {
 
               {/* Mobile Menu Button */}
               <button
-                className="lg:hidden p-1.5 sm:p-2 text-gray-700 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-white/10 rounded-lg transition-colors"
+                className="lg:hidden w-9 h-9 bg-[#ec3137]/390 hover:bg-[#ec3137]/70 rounded-lg flex items-center justify-center transition-colors"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
-                <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {isMenuOpen ? (
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   ) : (
@@ -323,7 +315,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-2 text-sm md:text-base font-medium text-white dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1.5"
+                className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 transition-colors flex items-center gap-1.5"
               >
                 {/* {item.icon && <span className="text-base">{item.icon}</span>} */}
                 {item.label}
@@ -336,7 +328,7 @@ export default function Header() {
               onMouseEnter={() => setIsCategoryDropdownOpen(true)}
               onMouseLeave={() => setIsCategoryDropdownOpen(false)}
             >
-              <button className="py-2 text-sm md:text-base font-medium text-white dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1.5">
+              <button className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1.5">
                 {/* <span className="text-base">📁</span> */}
                 {t('nav.category')}
                 <svg className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -382,7 +374,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-2 text-sm md:text-base font-medium text-white dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1.5"
+                className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1.5"
               >
                 {/* {item.icon && <span className="text-base">{item.icon}</span>} */}
                 {item.label}

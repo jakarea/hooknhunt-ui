@@ -589,10 +589,10 @@ const resources = {
       'home.recentlySold.viewAll': 'সব সদ্য বিক্রিত পণ্য দেখুন',
 
       // Recommended for You
-      'home.recommended.title': 'আপনার জন্য সুপারিশকৃত',
+      'home.recommended.title': 'আপনার জন্য বাছাই করা',
       'home.recommended.subtitle': 'আপনার পছন্দের ভিত্তিতে বাছাই করা পণ্য',
       'home.recommended.viewAll': 'সব দেখুন',
-      'home.recommended.viewAllLink': 'সব সুপারিশকৃত পণ্য দেখুন',
+      'home.recommended.viewAllLink': 'সব বাছাই করা পণ্য দেখুন',
 
       // Customer Reviews
       'home.reviews.title': 'গ্রাহক পর্যালোচনা',
