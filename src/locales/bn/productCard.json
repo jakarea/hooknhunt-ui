@@ -1,6 +1,7 @@
 {
   "productCard.discount": "-{{percent}}%",
   "productCard.stockWarning": "মাত্র {{count}} টি বাকি আছে",
+  "productCard.onlyLeft": "শুধুমাত্র বাকি আছে",
   "productCard.outOfStock": "স্টক নেই",
   "productCard.priceUnavailable": "মূল্য পাওয়া যায়",
   "productCard.priceVaries": "মূল্য ভিন্ন হতে পারে",

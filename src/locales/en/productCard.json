@@ -1,6 +1,7 @@
 {
   "productCard.discount": "-{{percent}}%",
   "productCard.stockWarning": "Only {{count}} left",
+  "productCard.onlyLeft": "Only left",
   "productCard.outOfStock": "OUT OF STOCK",
   "productCard.priceUnavailable": "Price unavailable",
   "productCard.priceVaries": "Price varies",
