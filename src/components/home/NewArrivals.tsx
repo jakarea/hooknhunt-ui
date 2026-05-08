@@ -30,8 +30,8 @@ export default function NewArrivals() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="bg-[#fcf8f6] dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+    <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
+      <div className="container">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3">

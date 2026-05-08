@@ -129,7 +129,7 @@ export default function FlashSale() {
 
   return (
     <section className="w-full bg-gradient-to-br from-[#ec3137] to-[#8a0f12] py-8 lg:py-12">
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+      <div className="container">
         {/* Header with Countdown */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
           <div className="flex items-center gap-4">

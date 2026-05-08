@@ -85,7 +85,7 @@ export default function TrustSignals() {
 
   return (
     <section className="py-12 sm:py-16 bg-white dark:bg-[#0a0a0a]">
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+      <div className="container">
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
           {stats.map((stat, index) => (

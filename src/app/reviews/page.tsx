@@ -62,7 +62,7 @@ export default function ReviewsPage() {
     <div className="bg-gray-50 dark:bg-[#0f0f0f] min-h-screen">
       {/* Header */}
       <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="container py-8 sm:py-12">
           <h1 className="text-heading-2xl sm:text-heading-3xl font-bold text-gray-900 dark:text-white mb-2">
             Customer Reviews
           </h1>
@@ -73,7 +73,7 @@ export default function ReviewsPage() {
       </div>
 
       {/* Reviews Grid */}
-      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="container py-8 sm:py-12">
         {reviews.length === 0 && !loading && (
           <div className="text-center py-20">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">

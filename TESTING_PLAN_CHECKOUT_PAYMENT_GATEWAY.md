@@ -37,7 +37,7 @@ Before testing, verify these files have been modified:
 
 ### TEST CASE 1: SSLCommerz as Active Gateway
 **Setup:**
-1. Go to Admin: https://hooknhunt-api.test/settings/payments
+1. Go to Admin: https://probesh.hooknhunt.com/settings/payments
 2. Click "Switch to SSLCommerz"
 3. Wait for success message
 
@@ -50,7 +50,7 @@ Before testing, verify these files have been modified:
 - ❌ EPS Payment option is hidden
 
 **Verification Steps:**
-1. Open checkout page: https://hooknhunt-api.test/checkout
+1. Open checkout page: https://probesh.hooknhunt.com/checkout
 2. Scroll to "Payment Method" section
 3. **CHECK:** You should see exactly 2 options:
    - Payment Gateway (with SSLCommerz styling - blue theme)
@@ -62,7 +62,7 @@ Before testing, verify these files have been modified:
 
 ### TEST CASE 2: EPS as Active Gateway
 **Setup:**
-1. Go to Admin: https://hooknhunt-api.test/settings/payments
+1. Go to Admin: https://probesh.hooknhunt.com/settings/payments
 2. Click "Switch to EPS"
 3. Wait for success message
 

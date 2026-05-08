@@ -72,10 +72,10 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white border border-gray-200 hover:shadow-xl hover:border-[#ec3137]/30 transition-all duration-300 overflow-hidden h-full flex flex-col rounded-lg relative">
+    <div className="group bg-white border hover:shadow-xl border-[#ffa2a2] rounded-[8px] hover:border-[#ec3137]/30 transition-all duration-300 overflow-hidden h-full flex flex-col relative p-2 lg:p-3">
       <Link href={`/products/${product.slug}`} className="flex flex-col h-full">
         {/* Product Image */}
-        <div className="relative overflow-hidden aspect-square bg-gray-100 p-2 flex-shrink-0">
+        <div className="relative overflow-hidden aspect-square p-2 flex-shrink-0 rounded-[8px] bg-[#ffa2a2]">
           {image ? (
             <Image
               src={image}
@@ -102,11 +102,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
 
-          {/* Badge Stack - Top Right */}
-          <div className="absolute top-2 right-2 flex flex-col gap-1.5 items-end">
+                                      {/* Badge Stack - Top Right */}
+          <div className="inline-flex flex-col gap-1.5 items-start absolute top-2 left-2">
             {/* Trending Badge */}
             {product.is_trending && (
-              <div className="flex items-center gap-1 bg-gradient-to-r from-red-500 to-orange-500 text-white px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg shadow-md animate-pulse">
+              <div className="flex items-center gap-1 bg-[#bc1215] text-white px-2.5 py-0.5 text-[10px] sm:text-xs font-bold rounded-full shadow-md animate-pulse">
                 <span className="text-xs">🔥</span>
                 <span>{t('productCard.trending')}</span>
               </div>
@@ -114,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
             {/* Discount Badge */}
             {discount > 0 && (
-              <div className="bg-[#ec3137] text-white px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg shadow-md">
+              <div className="bg-[#bc1215] text-white px-2.5 py-0.5 text-[10px] sm:text-xs font-bold rounded-full shadow-md">
                 -{discount}%
               </div>
             )}
@@ -165,22 +165,23 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Product Info */}
-        <div className="p-2.5 flex-1 flex flex-col">
+        <div className="w-full mt-2 lg:mt-3 flex-1 flex flex-col">
           {/* Product Name */}
-          <span className="font-semibold text-gray-900 line-clamp-2 text-body-sm group-hover:text-[#bc1215] transition-colors min-h-[2.5rem] block">
+          <h3 className="font-semibold text-black line-clamp-2 text-body-sm group-hover:text-[#bc1215] transition-colors min-h-[2.5rem] block mb-2">
             {name}
-          </span>
+          </h3>
+          
 
           {/* Price or Price Range */}
           <div className="mb-1 lg:mb-2 flex-1">
             {(variant_count === 0 || variant_count === 1) ? (
               // Single variant or no variants - show exact price
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-lg lg:text-xl font-bold text-[#bc1215]">
+                <span className="text-base lg:text-lg font-bold text-[#bc1215]">
                   {price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceUnavailable')}
                 </span>
                 {originalPrice && originalPrice > price && price > 0 && (
-                  <span className="text-base lg:text-lg text-gray-400 line-through opacity-80">
+                  <span className="text-xs lg:text-sm text-gray-400 line-through opacity-80">
                     ৳{originalPrice.toLocaleString()}
                   </span>
                 )}
@@ -189,29 +190,31 @@ export default function ProductCard({ product }: ProductCardProps) {
               // Multiple variants - show minimum price with strikethrough if offer exists
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-lg lg:text-xl font-bold text-[#bc1215]">
+                  <span className="text-base lg:text-lg font-bold text-[#bc1215]">
                     {price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceVaries')}
                   </span>
                   {originalPrice && originalPrice > price && price > 0 && (
-                    <span className="text-base lg:text-lg text-gray-400 line-through opacity-80">
+                    <span className="text-xs lg:text-sm text-gray-400 line-through opacity-80">
                       ৳{originalPrice.toLocaleString()}
                     </span>
                   )}
                 </div>
-                <span className="text-xs text-gray-500">
+                {/* <span className="text-xs text-gray-500">
                   {t('productCard.variantsAvailable', { count: variant_count })}
-                </span>
+                </span> */}
               </div>
             )}
           </div>
+
+          
         </div>
       </Link>
 
       {/* Button Logic */}
-      <div className="px-3 pb-3 flex-shrink-0 mt-auto">
+      <div className="mt-2 flex-shrink-0">
         {!mounted ? (
           // Loading skeleton to prevent hydration mismatch
-          <div className="w-full py-2.5 bg-gray-200 animate-pulse rounded"></div>
+          <div className="w-full py-2.5 bg-[#bc1215] animate-pulse rounded"></div>
         ) : productInCart ? (
           <button
             onClick={handleViewCart}
@@ -229,11 +232,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           </button>
         ) : (variant_count > 1) ? (
           // Multiple variants - show "View Details" button
-          <Link href={`/products/${product.slug}`} className="w-full py-2.5 bg-gray-600 hover:bg-gray-700 text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <Link href={`/products/${product.slug}`} className="w-full py-2.5 bg-[#bc1215] text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg">
+            {/* <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
+            </svg> */}
             {t('productCard.viewDetails')}
           </Link>
         ) : (
@@ -244,7 +247,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className={`w-full py-2.5 bg-[#bc1215] hover:bg-[#8a0e10] text-white font-semibold text-xs transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg ${isAdding ? 'scale-95 bg-[#8a0e10]' : ''
               }`}
           >
-            <svg
+            {/* <svg
               className={`w-4 h-4 transition-transform duration-300 ${isAdding ? 'scale-125 rotate-12' : ''
                 }`}
               fill="none"
@@ -257,7 +260,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 strokeWidth={2}
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
               />
-            </svg>
+            </svg> */}
             {stock === 0 ? t('productCard.outOfStockButton') : price <= 0 ? t('productCard.unavailable') : t('productCard.addToCart')}
           </button>
         )}

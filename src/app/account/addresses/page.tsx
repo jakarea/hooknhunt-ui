@@ -213,7 +213,7 @@ export default function AddressesPage() {
 
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-4">
+        <div className="container py-4">
           <div className="flex items-center text-sm text-gray-600">
             <Link href="/account" className="hover:text-red-700 transition-colors">My Account</Link>
             <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,7 +224,7 @@ export default function AddressesPage() {
         </div>
       </div>
 
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12 py-8">
+      <div className="container py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Navigation */}
           <div className="lg:w-64 flex-shrink-0">

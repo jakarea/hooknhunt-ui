@@ -22,7 +22,7 @@ export default function TrackingScripts() {
     const injectTrackingScripts = async () => {
       try {
         // Fetch tracking codes from API
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api/v2'
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://probesh.hooknhunt.com/api/v2'
         const response = await fetch(`${apiUrl}/website/tracking`)
         if (!response.ok) return
 
@@ -146,7 +146,7 @@ export default function TrackingScripts() {
       script.text = content
     }
 
-    document.head.appendChild(script)
+    // document.head.appendChild(script)
   }
 
   // Helper: Inject noscript to body

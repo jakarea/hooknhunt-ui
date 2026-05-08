@@ -14,8 +14,8 @@ export default function BestDeals() {
   return (
     <>
       {bestDeals.length > 0 && (
-        <section className="bg-gray-50 dark:bg-[#0f0f0f] py-20 transition-colors duration-200" >
-          <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+        <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-20 transition-colors duration-200" >
+          <div className="container">
             <div className="text-center mb-16">
               <div className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-[#ec3137]/10 dark:bg-[#ec3137]/20 mb-4">
                 <svg className="w-5 h-5 text-[#ec3137]" fill="currentColor" viewBox="0 0 20 20">

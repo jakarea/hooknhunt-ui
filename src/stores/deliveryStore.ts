@@ -54,7 +54,7 @@ export const useDeliveryStore = create<DeliveryStore>((set, get) => ({
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api/v2'}/public/delivery-settings`,
+        `${process.env.NEXT_PUBLIC_API_URL || 'https://probesh.hooknhunt.com/api/v2'}/public/delivery-settings`,
         {
           method: 'GET',
           headers: {

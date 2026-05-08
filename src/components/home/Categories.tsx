@@ -19,8 +19,8 @@ export default function Categories() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-[#fcf8f6] dark:bg-[#0a0a0a]">
-        <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+      <section className="py-20 bg-[#fee1e1] dark:bg-[#0a0a0a]">
+        <div className="container">
           <div className="text-center mb-16">
             <div className="h-10 w-64 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mx-auto mb-4" />
             <div className="h-6 w-96 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mx-auto" />
@@ -36,8 +36,8 @@ export default function Categories() {
   }
 
   return (
-    <section className="py-20 bg-[#fcf8f6] dark:bg-[#0a0a0a]">
-      <div className="max-w-[1344px] mx-auto px-4 lg:px-8 xl:px-12">
+    <section className="py-20 bg-[#fee1e1] dark:bg-[#0a0a0a]">
+      <div className="container">
         {/* Simple Header */}
         <div className="text-center mb-16">
           <h3 className="text-heading-lg md:text-heading-xl font-bold text-gray-900 dark:text-white mb-4">

@@ -16,9 +16,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+span,a,button,li,
+p{
+  font-family: Noto_Sans_Bengali, Anek_Bangla, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Typography Scale - Proper visual hierarchy */
@@ -467,6 +472,13 @@ button, .btn, [role="button"] {
 
 button:hover, .btn:hover, [role="button"]:hover {
   cursor: pointer;
+}
+
+/* Container - Consistent max width across all pages and sections */
+.container {
+  max-width: 1192px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Force word break on product description HTML content */
