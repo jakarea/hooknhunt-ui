@@ -30,24 +30,10 @@ export default function NewArrivals() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-20 transition-colors duration-200">
+    <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-10 transition-colors duration-200">
       <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-1 h-8 bg-[#046bd2]"></div>
-              <h3 className="text-heading-xl md:text-heading-2xl font-bold text-gray-900 dark:text-white">{t('home.newArrival.title')}</h3>
-            </div>
-            <p className="text-body-lg text-gray-600 dark:text-gray-400 ml-4">{t('home.newArrival.subtitle')}</p>
-          </div>
-          <Link href="/products?sort=newest" className="group">
-            <span className="inline-flex items-center gap-2 px-6 py-3 bg-[#046bd2] text-white font-semibold hover:bg-[#0353a5] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 rounded-lg">
-              {t('home.newArrival.viewAll')}
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
+        <div className="mb-8">
+          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{t('home.newArrival.title')}</h3>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3">
           {loading
@@ -61,6 +47,16 @@ export default function NewArrivals() {
             : products.map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="text-center mt-5 md:mt-6">
+          <Link href="/products?sort=newest" className="inline-flex items-center gap-2 px-4 py-2 bg-[#ec3137] hover:bg-[#c5282d] text-white font-medium rounded-lg transition-all duration-300 hover:shadow-md text-sm">
+            <span>{t('home.newArrival.viewAll')}</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

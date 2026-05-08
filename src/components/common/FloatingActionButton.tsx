@@ -5,24 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 
 export default function FloatingActionButton() {
-  const [isVisible, setIsVisible] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const { getCartCount, toggleCart } = useCart();
   const router = useRouter();
-
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-        setShowQuickActions(false);
-      }
-    };
-
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
 
 
   const quickActions = [
@@ -84,13 +69,12 @@ export default function FloatingActionButton() {
     },
   ];
 
-  if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-[99999] isolation-isolate pointer-events-none">
       {/* Quick Actions */}
       {showQuickActions && (
-        <div className="absolute bottom-16 right-0 space-y-3 mb-4">
+        <div className="absolute bottom-16 right-0 space-y-3 mb-4 pointer-events-auto">
           {quickActions.map((action, index) => (
             <div
               key={index}
@@ -119,7 +103,7 @@ export default function FloatingActionButton() {
       {/* Main FAB */}
       <button
         onClick={() => setShowQuickActions(!showQuickActions)}
-        className="w-14 h-14 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] hover:from-[#8a0f12] hover:to-[#ec3137] text-white rounded-full transition-all duration-300 transform hover:scale-110 flex items-center justify-center group cursor-pointer shadow-lg hover:shadow-xl"
+        className="w-14 h-14 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] hover:from-[#8a0f12] hover:to-[#ec3137] text-white rounded-full transition-all duration-300 transform hover:scale-110 flex items-center justify-center group cursor-pointer shadow-lg hover:shadow-xl pointer-events-auto"
       >
         <svg
           className={`w-6 h-6 transition-transform duration-300 ${showQuickActions ? 'rotate-45' : ''}`}

@@ -30,7 +30,7 @@ export default function TrendingProduct() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="bg-[#fee1e1] py-10">
+    <section className="bg-[#fee1e1] pb-10">
       <div className="container">
       {/* <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
         <div className="flex-1">
@@ -50,7 +50,7 @@ export default function TrendingProduct() {
         </Link>
       </div> */}
 
-      <div className="bg-[#fef2f2] p-3 lg:p-4 rounded-lg shadow border border-[#ffa2a2]">
+      <div className="bg-[#fef2f2] p-3 lg:p-4 rounded-lg rounded-t-none shadow border border-t-0 border-[#ffa2a2]">
       <h3 className="text-heading-base md:text-heading-xl font-bold text-black dark:text-white mb-2 lg:mb-3">{t('home.trending.title')}</h3>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 ">

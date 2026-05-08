@@ -124,7 +124,7 @@ function CrossSellCard({ product, onClose }: { product: CrossSaleProduct; onClos
     <Link
       href={`/products/${product.slug}`}
       onClick={onClose}
-      className="group bg-white border border-gray-100 hover:border-gray-200 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-md flex flex-col"
+      className="group bg-white border border-gray-100 hover:border-gray-200 rounded-none overflow-hidden transition-all duration-200 hover:shadow-md flex flex-col"
     >
       {/* Image */}
       <div className="relative aspect-square bg-gray-50 overflow-hidden">

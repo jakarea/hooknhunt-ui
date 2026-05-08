@@ -18,7 +18,7 @@ export default function TrustBar() {
         </svg>
       ),
       text: 'Cash on Delivery',
-      color: 'text-green-600 dark:text-green-400',
+      color: 'text-white',
     },
     {
       icon: (
@@ -27,7 +27,7 @@ export default function TrustBar() {
         </svg>
       ),
       text: '2-3 Days Delivery',
-      color: 'text-blue-600 dark:text-blue-400',
+      color: 'text-gray-900 dark:text-black',
     },
     {
       icon: (
