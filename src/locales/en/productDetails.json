@@ -1,0 +1,21 @@
+{
+  "keyFeatures": "Key Features",
+  "selectVariant": "Select Variant",
+  "addToCart": "Add to Cart",
+  "outOfStock": "Out of Stock",
+  "orderViaWhatsApp": "Order via WhatsApp",
+  "quantity": "Quantity",
+  "inStock": "In Stock",
+  "lowStock": "Low Stock",
+  "soldOut": "Sold Out",
+  "relatedProducts": "Related Products",
+  "description": "Description",
+  "highlights": "Highlights",
+  "reviews": "Reviews",
+  "fastDelivery": "Fast Delivery",
+  "qualityAssured": "Quality Assured",
+  "easyReturns": "Easy Returns",
+  "variantOptions": "options",
+  "noDescription": "No description available.",
+  "whatsappMessage": "Hi, I want to order: {{name}} (৳{{price}}) - Quantity: {{quantity}}"
+}
