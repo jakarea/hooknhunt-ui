@@ -71,7 +71,7 @@ export default function FloatingActionButton() {
 
 
   return (
-    <div className="fixed bottom-6 right-6 z-[99999] isolation-isolate pointer-events-none">
+    <div className="fixed bottom-20 right-6 lg:bottom-6 z-50 isolation-isolate pointer-events-none">
       {/* Quick Actions */}
       {showQuickActions && (
         <div className="absolute bottom-16 right-0 space-y-3 mb-4 pointer-events-auto">

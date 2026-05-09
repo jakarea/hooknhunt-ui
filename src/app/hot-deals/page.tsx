@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ProductCard from '@/components/product/ProductCard';
 import { useTranslation } from 'react-i18next';
 import api from '@/lib/api';
@@ -30,7 +30,7 @@ export default function HotDealsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[#fee1e1]">
       {/* Products Grid */}
       <div className="container py-12 sm:py-16">
         {/* Page Header */}
@@ -44,7 +44,7 @@ export default function HotDealsPage() {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 lg:gap-4">
           {loading
             ? Array.from({ length: 12 }).map((_, i) => (
                 <div key={i} className="animate-pulse">

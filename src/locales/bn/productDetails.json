@@ -1,0 +1,21 @@
+{
+  "keyFeatures": "মূল বৈশিষ্ট্য",
+  "selectVariant": "ভ্যারিয়েন্ট নির্বাচন করুন",
+  "addToCart": "কার্টে যোগ করুন",
+  "outOfStock": "স্টক আউট",
+  "orderViaWhatsApp": "হোয়াটসাপে অর্ডার করুন",
+  "quantity": "পরিমাণ",
+  "inStock": "মজুদ আছে",
+  "lowStock": "স্টক কম",
+  "soldOut": "বিক্রি শেষ",
+  "relatedProducts": "সম্পর্কিত পণ্য",
+  "description": "বিবরণ",
+  "highlights": "বৈশিষ্ট্য",
+  "reviews": "রিভিউ",
+  "fastDelivery": "দ্রুত ডেলিভারি",
+  "qualityAssured": "মান নিশ্চিত",
+  "easyReturns": "সহজে রিটার্ন",
+  "variantOptions": "টি অপশন",
+  "noDescription": "কোনো বিবরণ নেই",
+  "whatsappMessage": "হ্যালো, আমি অর্ডার করতে চাই: {{name}} (৳{{price}}) - পরিমাণ: {{quantity}}"
+}

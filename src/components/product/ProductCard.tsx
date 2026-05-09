@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
+import { useWishlist } from '@/contexts/WishlistContext';
+import { useRecentlyViewed } from '@/contexts/RecentlyViewedContext';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getLocalizedName } from '@/stores/productStore';
@@ -18,14 +20,25 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { t } = useTranslation();
   const router = useRouter();
   const { addToCart, isInCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const { addToRecentlyViewed } = useRecentlyViewed();
   const [isAdding, setIsAdding] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [wishlistAnimating, setWishlistAnimating] = useState(false);
   const { language } = useLanguage();
 
   // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Track recently viewed (only track once per product ID)
+  useEffect(() => {
+    if (mounted) {
+      addToRecentlyViewed(product);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted, product.id, addToRecentlyViewed]);
 
   // Get localized product name
   const localizedName = useMemo(() => getLocalizedName(product, language), [product, language]);
@@ -43,6 +56,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     : 0;
 
   const productInCart = mounted ? isInCart(product.id) : false;
+  const productInWishlist = mounted ? isInWishlist(product.id) : false;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -69,6 +83,14 @@ export default function ProductCard({ product }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
     router.push('/cart');
+  };
+
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setWishlistAnimating(true);
+    toggleWishlist(product);
+    setTimeout(() => setWishlistAnimating(false), 300);
   };
 
   return (
@@ -104,6 +126,30 @@ export default function ProductCard({ product }: ProductCardProps) {
 
                                       {/* Badge Stack - Top Right */}
           <div className="inline-flex flex-col gap-1.5 items-start absolute top-2 left-2">
+            {/* Wishlist Heart Button */}
+            <button
+              onClick={handleWishlistToggle}
+              className={`absolute -top-1 -right-1 p-2 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 z-10 ${
+                productInWishlist
+                  ? 'bg-white/90 text-red-500 scale-110'
+                  : 'bg-white/70 text-gray-400 hover:text-red-500 hover:scale-110 hover:bg-white/90'
+              } ${wishlistAnimating ? 'scale-125' : ''}`}
+              aria-label={productInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+            >
+              <svg
+                className={`w-5 h-5 transition-all duration-300 ${productInWishlist ? 'fill-current' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={productInWishlist ? 0 : 2}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+            </button>
             {/* Trending Badge */}
             {product.is_trending && (
               <div className="flex items-center gap-1 bg-[#bc1215] text-white px-2.5 py-0.5 text-[10px] sm:text-xs font-bold rounded-full shadow-md animate-pulse">

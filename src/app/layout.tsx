@@ -8,7 +8,7 @@ import Footer from "@/components/layout/Footer";
 import CartSidebar from "@/components/cart/CartSidebar";
 import CrossSellModal from "@/components/cart/CrossSellModal";
 import MobileBottomNav from "@/components/common/MobileBottomNav";
-import WhatsAppFloatingButton from "@/components/common/WhatsAppFloatingButton";
+import FloatingActionButton from "@/components/common/FloatingActionButton";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import TrackingScripts from "@/components/TrackingScripts";
 
@@ -48,7 +48,7 @@ export default function RootLayout({
               <CartSidebar />
               <CrossSellModal />
               <MobileBottomNav />
-              <WhatsAppFloatingButton />
+              <FloatingActionButton />
             </Providers>
           </LanguageProvider>
         </ErrorBoundary>
