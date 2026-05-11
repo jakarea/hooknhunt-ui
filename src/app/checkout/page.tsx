@@ -528,91 +528,20 @@ export default function CheckoutPage() {
           }
         }
 
-        // Handle EPS payment - ONLY for eps payment method
+        // Handle EPS payment - redirect to payment initiation page
+        // This ensures window.open() is triggered by direct user action (Pay Now button)
         if (paymentMethod === 'eps') {
+          // Clear cart after order creation
+          clearCart();
+          // Redirect to payment initiation page where user will click Pay Now button
+          const paymentPageUrl = `/checkout/payment/${orderId}`;
           try {
-            // Initiate EPS payment
-            await initiateAndPay({
-              sales_order_id: orderId,
-              customer_name: formData.name,
-              customer_email: formData.email || undefined,
-              customer_phone: formData.phone,
-              customer_address: {
-                address_line1: formData.address,
-                address_line2: formData.thana || undefined,
-                city: formData.thana || '',
-                district: formData.district,
-                country: 'Bangladesh',
-                postal_code: undefined,
-              },
-              payment_method: 'eps',
-            });
-            // Payment initiated successfully - gateway will open in new tab
-            return;
-          } catch (paymentErr: unknown) {
-            // Handle different error structures
-            let errorMsg = 'EPS payment initiation failed. Please try again.';
-            let isGatewayUnavailable = false;
-
-            // Check if it's a PaymentError with message
-            if (paymentErr && typeof paymentErr === 'object' && 'message' in paymentErr) {
-              errorMsg = (paymentErr as { message: string }).message;
-            }
-
-            // Check for API response errors - handle multiple possible structures
-            const apiErr = paymentErr as {
-              response?: {
-                data?: {
-                  errors?: Record<string, string[]> | string;
-                  message?: string;
-                  error?: string;
-                  gateway_unavailable?: boolean;
-                  status?: boolean;
-                };
-                error?: string;
-                message?: string;
-                status?: boolean;
-              };
-              message?: string;
-            };
-
-            // Extract error message from different possible locations
-            // Structure 1: response.data.error (nested)
-            if (apiErr.response?.data?.error) {
-              errorMsg = apiErr.response.data.error;
-            }
-            // Structure 2: response.data.message (nested)
-            else if (apiErr.response?.data?.message) {
-              errorMsg = apiErr.response.data.message;
-            }
-            // Structure 3: response.error (direct on response)
-            else if (apiErr.response?.error) {
-              errorMsg = apiErr.response.error;
-            }
-            // Structure 4: response.message (direct on response)
-            else if (apiErr.response?.message) {
-              errorMsg = apiErr.response.message;
-            }
-            // Structure 5: error property directly on thrown object
-            else if (apiErr.message) {
-              errorMsg = apiErr.message;
-            }
-
-            // Check if gateway is unavailable
-            isGatewayUnavailable = apiErr.response?.data?.gateway_unavailable !== undefined
-              ? apiErr.response.data.gateway_unavailable
-              : (apiErr.response?.status === false ||
-                errorMsg.toLowerCase().includes('unavailable') ||
-                errorMsg.toLowerCase().includes('currently unavailable'));
-
-            // Set payment error state instead of redirecting
-            // The callback URLs should only be used when returning from the payment gateway
-            setPaymentError({
-              message: errorMsg,
-              type: 'eps'
-            });
-            return;
+            router.push(paymentPageUrl);
+          } catch {
+            // Fallback: use window.location
+            window.location.href = paymentPageUrl;
           }
+          return;
         }
 
         if (paymentMethod === 'cod') {
