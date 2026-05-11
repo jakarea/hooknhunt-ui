@@ -186,7 +186,7 @@ function ProductReviewCard({ review }: ProductReviewCardProps) {
 
   return (
     <div
-      className="break-inside-avoid mb-4 group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
+      className="break-inside-avoid mb-4 group relative bg-white dark:bg-gray-800 rounded-none overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
       onClick={() => setIsExpanded(!isExpanded)}
     >
       {/* Screenshot */}

@@ -481,6 +481,22 @@ button:hover, .btn:hover, [role="button"]:hover {
   margin-right: auto;
 }
 
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
 /* Force word break on product description HTML content */
 .product-description,
 .product-description * {

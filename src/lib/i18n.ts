@@ -16,6 +16,8 @@ import enProduct from '../locales/en/product.json';
 import bnProduct from '../locales/bn/product.json';
 import enProducts from '../locales/en/products.json';
 import bnProducts from '../locales/bn/products.json';
+import enProductDetails from '../locales/en/productDetails.json';
+import bnProductDetails from '../locales/bn/productDetails.json';
 import enPayment from '../locales/en/payment.json';
 import bnPayment from '../locales/bn/payment.json';
 import enPolicies from '../locales/en/policies.json';
@@ -476,6 +478,7 @@ const resources = {
       ...enProductCard,
       ...enProduct,
       ...enProducts,
+      ...enProductDetails,
       'buttons.buyNow': enProduct.buttons.buyNow,
       'buttons.addToCart': enProduct.buttons.addToCart,
       'buttons.orderViaWhatsapp': enProduct.buttons.orderViaWhatsapp,
@@ -589,10 +592,10 @@ const resources = {
       'home.recentlySold.viewAll': 'সব সদ্য বিক্রিত পণ্য দেখুন',
 
       // Recommended for You
-      'home.recommended.title': 'আপনার জন্য সুপারিশকৃত',
+      'home.recommended.title': 'আপনার জন্য বাছাই করা',
       'home.recommended.subtitle': 'আপনার পছন্দের ভিত্তিতে বাছাই করা পণ্য',
       'home.recommended.viewAll': 'সব দেখুন',
-      'home.recommended.viewAllLink': 'সব সুপারিশকৃত পণ্য দেখুন',
+      'home.recommended.viewAllLink': 'সব বাছাই করা পণ্য দেখুন',
 
       // Customer Reviews
       'home.reviews.title': 'গ্রাহক পর্যালোচনা',
@@ -934,6 +937,7 @@ const resources = {
       ...bnProductCard,
       ...bnProduct,
       ...bnProducts,
+      ...bnProductDetails,
       'buttons.buyNow': bnProduct.buttons.buyNow,
       'buttons.addToCart': bnProduct.buttons.addToCart,
       'buttons.orderViaWhatsapp': bnProduct.buttons.orderViaWhatsapp,

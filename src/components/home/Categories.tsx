@@ -19,15 +19,14 @@ export default function Categories() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-[#fee1e1] dark:bg-[#0a0a0a]">
-        <div className="container">
-          <div className="text-center mb-16">
-            <div className="h-10 w-64 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mx-auto mb-4" />
-            <div className="h-6 w-96 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mx-auto" />
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="aspect-square bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse" />
+      <section className="py-8 md:py-10 bg-[#fee1e1]">
+        <div className="container px-4">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="aspect-[4/5] bg-white/40 backdrop-blur-sm rounded-lg animate-pulse"
+              />
             ))}
           </div>
         </div>
@@ -36,57 +35,58 @@ export default function Categories() {
   }
 
   return (
-    <section className="py-20 bg-[#fee1e1] dark:bg-[#0a0a0a]">
-      <div className="container">
-        {/* Simple Header */}
-        <div className="text-center mb-16">
-          <h3 className="text-heading-lg md:text-heading-xl font-bold text-gray-900 dark:text-white mb-4">
-            {t('home.categories.title')}
-          </h3>
-          <p className="text-body-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            {t('home.categories.subtitle')}
-          </p>
-        </div>
-
-        {/* Categories Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {categories.slice(0, 18).map((category, index) => {
+    <section className="py-8 md:py-10 bg-[#fee1e1]">
+      <div className="container px-4">
+        {/* Categories Grid - 6 columns, compact cards */}
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
+          {categories.slice(0, 6).map((category) => {
             const img = category.image;
             const imageUrl = (typeof img === 'object' && img?.full_url)
               ? img.full_url
               : category.image_url || '';
+
             return (
               <Link
                 key={category.id}
                 href={`/products?category=${category.slug}`}
                 className="group"
-                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
-                  <div className="relative aspect-square overflow-hidden rounded-xl">
+                <div className="relative rounded-none overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white">
+                  {/* Image Container - 1:1.25 aspect ratio like reference */}
+                  <div className="relative aspect-[4/5] overflow-hidden">
                     {imageUrl ? (
                       <Image
                         src={imageUrl}
                         alt={t(getCategoryTranslationKey(category))}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="(max-width: 640px) 50vw, 25vw"
+                        sizes="(max-width: 640px) 33vw, 16vw"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
-                        <svg className="w-12 h-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                        <svg
+                          className="w-10 h-10 text-gray-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={1.5}
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
                         </svg>
                       </div>
                     )}
 
-                    {/* Dark overlay */}
-                    <div className="absolute inset-0 bg-black/20"></div>
+                    {/* Dark overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
-                    {/* Always-visible centered name */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="bg-black/40 backdrop-blur-sm px-4 py-2 rounded-lg">
-                        <span className="text-center text-white font-semibold text-label-lg md:text-body-md leading-tight truncate max-w-[140px] md:max-w-[180px] block">
+                    {/* Category Label - at bottom like reference */}
+                    <div className="absolute inset-x-0 bottom-0 p-2">
+                      <div className="bg-black/60 backdrop-blur-sm px-2 py-1.5 rounded">
+                        <span className="block text-center text-xs md:text-sm font-semibold text-white leading-snug line-clamp-2">
                           {t(getCategoryTranslationKey(category))}
                         </span>
                       </div>
@@ -98,22 +98,21 @@ export default function Categories() {
           })}
         </div>
 
-        {/* Simple CTA */}
-        {categories.length > 18 && (
-          <div className="text-center mt-16">
+        {/* View All Button */}
+        {categories.length > 6 && (
+          <div className="text-center mt-5 md:mt-6">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#ec3137] hover:bg-[#8a0f12] text-white font-semibold rounded-lg transition-colors duration-300"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#ec3137] hover:bg-[#c5282d] text-white font-medium rounded-lg transition-all duration-300 hover:shadow-md text-sm"
             >
-              <span>{t('home.categories.viewAll')}</span>
+              <span>{t('home.categories.viewAll', { defaultValue: 'View All' })}</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
           </div>
         )}
-
       </div>
-    </section >
+    </section>
   );
 }
