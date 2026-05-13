@@ -40,7 +40,6 @@ function ProductsPageContent() {
   const [priceRange, setPriceRange] = useState<string[]>(priceParam ? priceParam.split(',') : []);
   const [minRating, setMinRating] = useState<number>(ratingParam ? parseInt(ratingParam) : 0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
   const sortDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -219,13 +218,7 @@ function ProductsPageContent() {
   };
 
   const toggleSidebar = useCallback(() => {
-    if (!isSidebarOpen) {
-      setIsAnimating(true);
-      setIsSidebarOpen(true);
-      setTimeout(() => setIsAnimating(false), 300);
-    } else {
-      setIsSidebarOpen(false);
-    }
+    setIsSidebarOpen(!isSidebarOpen);
   }, [isSidebarOpen]);
 
   const hasActiveFilters = !selectedCategories.includes('all') || selectedCategories.length > 1 || priceRange.length > 0 || minRating > 0;
@@ -235,70 +228,69 @@ function ProductsPageContent() {
       {/* Breadcrumb - Modern Style */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#bc1215]/5 to-transparent"></div>
-        <div className="container relative py-4 sm:py-5">
-          <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-            <Link href="/" className="hover:text-[#bc1215] transition-colors font-medium">{t('breadcrumb.home')}</Link>
-            <svg className="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="text-gray-900 dark:text-white font-semibold">{t('breadcrumb.products')}</span>
-            {!selectedCategories.includes('all') && selectedCategories.length === 1 && (
-              <>
-                <svg className="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-                <span className="text-[#bc1215] font-semibold capitalize">
-                  {categories.find(c => c.slug === selectedCategories[0])?.name || selectedCategories[0]}
+        <div className="container px-3 md:px-4 relative py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400 min-w-0 flex-1">
+              <Link href="/" className="hover:text-[#bc1215] transition-colors font-medium">{t('breadcrumb.home')}</Link>
+              <svg className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+              <span className="text-gray-900 dark:text-white font-semibold truncate">{t('breadcrumb.products')}</span>
+              {!selectedCategories.includes('all') && selectedCategories.length === 1 && (
+                <>
+                  <svg className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span className="text-[#bc1215] font-semibold capitalize truncate">
+                    {categories.find(c => c.slug === selectedCategories[0])?.name || selectedCategories[0]}
+                  </span>
+                </>
+              )}
+            </div>
+
+            {/* Mobile Filter Toggle - Icon Only */}
+            <button
+              onClick={toggleSidebar}
+              className="lg:hidden relative flex items-center justify-center w-10 h-10 bg-gradient-to-r from-[#bc1215] to-[#8a0e10] text-white rounded-xl shadow-lg hover:shadow-xl transition-all z-50 flex-shrink-0"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              {hasActiveFilters && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-white text-[#bc1215] text-xs font-bold rounded-full flex items-center justify-center">
+                  {[!selectedCategories.includes('all') || selectedCategories.length > 1 ? 1 : 0, priceRange.length, minRating > 0 ? 1 : 0].reduce((a, b) => a + b, 0)}
                 </span>
-              </>
-            )}
+              )}
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="container py-6 sm:py-8">
+      <div className="container px-3 md:px-4 py-4 sm:py-6">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-          {/* Mobile Filter Toggle - Modern Button */}
-          <button
-            onClick={toggleSidebar}
-            className="lg:hidden relative overflow-hidden group min-h-[52px] px-6 mb-4"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#bc1215] to-[#8a0e10] transition-transform duration-300 group-hover:scale-[1.02]"></div>
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-30"></div>
-            <div className="relative flex items-center justify-center gap-3 text-white font-semibold">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
-              <span className="text-sm">{t('filterButton')}</span>
-              {hasActiveFilters && (
-                <span className="ml-1 px-2.5 py-0.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold">
-                  {[!selectedCategories.includes('all') || selectedCategories.length > 1 ? 1 : 0, priceRange.length, minRating > 0 ? 1 : 0].reduce((a, b) => a + b, 0)}
-                </span>
-              )}
-            </div>
-          </button>
-
           {/* Sidebar - Premium Design with Sticky */}
           <aside className={`
-            lg:w-72 flex-shrink-0
+            fixed lg:sticky right-0 top-0 bottom-0 lg:inset-auto
+            w-[75vw] max-w-[240px] lg:w-[240px] lg:max-w-[240px]
+            flex-shrink-0
             ${isSidebarOpen ? 'block' : 'hidden lg:block'}
-            fixed lg:sticky inset-0 lg:inset-auto z-50 lg:z-auto lg:top-24 lg:self-start
+            z-50 lg:z-auto lg:top-24 lg:self-start
             overflow-y-auto lg:overflow-visible
           `}>
             {/* Mobile Backdrop */}
-            <div className="lg:hidden absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsSidebarOpen(false)}></div>
+            <div className="lg:hidden absolute inset-0 bg-black/40 backdrop-blur-sm -z-10" onClick={() => setIsSidebarOpen(false)}></div>
 
             {/* Sidebar Content with Slide Animation */}
             <div className={`
-              relative lg:static bg-white/90 dark:bg-[#0a0a0a]/95 backdrop-blur-md lg:bg-transparent lg:dark:bg-transparent
-              p-4 lg:p-0 h-full lg:h-auto overflow-y-auto lg:overflow-visible
+              relative lg:static bg-white/95 dark:bg-[#0a0a0a]/98 backdrop-blur-md lg:bg-transparent lg:dark:bg-transparent
+              p-4 lg:p-0 h-full lg:h-auto overflow-y-auto lg:overflow-visible shadow-2xl lg:shadow-none
               transition-transform duration-300 ease-out
-              ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+              ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
             `}>
               {/* Mobile Close Button */}
               <button
                 onClick={() => setIsSidebarOpen(false)}
-                className="lg:hidden absolute top-4 right-4 p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg z-10"
+                className="lg:hidden absolute top-4 right-4 p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg z-50"
               >
                 <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -563,30 +555,24 @@ function ProductsPageContent() {
           </aside>
 
           {/* Products Grid */}
-          <div className="flex-1 relative z-[10000]">
+          <div className="flex-1 relative z-10">
             {/* Sort Bar - Modern */}
-            <div className="relative bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl p-4 sm:p-5 mb-6 border border-gray-200/50 dark:border-gray-800/50 shadow-sm z-[10000]">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-gradient-to-br from-[#bc1215] to-[#8a0e10] rounded-full animate-pulse"></div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-                    {t('showing')} <span className="font-bold text-gray-900 dark:text-white text-base">{sortedProducts.length}</span> {sortedProducts.length === 1 ? t('product') : t('products')}
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 w-full sm:w-auto">
-                  <label className="text-sm text-gray-700 dark:text-gray-300 font-semibold whitespace-nowrap flex items-center gap-2">
-                    <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="relative bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl p-3 md:p-4 mb-3 md:mb-4 border border-gray-200/50 dark:border-gray-800/50 shadow-sm z-10">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4">
+                <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                  <label className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-semibold whitespace-nowrap flex items-center gap-1.5 sm:gap-2">
+                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4h4m-4 4v-4m0 4l-4 4" />
                     </svg>
                     {t('sortBy')}
                   </label>
 
                   {/* Custom Sort Dropdown */}
-                  <div className="relative z-[9999999] isolate" ref={sortDropdownRef}>
+                  <div className="relative z-50 isolate flex-1 sm:flex-initial" ref={sortDropdownRef}>
                     {/* Dropdown Button */}
                     <button
                       onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
-                      className="flex items-center justify-between gap-3 px-4 py-2.5 min-h-[44px] border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#bc1215]/20 focus:border-[#bc1215] outline-none rounded-xl font-medium shadow-sm hover:shadow-md hover:border-[#bc1215]/30 transition-all cursor-pointer text-sm min-w-[180px] relative z-[9999999]"
+                      className="flex items-center justify-between gap-2 px-3 py-2 h-9 sm:h-auto sm:px-4 sm:py-2.5 sm:min-h-[44px] border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#bc1215]/20 focus:border-[#bc1215] outline-none rounded-xl font-medium shadow-sm hover:shadow-md hover:border-[#bc1215]/30 transition-all cursor-pointer text-xs sm:text-sm w-full sm:w-auto sm:min-w-[180px] relative z-50"
                     >
                       <span>{t(`sortOptions.${sortBy === 'best-selling' ? 'bestSelling' : sortBy === 'price-low' ? 'priceLow' : sortBy === 'price-high' ? 'priceHigh' : sortBy}`)}</span>
                       <svg
@@ -601,7 +587,7 @@ function ProductsPageContent() {
 
                     {/* Dropdown Menu */}
                     {isSortDropdownOpen && (
-                      <div className="absolute top-full right-0 mt-2 w-full bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden z-[9999999] animate-fadeIn">
+                      <div className="absolute top-full right-0 mt-2 w-full bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden z-50 animate-fadeIn">
                         <div className="py-1">
                           {[
                             { value: 'best-selling', label: 'sortOptions.bestSelling', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' },
@@ -640,7 +626,7 @@ function ProductsPageContent() {
 
             {/* Skeleton Loading */}
             {loading && !fetched ? (
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4">
                 {Array.from({ length: 12 }).map((_, i) => (
                   <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-xl overflow-hidden">
                     <div className="aspect-square bg-gray-200/70 dark:bg-gray-700/50 animate-pulse" />
@@ -653,7 +639,7 @@ function ProductsPageContent() {
               </div>
             ) : sortedProducts.length > 0 ? (
               <>
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4">
                   {sortedProducts.map((product, index) => (
                     <div
                       key={product.id}
@@ -679,17 +665,8 @@ function ProductsPageContent() {
                         </div>
                       ))}
                     </div>
-                  ) : !hasMore && sortedProducts.length > 12 ? (
-                    <div className="relative text-center py-10 border-t border-gray-200/50 dark:border-gray-800/50 mt-8 w-full">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 bg-[#fee1e1]">
-                        <svg className="w-5 h-5 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-400">
-                        Showing all {sortedProducts.length} products
-                      </p>
-                    </div>
+                  ) : !hasMore ? (
+                    <div className="h-16 sm:h-20"></div>
                   ) : (
                     <div className="h-16 sm:h-20"></div>
                   )}

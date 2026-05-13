@@ -7,7 +7,6 @@ import HeroSlider from '@/components/home/HeroSlider';
 import TrendingProduct from '@/components/home/TrendingProduct';
 import Categories from '@/components/home/Categories';
 import RecentlySold from '@/components/home/RecentlySold';
-import FloatingActionButton from '@/components/common/FloatingActionButton';
 import NewArrivals from '@/components/home/NewArrivals';
 import RecomendedYou from '@/components/home/RecomendedYou';
 
@@ -42,7 +41,7 @@ export default function Home() {
 
       {/* Customer Reviews - Trust & Social Proof */}
       <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-10 md:py-14 transition-colors duration-200">
-        <div className="container">
+        <div className="container px-3 md:px-4">
           {/* Left-aligned Header */}
           <div className="mb-6 md:mb-8">
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{t('home.reviews.title')}</h3>
@@ -210,18 +209,18 @@ export default function Home() {
       </section>
 
       {/* Features - Trust Indicators */}
-      <section className="bg-gradient-to-br from-[#ec3137] to-[#8a0f12] text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[#ec3137] to-[#8a0f12] text-white py-8 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-64 h-64 bg-white transform rotate-45"></div>
           <div className="absolute bottom-10 right-10 w-64 h-64 bg-white transform -rotate-45"></div>
         </div>
 
-        <div className="container relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+        <div className="container relative z-10 px-3 md:px-4">
+          <div className="grid grid-cols-3 gap-2 md:gap-4 lg:gap-8">
             <div className="group text-center transform hover:scale-105 transition-all duration-500">
-              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-xl">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
                 <svg
-                  className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
+                  className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 group-hover:scale-110 transition-transform duration-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -234,15 +233,15 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <span className="text-heading-lg font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.shipping.title')}</span>
-              <p className="text-white/90 text-body-lg font-semibold">{t('home.features.shipping.featureDesc')}</p>
-              <div className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all duration-300"></div>
+              <span className="text-xs sm:text-sm md:text-base lg:text-heading-lg font-extrabold mb-1 sm:mb-2 lg:mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.shipping.title')}</span>
+              <p className="text-white/90 text-[10px] sm:text-xs md:text-sm lg:text-body-lg font-semibold">{t('home.features.shipping.featureDesc')}</p>
+              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
             </div>
 
             <div className="group text-center transform hover:scale-105 transition-all duration-500">
-              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-xl">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
                 <svg
-                  className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
+                  className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 group-hover:scale-110 transition-transform duration-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -255,15 +254,15 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <span className="text-heading-lg font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.payment.title')}</span>
-              <p className="text-white/90 text-body-lg font-semibold">{t('home.features.payment.featureDesc')}</p>
-              <div className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all duration-300"></div>
+              <span className="text-xs sm:text-sm md:text-base lg:text-heading-lg font-extrabold mb-1 sm:mb-2 lg:mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.payment.title')}</span>
+              <p className="text-white/90 text-[10px] sm:text-xs md:text-sm lg:text-body-lg font-semibold">{t('home.features.payment.featureDesc')}</p>
+              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
             </div>
 
             <div className="group text-center transform hover:scale-105 transition-all duration-500">
-              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-xl">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
                 <svg
-                  className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
+                  className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 group-hover:scale-110 transition-transform duration-300"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -276,16 +275,13 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <span className="text-heading-lg font-extrabold mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.returns.title')}</span>
-              <p className="text-white/90 text-body-lg font-semibold">{t('home.features.returns.featureDesc')}</p>
-              <div className="w-16 h-1 bg-white/40 mx-auto mt-4 group-hover:w-24 transition-all duration-300"></div>
+              <span className="text-xs sm:text-sm md:text-base lg:text-heading-lg font-extrabold mb-1 sm:mb-2 lg:mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.returns.title')}</span>
+              <p className="text-white/90 text-[10px] sm:text-xs md:text-sm lg:text-body-lg font-semibold">{t('home.features.returns.featureDesc')}</p>
+              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Floating Action Button */}
-      <FloatingActionButton />
     </div>
     </>
   );

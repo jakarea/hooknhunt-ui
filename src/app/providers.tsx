@@ -5,6 +5,7 @@ import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { WishlistProvider } from '@/contexts/WishlistContext';
 import { RecentlyViewedProvider } from '@/contexts/RecentlyViewedContext';
+import { SearchModalProvider } from '@/contexts/SearchModalContext';
 import { I18nextProvider } from '../../node_modules/react-i18next';
 import i18n from '@/lib/i18n';
 
@@ -16,7 +17,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
           <CartProvider>
             <WishlistProvider>
               <RecentlyViewedProvider>
-                {children}
+                <SearchModalProvider>
+                  {children}
+                </SearchModalProvider>
               </RecentlyViewedProvider>
             </WishlistProvider>
           </CartProvider>

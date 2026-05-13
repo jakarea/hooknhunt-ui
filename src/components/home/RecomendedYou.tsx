@@ -31,7 +31,7 @@ export default function RecomendedYou() {
 
   return (
     <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-10 transition-colors duration-200">
-      <div className="container">
+      <div className="container px-3 md:px-4">
         <div className="mb-8">
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{t('home.recommended.title')}</h3>
         </div>

@@ -123,7 +123,7 @@ export default function CartPage() {
       <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
         {/* Breadcrumb */}
         <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800">
-          <div className="container py-4">
+          <div className="container px-3 md:px-4 py-4">
             <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
               <Link href="/" className="hover:text-[#ec3137] transition-colors">
                 {t('common.home')}
@@ -137,7 +137,7 @@ export default function CartPage() {
         </div>
 
         {/* Empty Cart State */}
-        <div className="container py-20">
+        <div className="container px-3 md:px-4 py-20">
           <div className="text-center max-w-md mx-auto">
             <div className="w-32 h-32 bg-gray-100 dark:bg-gray-800 rounded-full mx-auto mb-8 flex items-center justify-center">
               <svg
@@ -184,7 +184,7 @@ export default function CartPage() {
     <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
       <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800">
-        <div className="container py-4">
+        <div className="container px-3 md:px-4 py-4">
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
               {t('common.home')}
@@ -199,7 +199,7 @@ export default function CartPage() {
 
       {/* Page Header with Select All */}
       <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
-        <div className="container py-6">
+        <div className="container px-3 md:px-4 py-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             {/* Select All */}
             <div className="flex items-center gap-3">
@@ -234,7 +234,7 @@ export default function CartPage() {
         </div>
       </div>
 
-      <div className="container py-8">
+      <div className="container px-3 md:px-4 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-2">

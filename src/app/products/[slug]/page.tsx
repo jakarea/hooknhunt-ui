@@ -283,7 +283,6 @@ function ProductDetailPageContent() {
   const discount = originalPrice > currentPrice ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100) : 0;
   const stock = selectedVariant?.stock_info.available || 0;
   const inStock = selectedVariant?.stock_info.in_stock || false;
-  const lowStock = selectedVariant?.stock_info.low_stock || false;
 
   const handleAddToCart = () => {
     if (!product || !selectedVariant) return;
@@ -388,10 +387,10 @@ function ProductDetailPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fee1e1]">
+    <div className="min-h-screen bg-[#fee1e1] overflow-x-hidden">
       {/* Breadcrumb */}
-      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-800/50">
-        <div className="container py-3">
+      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-800/50 overflow-x-hidden">
+        <div className="container px-3 md:px-4 py-3">
           <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
             <Link href="/" className="hover:text-[#bc1215] transition-colors">Home</Link>
             <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -416,10 +415,10 @@ function ProductDetailPageContent() {
         </div>
       </div>
 
-      <div className="container py-6 sm:py-8">
+      <div className="container px-3 md:px-4 py-6 sm:py-8 max-w-full overflow-x-hidden">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Images */}
-          <div className="space-y-4">
+          <div className="space-y-4 min-w-0">
             {/* Main Image */}
             <div className="relative bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-lg aspect-square">
               {product.gallery_images[selectedImageIndex] ? (
@@ -446,31 +445,21 @@ function ProductDetailPageContent() {
                 </div>
               )}
 
-              {/* Low Stock Badge */}
-              {lowStock && inStock && (
-                <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1.5 rounded-full text-sm font-semibold shadow-lg flex items-center gap-1">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Only {stock} left
-                </div>
-              )}
             </div>
 
             {/* Thumbnail Gallery - Slider */}
             {product.gallery_images.length > 1 && (
-              <div className="relative group">
+              <div className="relative group overflow-hidden">
                 {/* Thumbnails Container */}
-                <div className="overflow-hidden">
+                <div className="overflow-x-auto overflow-y-hidden scrollbar-hide">
                   <div
-                    className="flex gap-1 transition-transform duration-300 ease-out"
-                    style={{ transform: `translateX(-${thumbnailOffset * (100 / 6)}%)` }}
+                    className="flex gap-1.5"
                   >
                     {product.gallery_images.map((img, index) => (
                       <button
                         key={index}
                         onClick={() => setSelectedImageIndex(index)}
-                        className={`relative aspect-square rounded-xl overflow-hidden border-2 flex-shrink-0 w-[calc((100%-10px)/6)] transition-all ${
+                        className={`relative aspect-square rounded-xl overflow-hidden border-2 flex-shrink-0 w-16 transition-all ${
                           selectedImageIndex === index
                             ? 'border-[#bc1215] ring-2 ring-[#bc1215]/20'
                             : 'border-transparent hover:border-gray-300'
@@ -490,36 +479,12 @@ function ProductDetailPageContent() {
                     ))}
                   </div>
                 </div>
-
-                {/* Left Arrow - Show on Hover */}
-                {thumbnailOffset > 0 && (
-                  <button
-                    onClick={() => setThumbnailOffset(Math.max(0, thumbnailOffset - 6))}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -translate-x-full p-2 bg-white dark:bg-[#0a0a0a] rounded-lg shadow-lg hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700 opacity-0 group-hover:opacity-100"
-                  >
-                    <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                )}
-
-                {/* Right Arrow - Show on Hover */}
-                {thumbnailOffset + 6 < product.gallery_images.length && (
-                  <button
-                    onClick={() => setThumbnailOffset(Math.min(product.gallery_images.length - 6, thumbnailOffset + 6))}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 translate-x-full p-2 bg-white dark:bg-[#0a0a0a] rounded-lg shadow-lg hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700 opacity-0 group-hover:opacity-100"
-                  >
-                    <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                )}
               </div>
             )}
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0 overflow-x-hidden">
             {/* Title */}
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
@@ -540,13 +505,6 @@ function ProductDetailPageContent() {
                 )}
               </div>
 
-              {/* Stock Status */}
-              <div className="flex items-center gap-2">
-                <div className={`w-2.5 h-2.5 rounded-full ${inStock ? 'bg-green-500' : 'bg-red-500'}`} />
-                <span className={`text-sm font-medium ${inStock ? 'text-green-600' : 'text-red-600'}`}>
-                  {inStock ? (lowStock ? `Low Stock (${stock})` : 'In Stock') : 'Out of Stock'}
-                </span>
-              </div>
             </div>
 
             {/* Short Description */}
@@ -558,7 +516,7 @@ function ProductDetailPageContent() {
 
             {/* Variant Selection */}
             {product.variants.length > 1 && (
-              <div className="space-y-3">
+              <div className="space-y-3 overflow-x-hidden">
                 <label className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
                   <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -716,7 +674,7 @@ function ProductDetailPageContent() {
         </div>
 
         {/* Product Details Tabs */}
-        <div className="mt-12">
+        <div className="mt-12 overflow-x-hidden">
           <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm">
             {/* Tab Headers */}
             <div className="flex border-b border-gray-200/50 dark:border-gray-800/50">
@@ -763,7 +721,7 @@ function ProductDetailPageContent() {
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="mt-12">
+          <div className="mt-12 overflow-x-hidden">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-gradient-to-b from-[#bc1215] to-[#8a0e10] rounded-full"></div>
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
