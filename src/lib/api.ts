@@ -231,6 +231,31 @@ class ApiClient {
     return this.request(`/store/account/orders/${orderId}`, {}, true);
   }
 
+  // Public: Get order by order number (for payment page)
+  async getOrderByOrderNumber(orderNumber: string): Promise<ApiResponse> {
+    return this.request(`/store/orders/${orderNumber}`, {});
+  }
+
+  // Public: Initiate EPS payment directly
+  async initiateEpsPayment(data: {
+    sales_order_id: number;
+    customer_name: string;
+    customer_email: string;
+    customer_phone: string;
+    customer_address: {
+      address_line1: string;
+      address_line2: string;
+      city: string;
+      postal_code: string;
+      country: string;
+    };
+  }): Promise<ApiResponse> {
+    return this.request('/store/payments/eps/initiate', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
   // Authenticated: Order summary (stats + recent orders)
   async getOrderSummary(): Promise<ApiResponse> {
     return this.request('/store/account/orders/summary', {}, true);
@@ -294,16 +319,24 @@ class ApiClient {
     });
   }
 
-  // Coupon endpoints (public)
-  async validateCoupon(code: string, cartTotal: number): Promise<ApiResponse> {
+  // Coupon endpoints (authenticated for user-specific rules)
+  async validateCoupon(code: string, cartTotal: number, productIds?: number[], categoryIds?: number[]): Promise<ApiResponse> {
     return this.request('/store/coupons/validate', {
       method: 'POST',
-      body: JSON.stringify({ code, cart_total: cartTotal }),
-    });
+      body: JSON.stringify({
+        code,
+        cart_total: cartTotal,
+        product_ids: productIds || [],
+        category_ids: categoryIds || [],
+      }),
+    }, true); // Include auth for per-customer limits, first-purchase checks
   }
 
-  async getAutoApplyCoupons(cartTotal: number): Promise<ApiResponse> {
-    return this.request(`/store/coupons/auto-apply?cart_total=${cartTotal}`, {});
+  async getAutoApplyCoupons(cartTotal: number, productIds?: number[], categoryIds?: number[]): Promise<ApiResponse> {
+    const params = new URLSearchParams({ cart_total: String(cartTotal) });
+    if (productIds?.length) params.set('product_ids', productIds.join(','));
+    if (categoryIds?.length) params.set('category_ids', categoryIds.join(','));
+    return this.request(`/store/coupons/auto-apply?${params.toString()}`, {}, true);
   }
 
   // Thank-you product (public)
@@ -317,6 +350,27 @@ class ApiClient {
       method: 'POST',
       body: JSON.stringify({ product_id: productId }),
     });
+  }
+
+  // ==================== Tracking Scripts (Public) ====================
+
+  /**
+   * Get tracking scripts configuration (Facebook Pixel, GA, GTM)
+   * GET /website/tracking
+   */
+  async getTrackingSettings(): Promise<ApiResponse<{
+    facebook: {
+      pixelId: string | null;
+      pixelCode: string | null;
+    };
+    google: {
+      analyticsId: string | null;
+      analyticsCode: string | null;
+      tagManagerId: string | null;
+      tagManagerCode: string | null;
+    };
+  }>> {
+    return this.request('/website/tracking', {});
   }
 
   /**

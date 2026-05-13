@@ -307,11 +307,50 @@ function ProductDetailPageContent() {
     if (!apiProduct?.crossSaleProducts) return [];
     return apiProduct.crossSaleProducts.map((p) => ({
       id: p.id,
+      product_code: '',
+      name: p.title,
       title: p.title,
       slug: p.slug,
       image: p.thumbnail?.fullUrl || '',
+      featured_image: p.thumbnail?.fullUrl || '',
       price: p.retailOfferPrice || p.retailPrice,
+      actual_price: p.retailOfferPrice || p.retailPrice,
       originalPrice: p.retailPrice,
+      compare_at_price: p.retailPrice,
+      stock: 10,
+      inventory_quantity: 10,
+      inventory_policy: 'continue' as const,
+      has_variants: false,
+      status: 'active' as const,
+      brand: '',
+      category: '',
+      category_id: 0,
+      variant_count: 1,
+      is_trending: false,
+      view_count: 0,
+      weight: 0,
+      unit: 'pcs',
+      supplier_id: 0,
+      product_link: '',
+      tags: [],
+      gallery: [],
+      sku: '',
+      barcode: '',
+      hs_code: '',
+      seo_title: p.title,
+      seo_description: '',
+      search_keywords: [],
+      cost_rmb: 0,
+      exchange_rate: 0,
+      cost_bdt: 0,
+      default_price: p.retailPrice,
+      price_wholesale: p.retailPrice,
+      price_retail: p.retailPrice,
+      price_daraz: p.retailPrice,
+      description: '',
+      short_description: '',
+      created_at: '',
+      updated_at: '',
     }));
   }, [apiProduct]);
 
@@ -486,9 +525,6 @@ function ProductDetailPageContent() {
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
                 {localizedName}
               </h1>
-              {product.product_code && (
-                <p className="text-sm text-gray-500 mt-1">SKU: {product.product_code}</p>
-              )}
             </div>
 
             {/* Price & Stock */}
@@ -535,7 +571,7 @@ function ProductDetailPageContent() {
                     const isSelected = selectedVariant.id === variant.id;
                     const hasDiscount = variant.original_price > variant.retail_price;
                     const isOutOfStock = !variant.stock_info.in_stock;
-                    const hasImage = variant.image && typeof variant.image === 'string' && variant.image.trim() !== '';
+                    const hasImage = variant.image?.url && typeof variant.image.url === 'string' && variant.image.url.trim() !== '';
 
                     return (
                       <button
@@ -555,7 +591,7 @@ function ProductDetailPageContent() {
                         {hasImage && (
                           <div className={`w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 ${isSelected ? 'ring-2 ring-white/30' : ''}`}>
                             <img
-                              src={variant.image}
+                              src={variant.image.url}
                               alt={variant.name}
                               className="w-full h-full object-cover"
                             />
@@ -719,7 +755,7 @@ function ProductDetailPageContent() {
               )}
 
               {activeTab === 'reviews' && (
-                <ProductReviews productId={product.id} />
+                <ProductReviews productSlug={product.slug} productId={product.id} />
               )}
             </div>
           </div>
@@ -738,23 +774,7 @@ function ProductDetailPageContent() {
               {relatedProducts.map((relatedProduct) => (
                 <ProductCard
                   key={relatedProduct.id}
-                  product={{
-                    id: relatedProduct.id,
-                    name: relatedProduct.title,
-                    title: relatedProduct.title,
-                    slug: relatedProduct.slug,
-                    image: relatedProduct.image,
-                    featured_image: relatedProduct.image,
-                    price: relatedProduct.price,
-                    actual_price: relatedProduct.price,
-                    originalPrice: relatedProduct.originalPrice,
-                    compare_at_price: relatedProduct.originalPrice,
-                    stock: 10,
-                    inventory_quantity: 10,
-                    variant_count: 1,
-                    is_trending: false,
-                    view_count: 0,
-                  }}
+                  product={relatedProduct}
                 />
               ))}
             </div>

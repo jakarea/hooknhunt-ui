@@ -2,16 +2,72 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { notifications } from '@mantine/notifications'
-import { Loader2, ShoppingBag, CreditCard, ArrowLeft, AlertCircle, ExternalLink } from 'lucide-react'
+import toast from 'react-hot-toast'
 import Link from 'next/link'
 import type { SalesOrder } from '@/types/api'
+
+// SVG Icons
+function Loader2({ className }: { className?: string }) {
+  return (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+    </svg>
+  )
+}
+
+function AlertCircle({ className }: { className?: string }) {
+  return (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="12" />
+      <line x1="12" y1="16" x2="12.01" y2="16" />
+    </svg>
+  )
+}
+
+function CreditCard({ className }: { className?: string }) {
+  return (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="14" x="2" y="5" rx="2" />
+      <line x1="2" x2="22" y1="10" y2="10" />
+    </svg>
+  )
+}
+
+function ArrowLeft({ className }: { className?: string }) {
+  return (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m12 19-7-7 7m7-7V19" />
+    </svg>
+  )
+}
+
+function ExternalLink({ className }: { className?: string }) {
+  return (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" x2="21" y1="14" y2="3" />
+    </svg>
+  )
+}
+
+function ShoppingBag({ className }: { className?: string }) {
+  return (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <path d="M16 10a4 4 0 0 1-8 0" />
+    </svg>
+  )
+}
 
 export default function PaymentInitiationPage() {
   const params = useParams()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const orderId = params.orderId
+  // Handle the case where orderId could be string | string[] | undefined
+  const orderId = typeof params.orderId === 'string' ? params.orderId : Array.isArray(params.orderId) ? params.orderId[0] : null
 
   const [order, setOrder] = useState<SalesOrder | null>(null)
   const [loading, setLoading] = useState(true)
@@ -20,9 +76,14 @@ export default function PaymentInitiationPage() {
 
   // Fetch order details
   const fetchOrder = useCallback(async () => {
+    if (!orderId) {
+      router.push('/')
+      return
+    }
+
     try {
       const api = (await import('@/lib/api')).default
-      const response = await api.get(`/store/orders/${orderId}`)
+      const response = await api.getOrderByOrderNumber(orderId)
 
       if (response.data) {
         const orderData = response.data as SalesOrder
@@ -34,25 +95,11 @@ export default function PaymentInitiationPage() {
           return
         }
 
-        // Check if order is COD
-        // Note: payment_method is not in the transformOrder response, so we check paymentStatus
-        // For COD, paymentStatus would be 'unpaid' but user hasn't selected EPS
-        // We'll need to fetch order details differently or handle this on backend
-        // For now, proceed with payment page (COD orders shouldn't reach this page in normal flow)
-        if (orderData.paymentStatus === 'paid') {
-          router.push(`/order-success?invoice=${orderData.orderNumber}&payment=cod`)
-          return
-        }
-
         setOrder(orderData)
       }
     } catch (error) {
       console.error('Failed to fetch order:', error)
-      notifications.show({
-        title: 'Error',
-        message: 'Failed to load order details',
-        color: 'red',
-      })
+      toast.error('Failed to load order details')
       // Redirect to home after delay
       setTimeout(() => router.push('/'), 3000)
     } finally {
@@ -77,24 +124,23 @@ export default function PaymentInitiationPage() {
       const api = (await import('@/lib/api')).default
 
       // Initiate EPS payment
-      const response = await api.post(`/store/payments/eps/initiate`, {
+      const response = await api.initiateEpsPayment({
         sales_order_id: order.id,
         customer_name: order.customer?.name || '',
         customer_email: order.customer?.email || '',
         customer_phone: order.customer?.phone || '',
         customer_address: {
           address_line1: order.shipping?.address || '',
-          address_line2: '', // Not available in transformOrder
+          address_line2: '',
           city: order.shipping?.city || '',
-          postal_code: '', // Not available in transformOrder
+          postal_code: '',
           country: 'Bangladesh',
         },
-        payment_method: 'eps',
       })
 
-      if (response.data && response.data.gateway_url) {
-        const gatewayUrl = response.data.gateway_url
+      const gatewayUrl = (response.data as any)?.gateway_url as string | undefined
 
+      if (gatewayUrl) {
         // Open payment gateway in new tab
         const paymentWindow = window.open(gatewayUrl, '_blank', 'noopener,noreferrer,width=1000,height=800')
 
@@ -103,24 +149,16 @@ export default function PaymentInitiationPage() {
           setPaymentError('Popup was blocked. Please click the link below to open payment gateway.')
         } else {
           // Successfully opened - show notification
-          notifications.show({
-            title: 'Payment Gateway Opened',
-            message: 'Complete your payment in the new tab. You will be redirected here after payment.',
-            color: 'blue',
-          })
+          toast.success('Payment gateway opened. Complete your payment in the new tab.')
         }
       } else {
         throw new Error('Payment gateway URL not received')
       }
     } catch (error: any) {
       console.error('Payment initiation failed:', error)
-      const errorMessage = error?.response?.data?.error || error?.response?.data?.message || error?.message || 'Payment initiation failed'
+      const errorMessage = error?.message || 'Payment initiation failed'
       setPaymentError(errorMessage)
-      notifications.show({
-        title: 'Payment Error',
-        message: errorMessage,
-        color: 'red',
-      })
+      toast.error(errorMessage)
     } finally {
       setInitiating(false)
     }
@@ -185,7 +223,7 @@ export default function PaymentInitiationPage() {
             <div className="flex justify-between">
               <span className="text-gray-600">Total Amount</span>
               <span className="font-bold text-lg text-[#ec3137]">
-                ৳{order.totalAmount?.toFixed(2) || '0.00'} BDT
+                ৳{order.total?.toFixed(2) || '0.00'} BDT
               </span>
             </div>
           </div>
@@ -227,7 +265,7 @@ export default function PaymentInitiationPage() {
             ) : (
               <>
                 <ExternalLink className="h-5 w-5" />
-                <span>Pay Now ৳{order.totalAmount?.toFixed(2) || '0.00'} BDT</span>
+                <span>Pay Now ৳{order.total?.toFixed(2) || '0.00'} BDT</span>
               </>
             )}
           </button>

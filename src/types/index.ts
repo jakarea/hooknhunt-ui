@@ -67,6 +67,7 @@ export interface CartProduct {
   variant_id?: number;
   variant_name?: string;
   variant_image?: string; // Variant-specific image if different from main product image
+  category_id?: number | null; // Category for coupon validation
 }
 
 // ✅ Cart Item

@@ -272,6 +272,22 @@ export default function CheckoutPage() {
     });
   };
 
+  // Extract product IDs from cart for coupon validation
+  const getCartProductIds = (): number[] => {
+    return cartItems.map(item => item.product.id);
+  };
+
+  // Extract category IDs from cart for coupon validation
+  const getCartCategoryIds = (): number[] => {
+    const categoryIds = new Set<number>();
+    cartItems.forEach(item => {
+      if (item.product.category_id) {
+        categoryIds.add(item.product.category_id);
+      }
+    });
+    return Array.from(categoryIds);
+  };
+
   // Calculate delivery charge when division or cart changes
   useEffect(() => {
     if (formData.division) {
@@ -317,27 +333,33 @@ export default function CheckoutPage() {
     (freeShipping ? deliveryStore.charge : 0) +
     (deliveryStore.breakdown?.progressive_delivery?.discount_amount || 0);
 
-  // Fetch auto-apply coupons on mount
+  // Fetch auto-apply coupons on mount and when cart changes
   useEffect(() => {
     if (subtotal > 0) {
-      couponStore.fetchAutoApplyCoupons(subtotal);
+      const productIds = getCartProductIds();
+      const categoryIds = getCartCategoryIds();
+      couponStore.fetchAutoApplyCoupons(subtotal, productIds, categoryIds);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [cartItems]);
 
-  // Re-validate coupon when cart total changes
+  // Re-validate coupon when cart total or products change
   useEffect(() => {
     if (couponStore.appliedCoupon && subtotal > 0) {
-      couponStore.validateAndApply(couponStore.appliedCoupon.code, subtotal);
+      const productIds = getCartProductIds();
+      const categoryIds = getCartCategoryIds();
+      couponStore.validateAndApply(couponStore.appliedCoupon.code, subtotal, productIds, categoryIds);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subtotal]);
+  }, [subtotal, cartItems]);
 
   // Apply coupon via store
   const handleApplyCoupon = async () => {
     const trimmedCode = couponCode.trim().toUpperCase();
     if (!trimmedCode) return;
-    const success = await couponStore.validateAndApply(trimmedCode, subtotal);
+    const productIds = getCartProductIds();
+    const categoryIds = getCartCategoryIds();
+    const success = await couponStore.validateAndApply(trimmedCode, subtotal, productIds, categoryIds);
     if (success) {
       setCouponCode('');
     }
@@ -1208,7 +1230,7 @@ export default function CheckoutPage() {
                             </p>
                             <p className="text-xs text-green-700 dark:text-green-300">
                               {appliedCoupon.type === 'percentage' && `${appliedCoupon.value}${t('checkout.percentageDiscount')}`}
-                              {appliedCoupon.type === 'fixed' && `৳${appliedCoupon.discountAmount}${t('checkout.fixedDiscount')}`}
+                              {appliedCoupon.type === 'fixed_amount' && `৳${appliedCoupon.discountAmount}${t('checkout.fixedDiscount')}`}
                               {appliedCoupon.type === 'shipping' && t('checkout.freeShippingApplied')}
                             </p>
                           </div>

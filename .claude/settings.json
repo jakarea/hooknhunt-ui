@@ -49,7 +49,23 @@
       "Bash(git rm *)",
       "Bash(git add *)",
       "Bash(git push *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(xargs ls -la)",
+      "Bash(mysql -u root -e\"USE hooknhunt_db; SHOW TABLES LIKE '%affiliate%';\")",
+      "Bash(mysql -u root -proot hooknhunt_laravel -e \"SHOW TABLES LIKE '%affiliate%';\")",
+      "Bash(mkdir -p /Users/jakareaparvez/Sites/hooknhunt-api/resources/js/app/admin/marketing/affiliates/[id])",
+      "Bash(mkdir -p \"/Users/jakareaparvez/Sites/hooknhunt-api/resources/js/app/admin/marketing/affiliates/[id]\")",
+      "Bash(grep -n \"color-\\\\${\\\\${\" \"/Users/jakareaparvez/Sites/hooknhunt-api/resources/js/app/admin/marketing/affiliates/[id]/page.tsx\")",
+      "Bash(grep -E \"\\\\.\\(tsx?|jsx?\\)$\")",
+      "Bash(mysql -u root -proot hooknhunt -e \"SHOW TABLES LIKE 'affiliate%';\")",
+      "Bash(php /Users/jakareaparvez/Sites/hooknhunt-api/artisan tinker '--execute=echo $user = new \\\\App\\\\Models\\\\User\\(\\); echo $user->getTable\\(\\) . PHP_EOL; $columns = \\\\Schema::getColumnListing\\('\\\\''users'\\\\''\\); print_r\\($columns\\);')",
+      "Bash(php -l /Users/jakareaparvez/Sites/hooknhunt-api/app/Http/Controllers/Api/V2/Admin/CategoryCommissionController.php)",
+      "Bash(grep -n 'protected $fillable\\\\|phone\\\\|mobile' /Users/jakareaparvez/Sites/hooknhunt-api/app/Models/User.php)",
+      "Bash(awk -F: '$1 < 690 && $1 > 680 {print}')",
+      "Bash(grep -n \"Modal Backdrop\\\\|}\\\\$}\" /Users/jakareaparvez/Sites/hooknhunt-api/resources/js/app/admin/marketing/affiliates/page.tsx)",
+      "Bash(pkill -f \"vite\")",
+      "Bash(grep -n 'protected $fillable\\\\|price' /Users/jakareaparvez/Sites/hooknhunt-api/app/Models/ProductVariant.php)",
+      "Bash(awk 'NR>=230 && NR<=260' src/lib/api.ts)"
     ],
     "additionalDirectories": [
       "/Users/jakareaparvez/Sites/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website",
@@ -61,7 +77,8 @@
       "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2",
       "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Services",
       "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/database/migrations",
-      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Models"
+      "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Models",
+      "/Users/jakareaparvez/Sites/hooknhunt-api/resources/js/app/admin/marketing/affiliates"
     ]
   }
 }

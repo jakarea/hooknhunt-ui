@@ -1,35 +1,47 @@
 'use client'
 
 import { useEffect } from 'react'
+import api from '@/lib/api'
 
 interface TrackingData {
   facebook: {
-    pixelId: string | null
-    pixelCode: string | null
+    pixelId?: string | null
+    pixelCode?: string | null
   }
   google: {
-    analyticsId: string | null
-    analyticsCode: string | null
-    tagManagerId: string | null
-    tagManagerCode: string | null
+    analyticsId?: string | null
+    analyticsCode?: string | null
+    tagManagerId?: string | null
+    tagManagerCode?: string | null
   }
+}
+
+interface ApiResponse {
+  success: boolean
+  data: TrackingData
 }
 
 export default function TrackingScripts() {
   useEffect(() => {
+    console.log('🚀 TrackingScripts component mounted')
     let mounted = true
 
     const injectTrackingScripts = async () => {
+      console.log('📡 Fetching tracking settings...')
       try {
-        // Fetch tracking codes from API
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://probesh.hooknhunt.com/api/v2'
-        const response = await fetch(`${apiUrl}/website/tracking`)
-        if (!response.ok) return
+        // Fetch tracking codes from API using API client
+        const response = await api.getTrackingSettings() as ApiResponse
 
-        const result = await response.json()
-        if (!result.success || !result.data) return
+        console.log('🔍 Tracking API Response:', response)
 
-        const data: TrackingData = result.data
+        if (!response.success || !response.data) {
+          console.warn('⚠️ API response missing success or data field')
+          return
+        }
+
+        const data = response.data
+
+        console.log('📊 Tracking data:', data)
 
         if (!mounted) return
 
@@ -40,8 +52,9 @@ export default function TrackingScripts() {
 
         // Priority: Custom code > ID
         if (pixelCode && pixelCode.trim()) {
-          // Use custom code
-          injectScriptToHead(pixelCode.trim(), 'facebook-pixel-custom')
+          // Use custom HTML code (contains <script> tags)
+          console.log('📘 Facebook Pixel Code (raw):', pixelCode)
+          injectHtmlScript(pixelCode, 'facebook-pixel-custom')
         } else if (pixelId && pixelId.trim()) {
           // Generate standard Facebook Pixel script
           const standardPixelScript = `
@@ -67,8 +80,8 @@ export default function TrackingScripts() {
 
         // Priority: Custom code > ID
         if (analyticsCode && analyticsCode.trim()) {
-          // Use custom code
-          injectScriptToHead(analyticsCode.trim(), 'google-analytics-custom', true)
+          // Use custom code (may contain HTML)
+          injectHtmlScript(analyticsCode.trim(), 'google-analytics-custom')
         } else if (analyticsId && analyticsId.trim()) {
           // Generate standard GA4 script
           const gaScript1 = document.createElement('script')
@@ -95,14 +108,8 @@ export default function TrackingScripts() {
 
         // Priority: Custom code > ID
         if (tagManagerCode && tagManagerCode.trim()) {
-          // Use custom code
-          const parts = tagManagerCode.trim().split(/<noscript>|<\/noscript>/i)
-          if (parts[0]) {
-            injectScriptToHead(parts[0].trim(), 'gtm-custom-script')
-          }
-          if (parts[1]) {
-            injectNoscriptToBody(parts[1].trim(), 'gtm-custom-noscript')
-          }
+          // Use custom HTML code (may contain <script> and <noscript> tags)
+          injectHtmlScript(tagManagerCode.trim(), 'gtm-custom')
         } else if (tagManagerId && tagManagerId.trim()) {
           // Generate standard GTM script
           const gtmScript = document.createElement('script')
@@ -133,7 +140,71 @@ export default function TrackingScripts() {
     }
   }, [])
 
-  // Helper: Inject script to head
+  // Helper: Decode HTML entities (handles double-encoded entities from backend)
+  const decodeHtmlEntities = (html: string): string => {
+    // Decode twice because backend stores double-encoded entities (&amp;lt; → &lt; → <)
+    let decoded = html
+    for (let i = 0; i < 2; i++) {
+      const textarea = document.createElement('textarea')
+      textarea.innerHTML = decoded
+      decoded = textarea.value
+    }
+    return decoded
+  }
+
+  // Helper: Inject HTML-containing script code (extracts JS from <script> tags)
+  const injectHtmlScript = (htmlContent: string, id: string) => {
+    if (document.getElementById(id)) {
+      console.log(`⚠️ Script ${id} already exists, skipping`)
+      return
+    }
+
+    console.log(`🔧 Injecting ${id}...`)
+
+    // Decode HTML entities
+    const decoded = decodeHtmlEntities(htmlContent)
+    console.log(`📝 Decoded HTML for ${id}:`, decoded)
+
+    // Create a temporary div to parse the HTML
+    const temp = document.createElement('div')
+    temp.innerHTML = decoded
+
+    // Extract and execute any script tags
+    const scripts = temp.querySelectorAll('script')
+    console.log(`🎯 Found ${scripts.length} script tags in ${id}`)
+
+    scripts.forEach((originalScript, index) => {
+      const newScript = document.createElement('script')
+      newScript.id = `${id}-${index}`
+
+      // Copy all attributes
+      Array.from(originalScript.attributes).forEach(attr => {
+        if (attr.name !== 'id') {
+          newScript.setAttribute(attr.name, attr.value)
+        }
+      })
+
+      // Copy the script content
+      if (originalScript.textContent) {
+        newScript.textContent = originalScript.textContent
+      }
+
+      document.head.appendChild(newScript)
+      console.log(`✅ Injected script: ${newScript.id}`)
+    })
+
+    // Handle noscript tags (add to body)
+    const noscripts = temp.querySelectorAll('noscript')
+    console.log(`🎯 Found ${noscripts.length} noscript tags in ${id}`)
+
+    noscripts.forEach((noscript, index) => {
+      if (noscript.textContent) {
+        injectNoscriptToBody(noscript.textContent, `${id}-noscript-${index}`)
+      }
+    })
+  }
+
+  // Helper: Inject script to head (for direct JS code)
   const injectScriptToHead = (content: string, id: string, isRawText = false) => {
     if (document.getElementById(id)) return // Already injected
 
@@ -146,7 +217,7 @@ export default function TrackingScripts() {
       script.text = content
     }
 
-    // document.head.appendChild(script)
+    document.head.appendChild(script)
   }
 
   // Helper: Inject noscript to body

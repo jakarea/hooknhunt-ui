@@ -25,6 +25,28 @@ export interface OrderResponse {
   };
 }
 
+// Sales Order Type for checkout
+export interface SalesOrder {
+  id: number;
+  orderNumber: string;
+  paymentStatus: string;
+  status: string;
+  total: number;
+  subtotal: number;
+  deliveryCharge: number;
+  customer?: {
+    id: number;
+    name: string;
+    email?: string;
+    phone: string;
+  };
+  shipping?: {
+    address: string;
+    city: string;
+    district?: string;
+  };
+}
+
 export interface ApiResponse<T = unknown> {
   data?: T;
   message?: string;

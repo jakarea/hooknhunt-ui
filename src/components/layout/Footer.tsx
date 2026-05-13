@@ -39,12 +39,12 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-black text-white transition-colors duration-200">
+    <footer className="bg-black text-white transition-colors duration-200" suppressHydrationWarning>
       {/* Main Footer Content */}
-      <div className="max-w-[1192px] mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div className="max-w-[1192px] mx-auto px-4 py-12" suppressHydrationWarning>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12" suppressHydrationWarning>
           {/* Company Info */}
-          <div className="col-span-1">
+          <div className="col-span-1" suppressHydrationWarning>
             <Link href="/" className="inline-block mb-5">
              <Image
                   src="/hook-and-hunt-logo.svg"
@@ -57,7 +57,7 @@ export default function Footer() {
             <p className="text-[17px] text-white/80 mb-4 leading-relaxed">
               {t('footer.description')}
             </p>
-            <div className="flex items-center gap-3 mt-6">
+            <div className="flex items-center gap-3 mt-6" suppressHydrationWarning>
               <a
                 href="https://facebook.com"
                 target="_blank"
@@ -92,7 +92,7 @@ export default function Footer() {
           </div>
 
           {/* Product Categories */}
-          <div>
+          <div suppressHydrationWarning>
             <h3 className="text-white font-bold text-[17px] mb-5">{t('footer.categories')}</h3>
             {loading ? (
               <div className="space-y-3">
@@ -118,7 +118,7 @@ export default function Footer() {
           </div>
 
           {/* Customer Service */}
-          <div>
+          <div suppressHydrationWarning>
             <h3 className="text-white font-bold text-[17px] mb-5">{t('footer.customerService')}</h3>
             <ul className="space-y-3">
               <li>
@@ -155,7 +155,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div>
+          <div suppressHydrationWarning>
             <h3 className="text-white font-bold text-[17px] mb-5">{t('footer.getInTouch')}</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
@@ -202,9 +202,9 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10">
-        <div className="max-w-[1192px] mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+      <div className="border-t border-white/10" suppressHydrationWarning>
+        <div className="max-w-[1192px] mx-auto px-4 py-6" suppressHydrationWarning>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4" suppressHydrationWarning>
             <p className="text-[17px] text-white/70">
               &copy; {t('footer.copyright')}
             </p>
