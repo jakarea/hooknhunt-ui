@@ -420,7 +420,7 @@ function ProductDetailPageContent() {
           {/* Product Images */}
           <div className="space-y-4 min-w-0">
             {/* Main Image */}
-            <div className="relative bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-lg aspect-square">
+            <div className="relative bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-lg h-64 sm:h-auto sm:aspect-square">
               {product.gallery_images[selectedImageIndex] ? (
                 <Image
                   src={product.gallery_images[selectedImageIndex]}
@@ -484,10 +484,10 @@ function ProductDetailPageContent() {
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6 min-w-0 overflow-x-hidden">
+          <div className="space-y-2 sm:space-y-6 min-w-0 overflow-x-hidden">
             {/* Title */}
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
                 {localizedName}
               </h1>
             </div>
@@ -517,14 +517,14 @@ function ProductDetailPageContent() {
             {/* Variant Selection */}
             {product.variants.length > 1 && (
               <div className="space-y-3 overflow-x-hidden">
-                <label className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                <label className="hidden sm:flex text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider items-center gap-2">
                   <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                   </svg>
                   {t('selectVariant')}
                 </label>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-3 gap-1 sm:gap-2">
                   {product.variants.map((variant) => {
                     const isSelected = selectedVariant.id === variant.id;
                     const hasDiscount = variant.original_price > variant.retail_price;
@@ -537,7 +537,7 @@ function ProductDetailPageContent() {
                         onClick={() => !isOutOfStock && setSelectedVariant(variant)}
                         disabled={isOutOfStock}
                         className={`
-                          relative group flex items-center gap-2 px-2 py-2 rounded-xl border-2 transition-all duration-200
+                          relative group flex items-center gap-2 px-1.5 py-1.5 sm:px-2 sm:py-2 rounded-xl border-2 transition-all duration-200 text-left
                           ${isSelected
                             ? 'border-[#bc1215] bg-gradient-to-r from-[#bc1215] to-[#8a0e10] text-white shadow-md'
                             : 'border-gray-200 dark:border-gray-700 hover:border-[#bc1215]/30 text-gray-700 dark:text-gray-300'
@@ -569,9 +569,9 @@ function ProductDetailPageContent() {
                           </span>
                         </div>
 
-                        {/* Discount Badge */}
+                        {/* Discount Badge - Desktop only */}
                         {hasDiscount && (
-                          <span className="px-1.5 py-0.5 bg-amber-500 text-white text-[9px] font-bold rounded ml-auto">
+                          <span className="hidden sm:block px-1.5 py-0.5 bg-amber-500 text-white text-[9px] font-bold rounded ml-auto">
                             -{Math.round(((variant.original_price - variant.retail_price) / variant.original_price) * 100)}%
                           </span>
                         )}
@@ -586,28 +586,6 @@ function ProductDetailPageContent() {
                     );
                   })}
                 </div>
-              </div>
-            )}
-
-            {/* Product Highlights */}
-            {localizedHighlights && localizedHighlights.length > 0 && (
-              <div className="bg-gradient-to-br from-[#bc1215]/5 to-[#8a0e10]/5 border border-[#bc1215]/20 rounded-2xl p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">{t('keyFeatures')}</h3>
-                </div>
-                <ul className="space-y-2">
-                  {localizedHighlights.map((highlight, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <svg className="w-4 h-4 text-[#bc1215] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             )}
 
@@ -658,10 +636,32 @@ function ProductDetailPageContent() {
                 className="w-full flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.505-.827-.505-.308 0-.67.015-.973.015-.3 0-.79.114-1.204.57-.414.457-1.578 1.543-1.578 3.766 0 2.224 1.62 4.372 1.844 4.673.225.3 3.182 4.86 7.71 6.804 1.077.466 1.92.674 2.574.567.712-.103 2.204-.9 2.514-1.769.31-.869.31-1.614.217-1.769-.093-.155-.34-.249-.67-.445zM12.042 22C6.478 22 2 17.522 2 12S6.478 2 12.042 2C17.566 2 22 6.478 22 12s-4.434 10-9.958 10z" />
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
                 <span>{t('orderViaWhatsApp')}</span>
               </a>
+
+              {/* Product Highlights */}
+              {localizedHighlights && localizedHighlights.length > 0 && (
+                <div className="bg-gradient-to-br from-[#bc1215]/5 to-[#8a0e10]/5 border border-[#bc1215]/20 rounded-2xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">{t('keyFeatures')}</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {localizedHighlights.map((highlight, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <svg className="w-4 h-4 text-[#bc1215] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
