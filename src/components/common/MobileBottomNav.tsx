@@ -81,7 +81,8 @@ export default function MobileBottomNav() {
 
   if (!mounted) return null;
 
-  const isActive = (href: string) => {
+  const isActive = (href: string | undefined) => {
+    if (!href) return false;
     if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };
@@ -124,7 +125,7 @@ export default function MobileBottomNav() {
               return (
                 <a
                   key={item.href}
-                  href={item.href}
+                  href={item.href as string}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="
@@ -150,7 +151,7 @@ export default function MobileBottomNav() {
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={item.href as string}
                 className={`
                   relative flex flex-col items-center justify-center
                   min-w-[64px] min-h-[56px] px-2 py-1

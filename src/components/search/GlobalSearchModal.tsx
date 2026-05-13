@@ -53,16 +53,16 @@ export default function GlobalSearchModal() {
             per_page: 8
           });
 
-          // Handle different response formats
-          let products = response.data?.data || response.data || [];
+          // Handle different response formats - cast response.data to any
+          const responseData = (response.data as any)?.data || (response.data as any) || [];
 
           // If it's an array, use it directly
-          if (Array.isArray(products)) {
-            setSuggestions(products.map((p: any) => ({
+          if (Array.isArray(responseData)) {
+            setSuggestions(responseData.map((p: any) => ({
               id: p.id,
               name: p.name || p.title,
               slug: p.slug,
-              image: p.image || p.featured_image || p.thumbnail,
+              image: p.image || p.featured_image || p.thumbnail || null,
               category: p.category_name || null,
               price: p.price || p.actual_price || p.retail_price || null
             })));
