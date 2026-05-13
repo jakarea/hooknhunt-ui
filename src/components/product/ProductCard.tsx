@@ -97,7 +97,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className="group bg-white border hover:shadow-xl border-[#ffa2a2]  hover:border-[#ec3137]/30 transition-all duration-300 overflow-hidden h-full flex flex-col relative p-2 lg:p-3 rounded-none">
       <Link href={`/products/${product.slug}`} className="flex flex-col h-full">
         {/* Product Image */}
-        <div className="relative overflow-hidden aspect-square p-2 flex-shrink-0 rounded-[8px] bg-[#ffa2a2]">
+        <div className="relative overflow-hidden aspect-square p-2 flex-shrink-0 rounded-[8px]">
           {image ? (
             <Image
               src={image}
@@ -124,32 +124,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
 
-                                      {/* Badge Stack - Top Right */}
-          <div className="inline-flex flex-col gap-1.5 items-start absolute top-2 left-2">
-            {/* Wishlist Heart Button */}
-            <button
-              onClick={handleWishlistToggle}
-              className={`absolute -top-1 -right-1 p-2 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 z-10 ${
-                productInWishlist
-                  ? 'bg-white/90 text-red-500 scale-110'
-                  : 'bg-white/70 text-gray-400 hover:text-red-500 hover:scale-110 hover:bg-white/90'
-              } ${wishlistAnimating ? 'scale-125' : ''}`}
-              aria-label={productInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
-            >
-              <svg
-                className={`w-5 h-5 transition-all duration-300 ${productInWishlist ? 'fill-current' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={productInWishlist ? 0 : 2}
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </button>
+          {/* Badge Stack - Top Left */}
+          <div className="flex flex-col gap-1.5 items-start absolute top-2 left-2">
             {/* Trending Badge */}
             {product.is_trending && (
               <div className="flex items-center gap-1 bg-[#bc1215] text-white px-2.5 py-0.5 text-[10px] sm:text-xs font-bold rounded-full shadow-md animate-pulse">
@@ -166,37 +142,32 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
 
-          {/* Badge Stack - Top Left */}
-          <div className="absolute top-2 left-2 flex flex-col gap-1.5 items-start">
-            {/* Low Stock Warning */}
-            {stock > 0 && stock <= 5 && (
-              <div className="flex items-center gap-1 bg-red-500 text-white px-2 py-1 text-[10px] sm:text-xs font-bold rounded-lg shadow-md">
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                <span>{t('productCard.onlyLeft', { count: stock })}</span>
-              </div>
-            )}
+          {/* Wishlist Heart Button - Top Right */}
+          <button
+            onClick={handleWishlistToggle}
+            className={`absolute top-2 right-2 p-2.5 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 z-10 ${
+              productInWishlist
+                ? 'bg-white/90 text-red-500 scale-110'
+                : 'bg-white/70 text-gray-400 hover:text-red-500 hover:scale-110 hover:bg-white/90'
+            } ${wishlistAnimating ? 'scale-125' : ''}`}
+            aria-label={productInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+          >
+            <svg
+              className={`w-5 h-5 transition-all duration-300 ${productInWishlist ? 'fill-current' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={productInWishlist ? 0 : 2}
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
+            </svg>
+          </button>
 
-            {/* Stock Warning (6-9 items) */}
-            {stock > 5 && stock < 10 && (
-              <div className="flex items-center gap-1 bg-orange-500 text-white px-2 py-1 text-[10px] sm:text-xs font-semibold rounded-lg shadow-md">
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>{t('productCard.stockWarning', { count: stock })}</span>
-              </div>
-            )}
-          </div>
 
-          {/* Out of Stock */}
-          {stock === 0 && (
-            <div className="absolute inset-0 bg-black/70 flex items-center justify-center backdrop-blur-sm">
-              <span className="bg-white text-gray-900 px-4 sm:px-5 py-2 sm:py-2.5 font-bold text-xs sm:text-sm rounded-lg shadow-lg">
-                {t('productCard.outOfStock')}
-              </span>
-            </div>
-          )}
 
           {/* View Count - Social Proof */}
           {(product.view_count ?? 0) > 0 && (
@@ -216,7 +187,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-semibold text-black line-clamp-2 text-body-sm group-hover:text-[#bc1215] transition-colors min-h-[2.5rem] block mb-2">
             {name}
           </h3>
-          
+
 
           {/* Price or Price Range */}
           <div className="mb-1 lg:mb-2 flex-1">
@@ -252,65 +223,63 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
 
-          
+          {/* Bottom Button - Add to Cart for single variant, View Details for multiple variants */}
+          {!mounted ? (
+            <div className="mt-2 flex-shrink-0">
+              <div className="w-full py-2.5 bg-gray-200 animate-pulse rounded-lg"></div>
+            </div>
+          ) : variant_count > 1 ? (
+            <div className="mt-2 flex-shrink-0">
+              <div className="w-full py-2.5 bg-[#bc1215] hover:bg-[#8a0e10] text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg cursor-pointer">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                {t('productCard.viewDetails')}
+              </div>
+            </div>
+          ) : productInCart ? (
+            <div className="mt-2 flex-shrink-0">
+              <button
+                onClick={handleViewCart}
+                className="w-full py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                {t('productCard.viewCart')}
+              </button>
+            </div>
+          ) : (
+            <div className="mt-2 flex-shrink-0">
+              <button
+                onClick={handleAddToCart}
+                disabled={stock === 0 || price <= 0}
+                className={`w-full py-2.5 bg-[#bc1215] hover:bg-[#8a0e10] text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg disabled:opacity-50 disabled:cursor-not-allowed ${isAdding ? 'scale-95' : ''}`}
+              >
+                {isAdding ? (
+                  <>
+                    <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path className="opacity-25" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2v4m0 12h.01M20 12a8 8 0 11-16 0 8 8 0 0116 0z" />
+                      <path className="opacity-75" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 12a8 8 0 018 0" />
+                    </svg>
+                    {t('productCard.adding')}
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    {t('productCard.addToCart')}
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+
+
         </div>
       </Link>
-
-      {/* Button Logic */}
-      <div className="mt-2 flex-shrink-0">
-        {!mounted ? (
-          // Loading skeleton to prevent hydration mismatch
-          <div className="w-full py-2.5 bg-[#bc1215] animate-pulse rounded"></div>
-        ) : productInCart ? (
-          <button
-            onClick={handleViewCart}
-            className="w-full py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            {t('productCard.viewCart')}
-          </button>
-        ) : (variant_count > 1) ? (
-          // Multiple variants - show "View Details" button
-          <Link href={`/products/${product.slug}`} className="w-full py-2.5 bg-[#bc1215] text-white font-semibold text-xs transition-all duration-300 flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg">
-            {/* <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg> */}
-            {t('productCard.viewDetails')}
-          </Link>
-        ) : (
-          // Single variant or no variants - show "Add to Cart" button
-          <button
-            onClick={handleAddToCart}
-            disabled={stock === 0 || price <= 0}
-            className={`w-full py-2.5 bg-[#bc1215] hover:bg-[#8a0e10] text-white font-semibold text-xs transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transform hover:scale-[1.02] rounded-lg ${isAdding ? 'scale-95 bg-[#8a0e10]' : ''
-              }`}
-          >
-            {/* <svg
-              className={`w-4 h-4 transition-transform duration-300 ${isAdding ? 'scale-125 rotate-12' : ''
-                }`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg> */}
-            {stock === 0 ? t('productCard.outOfStockButton') : price <= 0 ? t('productCard.unavailable') : t('productCard.addToCart')}
-          </button>
-        )}
-      </div>
     </div>
   );
 }

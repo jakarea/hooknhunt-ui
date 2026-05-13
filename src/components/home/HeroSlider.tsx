@@ -29,7 +29,7 @@ export default function HeroSlider() {
     return (
       <section className="w-full relative">
         <div className="container mx-auto overflow-hidden">
-          <div className="relative h-[300px] md:h-[360px] lg:h-[400px] w-full bg-gray-200 animate-pulse" />
+          <div className="relative h-[219px] md:h-[360px] lg:h-[400px] w-full bg-gray-200 animate-pulse" />
         </div>
       </section>
     );
@@ -42,7 +42,7 @@ export default function HeroSlider() {
   return (
     <section className="w-full relative">
       <div className="container mx-auto overflow-hidden">
-        <div className="relative h-[300px] md:h-[360px] lg:h-[400px] w-full bg-[#ccc]">
+        <div className="relative h-[219px] md:h-[360px] lg:h-[400px] w-full bg-[#ccc]">
           {/* Slides */}
           {sliders.map((slide, index) => (
             <div
@@ -60,14 +60,16 @@ export default function HeroSlider() {
               ) : slide.video_url ? (
                 <div className="absolute inset-0 w-full h-full overflow-hidden bg-black pointer-events-none">
                   {slide.video_url.includes('youtube.com') || slide.video_url.includes('youtu.be') ? (
-                    <iframe
-                      src={slide.video_url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/') + '?autoplay=1&mute=1&loop=1&playlist=' + (slide.video_url.split('v=')[1]?.split('&')[0] || '') + '&enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&playsinline=1'}
-                      title={slide.title}
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full pointer-events-none"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+                    <div className="absolute inset-0 pointer-events-none">
+                      <iframe
+                        src={slide.video_url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/') + '?autoplay=1&mute=1&loop=1&playlist=' + (slide.video_url.split('v=')[1]?.split('&')[0] || '') + '&enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&playsinline=1&html5=1&widgetid=1'}
+                        title={slide.title}
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full"
+                        style={{ pointerEvents: 'none' }}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      />
+                    </div>
                   ) : (
                     <video
                       src={slide.video_url}
@@ -143,21 +145,23 @@ export default function HeroSlider() {
             </div>
           ))}
 
-          {/* Dots Navigation */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-            {sliders.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  index === currentSlide
-                    ? 'bg-white w-8'
-                    : 'bg-white/50 hover:bg-white/70'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {/* Dots Navigation - Only for image slides */}
+          {!sliders[currentSlide]?.video_url && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+              {sliders.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    index === currentSlide
+                      ? 'bg-white w-8'
+                      : 'bg-white/50 hover:bg-white/70'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

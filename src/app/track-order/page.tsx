@@ -19,7 +19,7 @@ export default function TrackOrderPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] py-12 sm:py-16">
-      <div className="container">
+      <div className="container px-3 md:px-4">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">

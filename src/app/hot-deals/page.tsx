@@ -32,7 +32,7 @@ export default function HotDealsPage() {
   return (
     <div className="min-h-screen bg-[#fee1e1]">
       {/* Products Grid */}
-      <div className="container py-12 sm:py-16">
+      <div className="container px-3 md:px-4 py-12 sm:py-16">
         {/* Page Header */}
         <div className="mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">

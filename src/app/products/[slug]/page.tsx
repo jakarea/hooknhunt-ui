@@ -283,7 +283,6 @@ function ProductDetailPageContent() {
   const discount = originalPrice > currentPrice ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100) : 0;
   const stock = selectedVariant?.stock_info.available || 0;
   const inStock = selectedVariant?.stock_info.in_stock || false;
-  const lowStock = selectedVariant?.stock_info.low_stock || false;
 
   const handleAddToCart = () => {
     if (!product || !selectedVariant) return;
@@ -388,10 +387,10 @@ function ProductDetailPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fee1e1]">
+    <div className="min-h-screen bg-[#fee1e1] overflow-x-hidden">
       {/* Breadcrumb */}
-      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-800/50">
-        <div className="container py-3">
+      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-800/50 overflow-x-hidden">
+        <div className="container px-3 md:px-4 py-3">
           <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
             <Link href="/" className="hover:text-[#bc1215] transition-colors">Home</Link>
             <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -416,12 +415,12 @@ function ProductDetailPageContent() {
         </div>
       </div>
 
-      <div className="container py-6 sm:py-8">
+      <div className="container px-3 md:px-4 py-6 sm:py-8 max-w-full overflow-x-hidden">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Images */}
-          <div className="space-y-4">
+          <div className="space-y-4 min-w-0">
             {/* Main Image */}
-            <div className="relative bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-lg aspect-square">
+            <div className="relative bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-lg h-64 sm:h-auto sm:aspect-square">
               {product.gallery_images[selectedImageIndex] ? (
                 <Image
                   src={product.gallery_images[selectedImageIndex]}
@@ -446,31 +445,21 @@ function ProductDetailPageContent() {
                 </div>
               )}
 
-              {/* Low Stock Badge */}
-              {lowStock && inStock && (
-                <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1.5 rounded-full text-sm font-semibold shadow-lg flex items-center gap-1">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Only {stock} left
-                </div>
-              )}
             </div>
 
             {/* Thumbnail Gallery - Slider */}
             {product.gallery_images.length > 1 && (
-              <div className="relative group">
+              <div className="relative group overflow-hidden">
                 {/* Thumbnails Container */}
-                <div className="overflow-hidden">
+                <div className="overflow-x-auto overflow-y-hidden scrollbar-hide">
                   <div
-                    className="flex gap-1 transition-transform duration-300 ease-out"
-                    style={{ transform: `translateX(-${thumbnailOffset * (100 / 6)}%)` }}
+                    className="flex gap-1.5"
                   >
                     {product.gallery_images.map((img, index) => (
                       <button
                         key={index}
                         onClick={() => setSelectedImageIndex(index)}
-                        className={`relative aspect-square rounded-xl overflow-hidden border-2 flex-shrink-0 w-[calc((100%-10px)/6)] transition-all ${
+                        className={`relative aspect-square rounded-xl overflow-hidden border-2 flex-shrink-0 w-16 transition-all ${
                           selectedImageIndex === index
                             ? 'border-[#bc1215] ring-2 ring-[#bc1215]/20'
                             : 'border-transparent hover:border-gray-300'
@@ -490,39 +479,15 @@ function ProductDetailPageContent() {
                     ))}
                   </div>
                 </div>
-
-                {/* Left Arrow - Show on Hover */}
-                {thumbnailOffset > 0 && (
-                  <button
-                    onClick={() => setThumbnailOffset(Math.max(0, thumbnailOffset - 6))}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -translate-x-full p-2 bg-white dark:bg-[#0a0a0a] rounded-lg shadow-lg hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700 opacity-0 group-hover:opacity-100"
-                  >
-                    <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                )}
-
-                {/* Right Arrow - Show on Hover */}
-                {thumbnailOffset + 6 < product.gallery_images.length && (
-                  <button
-                    onClick={() => setThumbnailOffset(Math.min(product.gallery_images.length - 6, thumbnailOffset + 6))}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 translate-x-full p-2 bg-white dark:bg-[#0a0a0a] rounded-lg shadow-lg hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700 opacity-0 group-hover:opacity-100"
-                  >
-                    <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                )}
               </div>
             )}
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <div className="space-y-2 sm:space-y-6 min-w-0 overflow-x-hidden">
             {/* Title */}
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
                 {localizedName}
               </h1>
             </div>
@@ -540,13 +505,6 @@ function ProductDetailPageContent() {
                 )}
               </div>
 
-              {/* Stock Status */}
-              <div className="flex items-center gap-2">
-                <div className={`w-2.5 h-2.5 rounded-full ${inStock ? 'bg-green-500' : 'bg-red-500'}`} />
-                <span className={`text-sm font-medium ${inStock ? 'text-green-600' : 'text-red-600'}`}>
-                  {inStock ? (lowStock ? `Low Stock (${stock})` : 'In Stock') : 'Out of Stock'}
-                </span>
-              </div>
             </div>
 
             {/* Short Description */}
@@ -558,15 +516,15 @@ function ProductDetailPageContent() {
 
             {/* Variant Selection */}
             {product.variants.length > 1 && (
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+              <div className="space-y-3 overflow-x-hidden">
+                <label className="hidden sm:flex text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider items-center gap-2">
                   <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                   </svg>
                   {t('selectVariant')}
                 </label>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-3 gap-1 sm:gap-2">
                   {product.variants.map((variant) => {
                     const isSelected = selectedVariant.id === variant.id;
                     const hasDiscount = variant.original_price > variant.retail_price;
@@ -579,7 +537,7 @@ function ProductDetailPageContent() {
                         onClick={() => !isOutOfStock && setSelectedVariant(variant)}
                         disabled={isOutOfStock}
                         className={`
-                          relative group flex items-center gap-2 px-2 py-2 rounded-xl border-2 transition-all duration-200
+                          relative group flex items-center gap-2 px-1.5 py-1.5 sm:px-2 sm:py-2 rounded-xl border-2 transition-all duration-200 text-left
                           ${isSelected
                             ? 'border-[#bc1215] bg-gradient-to-r from-[#bc1215] to-[#8a0e10] text-white shadow-md'
                             : 'border-gray-200 dark:border-gray-700 hover:border-[#bc1215]/30 text-gray-700 dark:text-gray-300'
@@ -611,18 +569,11 @@ function ProductDetailPageContent() {
                           </span>
                         </div>
 
-                        {/* Discount Badge */}
+                        {/* Discount Badge - Desktop only */}
                         {hasDiscount && (
-                          <span className="px-1.5 py-0.5 bg-amber-500 text-white text-[9px] font-bold rounded ml-auto">
+                          <span className="hidden sm:block px-1.5 py-0.5 bg-amber-500 text-white text-[9px] font-bold rounded ml-auto">
                             -{Math.round(((variant.original_price - variant.retail_price) / variant.original_price) * 100)}%
                           </span>
-                        )}
-
-                        {/* Checkmark */}
-                        {isSelected && (
-                          <svg className="w-3.5 h-3.5 text-white ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                          </svg>
                         )}
 
                         {/* Out of Stock */}
@@ -635,28 +586,6 @@ function ProductDetailPageContent() {
                     );
                   })}
                 </div>
-              </div>
-            )}
-
-            {/* Product Highlights */}
-            {localizedHighlights && localizedHighlights.length > 0 && (
-              <div className="bg-gradient-to-br from-[#bc1215]/5 to-[#8a0e10]/5 border border-[#bc1215]/20 rounded-2xl p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">{t('keyFeatures')}</h3>
-                </div>
-                <ul className="space-y-2">
-                  {localizedHighlights.map((highlight, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <svg className="w-4 h-4 text-[#bc1215] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             )}
 
@@ -707,16 +636,38 @@ function ProductDetailPageContent() {
                 className="w-full flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.505-.827-.505-.308 0-.67.015-.973.015-.3 0-.79.114-1.204.57-.414.457-1.578 1.543-1.578 3.766 0 2.224 1.62 4.372 1.844 4.673.225.3 3.182 4.86 7.71 6.804 1.077.466 1.92.674 2.574.567.712-.103 2.204-.9 2.514-1.769.31-.869.31-1.614.217-1.769-.093-.155-.34-.249-.67-.445zM12.042 22C6.478 22 2 17.522 2 12S6.478 2 12.042 2C17.566 2 22 6.478 22 12s-4.434 10-9.958 10z" />
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
                 <span>{t('orderViaWhatsApp')}</span>
               </a>
+
+              {/* Product Highlights */}
+              {localizedHighlights && localizedHighlights.length > 0 && (
+                <div className="bg-gradient-to-br from-[#bc1215]/5 to-[#8a0e10]/5 border border-[#bc1215]/20 rounded-2xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">{t('keyFeatures')}</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {localizedHighlights.map((highlight, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <svg className="w-4 h-4 text-[#bc1215] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         {/* Product Details Tabs */}
-        <div className="mt-12">
+        <div className="mt-12 overflow-x-hidden">
           <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm">
             {/* Tab Headers */}
             <div className="flex border-b border-gray-200/50 dark:border-gray-800/50">
@@ -763,7 +714,7 @@ function ProductDetailPageContent() {
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="mt-12">
+          <div className="mt-12 overflow-x-hidden">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-gradient-to-b from-[#bc1215] to-[#8a0e10] rounded-full"></div>
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
