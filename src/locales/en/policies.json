@@ -6,22 +6,26 @@
       "title": "Eligibility for Refund",
       "condition1": "To be eligible for a refund, the item must be unused and in the same condition that you received it. It must also be in the original packaging.",
       "condition2": "Items that are damaged, used, or not in their original condition may not be eligible for a refund.",
-      "condition3": "Refund requests must be made within 7 days of receiving the product."
+      "condition3": "Refund requests must be made within 7 to 10 working days of receiving the product."
     },
     "process": {
       "title": "Refund Process",
       "step1": "To initiate a refund, please contact our customer service team at support@hooknhunt.com or +8801975244202 with your order number and details of the issue.",
       "step2": "Our team will review your request and notify you of the approval or rejection of your refund.",
-      "step3": "If your refund is approved, it will be processed, and a credit will automatically be applied to your original method of payment within 5-7 business days."
+      "step3": "If your refund is approved, it will be processed, and a credit will automatically be applied to your original method of payment within 7 to 10 working days."
     },
     "lateRefunds": {
       "title": "Late or Missing Refunds",
-      "info1": "If you haven't received a refund within the specified time frame (5 to 7 working days after initiating refund), please check your bank account again and contact your card issuer bank or MFS. It may take some time before your refund is officially posted.",
+      "info1": "If you haven't received a refund within the specified time frame (7 to 10 working days after initiating refund), please check your bank account again and contact your card issuer bank or MFS. It may take some time before your refund is officially posted.",
       "info2": "If you've done all of this and still have not received your refund, please contact us at support@hooknhunt.com."
     },
     "changes": {
       "title": "Changes to this Refund Policy",
       "text": "We reserve the right to modify this refund policy at any time. Changes and clarifications will take effect immediately upon posting on our website. By making a purchase on our website, you agree to and accept the terms of this refund policy. If you have any questions or concerns, please contact our customer service team."
+    },
+    "paymentConsent": {
+      "title": "Payment Settlement Consent",
+      "text": "By completing a purchase on our website, you expressly consent to the settlement of payment transactions through the available payment methods. This includes authorization for electronic payment processing and confirmation that you are the authorized account holder or have permission to use the payment method provided."
     },
     "outro": "Thank you for shopping with Hook & Hunt."
   },
@@ -87,6 +91,12 @@
   "delivery": {
     "title": "Delivery Policy",
     "intro": "Thank you for choosing Hook & Hunt as your trusted online product provider. This Delivery Policy outlines the terms and conditions regarding the delivery of products purchased through our platform. By placing an order with us, you agree to comply with and be bound by the following policies:",
+    "deliveryTime": {
+      "title": "Delivery Time",
+      "insideDhaka": "Inside Dhaka: 5 working days",
+      "outsideDhaka": "Outside Dhaka: 10 working days",
+      "note": "Delivery times may vary depending on product availability, location, and external factors such as weather conditions or courier delays."
+    },
     "processingTime": {
       "title": "Order Processing Time",
       "info1": "Orders are typically processed within 1-2 business days from the date of purchase.",
@@ -119,6 +129,46 @@
     "contact": {
       "title": "Contact Information",
       "text": "If you have any questions or concerns regarding your order or our delivery policy, please contact our customer service team at support@hooknhunt.com or +8801975244202."
+    }
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "intro": "Welcome to Hook & Hunt. These terms and conditions govern your use of our website and services. By accessing or using our website, you agree to be bound by these terms.",
+    "agreement": {
+      "title": "Agreement to Terms",
+      "text": "By placing an order on our website, you agree to these Terms & Conditions, our Privacy Policy, and our Refund Policy. Please read them carefully before making a purchase."
+    },
+    "account": {
+      "title": "Account Registration",
+      "text": "When you create an account on our website, you agree to provide accurate, current, and complete information. You are responsible for maintaining the confidentiality of your account password and for all activities that occur under your account."
+    },
+    "products": {
+      "title": "Products and Pricing",
+      "text": "We strive to display accurate product information and prices. However, we do not warrant that product descriptions, colors, or other content are accurate, complete, reliable, current, or error-free. We reserve the right to correct any errors and update information at any time without prior notice."
+    },
+    "orders": {
+      "title": "Orders and Payment",
+      "text": "All orders are subject to availability and confirmation of payment. We reserve the right to refuse or cancel any order at any time for any reason, including but not limited to product availability, errors in pricing information, or suspected fraud."
+    },
+    "intellectual": {
+      "title": "Intellectual Property",
+      "text": "All content on this website, including text, graphics, logos, images, and software, is the property of Hook & Hunt or its content suppliers and is protected by intellectual property laws."
+    },
+    "limitations": {
+      "title": "Limitation of Liability",
+      "text": "Hook & Hunt shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use our products or services."
+    },
+    "governing": {
+      "title": "Governing Law",
+      "text": "These terms shall be governed by and construed in accordance with the laws of Bangladesh, and you submit to the exclusive jurisdiction of the courts located in Bangladesh."
+    },
+    "changes": {
+      "title": "Changes to Terms",
+      "text": "We reserve the right to modify these terms at any time. Your continued use of the website after any changes constitutes acceptance of the new terms."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "text": "If you have any questions about these Terms & Conditions, please contact us at support@hooknhunt.com."
     }
   },
   "about": {

@@ -3,6 +3,7 @@
   "productCard.stockWarning": "Only {{count}} left",
   "productCard.onlyLeft": "Only left",
   "productCard.outOfStock": "OUT OF STOCK",
+  "productCard.inStock": "In Stock",
   "productCard.priceUnavailable": "Price unavailable",
   "productCard.priceVaries": "Price varies",
   "productCard.variantsAvailable": "{{count}} variants available",

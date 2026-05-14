@@ -193,15 +193,24 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="mb-1 lg:mb-2 flex-1">
             {(variant_count === 0 || variant_count === 1) ? (
               // Single variant or no variants - show exact price
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-base lg:text-lg font-bold text-[#bc1215]">
-                  {price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceUnavailable')}
-                </span>
-                {originalPrice && originalPrice > price && price > 0 && (
-                  <span className="text-xs lg:text-sm text-gray-400 line-through opacity-80">
-                    ৳{originalPrice.toLocaleString()}
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-base lg:text-lg font-bold text-[#bc1215]">
+                    {price > 0 ? `৳${price.toLocaleString()}` : t('productCard.priceUnavailable')}
                   </span>
-                )}
+                  {originalPrice && originalPrice > price && price > 0 && (
+                    <span className="text-xs lg:text-sm text-gray-400 line-through opacity-80">
+                      ৳{originalPrice.toLocaleString()}
+                    </span>
+                  )}
+                </div>
+                {/* Stock Status */}
+                <div className="flex items-center gap-1.5">
+                  <div className={`w-2 h-2 rounded-full ${stock > 0 ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                  <span className={`text-xs font-medium ${stock > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                    {stock > 0 ? t('productCard.inStock') : t('productCard.outOfStock')}
+                  </span>
+                </div>
               </div>
             ) : (
               // Multiple variants - show minimum price with strikethrough if offer exists
@@ -216,9 +225,13 @@ export default function ProductCard({ product }: ProductCardProps) {
                     </span>
                   )}
                 </div>
-                {/* <span className="text-xs text-gray-500">
-                  {t('productCard.variantsAvailable', { count: variant_count })}
-                </span> */}
+                {/* Stock Status for multiple variants */}
+                <div className="flex items-center gap-1.5">
+                  <div className={`w-2 h-2 rounded-full ${stock > 0 ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                  <span className={`text-xs font-medium ${stock > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                    {stock > 0 ? t('productCard.inStock') : t('productCard.outOfStock')}
+                  </span>
+                </div>
               </div>
             )}
           </div>

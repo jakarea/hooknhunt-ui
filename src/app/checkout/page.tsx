@@ -1433,8 +1433,16 @@ export default function CheckoutPage() {
                   />
                   <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
                     {t('checkout.agreeToTerms')}{' '}
+                    <Link href="/privacy-policy" className="text-[#ec3137] hover:underline font-semibold">
+                      {t('footer.privacy')}
+                    </Link>
+                    ,{' '}
                     <Link href="/refund-policy" className="text-[#ec3137] hover:underline font-semibold">
-                      {t('checkout.termsAndConditions')}
+                      {t('footer.returns')}
+                    </Link>
+                    ,{' '}
+                    <Link href="/terms-and-conditions" className="text-[#ec3137] hover:underline font-semibold">
+                      {t('footer.terms')}
                     </Link>
                   </span>
                 </label>
