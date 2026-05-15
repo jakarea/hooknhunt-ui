@@ -10,30 +10,48 @@ export interface ProductFilters {
 
 // Helper to get language-specific content (English by default, Bangla if language is 'bn')
 // Supports both naming conventions: nameBn/name_en and descriptionBn/description_en
+// Helper function to decode HTML entities
+function decodeHtmlEntities(text: string): string {
+  if (!text) return ''
+  const txt = document.createElement('textarea')
+  txt.innerHTML = text
+  return txt.value
+}
+
 export function getLocalizedName<T extends { name?: string; nameBn?: string | null; name_en?: string }>(
   item: T,
   language: string
 ): string {
+  let name = ''
   // If Bangla is requested and exists (try both naming conventions), use it
   if (language === 'bn') {
-    if ((item as any).nameBn && (item as any).nameBn !== '') return (item as any).nameBn;
-    if ((item as any).name_bn && (item as any).name_bn !== '') return (item as any).name_bn;
+    if ((item as any).nameBn && (item as any).nameBn !== '') name = (item as any).nameBn;
+    else if ((item as any).name_bn && (item as any).name_bn !== '') name = (item as any).name_bn;
   }
   // Otherwise use English version if exists, or fallback to default name
-  return ((item as any).name_en || (item as any).name) || '';
+  if (!name) {
+    name = ((item as any).name_en || (item as any).name) || ''
+  }
+  // Decode HTML entities (e.g., &amp; → &)
+  return decodeHtmlEntities(name)
 }
 
 export function getLocalizedDescription<T extends { description?: string; descriptionBn?: string | null; description_en?: string }>(
   item: T,
   language: string
 ): string {
+  let description = ''
   // If Bangla is requested and exists (try both naming conventions), use it
   if (language === 'bn') {
-    if ((item as any).descriptionBn && (item as any).descriptionBn !== '') return (item as any).descriptionBn;
-    if ((item as any).description_bn && (item as any).description_bn !== '') return (item as any).description_bn;
+    if ((item as any).descriptionBn && (item as any).descriptionBn !== '') description = (item as any).descriptionBn;
+    else if ((item as any).description_bn && (item as any).description_bn !== '') description = (item as any).description_bn;
   }
   // Otherwise use English version or fallback to default
-  return item.description || '';
+  if (!description) {
+    description = item.description || ''
+  }
+  // Decode HTML entities (e.g., &amp; → &)
+  return decodeHtmlEntities(description)
 }
 
 export function getLocalizedShortDescription<T extends { shortDescription?: string | null; shortDescriptionBn?: string | null; shortDescription_en?: string | null }>(

@@ -50,6 +50,46 @@ function decodeHtmlEntities(html: string): string {
   return result;
 }
 
+// Extract YouTube video ID from various URL formats
+function getYouTubeVideoId(url: string): string | null {
+  if (!url) return null
+
+  // Regular expressions for different YouTube URL formats
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+    /youtube\.com\/shorts\/([^&\n?#]+)/,
+    /youtube\.com\/v\/([^&\n?#]+)/,
+  ]
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern)
+    if (match) return match[1]
+  }
+
+  return null
+}
+
+// YouTube Video Player Component
+function YouTubeVideo({ videoUrl }: { videoUrl: string | null }) {
+  const videoId = getYouTubeVideoId(videoUrl || '')
+
+  if (!videoId) return null
+
+  return (
+    <div className="mt-8 overflow-hidden rounded-xl shadow-lg">
+      <div className="relative w-full bg-black" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
+        <iframe
+          className="absolute inset-0 w-full h-full"
+          src={`https://www.youtube.com/embed/${videoId}`}
+          title="Product Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    </div>
+  )
+}
+
 // Types
 interface ApiVariant {
   id: number;
@@ -88,6 +128,8 @@ interface ApiProduct {
   seoTitle: string | null;
   seoDescription: string | null;
   seoTags: string[] | null;
+  attributes: string[] | null;
+  attributesBn?: string[] | null;
   thumbnail: { id: number; fullUrl: string; alt: string } | null;
   galleryImages: { fullUrl: string }[];
   category: { id: number; name: string; slug: string } | null;
@@ -147,9 +189,12 @@ interface Product {
   shortDescriptionBn?: string | null;
   highlights: string[];
   highlightsBn?: string[] | null;
+  videoUrl: string | null;
   meta_title: string;
   meta_description: string;
   variants: Variant[];
+  attributes: string[] | null;
+  attributesBn?: string[] | null;
 }
 
 function ProductDetailPageContent() {
@@ -166,7 +211,7 @@ function ProductDetailPageContent() {
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState<'description' | 'highlights' | 'reviews'>('description');
+  const [activeTab, setActiveTab] = useState<'description' | 'highlights' | 'attributes' | 'reviews'>('description');
   const [thumbnailOffset, setThumbnailOffset] = useState(0);
 
   const slug = params.slug as string;
@@ -244,6 +289,9 @@ function ProductDetailPageContent() {
           highlightsBn: data.highlightsBn?.map(decodeHtmlEntities),
           meta_title: data.seoTitle || data.name,
           meta_description: data.seoDescription || data.shortDescription || '',
+          videoUrl: data.videoUrl || null,
+          attributes: (data.attributes || []).map(decodeHtmlEntities),
+          attributesBn: data.attributesBn?.map(decodeHtmlEntities),
           variants,
         };
 
@@ -514,6 +562,9 @@ function ProductDetailPageContent() {
               </p>
             )}
 
+            {/* YouTube Video */}
+            {product.videoUrl && <YouTubeVideo videoUrl={product.videoUrl} />}
+
             {/* Variant Selection */}
             {product.variants.length > 1 && (
               <div className="space-y-3 overflow-x-hidden">
@@ -682,6 +733,16 @@ function ProductDetailPageContent() {
                 Description
               </button>
               <button
+                onClick={() => setActiveTab('attributes')}
+                className={`flex-1 px-6 py-4 font-semibold transition-colors ${
+                  activeTab === 'attributes'
+                    ? 'text-[#bc1215] border-b-2 border-[#bc1215]'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                Attributes
+              </button>
+              <button
                 onClick={() => setActiveTab('reviews')}
                 className={`flex-1 px-6 py-4 font-semibold transition-colors ${
                   activeTab === 'reviews'
@@ -702,6 +763,33 @@ function ProductDetailPageContent() {
                   ) : (
                     <p className="text-gray-500">No description available.</p>
                   )}
+                </div>
+              )}
+
+              {activeTab === 'attributes' && (
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-br from-[#bc1215]/5 to-[#8a0e10]/5 border border-[#bc1215]/20 rounded-2xl p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                      </svg>
+                      <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">{t('productAttributes')}</h3>
+                    </div>
+                    {(product.attributes && product.attributes.length > 0) ? (
+                      <ul className="space-y-2">
+                        {product.attributes.map((attr, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <svg className="w-4 h-4 text-[#bc1215] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                            <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" dangerouslySetInnerHTML={{ __html: attr }} />
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-sm text-gray-500 dark:text-gray-400">No attributes available.</p>
+                    )}
+                  </div>
                 </div>
               )}
 
