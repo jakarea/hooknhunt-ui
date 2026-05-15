@@ -38,6 +38,46 @@ export default function RootLayout({
 
       </head>
       <body className={`${notoSansBengali.className} ${anekBangla.className} antialiased bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                // Remove browser extension injected attributes before hydration
+                const removeExtensionAttrs = () => {
+                  const attrs = ['bis_skin_checked', 'bis_depth', 'bis_size'];
+                  const elements = document.querySelectorAll('*');
+                  elements.forEach(el => {
+                    attrs.forEach(attr => {
+                      if (el.hasAttribute && el.hasAttribute(attr)) {
+                        el.removeAttribute(attr);
+                      }
+                    });
+                  });
+                };
+                removeExtensionAttrs();
+                // Also observe for dynamic changes
+                if (typeof MutationObserver !== 'undefined') {
+                  const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                      if (mutation.type === 'attributes') {
+                        const target = mutation.target;
+                        const attrName = mutation.attributeName;
+                        if (attrName && (attrName.startsWith('bis_') || attrName === 'bis_skin_checked' || attrName === 'bis_depth' || attrName === 'bis_size')) {
+                          target.removeAttribute(attrName);
+                        }
+                      }
+                    });
+                  });
+                  observer.observe(document.documentElement, {
+                    attributes: true,
+                    subtree: true,
+                    attributeFilter: ['bis_skin_checked', 'bis_depth', 'bis_size']
+                  });
+                }
+              })();
+            `,
+          }}
+        />
         <TrackingScripts />
         <ErrorBoundary>
           <LanguageProvider>
