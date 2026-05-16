@@ -14,7 +14,7 @@ import api from '@/lib/api';
 import { useTranslation } from 'react-i18next';
 import { CrossSaleProduct } from '@/stores/crossSellModalStore';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { getLocalizedName, getLocalizedDescription, getLocalizedHighlights } from '@/stores/productStore';
+import { getLocalizedName, getLocalizedDescription, getLocalizedShortDescription, getLocalizedHighlights, getLocalizedIncludesInBox } from '@/stores/productStore';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 import ProductReviews from '@/components/product/ProductReviews';
 
@@ -189,6 +189,8 @@ interface Product {
   shortDescriptionBn?: string | null;
   highlights: string[];
   highlightsBn?: string[] | null;
+  includesInBox: string[] | null;
+  includesInBoxBn?: string[] | null;
   videoUrl: string | null;
   meta_title: string;
   meta_description: string;
@@ -287,6 +289,8 @@ function ProductDetailPageContent() {
           shortDescriptionBn: data.shortDescriptionBn ? decodeHtmlEntities(data.shortDescriptionBn) : undefined,
           highlights: (data.highlights || []).map(decodeHtmlEntities),
           highlightsBn: data.highlightsBn?.map(decodeHtmlEntities),
+          includesInBox: (data.includesInBox || []).map(decodeHtmlEntities),
+          includesInBoxBn: data.includesInBoxBn?.map(decodeHtmlEntities),
           meta_title: data.seoTitle || data.name,
           meta_description: data.seoDescription || data.shortDescription || '',
           videoUrl: data.videoUrl || null,
@@ -324,7 +328,23 @@ function ProductDetailPageContent() {
   }, [product]);
 
   const localizedName = useMemo(() => product ? getLocalizedName(product, language) : '', [product, language]);
-  const localizedHighlights = useMemo(() => product ? getLocalizedHighlights(product, language) : [], [product, language]);
+  const localizedDescription = useMemo(() => product ? getLocalizedDescription(product, language) : '', [product, language]);
+  const localizedShortDescription = useMemo(() => product ? getLocalizedShortDescription(product, language) : null, [product, language]);
+  const localizedHighlights = useMemo(() => product ? getLocalizedHighlights(product, language) : null, [product, language]);
+  const localizedAttributes = useMemo(() => {
+    if (!product) return [];
+    // Select based on language, with fallback to the other language if empty
+    let attrs = language === 'bn' ? product.attributesBn : product.attributes;
+    // If selected language has no data, try fallback
+    if ((!attrs || attrs.length === 0) && language === 'bn') {
+      attrs = product.attributes;
+    } else if ((!attrs || attrs.length === 0) && language === 'en') {
+      attrs = product.attributesBn;
+    }
+    // Return empty array if no data (for safe rendering with .map)
+    return attrs || [];
+  }, [product, language]);
+  const localizedIncludesInBox = useMemo(() => product ? getLocalizedIncludesInBox(product, language) : null, [product, language]);
 
   const currentPrice = selectedVariant?.retail_price || product?.variants[0]?.retail_price || 0;
   const originalPrice = selectedVariant?.original_price || product?.variants[0]?.original_price || 0;
@@ -335,12 +355,15 @@ function ProductDetailPageContent() {
   const handleAddToCart = () => {
     if (!product || !selectedVariant) return;
 
+    // Use variant image if available, otherwise fall back to product thumbnail
+    const imageUrl = selectedVariant.image.url || product.thumbnail_url || '';
+
     addToCart({
       id: product.id,
       name: localizedName,
       price: currentPrice,
       originalPrice,
-      image: selectedVariant.image.url,
+      image: imageUrl,
       slug: product.slug,
       stock,
     }, quantity);
@@ -349,15 +372,18 @@ function ProductDetailPageContent() {
   const handleBuyNow = () => {
     if (!product || !selectedVariant) return;
 
+    // Use variant image if available, otherwise fall back to product thumbnail
+    const imageUrl = selectedVariant.image.url || product.thumbnail_url || '';
+
     addToCart({
       id: product.id,
       name: localizedName,
       price: currentPrice,
       originalPrice,
-      image: selectedVariant.image.url,
+      image: imageUrl,
       slug: product.slug,
       stock,
-    }, quantity);
+    }, quantity, [], false); // false = don't open cart drawer
 
     router.push('/checkout');
   };
@@ -572,9 +598,9 @@ function ProductDetailPageContent() {
             </div>
 
             {/* Short Description */}
-            {product.short_description && (
+            {localizedShortDescription && (
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                {product.short_description}
+                {localizedShortDescription}
               </p>
             )}
 
@@ -743,6 +769,28 @@ function ProductDetailPageContent() {
                   </ul>
                 </div>
               )}
+
+              {/* Includes in Box */}
+              {localizedIncludesInBox && localizedIncludesInBox.length > 0 && (
+                <div className="bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200 rounded-2xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">{t('includesInBox')}</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {localizedIncludesInBox.map((item, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <svg className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -788,8 +836,8 @@ function ProductDetailPageContent() {
             <div className="p-6 sm:p-8">
               {activeTab === 'description' && (
                 <div className="prose prose-gray dark:prose-invert max-w-none">
-                  {(product.description || product.short_description) ? (
-                    <div dangerouslySetInnerHTML={{ __html: product.description || product.short_description || 'No description available.' }} />
+                  {localizedDescription ? (
+                    <div dangerouslySetInnerHTML={{ __html: localizedDescription }} />
                   ) : (
                     <p className="text-gray-500">No description available.</p>
                   )}
@@ -805,9 +853,9 @@ function ProductDetailPageContent() {
                       </svg>
                       <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">{t('productAttributes')}</h3>
                     </div>
-                    {(product.attributes && product.attributes.length > 0) ? (
+                    {(localizedAttributes && localizedAttributes.length > 0) ? (
                       <ul className="space-y-2">
-                        {product.attributes.map((attr, index) => (
+                        {localizedAttributes.map((attr, index) => (
                           <li key={index} className="flex items-start gap-2">
                             <svg className="w-4 h-4 text-[#bc1215] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />

@@ -11,9 +11,13 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  // Initialize with a default that matches server-side rendering
+  // This prevents hydration mismatch by ensuring server and client start with same value
   const [language, setLanguage] = useState<string>('bn');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // Get saved language or use default
     const savedLang = localStorage.getItem('language') || 'bn';
     setLanguage(savedLang);

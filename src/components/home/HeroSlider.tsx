@@ -82,66 +82,6 @@ export default function HeroSlider() {
                   )}
                 </div>
               ) : null}
-
-              {/* Overlay - only for image slides */}
-              {slide.image_url && (
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-              )}
-
-              {/* Content - only for image slides */}
-              {slide.image_url && (
-                <div className="absolute inset-0 flex items-center">
-                  <div className="container mx-auto px-6 md:px-8">
-                    <div className="max-w-xl">
-                      {/* Capsule Title */}
-                      {slide.capsule_title && (
-                        <div className="inline-block px-3 py-1 mb-3 md:mb-4 text-xs font-semibold uppercase tracking-wider text-white bg-[#ec3137]/80 backdrop-blur-sm rounded-full">
-                          {slide.capsule_title}
-                        </div>
-                      )}
-
-                      {/* Title */}
-                      <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-3">
-                        {slide.title}
-                      </h2>
-
-                      {/* Subtitle */}
-                      {slide.sub_title && (
-                        <p className="text-sm md:text-base text-white/90 mb-4 md:mb-6">
-                          {slide.sub_title}
-                        </p>
-                      )}
-
-                      {/* Features */}
-                      {slide.features && (
-                        <p className="text-xs md:text-sm text-white/80 mb-4 md:mb-6">
-                          {slide.features}
-                        </p>
-                      )}
-
-                      {/* CTAs */}
-                      <div className="flex flex-wrap gap-3">
-                        {slide.cta1_label && slide.cta1_link && (
-                          <Link
-                            href={slide.cta1_link}
-                            className="inline-block px-6 py-3 bg-[#ec3137] hover:bg-[#c5282d] text-white font-semibold rounded-lg transition-colors duration-300 text-sm md:text-base"
-                          >
-                            {slide.cta1_label}
-                          </Link>
-                        )}
-                        {slide.cta2_label && slide.cta2_link && (
-                          <Link
-                            href={slide.cta2_link}
-                            className="inline-block px-6 py-3 bg-white hover:bg-gray-100 text-gray-900 font-semibold rounded-lg transition-colors duration-300 text-sm md:text-base"
-                          >
-                            {slide.cta2_label}
-                          </Link>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           ))}
 

@@ -214,7 +214,10 @@ function ProductsPageContent() {
     setPriceRange([]);
     setMinRating(0);
     setSortBy('best-selling');
-    updateURL({ categories: ['all'], sort: 'best-selling', price: [], rating: 0 });
+    // Update URL after state updates to ensure we use the new values
+    setTimeout(() => {
+      updateURL({ categories: ['all'], sort: 'best-selling', price: [], rating: 0 });
+    }, 0);
   };
 
   const toggleSidebar = useCallback(() => {
@@ -231,11 +234,11 @@ function ProductsPageContent() {
         <div className="container px-3 md:px-4 relative py-3 sm:py-4">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400 min-w-0 flex-1">
-              <Link href="/" className="hover:text-[#bc1215] transition-colors font-medium">{t('breadcrumb.home')}</Link>
+              <Link href="/" className="hover:text-[#bc1215] transition-colors font-medium" suppressHydrationWarning>{t('breadcrumb.home')}</Link>
               <svg className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-              <span className="text-gray-900 dark:text-white font-semibold truncate">{t('breadcrumb.products')}</span>
+              <span className="text-gray-900 dark:text-white font-semibold truncate" suppressHydrationWarning>{t('breadcrumb.products')}</span>
               {!selectedCategories.includes('all') && selectedCategories.length === 1 && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -304,7 +307,7 @@ function ProductsPageContent() {
                     <div className="absolute -top-8 -right-8 w-20 h-20 bg-[#bc1215]/10 rounded-full blur-xl"></div>
                     <div className="relative">
                       <div className="flex items-center justify-between mb-3">
-                        <h3 className="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2">
+                        <h3 className="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                           <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
                           </svg>
@@ -313,6 +316,7 @@ function ProductsPageContent() {
                         <button
                           onClick={clearAllFilters}
                           className="text-xs sm:text-sm font-semibold text-[#bc1215] hover:text-[#8a0f12] transition-colors flex items-center gap-1"
+                          suppressHydrationWarning
                         >
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -379,7 +383,7 @@ function ProductsPageContent() {
                 <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                   <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-800/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
-                    <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2">
+                    <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
                       </svg>
@@ -402,7 +406,7 @@ function ProductsPageContent() {
                             </svg>
                           )}
                         </div>
-                        <span className="text-sm">{t('allProducts')}</span>
+                        <span className="text-sm" suppressHydrationWarning>{t('allProducts')}</span>
                       </span>
                     </button>
                     {categories.map(category => {
@@ -436,7 +440,7 @@ function ProductsPageContent() {
                                 </svg>
                               )}
                             </div>
-                            <span className="text-sm">{t(getCategoryTranslationKey(category))}</span>
+                            <span className="text-sm" suppressHydrationWarning>{t(getCategoryTranslationKey(category))}</span>
                           </span>
                         </button>
                       );
@@ -448,7 +452,7 @@ function ProductsPageContent() {
                 <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                   <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-800/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
-                    <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2">
+                    <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -477,7 +481,7 @@ function ProductsPageContent() {
                             )}
                           </div>
                         </div>
-                        <span className="ml-3 text-sm text-gray-700 dark:text-gray-300 group-hover:text-[#bc1215] transition-colors">
+                        <span className="ml-3 text-sm text-gray-700 dark:text-gray-300 group-hover:text-[#bc1215] transition-colors" suppressHydrationWarning>
                           {t(option.label)}
                         </span>
                       </label>
@@ -489,7 +493,7 @@ function ProductsPageContent() {
                 <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                   <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-800/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
-                    <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2">
+                    <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
@@ -518,7 +522,7 @@ function ProductsPageContent() {
                               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
                           ))}
-                          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">{t('andUp')}</span>
+                          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300" suppressHydrationWarning>{t('andUp')}</span>
                         </div>
                         {minRating === rating && (
                           <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
@@ -535,13 +539,14 @@ function ProductsPageContent() {
                   <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
                   <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
                   <div className="relative">
-                    <h3 className="font-bold text-white text-lg mb-2">{t('specialOffer.title')}</h3>
-                    <p className="text-sm text-white/90 mb-4 leading-relaxed">
+                    <h3 className="font-bold text-white text-lg mb-2" suppressHydrationWarning>{t('specialOffer.title')}</h3>
+                    <p className="text-sm text-white/90 mb-4 leading-relaxed" suppressHydrationWarning>
                       {t('specialOffer.description')}
                     </p>
                     <Link
                       href="/hot-deals"
                       className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#bc1215] font-semibold text-sm hover:bg-gray-100 transition-all rounded-xl shadow-md hover:shadow-lg"
+                      suppressHydrationWarning
                     >
                       {t('specialOffer.viewDeals')}
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -558,9 +563,10 @@ function ProductsPageContent() {
           <div className="flex-1 relative z-10">
             {/* Sort Bar - Modern */}
             <div className="relative bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl p-3 md:p-4 mb-3 md:mb-4 border border-gray-200/50 dark:border-gray-800/50 shadow-sm z-10">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4">
+              <div className="flex flex-col sm:flex-row justify-end items-start sm:items-center gap-2 sm:gap-4">
+                {/* Sort By - Moved to right */}
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                  <label className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-semibold whitespace-nowrap flex items-center gap-1.5 sm:gap-2">
+                  <label className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-semibold whitespace-nowrap flex items-center gap-1.5 sm:gap-2" suppressHydrationWarning>
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4h4m-4 4v-4m0 4l-4 4" />
                     </svg>
@@ -574,7 +580,7 @@ function ProductsPageContent() {
                       onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
                       className="flex items-center justify-between gap-2 px-3 py-2 h-9 sm:h-auto sm:px-4 sm:py-2.5 sm:min-h-[44px] border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#bc1215]/20 focus:border-[#bc1215] outline-none rounded-xl font-medium shadow-sm hover:shadow-md hover:border-[#bc1215]/30 transition-all cursor-pointer text-xs sm:text-sm w-full sm:w-auto sm:min-w-[180px] relative z-50"
                     >
-                      <span>{t(`sortOptions.${sortBy === 'best-selling' ? 'bestSelling' : sortBy === 'price-low' ? 'priceLow' : sortBy === 'price-high' ? 'priceHigh' : sortBy}`)}</span>
+                      <span suppressHydrationWarning>{t(`sortOptions.${sortBy === 'best-selling' ? 'bestSelling' : sortBy === 'price-low' ? 'priceLow' : sortBy === 'price-high' ? 'priceHigh' : sortBy}`)}</span>
                       <svg
                         className={`w-4 h-4 text-[#bc1215] transition-transform duration-200 ${isSortDropdownOpen ? 'rotate-180' : ''}`}
                         fill="none"
@@ -608,7 +614,7 @@ function ProductsPageContent() {
                               <svg className={`w-4 h-4 flex-shrink-0 ${sortBy === option.value ? 'text-[#bc1215]' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={option.icon} />
                               </svg>
-                              <span className="flex-1 text-left">{t(option.label)}</span>
+                              <span className="flex-1 text-left" suppressHydrationWarning>{t(option.label)}</span>
                               {sortBy === option.value && (
                                 <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -693,17 +699,18 @@ function ProductsPageContent() {
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">{t('noProducts.title')}</h3>
-                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 max-w-md mx-auto leading-relaxed">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4" suppressHydrationWarning>{t('noProducts.title')}</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 max-w-md mx-auto leading-relaxed" suppressHydrationWarning>
                   {t('noProducts.message')}
                 </p>
                 <button
                   onClick={clearAllFilters}
                   className="group relative overflow-hidden px-8 py-3.5 min-h-[52px] text-white font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                  suppressHydrationWarning
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#bc1215] to-[#8a0e10] transition-transform duration-300 group-hover:scale-105"></div>
                   <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-20"></div>
-                  <span className="relative flex items-center gap-2">
+                  <span className="relative flex items-center gap-2" suppressHydrationWarning>
                     {t('noProducts.clearFilters')}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />

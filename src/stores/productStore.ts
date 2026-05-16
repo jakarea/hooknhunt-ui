@@ -77,7 +77,9 @@ export function getLocalizedHighlights<T extends { highlights?: string[] | null;
     if ((item as any).highlights_bn && (item as any).highlights_bn.length > 0) return (item as any).highlights_bn;
   }
   // Otherwise use English version or fallback to default
-  return item.highlights || null;
+  // Note: Empty array [] is truthy in JS, so check length explicitly
+  const highlights = item.highlights;
+  return (highlights && highlights.length > 0) ? highlights : null;
 }
 
 export function getLocalizedIncludesInBox<T extends { includesInBox?: string[] | null; includesInBoxBn?: string[] | null }>(
@@ -89,7 +91,9 @@ export function getLocalizedIncludesInBox<T extends { includesInBox?: string[] |
     if ((item as any).includesInBoxBn && (item as any).includesInBoxBn.length > 0) return (item as any).includesInBoxBn;
   }
   // Otherwise use English version or fallback to default
-  return item.includesInBox || null;
+  // Note: Empty array [] is truthy in JS, so check length explicitly
+  const includesInBox = item.includesInBox;
+  return (includesInBox && includesInBox.length > 0) ? includesInBox : null;
 }
 
 // Matches actual API response (camelCase)
@@ -122,8 +126,10 @@ export interface ApiGalleryImage {
 export interface ApiProduct {
   id: number;
   name: string;          // English name (default)
+  retailName?: string;   // Retail-specific name
   nameBn?: string | null;       // Bangla name
   slug: string;
+  title?: string;        // Display title (alias for retailName/name)
   description: string;  // English description (default)
   descriptionBn?: string | null; // Bangla description
   shortDescription: string | null;
@@ -143,6 +149,16 @@ export interface ApiProduct {
   category: { id: number; name: string; slug: string } | null;
   brand: { id: number; name: string } | null;
   variants: ApiVariant[];
+  // Fields from optimized list API (pre-calculated for performance)
+  image?: string;       // Main image URL
+  featured_image?: string; // Featured image URL
+  price?: number;       // Calculated display price
+  actual_price?: number; // Alias for price
+  originalPrice?: number; // Original price before discount
+  compare_at_price?: number; // Alias for originalPrice
+  stock?: number;       // Total stock across variants
+  inventory_quantity?: number; // Alias for stock
+  variant_count?: number; // Number of active variants
 }
 
 const PER_PAGE = 12;
@@ -154,109 +170,197 @@ export const getDisplayPrice = (v: ApiVariant): number =>
   v.offerPrice > 0 && v.offerPrice < v.price ? v.offerPrice : v.price;
 
 export const mapApiProduct = (p: ApiProduct): Product => {
-  const activeVariants = getActiveVariants(p.variants);
-  const imageUrl = p.thumbnail?.fullUrl || '';
-  const galleryUrls = p.galleryImages?.map((img) => img.fullUrl) || [];
+  try {
+    // Handle both optimized list responses (with pre-calculated fields)
+    // and full detail responses (with variants array)
+    const hasVariants = p.variants && p.variants.length > 0;
 
-  const totalStock = activeVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
-  const variantCount = activeVariants.length;
-  const firstVariant = activeVariants[0];
-
-  // Calculate min price (lowest offer or regular) and its corresponding original price
-  const displayPrices = activeVariants.map(getDisplayPrice);
-  const minDisplayPrice = displayPrices.length > 0 ? Math.min(...displayPrices) : 0;
-
-  // Find the variant that has the minimum display price, get its original price
-  // Only set originalPrice if that variant has an actual offer
-  let originalPrice: number | undefined = undefined;
-  for (const v of activeVariants) {
-    const variantDisplayPrice = getDisplayPrice(v);
-    if (variantDisplayPrice === minDisplayPrice && v.offerPrice > 0 && v.offerPrice < v.price) {
-      originalPrice = v.price;
-      break;
+    let imageUrl = '';
+    if (p.image || p.featured_image) {
+      // Use pre-calculated image URLs from optimized list API
+      imageUrl = p.featured_image || p.image || '';
+    } else if (p.thumbnail?.fullUrl) {
+      // Fall back to thumbnail object for detail API
+      imageUrl = p.thumbnail.fullUrl;
     }
-  }
 
-  const price = minDisplayPrice;
+    let price = 0;
+    let originalPrice: number | undefined = undefined;
+    let totalStock = 0;
+    let variantCount = 0;
+    let sku = '';
+    let priceRangeDisplay = '';
+    let activeVariants: ApiVariant[] = [];
 
-  // Price range for multi-variant
-  let priceRangeDisplay = '';
-  if (variantCount > 1) {
-    const displayPrices = activeVariants.map(getDisplayPrice);
-    const minP = Math.min(...displayPrices);
-    const maxP = Math.max(...displayPrices);
-    priceRangeDisplay = minP === maxP
-      ? `৳${minP.toLocaleString()}`
-      : `৳${minP.toLocaleString()} - ৳${maxP.toLocaleString()}`;
-  }
+    if (hasVariants) {
+      // Full variant data available (detail API)
+      activeVariants = getActiveVariants(p.variants);
+      totalStock = activeVariants.reduce((sum, v) => sum + (v.stock || 0), 0);
+      variantCount = activeVariants.length;
+      const firstVariant = activeVariants[0];
 
-  return {
-    id: p.id,
-    product_code: '',
-    title: p.name,
-    slug: p.slug,
-    name: p.name,
-    nameBn: p.nameBn,
-    price,
-    originalPrice: originalPrice ?? undefined,
-    image: imageUrl,
-    featured_image: imageUrl,
-    stock: totalStock,
-    inventory_quantity: totalStock,
-    category: p.category?.name || '',
-    category_id: p.category?.id || 0,
-    variant_count: variantCount,
-    price_range_display: priceRangeDisplay,
-    description: p.description || '',
-    descriptionBn: p.descriptionBn,
-    short_description: p.shortDescription || '',
-    shortDescriptionBn: p.shortDescriptionBn,
-    highlights: p.highlights || null,
-    highlightsBn: p.highlightsBn || null,
-    includesInBox: p.includesInBox || null,
-    includesInBoxBn: p.includesInBoxBn || null,
-    sku: firstVariant?.sku || '',
-    gallery: galleryUrls,
-    variants: activeVariants.map((v) => ({
-      id: v.id,
-      product_id: p.id,
-      title: v.variantName,
-      sku: v.sku,
-      price: v.price,
-      compare_at_price: v.offerPrice || 0,
-      cost_price: 0,
-      inventory_quantity: v.stock,
-      weight: parseFloat(v.weight) || 0,
+      // Calculate min price (lowest offer or regular) and its corresponding original price
+      const displayPrices = activeVariants.map(getDisplayPrice);
+      const minDisplayPrice = displayPrices.length > 0 ? Math.min(...displayPrices) : 0;
+
+      // Find the variant that has the minimum display price, get its original price
+      // Only set originalPrice if that variant has an actual offer
+      for (const v of activeVariants) {
+        const variantDisplayPrice = getDisplayPrice(v);
+        if (variantDisplayPrice === minDisplayPrice && v.offerPrice > 0 && v.offerPrice < v.price) {
+          originalPrice = v.price;
+          break;
+        }
+      }
+
+      price = minDisplayPrice;
+      sku = firstVariant?.sku || '';
+
+      // Price range for multi-variant
+      if (variantCount > 1) {
+        const minP = Math.min(...displayPrices);
+        const maxP = Math.max(...displayPrices);
+        priceRangeDisplay = minP === maxP
+          ? `৳${minP.toLocaleString()}`
+          : `৳${minP.toLocaleString()} - ৳${maxP.toLocaleString()}`;
+      }
+    } else {
+      // Optimized list API with pre-calculated fields
+      price = p.price ?? p.actual_price ?? 0;
+      originalPrice = p.originalPrice ?? p.compare_at_price ?? undefined;
+      totalStock = p.stock ?? p.inventory_quantity ?? 0;
+      variantCount = p.variant_count ?? 0;
+    }
+
+    const galleryUrls = p.galleryImages?.map((img) => img.fullUrl) || [];
+
+    return {
+      id: p.id,
+      product_code: '',
+      title: p.retailName || p.name,
+      slug: p.slug,
+      name: p.name,
+      nameBn: p.nameBn,
+      price,
+      originalPrice: originalPrice ?? undefined,
       image: imageUrl,
-      barcode: '',
+      featured_image: imageUrl,
+      stock: totalStock,
+      inventory_quantity: totalStock,
+      category: p.category?.name || '',
+      category_id: p.category?.id || 0,
+      variant_count: variantCount,
+      price_range_display: priceRangeDisplay,
+      description: p.description || '',
+      descriptionBn: p.descriptionBn,
+      short_description: p.shortDescription || '',
+      shortDescriptionBn: p.shortDescriptionBn,
+      highlights: p.highlights || null,
+      highlightsBn: p.highlightsBn || null,
+      includesInBox: p.includesInBox || null,
+      includesInBoxBn: p.includesInBoxBn || null,
+      sku: sku,
+      gallery: galleryUrls,
+      variants: activeVariants.map((v) => ({
+        id: v.id,
+        product_id: p.id,
+        title: v.variantName,
+        sku: v.sku,
+        price: v.price,
+        compare_at_price: v.offerPrice || 0,
+        cost_price: 0,
+        inventory_quantity: v.stock,
+        weight: parseFloat(v.weight) || 0,
+        image: imageUrl,
+        barcode: '',
+        created_at: '',
+        updated_at: '',
+      })),
+      tags: [],
+      has_variants: variantCount > 1,
+      status: 'active',
       created_at: '',
       updated_at: '',
-    })),
-    tags: [],
-    has_variants: variantCount > 1,
-    status: 'active',
-    created_at: '',
-    updated_at: '',
-    supplier_id: 0,
-    product_link: '',
-    brand: p.brand?.name || '',
-    weight: 0,
-    unit: 'pcs',
-    cost_rmb: 0,
-    exchange_rate: 0,
-    cost_bdt: 0,
-    actual_price: price,
-    default_price: price,
-    compare_at_price: originalPrice || 0,
-    price_wholesale: 0,
-    price_retail: price,
-    price_daraz: 0,
-    inventory_policy: 'continue',
-    barcode: '',
-    hs_code: '',
-    seo_title: p.seoTitle || '',
-    seo_description: p.seoDescription || '',
-  };
+      supplier_id: 0,
+      product_link: '',
+      brand: p.brand?.name || '',
+      weight: 0,
+      unit: 'pcs',
+      cost_rmb: 0,
+      exchange_rate: 0,
+      cost_bdt: 0,
+      actual_price: price,
+      default_price: price,
+      compare_at_price: originalPrice || 0,
+      price_wholesale: 0,
+      price_retail: price,
+      price_daraz: 0,
+      inventory_policy: 'continue',
+      barcode: '',
+      hs_code: '',
+      seo_title: p.seoTitle || '',
+      seo_description: p.seoDescription || '',
+    };
+  } catch (error) {
+    console.error('Error mapping product:', error, p);
+    // Return a minimal valid Product object to prevent total failure
+    return {
+      id: p.id || 0,
+      product_code: '',
+      title: p.name || 'Unknown Product',
+      slug: p.slug || '',
+      name: p.name || 'Unknown Product',
+      sku: '',
+      description: '',
+      short_description: '',
+      supplier_id: 0,
+      product_link: '',
+      category_id: 0,
+      brand: '',
+      tags: [],
+      featured_image: '',
+      gallery: [],
+      weight: 0,
+      unit: 'pcs',
+      cost_rmb: 0,
+      exchange_rate: 0,
+      cost_bdt: 0,
+      actual_price: 0,
+      default_price: 0,
+      compare_at_price: 0,
+      price_wholesale: 0,
+      price_retail: 0,
+      price_daraz: 0,
+      inventory_quantity: 0,
+      inventory_policy: 'continue',
+      has_variants: false,
+      status: 'active',
+      created_at: '',
+      updated_at: '',
+      barcode: '',
+      hs_code: '',
+      seo_title: '',
+      seo_description: '',
+      price: 0,
+      image: '',
+      stock: 0,
+      nameBn: undefined,
+      originalPrice: undefined,
+      category: '',
+      variant_count: 0,
+      price_range_display: '',
+      descriptionBn: undefined,
+      shortDescriptionBn: undefined,
+      highlights: null,
+      highlightsBn: undefined,
+      includesInBox: null,
+      includesInBoxBn: undefined,
+      rating: undefined,
+      reviews: undefined,
+      has_offer: undefined,
+      thumbnail_url: undefined,
+    };
+  }
 };
 
 interface ProductState {

@@ -1046,7 +1046,7 @@ export default function CheckoutPage() {
                         <div className="flex items-center gap-3 mt-2">
                           {activeGateway === 'sslcommerz' ? (
                             <img
-                              src="/SSL-Commerz-Pay-With-logo.avif"
+                              src="/SSLCommerz-Pay-With-logo-All-Size-01.png"
                               alt="SSLCommerz Payment"
                               className="h-12 w-full object-contain"
                             />

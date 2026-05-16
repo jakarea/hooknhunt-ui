@@ -7,7 +7,7 @@ import { useCrossCartStore } from '@/stores/crossCartStore';
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: CartProduct, quantity?: number, crossSaleProducts?: CrossSaleProduct[]) => void;
+  addToCart: (product: CartProduct, quantity?: number, crossSaleProducts?: CrossSaleProduct[], openCartAfterAdd?: boolean) => void;
   removeFromCart: (cartItemId: number) => void;
   updateQuantity: (cartItemId: number, quantity: number) => void;
   clearCart: () => void;
@@ -43,7 +43,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product: CartProduct, quantity: number = 1, crossSaleProducts: CrossSaleProduct[] = []) => {
+  const addToCart = (product: CartProduct, quantity: number = 1, crossSaleProducts: CrossSaleProduct[] = [], openCartAfterAdd: boolean = true) => {
     setCartItems(prevItems => {
       // Check if exact same product variant already exists
       const existingItem = prevItems.find(item =>
@@ -81,7 +81,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       useCrossSellModal.getState().setProducts(crossSaleProducts);
       useCrossCartStore.getState().addCrossSells(product.id, crossSaleProducts);
     }
-    setIsCartOpen(true);
+    // Only open cart if explicitly requested (default true for backward compatibility)
+    if (openCartAfterAdd) {
+      setIsCartOpen(true);
+    }
   };
 
   const removeFromCart = (cartItemId: number) => {
