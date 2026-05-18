@@ -224,25 +224,21 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/10" suppressHydrationWarning>
         <div className="max-w-[1192px] mx-auto px-3 md:px-4 py-4 md:py-6" suppressHydrationWarning>
-          {/* Trade License Number */}
-          <div className="text-center mb-4" suppressHydrationWarning>
-            <p className="text-xs md:text-sm text-white/60">
-              Trade License Number: 21611
-            </p>
-          </div>
-
           {/* Payment Banner */}
           <div className="flex justify-center mb-4" suppressHydrationWarning>
             <img
               src={activeGateway === 'eps' ? '/eps-payment-all-logo.png' : '/SSLCommerz-Pay-With-logo-All-Size-01.png'}
               alt="Payment Methods"
-              className="h-auto w-full max-w-md object-contain"
+              className="h-auto w-full"
             />
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4" suppressHydrationWarning>
             <p className="text-xs md:text-sm lg:text-[17px] text-white/70 text-center md:text-left">
               &copy; {t('footer.copyright')}
+            </p>
+            <p className="text-xs md:text-sm text-white/60 text-center md:text-right">
+              Trade License Number: 21611
             </p>
           </div>
         </div>
