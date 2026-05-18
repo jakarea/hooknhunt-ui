@@ -65,7 +65,27 @@
       "Bash(grep -n \"Modal Backdrop\\\\|}\\\\$}\" /Users/jakareaparvez/Sites/hooknhunt-api/resources/js/app/admin/marketing/affiliates/page.tsx)",
       "Bash(pkill -f \"vite\")",
       "Bash(grep -n 'protected $fillable\\\\|price' /Users/jakareaparvez/Sites/hooknhunt-api/app/Models/ProductVariant.php)",
-      "Bash(awk 'NR>=230 && NR<=260' src/lib/api.ts)"
+      "Bash(awk 'NR>=230 && NR<=260' src/lib/api.ts)",
+      "Bash(ls /Users/jakareaparrez/Sites/hooknhunt-api/bootstrap/*.php /Users/jakareaparrez/Sites/hooknhunt-api/config/*.php 2>/dev/null | head -20)",
+      "Read(//Users/jakareaparrez/Sites/hooknhunt-api/**)",
+      "Bash(git -C /Users/jakareaparvez/Sites/hooknhunt-api status --short)",
+      "Bash(git -C /Users/jakareaparvez/Sites/hooknhunt-api status --porcelain)",
+      "Bash(git -C /Users/jakareaparrez/Sites/hooknhunt-api status --porcelain)",
+      "Bash(git -C /Users/jakareaparrez/Sites/hooknhunt-api ls-files --others --exclude-standard)",
+      "Bash(grep -E \"\\\\.md$|test-.*\\\\.php\")",
+      "Bash(git -C /Users/jakareaparrez/Sites/hooknhunt-api rm test-*.php)",
+      "Bash(git -C /Users/jakareaparvez/Sites/hooknhunt-api rm test-isolate-issue.php test-all-relations.php test-debug-serialization.php test-memory-simple.php test-api-response.php test-manual-array.php test-memory.php)",
+      "Bash(rm -f /Users/jakareaparrez/Sites/hooknhunt-api/test-*.php)",
+      "Bash(git -C /Users/jakareaparrez/Sites/hooknhunt-api status --short)",
+      "Bash(grep -E \"\\\\.md$|^test-\")",
+      "Bash(pwd && ls -la /Users/jakareaparvez/ | grep -i hook)",
+      "Read(//Users/jakareaparvez/**)",
+      "Bash(grep -E \"\\\\.md$\")",
+      "Bash(mysql -u root -e \"CREATE DATABASE IF NOT EXISTS alugxzaz_hnh CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\")",
+      "Bash(mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot -e \"CREATE DATABASE IF NOT EXISTS alugxzaz_hnh CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\")",
+      "Bash(/Applications/MAMP/Library/bin/mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot -e \"CREATE DATABASE IF NOT EXISTS alugxzaz_hnh CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\")",
+      "Bash(/Applications/MAMP/Library/bin/mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot alugxzaz_hnh)",
+      "Bash(/Applications/MAMP/Library/bin/mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot -e \"SHOW TABLES FROM alugxzaz_hnh;\")"
     ],
     "additionalDirectories": [
       "/Users/jakareaparvez/Sites/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website",
@@ -78,7 +98,8 @@
       "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Services",
       "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/database/migrations",
       "/Applications/MAMP/htdocs/hooknhunt/hooknhunt-api/app/Models",
-      "/Users/jakareaparvez/Sites/hooknhunt-api/resources/js/app/admin/marketing/affiliates"
+      "/Users/jakareaparvez/Sites/hooknhunt-api/resources/js/app/admin/marketing/affiliates",
+      "/Users/jakareaparrez/Sites/hooknhunt-api"
     ]
   }
 }
