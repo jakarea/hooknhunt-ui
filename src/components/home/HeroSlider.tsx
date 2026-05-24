@@ -62,7 +62,17 @@ export default function HeroSlider() {
                   {slide.video_url.includes('youtube.com') || slide.video_url.includes('youtu.be') ? (
                     <div className="absolute inset-0 pointer-events-none">
                       <iframe
-                        src={slide.video_url.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/') + '?autoplay=1&mute=1&loop=1&playlist=' + (slide.video_url.split('v=')[1]?.split('&')[0] || '') + '&enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&playsinline=1&html5=1&widgetid=1'}
+                        src={(() => {
+                          // Extract YouTube video ID
+                          let videoId = '';
+                          if (slide.video_url.includes('youtube.com/watch')) {
+                            const urlParams = new URLSearchParams(new URL(slide.video_url).search);
+                            videoId = urlParams.get('v') || '';
+                          } else if (slide.video_url.includes('youtu.be/')) {
+                            videoId = slide.video_url.split('youtu.be/')[1]?.split('?')[0] || '';
+                          }
+                          return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&enablejsapi=1&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&playsinline=1&html5=1`;
+                        })()}
                         title={slide.title}
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full"
                         style={{ pointerEvents: 'none' }}

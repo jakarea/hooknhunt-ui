@@ -8,7 +8,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (phone: string, password: string) => Promise<void>;
+  login: (phone: string, password: string, rememberMe?: boolean) => Promise<void>;
   register: (phone: string, password: string, name?: string) => Promise<void>;
   sendOtp: (phone: string) => Promise<void>;
   verifyOtp: (phone: string, otp: string) => Promise<void>;
@@ -31,7 +31,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const token = api.getToken();
 
       if (token) {
-
         // First, try to use cached user data immediately for better UX
         const cachedUser = localStorage.getItem('cached_user');
         if (cachedUser) {
@@ -90,7 +89,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   
-  const login = async (phone: string, password: string) => {
+  const login = async (phone: string, password: string, rememberMe: boolean = true) => {
     try {
       // Clear any existing auth data before login
       localStorage.removeItem('auth_token');
@@ -98,10 +97,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(null);
       setIsAuthenticated(false);
 
-      const response = await api.login(phone, password);
+      const response = await api.login(phone, password, rememberMe);
 
-      // Check both response.data.user and response.user for backward compatibility
-      const user = response.data?.user || (response as { user?: User })?.user;
+      // Check multiple possible user locations in response
+      const user =
+        (response as { data?: { user?: User } }).data?.user ||
+        (response as { user?: User }).user ||
+        response as unknown as User;
 
       if (user) {
         setUser(user);
@@ -130,11 +132,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const verifyOtp = async (phone: string, otp: string) => {
     try {
       const response = await api.verifyOtp(phone, otp);
-      if (response.data?.user) {
-        setUser(response.data.user);
+
+      // Check multiple possible user locations in response
+      const user =
+        (response as { data?: { user?: User } }).data?.user ||
+        (response as { user?: User }).user ||
+        response as unknown as User;
+
+      if (user) {
+        setUser(user);
         setIsAuthenticated(true);
         // Cache user data for offline scenarios
-        localStorage.setItem('cached_user', JSON.stringify(response.data.user));
+        localStorage.setItem('cached_user', JSON.stringify(user));
       }
     } catch (error) {
       console.error('OTP verification failed:', error);

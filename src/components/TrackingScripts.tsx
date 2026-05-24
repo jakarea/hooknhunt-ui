@@ -23,25 +23,17 @@ interface ApiResponse {
 
 export default function TrackingScripts() {
   useEffect(() => {
-    console.log('🚀 TrackingScripts component mounted')
     let mounted = true
 
     const injectTrackingScripts = async () => {
-      console.log('📡 Fetching tracking settings...')
       try {
-        // Fetch tracking codes from API using API client
         const response = await api.getTrackingSettings() as ApiResponse
 
-        console.log('🔍 Tracking API Response:', response)
-
         if (!response.success || !response.data) {
-          console.warn('⚠️ API response missing success or data field')
           return
         }
 
         const data = response.data
-
-        console.log('📊 Tracking data:', data)
 
         if (!mounted) return
 
@@ -52,8 +44,6 @@ export default function TrackingScripts() {
 
         // Priority: Custom code > ID
         if (pixelCode && pixelCode.trim()) {
-          // Use custom HTML code (contains <script> tags)
-          console.log('📘 Facebook Pixel Code (raw):', pixelCode)
           injectHtmlScript(pixelCode, 'facebook-pixel-custom')
         } else if (pixelId && pixelId.trim()) {
           // Generate standard Facebook Pixel script
@@ -155,15 +145,10 @@ export default function TrackingScripts() {
   // Helper: Inject HTML-containing script code (extracts JS from <script> tags)
   const injectHtmlScript = (htmlContent: string, id: string) => {
     if (document.getElementById(id)) {
-      console.log(`⚠️ Script ${id} already exists, skipping`)
       return
     }
 
-    console.log(`🔧 Injecting ${id}...`)
-
-    // Decode HTML entities
     const decoded = decodeHtmlEntities(htmlContent)
-    console.log(`📝 Decoded HTML for ${id}:`, decoded)
 
     // Create a temporary div to parse the HTML
     const temp = document.createElement('div')
@@ -171,7 +156,6 @@ export default function TrackingScripts() {
 
     // Extract and execute any script tags
     const scripts = temp.querySelectorAll('script')
-    console.log(`🎯 Found ${scripts.length} script tags in ${id}`)
 
     scripts.forEach((originalScript, index) => {
       const newScript = document.createElement('script')
@@ -190,12 +174,10 @@ export default function TrackingScripts() {
       }
 
       document.head.appendChild(newScript)
-      console.log(`✅ Injected script: ${newScript.id}`)
     })
 
     // Handle noscript tags (add to body)
     const noscripts = temp.querySelectorAll('noscript')
-    console.log(`🎯 Found ${noscripts.length} noscript tags in ${id}`)
 
     noscripts.forEach((noscript, index) => {
       if (noscript.textContent) {

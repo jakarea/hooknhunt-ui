@@ -19,40 +19,69 @@ export interface User {
   id: number;
   name: string;
   email?: string;
-  phone_number: string; // Updated to match API response
+  // snake_case (legacy/frontend default)
+  phone_number?: string;
+  phone_verified_at?: string;
+  email_verified_at?: string;
+  created_at?: string;
+  updated_at?: string;
+  // camelCase (API response format)
+  phoneNumber?: string;
+  phoneVerifiedAt?: string;
+  emailVerifiedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  // Common fields
+  phone?: string; // Alternative field name
   role?: string;
   customer_profile?: CustomerProfile | null;
+  customerProfile?: CustomerProfile | null;
   address?: string;
   thana?: string;
   district?: string;
-  email_verified_at?: string;
-  phone_verified_at?: string;
-  created_at: string;
-  updated_at: string;
 }
 
 // ✅ Address (from addresses table)
 export interface Address {
   id: number;
-  user_id: number;
+  user_id?: number;
+  userId?: number; // camelCase from API
   label?: string;
-  full_name: string;
+  // Name fields - support both formats
+  full_name?: string; // snake_case (legacy)
+  fullName?: string; // camelCase (API)
+  // Phone - same in both
   phone: string;
-  address_line1: string;
-  address_line2?: string;
+  // Address fields - support both formats
+  address_line1?: string; // snake_case (legacy)
+  addressLine1?: string; // camelCase (API)
+  address_line2?: string; // snake_case (legacy)
+  addressLine2?: string; // camelCase (API)
   area?: string;
+  // Type field - derived from boolean fields
   type?: 'shipping' | 'billing'; // Derived from is_shipping_address/is_billing_address
-  thana?: string;
-  city?: string; // Legacy - still in DB for backward compatibility
+  // Location fields - support both formats
+  thana?: string; // snake_case
+  city?: string; // camelCase (API) - maps to thana
   district?: string;
-  post_code?: string;
   division?: string;
+  post_code?: string; // snake_case (legacy)
+  postalCode?: string; // camelCase (API)
   country?: string;
-  is_default: boolean;
-  is_billing_address: boolean;
-  is_shipping_address: boolean;
-  created_at: string;
-  updated_at: string;
+  // Boolean flags - support both formats
+  is_default?: boolean; // snake_case (legacy)
+  isDefault?: boolean; // camelCase (API)
+  is_billing_address?: boolean; // snake_case (legacy)
+  isBillingAddress?: boolean; // camelCase (API)
+  is_shipping_address?: boolean; // snake_case (legacy)
+  isShippingAddress?: boolean; // camelCase (API)
+  // Timestamps - support both formats
+  created_at?: string; // snake_case (legacy)
+  createdAt?: string; // camelCase (API)
+  updated_at?: string; // snake_case (legacy)
+  updatedAt?: string; // camelCase (API)
+  deleted_at?: string | null;
+  deletedAt?: string | null;
 }
 
 // ✅ Simplified Product for Cart (only essential fields)
@@ -61,7 +90,8 @@ export interface CartProduct {
   name: string;
   price: number;
   originalPrice?: number; // Added for savings calculation
-  image: string;
+  image_url: string; // Updated from 'image' to 'image_url'
+  image_id?: number; // New field
   slug: string;
   stock: number;
   variant_id?: number;
@@ -130,7 +160,8 @@ export interface CategoryImage {
   original_filename?: string;
   path: string;
   url: string;
-  full_url: string;
+  full_url?: string;  // snake_case (legacy)
+  fullUrl?: string;   // camelCase (API response)
   mime_type?: string;
   width?: number;
   height?: number;
@@ -143,7 +174,7 @@ export interface Category {
   name: string;
   slug: string;
   parent_id?: number | null;
-  image_id?: number | null;
+  image_id?: number | null; // Standardized field
   is_active?: number;
   sort_order?: number;
   products_count?: number;
@@ -153,9 +184,8 @@ export interface Category {
   created_at?: string;
   updated_at?: string;
 
-  // Legacy fields (used by static data files)
-  image_url?: string;
-  image_object?: { full_url?: string };
+  // Standardized image field (API response format)
+  image_url?: string;   // Full URL to category image
 }
 
 // ✅ Product
@@ -175,9 +205,12 @@ export interface Product {
   brand: string;
   tags: string[];
 
-  // 🖼️ Media
-  featured_image: string;
-  gallery: string[];
+  // 🖼️ Media - Standardized fields
+  image_url?: string; // Main product image URL (snake_case format)
+  imageUrl?: string; // Main product image URL (camelCase format - actual API response)
+  image_id?: number; // Main image ID (snake_case format)
+  imageId?: number; // Main image ID (camelCase format - actual API response)
+  gallery_images?: GalleryImage[]; // Gallery images (new structure)
 
   // ⚙️ Physical Info
   weight: number;
@@ -228,7 +261,7 @@ export interface Product {
   nameBn?: string | null;      // Bangla name
   price?: number;       // Alias for actual_price
   originalPrice?: number; // Alias for compare_at_price
-  image?: string;       // Alias for featured_image
+  image?: string;       // Legacy alias for featured_image
   stock?: number;       // Alias for inventory_quantity
   rating?: number;      // Product rating (1-5)
   reviews?: number;     // Number of reviews
@@ -236,8 +269,9 @@ export interface Product {
   variant_count?: number; // Number of variants
   price_range_display?: string; // Price range display text
   has_offer?: boolean;  // Whether product has offers
-  thumbnail_url?: string; // Product thumbnail image URL
-  gallery_images?: string[] | string; // Product gallery images
+  thumbnail_url?: string; // Legacy - use image_url instead
+  gallery?: string[];   // Legacy - use gallery_images instead
+  featured_image?: string; // Legacy - use image_url instead
   price_range?: {       // Price range object
     min: string;
     max: string;
@@ -257,6 +291,12 @@ export interface Product {
   highlightsBn?: string[] | null; // Bangla highlights
 }
 
+// ✅ Gallery Image (new standardized structure)
+export interface GalleryImage {
+  image_url: string;
+  image_id?: number;
+}
+
 
 // ✅ Product Variant
 export interface ProductVariant {
@@ -272,7 +312,8 @@ export interface ProductVariant {
   option1?: string | null;
   option2?: string | null;
   option3?: string | null;
-  image: string;
+  image_url: string; // Updated from 'image' to 'image_url'
+  image_id?: number; // New field
   barcode: string;
   created_at: string;
   updated_at: string;
@@ -351,18 +392,36 @@ export interface SaleItem {
 
 // ✅ Slider (from /store/sliders API)
 export interface Slider {
-  image_url: string | null;
-  video_url: string | null;
-  capsule_title: string;
-  title: string;
-  sub_title: string;
-  features: string;
-  features_list: string[];
-  cta1_label: string | null;
-  cta1_link: string | null;
-  cta2_label: string | null;
-  cta2_link: string | null;
-  sort_order: number;
+  // Media type: 'image' or 'video'
+  media_type?: 'image' | 'video';
+
+  // Image/Video URLs (standardized)
+  image_url?: string | null; // Full URL for image sliders
+  video_url?: string | null; // YouTube/embed URL for video sliders
+
+  // Content
+  capsule_title?: string | null;
+  title?: string;
+  sub_title?: string;
+  features?: string | null;
+  features_list?: string[];
+  cta1_label?: string | null;
+  cta1_link?: string | null;
+  cta2_label?: string | null;
+  cta2_link?: string | null;
+  sort_order?: number;
+
+  // Legacy camelCase aliases (for backward compatibility)
+  imageUrl?: string | null;
+  videoUrl?: string | null;
+  capsuleTitle?: string | null;
+  subTitle?: string | null;
+  featuresList?: string[];
+  cta1Label?: string | null;
+  cta1Link?: string | null;
+  cta2Label?: string | null;
+  cta2Link?: string | null;
+  sortOrder?: number;
 }
 
 // ========================================
@@ -439,6 +498,8 @@ export interface ReviewProduct {
   id: number;
   name: string;
   slug: string;
+  image_url?: string; // Product image URL
+  image_id?: number; // Product image ID
 }
 
 export interface ReviewScreenshot {
@@ -456,7 +517,9 @@ export interface Review {
   created_at: string;
   updated_at: string;
   screenshot: ReviewScreenshot | null;
-  screenshot_url?: string | null;
+  screenshot_url?: string | null; // Legacy field
+  image_url?: string; // Standardized field (review screenshot)
+  image_id?: number; // Image ID
   products: ReviewProduct[];
 }
 
@@ -474,4 +537,60 @@ export interface ReviewsResponse {
     total: number;
     has_more_pages: boolean;
   };
+}
+
+// ========================================
+// Order Types
+// ========================================
+
+export interface OrderItem {
+  id: number;
+  variantId?: number;
+  quantity: number;
+  unitPrice?: number;
+  totalPrice?: number;
+  total_price_formatted?: string;
+  productName?: string;
+  variantName?: string;
+  sku?: string;
+  // Standardized image field
+  image_url: string;
+  image_id?: number;
+  // Legacy fields (for backward compatibility)
+  image?: string;
+  thumbnail_url?: string;
+  thumbnailUrl?: string;
+  thumbnail_path?: string;
+  thumbnailPath?: string;
+  product_image?: string;
+  productImage?: string;
+}
+
+export interface ShippingInfo {
+  address: string;
+  city?: string | null;
+  district: string;
+  division?: string;
+  thana?: string;
+}
+
+export interface Order {
+  id: number;
+  orderNumber?: string;
+  order_number?: string;
+  invoiceNo?: string;
+  invoice_no?: string;
+  status: string;
+  paymentStatus?: string;
+  payment_status?: string;
+  subTotal?: number;
+  totalAmount?: number;
+  deliveryCharge?: number;
+  paidAmount?: number;
+  dueAmount?: number;
+  shipping?: ShippingInfo;
+  items: OrderItem[];
+  createdAt?: string;
+  created_at?: string;
+  updated_at?: string;
 }

@@ -1,33 +1,17 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Define protected routes
-const protectedRoutes = ['/account']
-
-// Define public routes that should not redirect to login
+// Define public routes that should redirect authenticated users away
 const publicRoutes = ['/login', '/register', '/forgot-password']
 
 export function middleware(request: NextRequest) {
-  // Use nextUrl.pathname instead of request.url
   const { pathname } = request.nextUrl
-
-  // Check if the path starts with any protected route
-  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
 
   // Check if the path is a public auth route
   const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route))
 
-  // Get auth token from cookie
+  // Get auth token from cookie (set by API)
   const token = request.cookies.get('auth_token')?.value
-
-  // If accessing protected route without token, redirect to login
-  if (isProtectedRoute && !token) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    // Add return URL so user can be redirected back after login
-    url.searchParams.set('redirect', pathname)
-    return NextResponse.redirect(url)
-  }
 
   // If accessing login/register page while already authenticated, redirect to account
   if (isPublicRoute && token) {
@@ -36,6 +20,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  // For protected routes, let the client-side AuthContext handle authentication
+  // This avoids cross-domain cookie issues
   return NextResponse.next()
 }
 

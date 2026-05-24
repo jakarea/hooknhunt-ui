@@ -40,11 +40,16 @@ class ApiClient {
     return null;
   }
 
-  private setToken(token: string): void {
+  private setToken(token: string, rememberMe: boolean = true): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       localStorage.setItem('auth_token', token);
       // Also set cookie for middleware-based route protection
-      document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24 * 30}; SameSite=Lax`;
+      // Include Secure attribute for HTTPS, and ensure cookie is accessible
+      const isSecure = window.location.protocol === 'https:';
+      // If rememberMe is true, set cookie for 30 days. If false, use session cookie (no max-age)
+      const maxAge = rememberMe ? 60 * 60 * 24 * 30 : undefined; // 30 days or session
+      const cookieOptions = `auth_token=${token}; path=/; SameSite=Lax${isSecure ? '; Secure' : ''}${maxAge ? `; max-age=${maxAge}` : ''}`;
+      document.cookie = cookieOptions;
     }
   }
 
@@ -129,16 +134,22 @@ class ApiClient {
     });
   }
 
-  async verifyOtp(phone: string, otp: string): Promise<ApiResponse<{ user: User; access_token?: string; token?: string }>> {
-    const response = await this.request<{ user: User; access_token?: string; token?: string }>('/store/auth/verify-otp', {
+  async verifyOtp(phone: string, otp: string): Promise<ApiResponse<{ user: User; token?: string; tokenType?: string }>> {
+    const response = await this.request<{ user: User; token?: string; tokenType?: string }>('/store/auth/verify-otp', {
       method: 'POST',
       body: JSON.stringify({ phone, otp }),
     });
 
-    // Store token if verification successful (check both possible response structures)
-    const token = response.data?.access_token || response.data?.token || (response as { access_token?: string; token?: string })?.access_token || (response as { token?: string })?.token;
+    // Store token if verification successful
+    // Check multiple possible response structures for the token
+    const token =
+      (response as { token?: string }).token ||
+      (response as { data?: { token?: string } }).data?.token ||
+      (response as { access_token?: string }).access_token ||
+      (response as { data?: { access_token?: string } }).data?.access_token;
+
     if (token) {
-      this.setToken(token);
+      this.setToken(token, true); // Always remember after OTP verification
     }
 
     return response;
@@ -163,16 +174,21 @@ class ApiClient {
     });
   }
 
-  async login(phone: string, password: string): Promise<ApiResponse<{ user: User; access_token?: string; token?: string }>> {
-    const response = await this.request<{ user: User; access_token?: string; token?: string }>('/store/auth/login', {
+  async login(phone: string, password: string, rememberMe: boolean = true): Promise<ApiResponse<{ user: User; token?: string; tokenType?: string }>> {
+    const response = await this.request<{ user: User; token?: string; tokenType?: string }>('/store/auth/login', {
       method: 'POST',
       body: JSON.stringify({ login_id: phone, password }),
     });
 
-    // Store token if login successful (check both possible response structures)
-    const token = response.data?.access_token || response.data?.token || (response as { access_token?: string; token?: string })?.access_token || (response as { token?: string })?.token;
+    // Store token if login successful
+    const token =
+      (response as { token?: string }).token ||
+      (response as { data?: { token?: string } }).data?.token ||
+      (response as { access_token?: string }).access_token ||
+      (response as { data?: { access_token?: string } }).data?.access_token;
+
     if (token) {
-      this.setToken(token);
+      this.setToken(token, rememberMe);
     }
 
     return response;
@@ -234,6 +250,32 @@ class ApiClient {
   // Public: Get order by order number (for payment page)
   async getOrderByOrderNumber(orderNumber: string): Promise<ApiResponse> {
     return this.request(`/store/orders/${orderNumber}`, {});
+  }
+
+  // Public: Get customer by phone (for checkout auto-detection)
+  async getCustomerByPhone(phone: string): Promise<ApiResponse<{
+    found: boolean;
+    customer?: {
+      id: number;
+      user_id?: number;
+      name: string;
+      phone: string;
+      email: string;
+      type?: string;
+    };
+    addresses?: Array<{
+      id: number;
+      label: string | null;
+      address: string;
+      thana: string;
+      district: string | null;
+      division: string;
+      is_default: boolean;
+      addressLine1?: string;
+      city?: string;
+    }>;
+  }>> {
+    return this.request(`/store/account/by-phone?phone=${encodeURIComponent(phone)}`, {});
   }
 
   // Public: Initiate EPS payment directly
@@ -313,7 +355,7 @@ class ApiClient {
     message: string;
     priority?: string;
   }): Promise<ApiResponse<{ lead_id?: number; message: string }>> {
-    return this.request('/public/contact/submit', {
+    return this.request('/store/contact/submit', {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -352,11 +394,67 @@ class ApiClient {
     });
   }
 
+  // ==================== Guest Checkout (Public) ====================
+
+  /**
+   * Check if phone number can setup account (guest customer)
+   * GET /store/account/can-setup?phone=xxx
+   */
+  async canSetupAccount(phone: string): Promise<ApiResponse<{
+    can_setup: boolean;
+    has_password: boolean;
+    message: string;
+  }>> {
+    return this.request(`/store/account/can-setup?phone=${encodeURIComponent(phone)}`, {});
+  }
+
+  /**
+   * Setup account password for guest customer
+   * POST /store/account/setup
+   */
+  async setupAccount(data: {
+    phone: string;
+    password: string;
+    password_confirmation: string;
+    name?: string;
+  }): Promise<ApiResponse> {
+    return this.request('/store/account/setup', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  /**
+   * Track orders by phone or email (no login required)
+   * GET /store/orders/track?phone=xxx&email=xxx
+   */
+  async trackOrder(params: {
+    phone?: string;
+    email?: string;
+  }): Promise<ApiResponse<{
+    orders: Array<{
+      id: number;
+      invoice_no: string;
+      status: string;
+      status_label: string;
+      payment_status: string;
+      total_amount: number;
+      created_at: string;
+      items_count: number;
+    }>;
+    total_found: number;
+  }>> {
+    const searchParams = new URLSearchParams();
+    if (params.phone) searchParams.append('phone', params.phone);
+    if (params.email) searchParams.append('email', params.email);
+    return this.request(`/store/orders/track?${searchParams.toString()}`, {});
+  }
+
   // ==================== Tracking Scripts (Public) ====================
 
   /**
    * Get tracking scripts configuration (Facebook Pixel, GA, GTM)
-   * GET /website/tracking
+   * GET /store/tracking
    */
   async getTrackingSettings(): Promise<ApiResponse<{
     facebook: {
@@ -370,12 +468,12 @@ class ApiClient {
       tagManagerCode: string | null;
     };
   }>> {
-    return this.request('/website/tracking', {});
+    return this.request('/store/tracking', {});
   }
 
   /**
    * Calculate delivery charge based on weight and location
-   * POST /public/calculate-delivery
+   * POST /store/calculate-delivery
    */
   async calculateDeliveryCharge(data: {
     weight: number;
@@ -406,7 +504,7 @@ class ApiClient {
       };
     };
   }>> {
-    return this.request('/public/calculate-delivery', {
+    return this.request('/store/calculate-delivery', {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -511,12 +609,12 @@ class ApiClient {
   /**
    * Get active payment gateway configuration (public endpoint)
    * Returns which gateway is currently active (sslcommerz, eps, or null)
-   * GET /api/v2/public/payment/gateway
+   * GET /api/v2/store/payment/gateway
    */
   async getActivePaymentGateway(): Promise<ApiResponse<{
     activeGateway: 'sslcommerz' | 'eps' | null;
   }>> {
-    return this.request('/public/payment/gateway');
+    return this.request('/store/payment/gateway');
   }
 
   // Generic POST method for other API calls
@@ -536,7 +634,7 @@ class ApiClient {
     category: string | null;
     price: number | null;
   }> }>> {
-    return this.request(`/public/search/suggestions?q=${encodeURIComponent(query)}`);
+    return this.request(`/store/search/suggestions?q=${encodeURIComponent(query)}`);
   }
 
   // Search products
@@ -552,7 +650,7 @@ class ApiClient {
     if (params.per_page) searchParams.append('per_page', params.per_page.toString());
     if (params.page) searchParams.append('page', params.page.toString());
 
-    return this.request(`/public/search?${searchParams.toString()}`);
+    return this.request(`/store/search?${searchParams.toString()}`);
   }
 
   // Review endpoints (public)

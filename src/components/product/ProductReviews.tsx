@@ -182,7 +182,8 @@ interface ProductReviewCardProps {
 function ProductReviewCard({ review }: ProductReviewCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const screenshotUrl = review.screenshot?.full_url || review.screenshot_url || '/placeholder-review.png';
+  // Use new standardized image_url field, fall back to legacy screenshot fields
+  const screenshotUrl = review.image_url || review.screenshot?.full_url || review.screenshot_url || '/placeholder-review.png';
 
   return (
     <div

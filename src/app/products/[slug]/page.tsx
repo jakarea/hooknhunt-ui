@@ -104,6 +104,10 @@ interface ApiVariant {
   weight: string;
   size: string | null;
   color: string | null;
+  // New format (camelCase)
+  imageUrl?: string;
+  imageId?: number;
+  // Legacy format
   thumbnail?: string | null;
   isActive: boolean;
 }
@@ -130,16 +134,24 @@ interface ApiProduct {
   seoTags: string[] | null;
   attributes: string[] | null;
   attributesBn?: string[] | null;
-  thumbnail: { id: number; fullUrl: string; alt: string } | null;
-  galleryImages: { fullUrl: string }[];
-  category: { id: number; name: string; slug: string } | null;
-  brand: { id: number; name: string } | null;
+  // New format - camelCase (actual API response)
+  imageUrl?: string;
+  imageId?: number;
+  galleryImages?: Array<{ fullUrl: string }>; // Still using old structure in API
+  // Legacy image fields (old API format)
+  image?: string;
+  featured_image?: string;
+  thumbnail?: { id: number; fullUrl: string; alt: string } | null;
+  thumbnailUrl?: string;
+  category?: { id: number; name: string; slug: string } | null;
+  brand?: { id: number; name: string } | null;
   variants: ApiVariant[];
   crossSaleProducts?: {
     id: number;
     title: string;
     slug: string;
-    thumbnail: { id: number; fullUrl: string; alt: string } | null;
+    thumbnail?: { id: number; fullUrl: string; alt: string } | null;
+    imageUrl?: string;
     retailPrice: number;
     retailOfferPrice: number | null;
   }[];
@@ -247,15 +259,39 @@ function ProductDetailPageContent() {
             stock_status: v.stock > 0 ? (v.stock <= 5 ? 'low_stock' : 'in_stock') : 'out_of_stock',
           },
           image: {
-            url: v.thumbnail || data.thumbnail?.fullUrl || '',
-            thumbnail_url: v.thumbnail || data.thumbnail?.fullUrl || '',
+            url: v.imageUrl || v.thumbnail || data.imageUrl || data.image || data.featured_image || data.thumbnail?.fullUrl || '',
+            thumbnail_url: v.imageUrl || v.thumbnail || data.imageUrl || data.image || data.featured_image || data.thumbnail?.fullUrl || '',
             alt_text: data.thumbnail?.alt || v.variantName,
           },
         }));
 
-        const galleryUrls = data.galleryImages?.map((img: { fullUrl: string }) => img.fullUrl) || [];
-        if (data.thumbnail?.fullUrl && !galleryUrls.includes(data.thumbnail.fullUrl)) {
-          galleryUrls.unshift(data.thumbnail.fullUrl);
+        // Handle gallery images
+        let galleryUrls: string[] = [];
+        const placeholderPattern = /placeholder\.jpg$/;
+
+        if (data.galleryImages && data.galleryImages.length > 0) {
+          // Use galleryImages if available - handle both formats
+          galleryUrls = data.galleryImages
+            .map((img) => {
+              // Handle both old format {fullUrl} and new format {imageUrl}
+              const url = (img as { fullUrl?: string }).fullUrl || (img as { imageUrl?: string }).imageUrl || '';
+              return url;
+            })
+            .filter((url) => url && url.length > 0 && !placeholderPattern.test(url));
+        } else {
+          // Build gallery from variant images when galleryImages is empty
+          const variantImages = data.variants
+            .map((v: ApiVariant) => v.imageUrl)
+            .filter((url): url is string => url && url.length > 0 && !placeholderPattern.test(url));
+
+          // Remove duplicates while preserving order
+          galleryUrls = [...new Set(variantImages)];
+        }
+
+        // Add main product image to gallery if not already present (and not a placeholder)
+        const mainImageUrl = data.imageUrl || data.image || data.featured_image || data.thumbnail?.fullUrl || '';
+        if (mainImageUrl && !galleryUrls.includes(mainImageUrl) && !placeholderPattern.test(mainImageUrl)) {
+          galleryUrls.unshift(mainImageUrl);
         }
 
         const hasOffer = variants.some((v: Variant) => v.original_price > v.retail_price);
@@ -266,7 +302,7 @@ function ProductDetailPageContent() {
           name: data.name,
           nameBn: data.nameBn,
           slug: data.slug,
-          thumbnail_url: data.thumbnail?.fullUrl || '',
+          thumbnail_url: data.imageUrl || data.image || data.featured_image || data.thumbnail?.fullUrl || data.thumbnailUrl || '',
           gallery_images: galleryUrls,
           price_range: {
             min: Math.min(...variants.map((v: Variant) => v.retail_price)).toString(),
@@ -400,8 +436,9 @@ function ProductDetailPageContent() {
       name: p.title,
       title: p.title,
       slug: p.slug,
-      image: p.thumbnail?.fullUrl || '',
-      featured_image: p.thumbnail?.fullUrl || '',
+      image: p.imageUrl || p.thumbnail?.fullUrl || p.image || p.featured_image || '',
+      featured_image: p.imageUrl || p.thumbnail?.fullUrl || p.image || p.featured_image || '',
+      image_url: p.imageUrl || p.thumbnail?.fullUrl || p.image || p.featured_image || '',
       price: p.retailOfferPrice || p.retailPrice,
       actual_price: p.retailOfferPrice || p.retailPrice,
       originalPrice: p.retailPrice,

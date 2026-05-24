@@ -46,7 +46,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   // Map product properties to display properties
   const price = product.price ?? product.actual_price;
   const originalPrice = product.originalPrice ?? product.compare_at_price;
-  const image = product.image ?? product.featured_image ?? null;
+  const image = product.image_url ?? product.imageUrl ?? product.image ?? product.featured_image ?? null;
   const name = localizedName;
   const stock = product.stock ?? product.inventory_quantity;
   const variant_count = product.variant_count || 0;
@@ -68,7 +68,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       name: product.name || product.title,
       price: product.price || product.actual_price,
       originalPrice: product.originalPrice || product.compare_at_price,
-      image: product.image || product.featured_image,
+      image: product.image_url || product.imageUrl || product.image || product.featured_image,
       slug: product.slug,
       stock: product.stock || product.inventory_quantity,
     }, 1);

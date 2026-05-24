@@ -11,15 +11,25 @@ import toast, { Toaster } from 'react-hot-toast';
 
 interface OrderItem {
   id: number;
-  variantId: number;
+  variantId?: number;
   quantity: number;
-  unitPrice: number;
-  originalPrice: number | null;
-  totalPrice: number;
-  productName: string;
-  variantName: string;
-  sku: string;
-  image: string;
+  unitPrice?: number;
+  originalPrice?: number | null;
+  totalPrice?: number;
+  productName?: string;
+  variantName?: string;
+  sku?: string;
+  // Standardized image field
+  image_url: string;
+  image_id?: number;
+  // Legacy fields (for backward compatibility)
+  image?: string;
+  thumbnail_url?: string;
+  thumbnailUrl?: string;
+  thumbnail_path?: string;
+  thumbnailPath?: string;
+  product_image?: string;
+  productImage?: string;
 }
 
 interface ShippingInfo {
@@ -273,11 +283,22 @@ export default function OrderDetailsPage() {
                           <div className="flex items-center">
                             <div className="h-16 w-16 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden mr-4">
                               <Image
-                                src={item.image || '/placeholder-image.jpg'}
+                                src={
+                                  item.image_url ||
+                                  item.thumbnail_url ||
+                                  item.thumbnailUrl ||
+                                  item.product_image ||
+                                  item.productImage ||
+                                  item.image ||
+                                  '/placeholder-image.jpg'
+                                }
                                 alt={item.productName}
                                 width={64}
                                 height={64}
                                 className="object-cover"
+                                onError={(e) => {
+                                  // Image failed to load - fallback will be shown
+                                }}
                               />
                             </div>
                             <div>

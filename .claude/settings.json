@@ -85,7 +85,12 @@
       "Bash(mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot -e \"CREATE DATABASE IF NOT EXISTS alugxzaz_hnh CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\")",
       "Bash(/Applications/MAMP/Library/bin/mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot -e \"CREATE DATABASE IF NOT EXISTS alugxzaz_hnh CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;\")",
       "Bash(/Applications/MAMP/Library/bin/mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot alugxzaz_hnh)",
-      "Bash(/Applications/MAMP/Library/bin/mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot -e \"SHOW TABLES FROM alugxzaz_hnh;\")"
+      "Bash(/Applications/MAMP/Library/bin/mysql --socket=/Applications/MAMP/tmp/mysql/mysql.sock -u root -proot -e \"SHOW TABLES FROM alugxzaz_hnh;\")",
+      "Bash(git stash *)",
+      "Bash(git pull *)",
+      "Bash(git checkout *)",
+      "Bash(git fsck *)",
+      "Bash(git restore *)"
     ],
     "additionalDirectories": [
       "/Users/jakareaparvez/Sites/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website",

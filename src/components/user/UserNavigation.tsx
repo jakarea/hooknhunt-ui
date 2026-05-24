@@ -16,10 +16,8 @@ export default function UserNavigation() {
     { name: 'Dashboard', href: '/account', icon: '📊' },
     { name: 'Profile', href: '/account/profile', icon: '👤' },
     { name: 'Orders', href: '/account/orders', icon: '🛒' },
-    { name: 'Wishlist', href: '/account/wishlist', icon: '❤️' },
     { name: 'Affiliate', href: '/account/affiliate', icon: '🤝' },
     { name: 'Addresses', href: '/account/addresses', icon: '📍' },
-    { name: 'Settings', href: '/account/settings', icon: '⚙️' },
   ];
 
   const handleLogout = async () => {

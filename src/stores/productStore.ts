@@ -18,6 +18,12 @@ function decodeHtmlEntities(text: string): string {
   return txt.value
 }
 
+// Helper to check if URL is a placeholder image
+function isPlaceholderImage(url: string): boolean {
+  if (!url) return true
+  return /placeholder\.jpg$/.test(url) || url.includes('placeholder')
+}
+
 export function getLocalizedName<T extends { name?: string; nameBn?: string | null; name_en?: string }>(
   item: T,
   language: string
@@ -149,7 +155,10 @@ export interface ApiProduct {
   category: { id: number; name: string; slug: string } | null;
   brand: { id: number; name: string } | null;
   variants: ApiVariant[];
-  // Fields from optimized list API (pre-calculated for performance)
+  // New format - camelCase (actual API response)
+  imageUrl?: string;   // Main image URL
+  imageId?: number;    // Main image ID
+  // Legacy fields (for backward compatibility)
   image?: string;       // Main image URL
   featured_image?: string; // Featured image URL
   price?: number;       // Calculated display price
@@ -176,12 +185,24 @@ export const mapApiProduct = (p: ApiProduct): Product => {
     const hasVariants = p.variants && p.variants.length > 0;
 
     let imageUrl = '';
-    if (p.image || p.featured_image) {
-      // Use pre-calculated image URLs from optimized list API
-      imageUrl = p.featured_image || p.image || '';
+
+    if (p.imageUrl) {
+      // Use new camelCase imageUrl field (actual API response)
+      // Filter out placeholder images
+      if (!isPlaceholderImage(p.imageUrl)) {
+        imageUrl = p.imageUrl;
+      }
+    } else if (p.image || p.featured_image) {
+      // Fall back to legacy image fields
+      const legacyUrl = p.featured_image || p.image || '';
+      if (legacyUrl && !isPlaceholderImage(legacyUrl)) {
+        imageUrl = legacyUrl;
+      }
     } else if (p.thumbnail?.fullUrl) {
       // Fall back to thumbnail object for detail API
-      imageUrl = p.thumbnail.fullUrl;
+      if (!isPlaceholderImage(p.thumbnail.fullUrl)) {
+        imageUrl = p.thumbnail.fullUrl;
+      }
     }
 
     let price = 0;
@@ -232,7 +253,10 @@ export const mapApiProduct = (p: ApiProduct): Product => {
       variantCount = p.variant_count ?? 0;
     }
 
-    const galleryUrls = p.galleryImages?.map((img) => img.fullUrl) || [];
+    // Handle both new gallery_images format and legacy galleryImages
+    const galleryUrls = p.gallery_images?.map((img) => img.image_url) ||
+                        p.galleryImages?.map((img) => img.fullUrl) ||
+                        [];
 
     return {
       id: p.id,
@@ -243,8 +267,10 @@ export const mapApiProduct = (p: ApiProduct): Product => {
       nameBn: p.nameBn,
       price,
       originalPrice: originalPrice ?? undefined,
-      image: imageUrl,
-      featured_image: imageUrl,
+      image_url: imageUrl, // New standardized field (camelCase)
+      image_id: p.imageId, // New field (camelCase)
+      image: imageUrl, // Legacy field (for backward compatibility)
+      featured_image: imageUrl, // Legacy field
       stock: totalStock,
       inventory_quantity: totalStock,
       category: p.category?.name || '',
@@ -260,7 +286,8 @@ export const mapApiProduct = (p: ApiProduct): Product => {
       includesInBox: p.includesInBox || null,
       includesInBoxBn: p.includesInBoxBn || null,
       sku: sku,
-      gallery: galleryUrls,
+      gallery_images: galleryUrls.map(url => ({ image_url: url })), // New format
+      gallery: galleryUrls, // Legacy format
       variants: activeVariants.map((v) => ({
         id: v.id,
         product_id: p.id,
@@ -271,7 +298,8 @@ export const mapApiProduct = (p: ApiProduct): Product => {
         cost_price: 0,
         inventory_quantity: v.stock,
         weight: parseFloat(v.weight) || 0,
-        image: imageUrl,
+        image_url: imageUrl, // New field
+        image: imageUrl, // Legacy field
         barcode: '',
         created_at: '',
         updated_at: '',
@@ -396,6 +424,12 @@ export const useProductStore = create<ProductState>((set, get) => ({
 
     if (!reset && !isFilterChange && state.fetched && !filters) return;
 
+    // Clear products on reset or filter change
+    const shouldReset = reset || isFilterChange;
+    if (shouldReset) {
+      set({ products: [], currentPage: 0 });
+    }
+
     set({ loading: true, error: null, currentFilters: mergedFilters });
 
     try {
@@ -408,10 +442,18 @@ export const useProductStore = create<ProductState>((set, get) => ({
       const paginated = response.data as unknown as {
         data: ApiProduct[];
         total: number;
-        last_page: number;
-        current_page: number;
-        next_page_url: string | null;
+        last_page?: number;
+        lastPage?: number;
+        current_page?: number;
+        currentPage?: number;
+        next_page_url?: string | null;
+        nextPageUrl?: string | null;
       };
+
+      const productsCount = paginated?.data?.length || 0;
+      const total = paginated?.total || 0;
+      const currentPage = paginated?.currentPage || paginated?.current_page || 1;
+      const lastPage = paginated?.lastPage || paginated?.last_page || Math.ceil(total / PER_PAGE);
 
       const products = (paginated?.data ?? []).map(mapApiProduct);
 
@@ -419,10 +461,11 @@ export const useProductStore = create<ProductState>((set, get) => ({
         products,
         loading: false,
         fetched: true,
-        currentPage: paginated?.current_page || 1,
-        totalPages: paginated?.last_page || 1,
-        total: paginated?.total || 0,
-        hasMore: !!paginated?.next_page_url,
+        currentPage,
+        totalPages: lastPage,
+        total,
+        // More reliable: check if current page is less than last page
+        hasMore: currentPage < lastPage,
       });
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Failed to fetch products';
@@ -435,6 +478,7 @@ export const useProductStore = create<ProductState>((set, get) => ({
     if (state.loading || !state.hasMore) return;
 
     const nextPage = state.currentPage + 1;
+
     set({ loading: true, error: null });
 
     try {
@@ -447,20 +491,29 @@ export const useProductStore = create<ProductState>((set, get) => ({
       const paginated = response.data as unknown as {
         data: ApiProduct[];
         total: number;
-        last_page: number;
-        current_page: number;
-        next_page_url: string | null;
+        last_page?: number;
+        lastPage?: number;
+        current_page?: number;
+        currentPage?: number;
+        next_page_url?: string | null;
+        nextPageUrl?: string | null;
       };
+
+      const newProductsCount = paginated?.data?.length || 0;
+      const total = paginated?.total || state.total;
+      const currentPage = paginated?.currentPage || paginated?.current_page || nextPage;
+      const lastPage = paginated?.lastPage || paginated?.last_page || Math.ceil(total / PER_PAGE);
 
       const newProducts = (paginated?.data ?? []).map(mapApiProduct);
 
       set({
         products: [...state.products, ...newProducts],
         loading: false,
-        currentPage: paginated?.current_page || nextPage,
-        totalPages: paginated?.last_page || state.totalPages,
-        total: paginated?.total || state.total,
-        hasMore: !!paginated?.next_page_url,
+        currentPage,
+        totalPages: lastPage,
+        total,
+        // More reliable: check if current page is less than last page
+        hasMore: currentPage < lastPage,
       });
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Failed to load more products';

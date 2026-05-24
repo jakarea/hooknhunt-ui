@@ -50,29 +50,12 @@ function ProductsPageContent() {
   const loading = useProductStore((s) => s.loading);
   const hasMore = useProductStore((s) => s.hasMore);
   const fetched = useProductStore((s) => s.fetched);
+  const currentPage = useProductStore((s) => s.currentPage);
+  const totalPages = useProductStore((s) => s.totalPages);
+  const total = useProductStore((s) => s.total);
   const fetchProducts = useProductStore((s) => s.fetchProducts);
   const loadMore = useProductStore((s) => s.loadMore);
   const observerTarget = useRef<HTMLDivElement>(null);
-
-  // Update URL params when filters change
-  const updateURL = useCallback((filters: { categories?: string[], sort?: string, price?: string[], rating?: number }) => {
-    const params = new URLSearchParams();
-    if (filters.categories && filters.categories.length > 0 && !filters.categories.includes('all')) {
-      params.set('category', filters.categories[0]);
-    }
-    if (filters.sort && filters.sort !== 'best-selling') {
-      params.set('sort', filters.sort);
-    }
-    if (filters.price && filters.price.length > 0) {
-      params.set('price', filters.price.join(','));
-    }
-    if (filters.rating && filters.rating > 0) {
-      params.set('rating', filters.rating.toString());
-    }
-
-    const newURL = params.toString() ? `/products?${params.toString()}` : '/products';
-    router.replace(newURL, { scroll: false });
-  }, [router]);
 
   const getCategoryId = useCallback((): number | undefined => {
     if (selectedCategories.includes('all') || selectedCategories.length === 0) return undefined;
@@ -115,8 +98,12 @@ function ProductsPageContent() {
 
   const filteredProducts = useMemo(() => {
     return products.filter((product: Product) => {
-      if (minRating > 0 && (product.rating || 0) < minRating) return false;
+      // Rating filter
+      if (minRating > 0 && (product.rating || 0) < minRating) {
+        return false;
+      }
 
+      // Price range filter
       if (priceRange.length > 0) {
         const productPrice = product.price || product.actual_price || 0;
         const inRange = priceRange.some((range: string) => {
@@ -129,7 +116,7 @@ function ProductsPageContent() {
 
       return true;
     });
-  }, [products, priceRange, minRating]);
+  }, [products, priceRange, minRating, selectedCategories]);
 
   const sortedProducts = useMemo(() => {
     if (sortBy !== 'discount') return filteredProducts;
@@ -143,7 +130,7 @@ function ProductsPageContent() {
       const bDiscount = bOriginal > bPrice ? (bOriginal - bPrice) / bOriginal : 0;
       return bDiscount - aDiscount;
     });
-  }, [filteredProducts, sortBy]);
+  }, [filteredProducts, sortBy, products.length]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -152,7 +139,7 @@ function ProductsPageContent() {
           loadMore();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.01, rootMargin: '100px' }
     );
 
     const currentTarget = observerTarget.current;
@@ -185,38 +172,103 @@ function ProductsPageContent() {
   }, [isSortDropdownOpen]);
 
   const handlePriceRangeChange = (range: string) => {
+    // Radio button behavior: only one price range at a time
     const newPriceRange = priceRange.includes(range)
-      ? priceRange.filter((r) => r !== range)
-      : [...priceRange, range];
+      ? [] // If already selected, unselect it
+      : [range]; // Otherwise, select only this one (replace previous)
     setPriceRange(newPriceRange);
-    updateURL({ categories: selectedCategories, sort: sortBy, price: newPriceRange, rating: minRating });
+    // Update URL with all current filters + new price range
+    const params = new URLSearchParams();
+    if (selectedCategories.length > 0 && !selectedCategories.includes('all')) {
+      params.set('category', selectedCategories[0]);
+    }
+    if (newPriceRange.length > 0) {
+      params.set('price', newPriceRange[0]); // Only one price range
+    }
+    if (minRating > 0) {
+      params.set('rating', minRating.toString());
+    }
+    if (sortBy !== 'best-selling') {
+      params.set('sort', sortBy);
+    }
+    const newURL = params.toString() ? `/products?${params.toString()}` : '/products';
+    router.replace(newURL, { scroll: false });
   };
 
   const handleCategoryChange = (categories: string[]) => {
     setSelectedCategories(categories);
-    updateURL({ categories, sort: sortBy, price: priceRange, rating: minRating });
+    // Update URL immediately
+    const params = new URLSearchParams();
+    if (categories.length > 0 && !categories.includes('all')) {
+      params.set('category', categories[0]);
+    }
+    if (priceRange.length > 0) {
+      params.set('price', priceRange[0]); // Single price range
+    }
+    if (minRating > 0) {
+      params.set('rating', minRating.toString());
+    }
+    if (sortBy !== 'best-selling') {
+      params.set('sort', sortBy);
+    }
+    const newURL = params.toString() ? `/products?${params.toString()}` : '/products';
+    router.replace(newURL, { scroll: false });
   };
 
   const handleSortChange = (sort: string) => {
     setSortBy(sort);
     setIsSortDropdownOpen(false);
-    updateURL({ categories: selectedCategories, sort, price: priceRange, rating: minRating });
+    // Update URL with all current filters + new sort
+    const params = new URLSearchParams();
+    if (selectedCategories.length > 0 && !selectedCategories.includes('all')) {
+      params.set('category', selectedCategories[0]);
+    }
+    if (priceRange.length > 0) {
+      params.set('price', priceRange[0]); // Single price range
+    }
+    if (minRating > 0) {
+      params.set('rating', minRating.toString());
+    }
+    if (sort !== 'best-selling') {
+      params.set('sort', sort);
+    }
+    const newURL = params.toString() ? `/products?${params.toString()}` : '/products';
+    router.replace(newURL, { scroll: false });
   };
 
   const handleRatingChange = (rating: number) => {
+    // Radio button behavior: only one rating at a time
     const newRating = minRating === rating ? 0 : rating;
     setMinRating(newRating);
-    updateURL({ categories: selectedCategories, sort: sortBy, price: priceRange, rating: newRating });
+    // Update URL with all current filters + new rating
+    const params = new URLSearchParams();
+    if (selectedCategories.length > 0 && !selectedCategories.includes('all')) {
+      params.set('category', selectedCategories[0]);
+    }
+    if (priceRange.length > 0) {
+      params.set('price', priceRange[0]); // Single price range
+    }
+    if (newRating > 0) {
+      params.set('rating', newRating.toString());
+    }
+    if (sortBy !== 'best-selling') {
+      params.set('sort', sortBy);
+    }
+    const newURL = params.toString() ? `/products?${params.toString()}` : '/products';
+    router.replace(newURL, { scroll: false });
   };
 
   const clearAllFilters = () => {
+    // Reset all filter states
     setSelectedCategories(['all']);
     setPriceRange([]);
     setMinRating(0);
     setSortBy('best-selling');
-    // Update URL after state updates to ensure we use the new values
+    // Navigate to clean URL and trigger fetch with empty filters
+    router.replace('/products', { scroll: false });
+    // Force fetch all products by calling fetchProducts with empty filters
     setTimeout(() => {
-      updateURL({ categories: ['all'], sort: 'best-selling', price: [], rating: 0 });
+      fetchProducts({}, true);
     }, 0);
   };
 
@@ -277,7 +329,7 @@ function ProductsPageContent() {
             w-[75vw] max-w-[240px] lg:w-[240px] lg:max-w-[240px]
             flex-shrink-0
             ${isSidebarOpen ? 'block' : 'hidden lg:block'}
-            z-50 lg:z-auto lg:top-24 lg:self-start
+            z-50 lg:z-auto lg:top-4 lg:self-start
             overflow-y-auto lg:overflow-visible
           `}>
             {/* Mobile Backdrop */}
@@ -416,15 +468,11 @@ function ProductsPageContent() {
                           key={category.id}
                           onClick={() => {
                             if (isSelected) {
-                              const newCategories = selectedCategories.filter(cat => cat !== category.slug);
-                              if (newCategories.length === 0) {
-                                handleCategoryChange(['all']);
-                              } else {
-                                handleCategoryChange(newCategories);
-                              }
+                              // If already selected, unselect and go back to 'all'
+                              handleCategoryChange(['all']);
                             } else {
-                              const newCategories = selectedCategories.filter(cat => cat !== 'all');
-                              handleCategoryChange([...newCategories, category.slug]);
+                              // Select this category (radio behavior - only one at a time)
+                              handleCategoryChange([category.slug]);
                             }
                           }}
                           className={`w-full text-left px-3 py-2.5 min-h-[48px] transition-all duration-200 flex items-center justify-between rounded-xl ${isSelected
@@ -658,7 +706,7 @@ function ProductsPageContent() {
                 </div>
 
                 {/* Loading More Indicator with Skeleton */}
-                <div ref={observerTarget} className="flex justify-center items-center py-12 sm:py-16">
+                <div ref={observerTarget} className="flex justify-center items-center py-12 sm:py-16 min-h-[100px]">
                   {loading && fetched ? (
                     <div className="w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
                       {Array.from({ length: 4 }).map((_, i) => (
@@ -671,11 +719,23 @@ function ProductsPageContent() {
                         </div>
                       ))}
                     </div>
-                  ) : !hasMore ? (
-                    <div className="h-16 sm:h-20"></div>
-                  ) : (
-                    <div className="h-16 sm:h-20"></div>
-                  )}
+                  ) : !hasMore && products.length > 0 ? (
+                    <div className="text-center py-8 w-full">
+                      <p className="text-gray-500 dark:text-gray-400 text-sm" suppressHydrationWarning>
+                        {t('products.noMoreProducts', { defaultValue: 'You\'ve reached the end' })}
+                      </p>
+                    </div>
+                  ) : hasMore ? (
+                    <div className="text-center py-8">
+                      <div className="inline-flex items-center gap-2 text-gray-400 text-sm">
+                        <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span suppressHydrationWarning>{t('products.scrollForMore', { defaultValue: 'Scroll for more' })}</span>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </>
             ) : (

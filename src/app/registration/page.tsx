@@ -4,8 +4,33 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function RegistrationPage() {
+    const { t } = useTranslation();
+
+    // Helper function to translate common API error messages
+    const translateApiError = (message: string): string => {
+        const lowerMessage = message.toLowerCase();
+
+        // Check for common error patterns and return translated messages
+        if (lowerMessage.includes('phone') && (lowerMessage.includes('already') || lowerMessage.includes('exists') || lowerMessage.includes('taken'))) {
+            return t('auth.api.phoneExists');
+        }
+        if (lowerMessage.includes('email') && (lowerMessage.includes('already') || lowerMessage.includes('exists') || lowerMessage.includes('taken'))) {
+            return t('auth.api.emailExists');
+        }
+        if (lowerMessage.includes('invalid') && lowerMessage.includes('credential')) {
+            return t('auth.api.invalidCredentials');
+        }
+        if (lowerMessage.includes('user') && lowerMessage.includes('not found')) {
+            return t('auth.api.userNotFound');
+        }
+
+        // Return original message if no pattern matches
+        return message;
+    };
+
     const [formData, setFormData] = useState({
         phone: '',
         password: '',
@@ -52,28 +77,28 @@ export default function RegistrationPage() {
         // Validate phone number (Bangladesh format)
         const phoneRegex = /^01\d{9}$/;
         if (!phoneRegex.test(formData.phone)) {
-            setError('Please enter a valid Bangladesh phone number (01xxxxxxxxx)');
+            setError(t('auth.validation.phoneInvalid'));
             setIsLoading(false);
             return;
         }
 
         // Validate password
         if (formData.password.length < 6) {
-            setError('Password must be at least 6 characters long');
+            setError(t('auth.validation.passwordMin'));
             setIsLoading(false);
             return;
         }
 
         // Validate password match
         if (formData.password !== formData.confirmPassword) {
-            setError('Passwords do not match');
+            setError(t('auth.validation.passwordMatch'));
             setIsLoading(false);
             return;
         }
 
         // Validate terms agreement
         if (!agreedToTerms) {
-            setError('You must agree to the Terms of Service and Privacy Policy');
+            setError(t('auth.validation.termsRequired'));
             setIsLoading(false);
             return;
         }
@@ -114,7 +139,7 @@ export default function RegistrationPage() {
                         // Phone registered AND verified — show message with login link
                         setError('');
                         setFieldErrors({
-                            phone: 'This number is already registered. Sign in instead.',
+                            phone: translateApiError(errorMsg),
                         });
                     } else {
                         // Phone registered but NOT verified — send OTP and redirect
@@ -133,16 +158,17 @@ export default function RegistrationPage() {
                     const parsed: Record<string, string> = {};
                     Object.entries(errorObj.errors).forEach(([field, messages]) => {
                         const fieldName = field.replace('phone_number', 'phone');
-                        parsed[fieldName] = Array.isArray(messages) ? messages[0] : messages;
+                        const msg = Array.isArray(messages) ? messages[0] : messages;
+                        parsed[fieldName] = translateApiError(msg);
                     });
                     setFieldErrors(parsed);
                     const allErrors = Object.values(errorObj.errors).flat();
-                    setError(allErrors[0] || errorMsg);
+                    setError(translateApiError(allErrors[0] || errorMsg));
                 } else {
-                    setError(errorMsg);
+                    setError(translateApiError(errorMsg));
                 }
             } else {
-                setError('Registration failed. Please check your connection and try again.');
+                setError(translateApiError('Registration failed. Please check your connection and try again.'));
             }
             return;
         } finally {
@@ -158,11 +184,11 @@ export default function RegistrationPage() {
                     <div className="mx-auto h-16 w-16 flex items-center justify-center mb-4">
                         <img src="/hook-and-hunt-logo.svg" alt="Hook & Hunt" className="h-12 w-auto" />
                     </div>
-                    <h2 className="text-3xl font-bold text-gray-900">
-                        Create Account
+                    <h2 className="text-3xl font-bold text-gray-900" suppressHydrationWarning>
+                        {t('auth.register.title')}
                     </h2>
-                    <p className="mt-2 text-sm text-gray-600">
-                        Join us and start shopping for the best products
+                    <p className="mt-2 text-sm text-gray-600" suppressHydrationWarning>
+                        {t('auth.register.subtitle')}
                     </p>
                 </div>
 
@@ -176,7 +202,7 @@ export default function RegistrationPage() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.314 16.5c-.77.833.192 2.5 1.732 2.5z" />
                                 </svg>
                                 <div>
-                                    <p className="font-medium">Registration Error</p>
+                                    <p className="font-medium" suppressHydrationWarning>{t('auth.register.failed')}</p>
                                     <p className="text-red-600 mt-1">{error}</p>
                                 </div>
                             </div>
@@ -185,7 +211,7 @@ export default function RegistrationPage() {
                         {/* Name Field */}
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                                Full Name (Optional)
+                                {t('auth.register.fullName')} *
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -197,18 +223,26 @@ export default function RegistrationPage() {
                                     id="name"
                                     name="name"
                                     type="text"
+                                    required
                                     value={formData.name}
                                     onChange={handleChange}
-                                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-700 focus:border-transparent bg-white text-gray-900 transition-colors"
-                                    placeholder="Enter your full name"
+                                    className={`block w-full pl-10 pr-3 py-3 border rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent bg-white text-gray-900 transition-colors ${
+                                        fieldErrors.name
+                                            ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
+                                            : 'border-gray-300 focus:ring-red-700'
+                                    }`}
+                                    placeholder={t('auth.register.fullName')}
                                 />
                             </div>
+                            {fieldErrors.name && (
+                                <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
+                            )}
                         </div>
 
                         {/* Phone Number Field */}
                         <div>
                             <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                                Phone Number *
+                                {t('auth.register.phone')} *
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -236,19 +270,19 @@ export default function RegistrationPage() {
                                     {fieldErrors.phone}
                                     {fieldErrors.phone.includes('Sign in') && (
                                         <Link href="/login" className="ml-1 font-semibold underline text-red-700 hover:text-red-800">
-                                            Sign In
+                                            {t('auth.register.login')}
                                         </Link>
                                     )}
                                 </p>
                             ) : (
-                                <p className="mt-1 text-xs text-gray-500">Format: 01xxxxxxxxx (Bangladesh number)</p>
+                                <p className="mt-1 text-xs text-gray-500" suppressHydrationWarning>{t('auth.register.phoneFormat')}</p>
                             )}
                         </div>
 
                         {/* Password Field */}
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                                Password *
+                                {t('auth.register.password')} *
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -263,12 +297,12 @@ export default function RegistrationPage() {
                                     required
                                     value={formData.password}
                                     onChange={handleChange}
+                                    placeholder={t('auth.register.passwordPlaceholder')}
                                     className={`block w-full pl-10 pr-10 py-3 border rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent bg-white text-gray-900 transition-colors ${
                                         fieldErrors.password
                                             ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                                             : 'border-gray-300 focus:ring-red-700'
                                     }`}
-                                    placeholder="Enter your password"
                                 />
                                 <button
                                     type="button"
@@ -297,7 +331,7 @@ export default function RegistrationPage() {
                         {/* Confirm Password Field */}
                         <div>
                             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                                Confirm Password *
+                                {t('auth.register.confirmPassword')} *
                             </label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -317,7 +351,7 @@ export default function RegistrationPage() {
                                             ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                                             : 'border-gray-300 focus:ring-red-700'
                                     }`}
-                                    placeholder="Confirm your password"
+                                    placeholder={t('auth.register.confirmPasswordPlaceholder')}
                                 />
                                 <button
                                     type="button"
@@ -356,14 +390,14 @@ export default function RegistrationPage() {
                                 />
                             </div>
                             <div className="ml-3 text-sm">
-                                <label htmlFor="terms" className="text-gray-700">
-                                    I agree to the{' '}
+                                <label htmlFor="terms" className="text-gray-700" suppressHydrationWarning>
+                                    {t('auth.register.agreeToTerms')}{' '}
                                     <a href="#" className="font-medium text-red-700 hover:text-red-800">
-                                        Terms of Service
+                                        {t('auth.register.terms')}
                                     </a>{' '}
-                                    and{' '}
+                                    {t('auth.register.and')}{' '}
                                     <a href="#" className="font-medium text-red-700 hover:text-red-800">
-                                        Privacy Policy
+                                        {t('auth.register.privacy')}
                                     </a>
                                 </label>
                             </div>
@@ -381,7 +415,7 @@ export default function RegistrationPage() {
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
                             ) : (
-                                'Create Account'
+                                t('auth.register.button')
                             )}
                         </button>
                     </form>
@@ -393,8 +427,8 @@ export default function RegistrationPage() {
                                 <div className="w-full border-t border-gray-300"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">
-                                    Already have an account?
+                                <span className="px-2 bg-white text-gray-500" suppressHydrationWarning>
+                                    {t('auth.register.haveAccount')}
                                 </span>
                             </div>
                         </div>
@@ -406,7 +440,7 @@ export default function RegistrationPage() {
                             href="/login"
                             className="w-full flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700 transition-all duration-300"
                         >
-                            Sign In
+                            {t('auth.register.login')}
                         </Link>
                     </div>
                 </div>
@@ -414,7 +448,7 @@ export default function RegistrationPage() {
                 {/* Back to Home */}
                 <div className="text-center">
                     <Link href="/" className="text-sm text-gray-600 hover:text-red-700 transition-colors">
-                        ← Back to Home
+                        ← {t('common.backToHome', { defaultValue: 'Back to Home' })}
                     </Link>
                 </div>
             </div>

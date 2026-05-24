@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import api from '@/lib/api';
 import { Category } from '@/types';
+import { categories as staticCategories } from '@/data/categories';
 
 interface CategoryState {
   categories: Category[];
@@ -41,10 +42,15 @@ export const useCategoryStore = create<CategoryState>((set, get) => ({
           .replace(/&nbsp;/g, ' '),
       }));
 
-      set({ categories, loading: false, fetched: true });
+      // If API returns no categories or categories without images, fall back to static data
+      const hasImages = categories.length > 0 && categories.some(cat => cat.image || cat.image_url);
+      const finalCategories = hasImages ? categories : staticCategories;
+
+      set({ categories: finalCategories, loading: false, fetched: true });
     } catch (error: unknown) {
+      // On error, fall back to static categories
       const message = error instanceof Error ? error.message : 'Failed to fetch categories';
-      set({ error: message, loading: false, fetched: true });
+      set({ categories: staticCategories, error: message, loading: false, fetched: true });
     }
   },
 }));

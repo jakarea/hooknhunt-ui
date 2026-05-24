@@ -451,12 +451,7 @@ export default function CartPage() {
                         </div>
                       )}
                       <div className="flex justify-between text-gray-700 dark:text-gray-300">
-                        <span>
-                          <span>{t('cart.page.shipping')}</span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">
-                            (Calculated at checkout based on location)
-                          </span>
-                        </span>
+                        <span>{t('cart.page.shipping')}</span>
                         <span className="font-bold text-blue-600 dark:text-blue-400">
                           {t('cart.page.calculatedAtCheckout')}
                         </span>

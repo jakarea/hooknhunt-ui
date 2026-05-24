@@ -62,7 +62,7 @@ export default function GlobalSearchModal() {
               id: p.id,
               name: p.name || p.title,
               slug: p.slug,
-              image: p.image || p.featured_image || p.thumbnail || null,
+              image: p.imageUrl || p.image_url || p.image || p.featured_image || p.thumbnail || null,
               category: p.category_name || null,
               price: p.price || p.actual_price || p.retail_price || null
             })));

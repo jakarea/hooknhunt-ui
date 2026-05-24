@@ -88,13 +88,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const removeFromCart = (cartItemId: number) => {
+    let removedProductId: number | null = null;
+
     setCartItems(prevItems => {
       const removed = prevItems.find(item => item.id === cartItemId);
       if (removed) {
-        useCrossCartStore.getState().removeCrossSells(removed.product.id);
+        removedProductId = removed.product.id;
       }
       return prevItems.filter(item => item.id !== cartItemId);
     });
+
+    // Remove cross-sells AFTER state update (not during render)
+    if (removedProductId !== null) {
+      useCrossCartStore.getState().removeCrossSells(removedProductId);
+    }
+
     // Clear sidebar cross-sells so "You might also like" disappears immediately
     useCrossSellModal.getState().setProducts([]);
   };

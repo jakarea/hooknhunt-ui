@@ -74,7 +74,7 @@ export function useDeliverySettings() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v2/public/delivery-settings`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v2/store/delivery-settings`);
         const data = await response.json();
 
         if (data.success) {

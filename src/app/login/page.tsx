@@ -20,6 +20,7 @@ function LoginForm() {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(true); // Default to true for better UX
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const router = useRouter();
@@ -60,7 +61,7 @@ function LoginForm() {
         }
 
         try {
-            await login(phone, password);
+            await login(phone, password, rememberMe);
             toast.success('Login successful! Redirecting...', {
                 id: 'login-success', // Prevent duplicate toasts
             });
@@ -212,9 +213,11 @@ function LoginForm() {
                                     id="remember-me"
                                     name="remember-me"
                                     type="checkbox"
+                                    checked={rememberMe}
+                                    onChange={(e) => setRememberMe(e.target.checked)}
                                     className="h-4 w-4 text-[#ec3137] focus:ring-[#ec3137] border-gray-300 rounded"
                                 />
-                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
                                     {t('auth.login.rememberMe')}
                                 </label>
                             </div>

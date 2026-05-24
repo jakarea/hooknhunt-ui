@@ -16,9 +16,14 @@ import DeliveryInfo from '@/components/checkout/DeliveryInfo';
 import { Address } from '@/types';
 import { bangladeshDivisions } from '@/data/bangladesh-divisions';
 import { bangladeshDivisionsBn } from '@/data/bangladesh-divisions-bn';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getLocalizedName } from '@/stores/productStore';
+import {
+  getEnglishDivisionName,
+  getEnglishDistrictName,
+  getEnglishThanaName as getThanaNameFromMapping
+} from '@/utils/bengaliToEnglishMapping';
 
 type PaymentMethod = 'cod' | 'sslcommerz' | 'eps';
 
@@ -34,6 +39,42 @@ export default function CheckoutPage() {
   // Select divisions data based on current language
   const divisions = i18n.language === 'bn' ? bangladeshDivisionsBn : bangladeshDivisions;
 
+  // Helper functions to convert Bengali to English (only when language is English)
+  const shouldConvertToEnglish = () => i18n.language !== 'bn';
+
+  const convertDivisionName = (bengaliOrEnglishName: string): string => {
+    if (!shouldConvertToEnglish()) {
+      // Language is Bengali, check if name exists in Bengali dropdowns
+      if (bangladeshDivisionsBn.some(d => d.name === bengaliOrEnglishName)) {
+        return bengaliOrEnglishName;
+      }
+    }
+    // Language is English or name not in Bengali list - convert to English
+    return getEnglishDivisionName(bengaliOrEnglishName);
+  };
+
+  const convertDistrictName = (bengaliOrEnglishName: string): string => {
+    if (!shouldConvertToEnglish()) {
+      // Language is Bengali, check if name exists in Bengali dropdowns
+      for (const division of bangladeshDivisionsBn) {
+        if (division.districts.some(d => d.name === bengaliOrEnglishName)) {
+          return bengaliOrEnglishName;
+        }
+      }
+    }
+    // Language is English or name not in Bengali list - convert to English
+    return getEnglishDistrictName(bengaliOrEnglishName);
+  };
+
+  const convertThanaName = (bengaliOrEnglishName: string): string => {
+    if (!shouldConvertToEnglish()) {
+      // Language is Bengali, thana field is just text so return as-is
+      return bengaliOrEnglishName;
+    }
+    // Language is English - convert thana
+    return getThanaNameFromMapping(bengaliOrEnglishName);
+  };
+
   // Helper to get localized product name
   const getLocalizedNameForProduct = useMemo(() => (product: any) => {
     return getLocalizedName(product, language);
@@ -41,7 +82,7 @@ export default function CheckoutPage() {
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod');
   const [activeGateway, setActiveGateway] = useState<'sslcommerz' | 'eps' | null>(null);
-  const [activeGatewayLoading, setActiveGatewayLoading] = useState(true);
+  const [activeGatewayLoading, setActiveGatewayLoading] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<number | null>(null);
@@ -51,12 +92,23 @@ export default function CheckoutPage() {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [paymentError, setPaymentError] = useState<{ message: string; type: 'eps' | 'sslcommerz' | 'general' } | null>(null);
+  const [isNavigatingAway, setIsNavigatingAway] = useState(false);
 
   // EMI option state
   const [selectedEmiBank, setSelectedEmiBank] = useState<number>(0);
 
   // Coupon input (local state only for the text field)
   const [couponCode, setCouponCode] = useState('');
+
+  // Phone validation state
+  const [phoneError, setPhoneError] = useState('');
+
+  // Existing customer detection
+  const [existingCustomer, setExistingCustomer] = useState<{ id: number; name: string; phone: string; email: string } | null>(null);
+  const [savedAddresses, setSavedAddresses] = useState<Address[]>([]);
+  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
+  const [isSearchingCustomer, setIsSearchingCustomer] = useState(false);
+  const [showNewAddressForm, setShowNewAddressForm] = useState(false);
 
   // Customer info
   const [formData, setFormData] = useState({
@@ -101,6 +153,270 @@ export default function CheckoutPage() {
     return district?.division || '';
   };
 
+  // Bengali to English division mapping (for saved addresses from API)
+  const bengaliToEnglishDivision: Record<string, string> = {
+    'খুলনা': 'Khulna',
+    'চট্টগ্রাম': 'Chattogram',
+    'ঢাকা': 'Dhaka',
+    'বরিশাল': 'Barishal',
+    'ময়মনসিংহ': 'Mymensingh',
+    'রংপুর': 'Rangpur',
+    'রাজশাহী': 'Rajshahi',
+    'সিলেট': 'Sylhet',
+  };
+
+  // Bengali to English district mapping (for saved addresses from API)
+  const bengaliToEnglishDistrict: Record<string, string> = {
+    'কক্সবাজার': "Cox's Bazar",
+    'কিশোরগঞ্জ': 'Kishoreganj',
+    'কুড়িগ্রাম': 'Kurigram',
+    'কুমিল্লা': 'Cumilla',
+    'কুষ্টিয়া': 'Kushtia',
+    'খাগড়াছড়ি': 'Khagrachhari',
+    'খুলনা': 'Khulna',
+    'গাইবান্ধা': 'Gaibandha',
+    'গাজীপুর': 'Gazipur',
+    'গোপালগঞ্জ': 'Gopalganj',
+    'চট্টগ্রাম': 'Chattogram',
+    'চাঁদপুর': 'Chandpur',
+    'চাঁপাইনবাবগঞ্জ': 'Chapainawabganj',
+    'চুয়াডাঙ্গা': 'Chuadanga',
+    'জয়পুরহাট': 'Joypurhat',
+    'জামালপুর': 'Jamalpur',
+    'ঝালকাঠি': 'Jhalokati',
+    'ঝিনাইদহ': 'Jhenaidah',
+    'টাঙ্গাইল': 'Tangail',
+    'ঠাকুরগাঁও': 'Thakurgaon',
+    'ঢাকা': 'Dhaka',
+    'দিনাজপুর': 'Dinajpur',
+    'নওগাঁ': 'Naogaon',
+    'নড়াইল': 'Narail',
+    'নরসিংদী': 'Narsingdi',
+    'নাটোর': 'Natore',
+    'নারায়ণগঞ্জ': 'Narayanganj',
+    'নীলফামারী': 'Nilphamari',
+    'নেত্রকোণা': 'Netrokona',
+    'নোয়াখালী': 'Noakhali',
+    'পঞ্চগড়': 'Panchagarh',
+    'পটুয়াখালী': 'Patuakhali',
+    'পাবনা': 'Pabna',
+    'পিরোজপুর': 'Pirojpur',
+    'ফরিদপুর': 'Faridpur',
+    'ফেনী': 'Feni',
+    'বগুড়া': 'Bogura',
+    'বরগুনা': 'Barguna',
+    'বরিশাল': 'Barishal',
+    'বাগেরহাট': 'Bagerhat',
+    'বান্দরবান': 'Bandarban',
+    'ব্রাহ্মণবাড়িয়া': 'Brahmanbaria',
+    'ভোলা': 'Bhola',
+    'ময়মনসিংহ': 'Mymensingh',
+    'মাগুরা': 'Magura',
+    'মাদারীপুর': 'Madaripur',
+    'মানিকগঞ্জ': 'Manikganj',
+    'মুন্সীগঞ্জ': 'Munshiganj',
+    'মেহেরপুর': 'Meherpur',
+    'মৌলভীবাজার': 'Moulvibazar',
+    'যশোর': 'Jashore',
+    'রংপুর': 'Rangpur',
+    'রাঙ্গামাটি': 'Rangamati',
+    'রাজবাড়ী': 'Rajbari',
+    'রাজশাহী': 'Rajshahi',
+    'লক্ষ্মীপুর': 'Lakshmipur',
+    'লালমনিরহাট': 'Lalmonirhat',
+    'শরীয়তপুর': 'Shariatpur',
+    'শেরপুর': 'Sherpur',
+    'সাতক্ষীরা': 'Satkhira',
+    'সিরাজগঞ্জ': 'Sirajganj',
+    'সিলেট': 'Sylhet',
+    'সুনামগঞ্জ': 'Sunamganj',
+    'হবিগঞ্জ': 'Habiganj',
+  };
+
+  // Bengali to English thana mapping (built dynamically from district data)
+  // This will be populated on demand as we encounter Bengali thana names
+  const getEnglishThanaName = (bengaliThana: string, districtName: string): string => {
+    // First, get the English district name
+    const englishDistrict = getEnglishDistrictName(districtName);
+
+    // Find the district in divisions data
+    for (const division of divisions) {
+      const district = division.districts.find(d => d.name === englishDistrict);
+      if (district) {
+        // Try to find exact match in thana list (might already be English)
+        const exactMatch = district.thanas.find(t => t.name === bengaliThana);
+        if (exactMatch) {
+          return bengaliThana; // Already English
+        }
+
+        // Try to find by position (assuming Bengali and English files have same order)
+        // This is a fallback - we'll need to build a complete mapping
+        console.warn('[Checkout] Thana not found in', englishDistrict, ':', bengaliThana);
+        return bengaliThana;
+      }
+    }
+
+    console.warn('[Checkout] District not found:', englishDistrict);
+    return bengaliThana;
+  };
+
+  // Normalize BD phone number (handle +88, 88 prefixes)
+  const normalizePhone = (phone: string): string => {
+    // Remove all non-numeric characters
+    const cleaned = phone.replace(/\D/g, '');
+
+    // If 13 digits starting with 880, convert to 0 + 11 digits
+    if (cleaned.length === 13 && cleaned.startsWith('880')) {
+      return '0' + cleaned.substring(3);
+    }
+
+    // If 12 digits starting with 88, convert to 0 + 10 digits
+    if (cleaned.length === 12 && cleaned.startsWith('88')) {
+      return '0' + cleaned.substring(2);
+    }
+
+    // If 11 digits starting with 01, return as is
+    if (cleaned.length === 11 && cleaned.startsWith('01')) {
+      return cleaned;
+    }
+
+    return phone; // Return original if can't normalize
+  };
+
+  // Check if phone number is complete (11 or 12-13 digits with country code)
+  const isPhoneComplete = (phone: string): boolean => {
+    const cleaned = phone.replace(/\D/g, '');
+    return cleaned.length === 11 || cleaned.length === 12 || cleaned.length === 13;
+  };
+
+  // Search for existing customer by phone
+  const searchCustomerByPhone = async (phone: string) => {
+    const normalizedPhone = normalizePhone(phone);
+
+    // Only search if normalized phone matches BD format
+    if (!/^01[3-9]\d{8}$/.test(normalizedPhone)) {
+      return;
+    }
+
+    setIsSearchingCustomer(true);
+
+    try {
+      const api = (await import('@/lib/api')).default;
+      const response = await api.getCustomerByPhone(normalizedPhone);
+
+      const data = (response as { data?: { found: boolean; customer?: { id: number; name: string; phone: string; email: string }; addresses?: Address[] } }).data;
+
+      if (data?.found && data.customer && data.addresses) {
+        setExistingCustomer(data.customer);
+        setSavedAddresses(data.addresses);
+
+        // Auto-fill customer data
+        const name = data.customer?.name || '';
+        const email = data.customer?.email || '';
+
+        // Auto-fill default address (first address or marked as default)
+        const defaultAddr = data.addresses.find((addr: Address) => addr.is_default || addr.isDefault) || data.addresses[0];
+
+        const updatedFormData: typeof formData = {
+          ...formData,
+          name: name,
+          email: email,
+        };
+
+        if (defaultAddr) {
+          const addr = defaultAddr as unknown as {
+            address?: string;
+            addressLine1?: string;
+            thana?: string;
+            city?: string;
+            district?: string;
+            division?: string;
+          };
+
+          // Log raw values from API
+          const rawDistrict = addr.district || '';
+          const rawDivision = addr.division || '';
+          const rawThana = addr.thana || addr.city || '';
+
+          // Convert Bengali to English only if language is English
+          const district = convertDistrictName(rawDistrict);
+          const division = convertDivisionName(rawDivision);
+          const thana = convertThanaName(rawThana);
+
+          updatedFormData.address = addr.address || addr.addressLine1 || '';
+          updatedFormData.thana = thana;
+          updatedFormData.district = district;
+          updatedFormData.division = division;
+
+          setSelectedAddressId(defaultAddr.id);
+        }
+
+        setFormData(updatedFormData);
+
+        toast.success(`Welcome back, ${name || 'Customer'}!`, {
+          duration: 3000,
+          icon: '👋',
+        });
+      }
+    } catch (error) {
+      // Customer not found or other error - silently continue as guest
+      setExistingCustomer(null);
+      setSavedAddresses([]);
+    } finally {
+      setIsSearchingCustomer(false);
+    }
+  };
+
+  // Handle selecting a saved address
+  const handleSelectSavedAddress = (addressId: number) => {
+    const selected = savedAddresses.find(addr => addr.id === addressId) as unknown as {
+      address?: string;
+      addressLine1?: string;
+      thana?: string;
+      city?: string;
+      district?: string;
+      division?: string;
+    };
+
+    if (selected) {
+      setSelectedAddressId(addressId);
+
+      // Map API response fields to form fields
+      const address = selected.address || selected.addressLine1 || '';
+      const rawThana = selected.thana || selected.city || '';
+
+      // Convert Bengali to English only if language is English
+      const rawDistrict = selected.district || '';
+      const rawDivision = selected.division || '';
+      const district = convertDistrictName(rawDistrict);
+      const division = convertDivisionName(rawDivision);
+      const thana = convertThanaName(rawThana);
+
+      setFormData(prev => ({
+        ...prev,
+        address: address,
+        thana: thana,
+        district: district,
+        division: division,
+      }));
+      setShowNewAddressForm(false);
+    }
+  };
+
+  // Handle entering a new address
+  const handleEnterNewAddress = () => {
+    setSelectedAddressId(null);
+    setShowNewAddressForm(true);
+    // Clear address fields to let user enter new data
+    setFormData(prev => ({
+      ...prev,
+      address: '',
+      thana: '',
+      district: '',
+      division: '',
+    }));
+  };
+
   // OTP verification state
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otpCode, setOtpCode] = useState('');
@@ -125,16 +441,15 @@ export default function CheckoutPage() {
   const { settings: serviceChargeSettings } = useServiceCharge();
 
   useEffect(() => {
-    // Don't redirect if order is being placed (cart cleared intentionally)
-    if (cartItems.length === 0 && !showOtpModal && !orderPlacedRef.current) {
+    // Don't redirect if order is being placed, OTP modal is open, or we're navigating away
+    if (cartItems.length === 0 && !showOtpModal && !orderPlacedRef.current && !isNavigatingAway) {
       router.push('/cart');
     }
-  }, [cartItems, router, showOtpModal]);
+  }, [cartItems, router, showOtpModal, isNavigatingAway]);
 
-  // Fetch active payment gateway on page load
+  // Fetch active payment gateway on page load (non-blocking)
   useEffect(() => {
     const fetchActiveGateway = async () => {
-      setActiveGatewayLoading(true);
       try {
         const api = (await import('@/lib/api')).default;
         const response = await api.getActivePaymentGateway();
@@ -156,6 +471,7 @@ export default function CheckoutPage() {
         setPaymentMethod('cod');
         setActiveGateway(null);
       } finally {
+        // Always clear loading state, even on error
         setActiveGatewayLoading(false);
       }
     };
@@ -169,11 +485,13 @@ export default function CheckoutPage() {
   // Pre-fill user data and fetch addresses when user is logged in
   useEffect(() => {
     if (isAuthenticated && user) {
-      // Pre-fill form with user data
+      // Get phone number from user object - support both camelCase (API) and snake_case (legacy)
+      const userPhone = user.phoneNumber || user.phone_number || user.phone || '';
+
       setFormData(prev => ({
         ...prev,
         name: user.name || prev.name,
-        phone: user.phone_number || prev.phone,
+        phone: userPhone || prev.phone,
         email: user.email || prev.email,
         // Use user's default address fields if available
         address: user.address || prev.address,
@@ -194,17 +512,27 @@ export default function CheckoutPage() {
       if (response.data && Array.isArray(response.data)) {
         setAddresses(response.data);
         // Set default address if available
-        const defaultAddress = response.data.find((addr: Address) => addr.is_default);
+        const defaultAddress = response.data.find((addr: Address) => addr.is_default || addr.isDefault);
         if (defaultAddress) {
           setSelectedAddress(defaultAddress.id);
           setUseDifferentAddress(false);
           // Pre-fill form with default address
-          const district = defaultAddress.district || '';
-          const division = getDivisionForDistrict(district);
+          const addr = defaultAddress as unknown as Record<string, unknown>;
+          const district = (addr.district || '') as string;
+          // Use division directly from address if available, otherwise find from district
+          let division = (addr.division || '') as string;
+          if (!division && district) {
+            division = getDivisionForDistrict(district);
+          }
+          const addressLine1 = (addr.addressLine1 || addr.address_line1 || '') as string;
+          const addressLine2 = (addr.addressLine2 || addr.address_line2 || '') as string;
+          // Combine both address lines if both exist
+          const fullAddress = addressLine2 ? `${addressLine1}, ${addressLine2}` : addressLine1;
+
           setFormData(prev => ({
             ...prev,
-            address: defaultAddress.address_line1 || prev.address,
-            thana: defaultAddress.thana || prev.thana,
+            address: fullAddress,
+            thana: (addr.city || addr.thana || prev.thana) as string,
             district: district,
             division: division,
           }));
@@ -220,12 +548,25 @@ export default function CheckoutPage() {
     setSelectedAddress(addressId);
     const selected = addresses.find(addr => addr.id === addressId);
     if (selected) {
-      const district = selected.district || '';
-      const division = getDivisionForDistrict(district);
+      // Support both camelCase (API) and snake_case (legacy) property names
+      const addr = selected as unknown as Record<string, unknown>;
+      const district = (addr.district || '') as string;
+      // Use division directly from address if available, otherwise find from district
+      let division = (addr.division || '') as string;
+      if (!division && district) {
+        division = getDivisionForDistrict(district);
+      }
+
+      const addressLine1 = (addr.addressLine1 || addr.address_line1 || '') as string;
+      const addressLine2 = (addr.addressLine2 || addr.address_line2 || '') as string;
+
+      // Combine both address lines if both exist
+      const fullAddress = addressLine2 ? `${addressLine1}, ${addressLine2}` : addressLine1;
+
       setFormData(prev => ({
         ...prev,
-        address: selected.address_line1 || prev.address,
-        thana: selected.thana || prev.thana,
+        address: fullAddress,
+        thana: (addr.city || addr.thana || prev.thana) as string,
         district: district,
         division: division,
       }));
@@ -372,11 +713,44 @@ export default function CheckoutPage() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+
+    // Real-time phone validation for BD format
+    if (name === 'phone') {
+      // Allow empty or validate BD phone format
+      if (value && !/^01[3-9]?\d{0,8}$/.test(value)) {
+        setPhoneError('Invalid BD phone format. Use 01XXXXXXXXX');
+      } else {
+        setPhoneError('');
+      }
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
+
+  // Auto-search for existing customer when phone is complete
+  useEffect(() => {
+    if (!formData.phone) return;
+
+    // Check if phone is complete (11 or 12-13 digits with country code)
+    if (!isPhoneComplete(formData.phone)) return;
+
+    // Normalize and search
+    const normalizedPhone = normalizePhone(formData.phone);
+
+    // Only search if normalized phone matches BD format
+    if (!/^01[3-9]\d{8}$/.test(normalizedPhone)) return;
+
+    // Debounce search
+    const timer = setTimeout(() => {
+      searchCustomerByPhone(formData.phone);
+    }, 600);
+
+    return () => clearTimeout(timer);
+  }, [formData.phone]);
 
   const handleCheckout = async () => {
     // Clear any previous payment errors when trying to checkout again
@@ -389,9 +763,25 @@ export default function CheckoutPage() {
     if (!formData.address) missingFields.push(t('checkout.address'));
     if (!formData.thana) missingFields.push(t('checkout.thana'));
     if (!formData.division) missingFields.push('Division');
-    if (!formData.district) missingFields.push('District');
+
+    // BD phone validation: 01[3-9]XXXXXXXX (11 digits, starts with 01, third digit 3-9)
+    if (formData.phone && !/^01[3-9]\d{8}$/.test(formData.phone)) {
+      toast.error('Please enter a valid Bangladesh phone number (01XXXXXXXXX)', {
+        duration: 4000,
+        style: { background: '#ef4444', color: '#fff' },
+      });
+      return;
+    }
+
+    // District is optional - some saved addresses might not have it populated
     if (missingFields.length > 0) {
-      toast.error(`Please fill in the following required fields:\n${missingFields.join(', ')}`);
+      toast.error(`Please fill in: ${missingFields.join(', ')}`, {
+        duration: 4000,
+        style: {
+          background: '#ef4444',
+          color: '#fff',
+        },
+      });
       return;
     }
 
@@ -432,7 +822,7 @@ export default function CheckoutPage() {
         : 'Cash on delivery';
 
       // Order data
-      const orderData = {
+      const orderData: Record<string, unknown> = {
         customer_name: formData.name,
         customer_phone: formData.phone,
         customer_email: formData.email || null,
@@ -452,15 +842,24 @@ export default function CheckoutPage() {
         payable_amount: payableTotal,
       };
 
+      // Add customer_id and shipping_address_id if existing customer
+      if (existingCustomer) {
+        orderData.customer_id = existingCustomer.id;
+        if (selectedAddressId) {
+          orderData.shipping_address_id = selectedAddressId;
+        }
+      }
+
       // Place the order via API
       const response = await api.post('/store/orders', orderData) as Record<string, unknown>;
 
-      // The API returns { status, message, data: { id, orderNumber, ... } }
+      // The API returns { status, message, data: { id, invoiceNo, ... } }
       const orderData_result = (response?.data || response) as Record<string, unknown>;
 
       if (response && orderData_result?.id) {
         const orderId = orderData_result.id as number;
-        const orderNumber = orderData_result.orderNumber as string;
+        // Support both field names: invoiceNo (API) and orderNumber (legacy)
+        const invoiceNo = (orderData_result.invoiceNo || orderData_result.orderNumber) as string;
 
         // Handle SSL Commerz payment - ONLY for sslcommerz payment method
         if (paymentMethod === 'sslcommerz') {
@@ -553,10 +952,12 @@ export default function CheckoutPage() {
         // Handle EPS payment - redirect to payment initiation page
         // This ensures window.open() is triggered by direct user action (Pay Now button)
         if (paymentMethod === 'eps') {
-          // Clear cart after order creation
-          clearCart();
           // Redirect to payment initiation page where user will click Pay Now button
           const paymentPageUrl = `/checkout/payment/${orderId}`;
+
+          // Clear cart after redirect to avoid triggering the empty cart redirect useEffect
+          setTimeout(() => clearCart(), 100);
+
           try {
             router.push(paymentPageUrl);
           } catch {
@@ -570,26 +971,62 @@ export default function CheckoutPage() {
           // COD payment - Skipping payment gateways, proceeding with COD flow
         }
 
+        // Check if API provided a redirect URL (for guest checkout or other flows)
+        if (response.redirect_url || orderData_result.redirect_url) {
+          const apiRedirectUrl = (response.redirect_url || orderData_result.redirect_url) as string;
+
+          // Clear cart after redirect to avoid triggering the empty cart redirect useEffect
+          setTimeout(() => clearCart(), 100);
+
+          // Use the API-provided redirect URL
+          window.location.href = apiRedirectUrl;
+          return;
+        }
+
         // Check if OTP verification is required for COD
         if (response.verification_required) {
           // Show OTP verification modal
+          const phoneNumber = (orderData_result.phone_number as string) || formData.phone;
           setPendingOrder({
             id: orderId,
-            order_number: orderNumber,
-            phone_number: (orderData_result.phone_number as string) || formData.phone,
+            order_number: invoiceNo,
+            phone_number: phoneNumber,
             total_amount: orderData_result.totalAmount as number,
             customer_name: ((orderData_result.customer as Record<string, string>)?.name) || formData.name,
           });
+
           setShowOtpModal(true);
+
+          // Show toast notification to alert user
+          toast.success(`OTP sent to ${phoneNumber}`, {
+            duration: 5000,
+            icon: '📱',
+          });
         } else {
           // No verification required, proceed normally
-          clearCart();
           const totalAmount = orderData_result.dueAmount as number || orderData_result.totalAmount as number;
-          const redirectUrl = `/order-success?invoice=${orderNumber}&total=${totalAmount}&name=${encodeURIComponent(formData.name)}`;
+
+          // Check if credentials were generated (guest checkout)
+          const credentials = (orderData_result.credentials || response.credentials) as { phone?: string; password?: string } | undefined;
+          const passwordParam = credentials?.password ? `&password=${encodeURIComponent(credentials.password)}` : '';
+
+          const redirectUrl = `/order-success?invoice=${invoiceNo}&total=${totalAmount}&name=${encodeURIComponent(formData.name)}&phone=${encodeURIComponent(formData.phone)}${passwordParam}`;
+
+          // Mark that we're navigating away to prevent cart redirect
+          setIsNavigatingAway(true);
+
+          // Clear cart after a short delay to allow navigation to start
+          setTimeout(() => {
+            clearCart();
+            // Reset the navigation flag after a longer delay
+            setTimeout(() => setIsNavigatingAway(false), 2000);
+          }, 100);
+
           try {
             router.push(redirectUrl);
           } catch {
             // Fallback: use window.location
+            setIsNavigatingAway(true); // Still mark as navigating
             window.location.href = redirectUrl;
           }
         }
@@ -598,23 +1035,45 @@ export default function CheckoutPage() {
       }
 
     } catch (error: any) {
+      console.error('[Checkout] Order placement failed:', error);
+
+      // Reset navigation flag on error since we're not going anywhere
+      setIsNavigatingAway(false);
+
       // Handle validation errors
       if (error.response?.status === 422 && error.response?.data?.errors) {
         const errors = error.response.data.errors;
         const errorMessages = Object.values(errors).flat();
-        toast.error(`Validation Error: ${errorMessages.join(', ')}`);
+        toast.error(`Validation Error: ${errorMessages.join(', ')}`, {
+          duration: 5000,
+          style: { background: '#ef4444', color: '#fff' },
+        });
+      } else if (error.response?.status === 500) {
+        // Server error - show detailed error if available
+        const errorMessage = error.response?.data?.message || error.response?.data?.errors?.error || 'Server error. Please contact support.';
+        toast.error(errorMessage, {
+          duration: 6000,
+          style: { background: '#ef4444', color: '#fff' },
+        });
       } else if (error.response?.status === 409) {
         // Conflict errors (duplicate phone/email)
-        toast.error(error.response?.data?.message || 'This phone number or email is already registered.');
+        toast.error(error.response?.data?.message || 'This phone number or email is already registered.', {
+          duration: 5000,
+        });
       } else if (error.response?.data?.message) {
-        toast.error(`Error: ${error.response.data.message}`);
+        toast.error(`Error: ${error.response.data.message}`, {
+          duration: 5000,
+        });
       } else {
-        toast.error('Order placement failed. Please try again or contact support.');
+        toast.error('Order placement failed. Please try again or contact support.', {
+          duration: 5000,
+        });
       }
     } finally {
       setIsProcessingPayment(false);
       setIsPlacingOrder(false);
-      orderPlacedRef.current = false; // Reset the flag
+      // DON'T reset orderPlacedRef here - it will be reset after navigation completes
+      // The flag prevents the cart redirect useEffect from firing
     }
   };
 
@@ -646,12 +1105,38 @@ export default function CheckoutPage() {
       // OTP verified successfully
       setShowOtpModal(false);
       orderPlacedRef.current = true;
-      clearCart();
+
+      // Check if credentials were generated (guest checkout)
+      const credentials = (response as Record<string, unknown>).credentials as { phone?: string; password?: string } | undefined;
+      const passwordParam = credentials?.password ? `&password=${encodeURIComponent(credentials.password)}` : '';
 
       // Redirect to success page
-      router.push(`/order-success?invoice=${pendingOrder?.order_number}&total=${pendingOrder?.total_amount}&name=${encodeURIComponent(pendingOrder?.customer_name || '')}`);
+      const successUrl = `/order-success?invoice=${pendingOrder?.order_number}&total=${pendingOrder?.total_amount}&name=${encodeURIComponent(pendingOrder?.customer_name || '')}&phone=${encodeURIComponent(pendingOrder?.phone_number || '')}${passwordParam}`;
+
+      // Mark that we're navigating away to prevent cart redirect
+      setIsNavigatingAway(true);
+
+      // Clear cart after a short delay to allow navigation to start
+      setTimeout(() => {
+        clearCart();
+        // Reset the navigation flag after a longer delay
+        setTimeout(() => setIsNavigatingAway(false), 2000);
+      }, 100);
+
+      // Show success toast
+      toast.success('Order verified successfully! Redirecting...', {
+        duration: 2000,
+      });
+
+      try {
+        router.push(successUrl);
+      } catch {
+        // Fallback: use window.location
+        window.location.href = successUrl;
+      }
 
     } catch (error: any) {
+      console.error('[Checkout] OTP verification failed:', error);
       if (error.response?.data?.message) {
         setOtpError(error.response.data.message);
       } else {
@@ -692,7 +1177,30 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
+    <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+          success: {
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
+          },
+        }}
+      />
+      <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
       <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800">
         <div className="container py-4">
@@ -744,7 +1252,7 @@ export default function CheckoutPage() {
                     readOnly={isAuthenticated}
                     className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
                       isAuthenticated
-                        ? 'border-gray-200 bg-gray-50 text-gray-600 cursor-not-allowed'
+                        ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
                         : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.enterYourFullName')}
@@ -766,11 +1274,16 @@ export default function CheckoutPage() {
                     readOnly={isAuthenticated}
                     className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
                       isAuthenticated
-                        ? 'border-gray-200 bg-gray-50 text-gray-600 cursor-not-allowed'
+                        ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
+                        : phoneError
+                        ? 'border-red-500 bg-red-50 dark:bg-red-900/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-red-500'
                         : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.phoneNumberPlaceholder')}
                   />
+                  {phoneError && (
+                    <p className="mt-1 text-xs text-red-600 dark:text-red-400">{phoneError}</p>
+                  )}
                   {isAuthenticated && (
                     <p className="mt-1 text-xs text-gray-500">{t('checkout.prefilledFromAccount')}</p>
                   )}
@@ -788,7 +1301,7 @@ export default function CheckoutPage() {
                     readOnly={isAuthenticated && !!user?.email}
                     className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
                       (isAuthenticated && !!user?.email)
-                        ? 'border-gray-200 bg-gray-50 text-gray-600 cursor-not-allowed'
+                        ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
                         : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.emailPlaceholder')}
@@ -797,6 +1310,18 @@ export default function CheckoutPage() {
                     <p className="mt-1 text-xs text-gray-500">{t('checkout.prefilledFromAccount')}</p>
                   )}
                 </div>
+
+                {/* Searching indicator */}
+                {isSearchingCustomer && (
+                  <div className="md:col-span-2">
+                    <div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+                      <span className="text-sm text-blue-800 dark:text-blue-300">
+                        Searching for your account...
+                      </span>
+                    </div>
+                  </div>
+                )}
 
               {/* Address Selection for Logged-in Users */}
               {isAuthenticated && addresses.length > 0 && (
@@ -835,7 +1360,12 @@ export default function CheckoutPage() {
                             )}
                           </div>
                           <p className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-line">
-                            {address.address_line1}, {address.thana || address.city}, {address.district}
+                            {[
+                              address.addressLine1 || address.address_line1,
+                              address.addressLine2 || address.address_line2,
+                              address.thana || address.city,
+                              address.district
+                            ].filter(Boolean).join(', ')}
                           </p>
                         </div>
                       </label>
@@ -847,7 +1377,35 @@ export default function CheckoutPage() {
                     <input
                       type="checkbox"
                       checked={useDifferentAddress}
-                      onChange={(e) => setUseDifferentAddress(e.target.checked)}
+                      onChange={(e) => {
+                        const isChecked = e.target.checked;
+                        setUseDifferentAddress(isChecked);
+                        // When unchecking "use different address", restore form data from selected address
+                        if (!isChecked && selectedAddress) {
+                          const address = addresses.find(addr => addr.id === selectedAddress);
+                          if (address) {
+                            const addr = address as unknown as Record<string, unknown>;
+                            const district = (addr.district || '') as string;
+                            // Use division directly from address if available, otherwise find from district
+                            let division = (addr.division || '') as string;
+                            if (!division && district) {
+                              division = getDivisionForDistrict(district);
+                            }
+                            const addressLine1 = (addr.addressLine1 || addr.address_line1 || '') as string;
+                            const addressLine2 = (addr.addressLine2 || addr.address_line2 || '') as string;
+                            // Combine both address lines if both exist
+                            const fullAddress = addressLine2 ? `${addressLine1}, ${addressLine2}` : addressLine1;
+
+                            setFormData(prev => ({
+                              ...prev,
+                              address: fullAddress,
+                              thana: (addr.city || addr.thana || prev.thana) as string,
+                              district: district,
+                              division: division,
+                            }));
+                          }
+                        }
+                      }}
                       className="w-4 h-4 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137]"
                     />
                     <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
@@ -1450,7 +2008,7 @@ export default function CheckoutPage() {
                 {/* Checkout Button */}
                 <button
                   onClick={handleCheckout}
-                  disabled={!agreeToTerms || isProcessingPayment || isPlacingOrder || paymentLoading || activeGatewayLoading}
+                  disabled={!agreeToTerms || isProcessingPayment || isPlacingOrder || paymentLoading}
                   className="w-full py-4 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] hover:from-[#8a0f12] hover:to-[#ec3137] text-white font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg transform hover:scale-[1.02] rounded disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {(isProcessingPayment || isPlacingOrder || paymentLoading) ? (
@@ -1499,17 +2057,20 @@ export default function CheckoutPage() {
 
       {/* OTP Verification Modal */}
       {showOtpModal && pendingOrder && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-[#0a0a0a] rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-in fade-in zoom-in duration-300">
-            {/* Close Button */}
-            <button
-              onClick={() => setShowOtpModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+        <>
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+            <div className="bg-white dark:bg-[#0a0a0a] rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-in fade-in zoom-in duration-300 border-4 border-red-500">
+              {/* Close Button */}
+              <button
+                onClick={() => {
+                  setShowOtpModal(false);
+                }}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
 
             {/* Success Icon */}
             <div className="flex justify-center mb-6">
@@ -1532,9 +2093,15 @@ export default function CheckoutPage() {
 
             {/* Instructions */}
             <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
-              <p className="text-sm text-blue-900 dark:text-blue-100 text-center" dangerouslySetInnerHTML={{
-                __html: t('checkout.verificationCodeSent', { phone: pendingOrder.phone_number })
-              }} />
+              <p className="text-sm font-semibold text-blue-900 dark:text-blue-100 text-center mb-2">
+                📱 OTP sent to:
+              </p>
+              <p className="text-xl font-bold text-blue-900 dark:text-blue-100 text-center mb-2">
+                {pendingOrder.phone_number}
+              </p>
+              <p className="text-xs text-blue-700 dark:text-blue-300 text-center">
+                Please enter the 5-digit code sent to your phone number above to complete your order.
+              </p>
             </div>
 
             {/* OTP Input */}
@@ -1605,6 +2172,7 @@ export default function CheckoutPage() {
             </div>
           </div>
         </div>
+      </>
       )}
 
       {/* Payment Processing Overlay - Only for payment gateways, not COD */}
@@ -1654,5 +2222,6 @@ export default function CheckoutPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

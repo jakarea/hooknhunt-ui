@@ -18,6 +18,35 @@ This is a **completely separate project** from the Laravel API + Admin Panel (`h
 
 **NEVER**: Use Mantine UI here. Use `window.location.href` for navigation. Share translation files with the admin panel.
 
+## 📘 Global Instructions
+
+**MANDATORY**: Before starting ANY task, read: [instruction/storefront-global.md](instruction/storefront-global.md)
+
+This master reference (version 1.0.0) covers 15 comprehensive sections:
+1. **Naming Conventions** - File/folder naming, variables, functions, components, types, enums
+2. **Code Structure** - Feature-based architecture, module independence, barrel exports
+3. **State Management** - Zustand patterns, immutability, persist middleware, selectors
+4. **API Integration** - Axios service layer, feature-based APIs, response types
+5. **Error Handling** - Error types, handlers, display components, patterns
+6. **Performance** - Server Components, code splitting, memoization, debouncing
+7. **Security** - Input validation, XSS prevention, CSRF, token management
+8. **No-Reload Patterns** - Client-side navigation, SWR, form handling
+9. **Testing** - Component tests, E2E checklist
+10. **i18n** - Translation organization, usage patterns
+11. **Backend API** - Response formats, endpoint naming, pagination
+12. **Git Standards** - Commit message format, types
+13. **Pre-commit Checklist** - Type safety, performance, UX, security, i18n
+14. **Code Review Checklist** - Quality, performance, security, testing
+15. **Quick Reference** - Common patterns, component/hook/store templates
+
+**Workflow for every task**:
+1. **Understand & Clarify** — Read requirements, ask questions, confirm API fields
+2. **Questions & Clarifications** — Verify module boundaries, get approval
+3. **Plan with Todo List** — Break into sub-tasks, estimate, identify dependencies
+4. **Validate Plan** — Review with team, check edge cases, verify performance
+5. **Execute Step-by-Step** — Follow todo list, test each sub-task, commit frequently
+6. **Code Review** — Self-review, check requirements, verify no regressions
+
 ## Commands
 
 ```bash

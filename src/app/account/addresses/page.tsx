@@ -87,11 +87,14 @@ export default function AddressesPage() {
       const response = await api.getAddresses();
       const addressesData = response.data || response;
 
-      // Transform addresses to derive type field from boolean fields
-      const transformedAddresses = (Array.isArray(addressesData) ? addressesData : []).map((addr: Address) => ({
-        ...addr,
-        type: (addr.is_shipping_address ? 'shipping' : 'billing') as 'shipping' | 'billing',
-      }));
+      // Transform addresses to derive type field from boolean fields (support both camelCase and snake_case)
+      const transformedAddresses = (Array.isArray(addressesData) ? addressesData : []).map((addr: Address) => {
+        const isShipping = addr.isShippingAddress || addr.is_shipping_address;
+        return {
+          ...addr,
+          type: (isShipping ? 'shipping' : 'billing') as 'shipping' | 'billing',
+        };
+      });
 
       setAddresses(transformedAddresses);
     } catch (error) {
@@ -105,17 +108,20 @@ export default function AddressesPage() {
   const handleOpenModal = (address?: Address) => {
     if (address) {
       setEditingAddress(address);
+
+      // Handle both camelCase (API) and snake_case (legacy) field names
+      const addr = address as unknown as Record<string, unknown>;
       setFormData({
         type: address.type as 'shipping' | 'billing',
-        full_name: address.full_name,
-        address_line1: address.address_line1,
-        address_line2: address.address_line2 || '',
-        district: address.district || '',
-        thana: (address as unknown as Record<string, unknown>).thana as string || '',
-        division: address.division || getDivisionForDistrict(address.district || ''),
-        post_code: address.post_code || '',
-        phone: address.phone,
-        is_default: address.is_default || false,
+        full_name: (addr.fullName || addr.full_name || '') as string,
+        address_line1: (addr.addressLine1 || addr.address_line1 || '') as string,
+        address_line2: (addr.addressLine2 || addr.address_line2 || '') as string,
+        district: (addr.district || '') as string,
+        thana: (addr.thana || addr.city || '') as string,
+        division: (addr.division || getDivisionForDistrict((addr.district as string) || '')) as string,
+        post_code: (addr.postalCode || addr.post_code || '') as string,
+        phone: (addr.phone || '') as string,
+        is_default: (addr.isDefault || addr.is_default || false) as boolean,
       });
     } else {
       setEditingAddress(null);
@@ -285,7 +291,7 @@ export default function AddressesPage() {
                         <svg className="w-4 h-4 text-gray-400 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
-                        <p className="text-sm text-gray-600">{user.phone_number}</p>
+                        <p className="text-sm text-gray-600">{user.phoneNumber || user.phone_number || user.phone || 'Not set'}</p>
                       </div>
 
                       {user.email && (
@@ -321,7 +327,7 @@ export default function AddressesPage() {
                     className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 relative group"
                   >
                     {/* Default Badge */}
-                    {address.is_default && (
+                    {(address.isDefault || address.is_default) && (
                       <div className="absolute top-4 right-4">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                           <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -349,14 +355,14 @@ export default function AddressesPage() {
                         <svg className="w-4 h-4 text-gray-400 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <p className="text-sm font-medium text-gray-900">{address.full_name}</p>
+                        <p className="text-sm font-medium text-gray-900">{address.fullName || address.full_name || ''}</p>
                       </div>
 
                       <div className="flex items-start">
                         <svg className="w-4 h-4 text-gray-400 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
-                        <p className="text-sm text-gray-600">{address.phone}</p>
+                        <p className="text-sm text-gray-600">{address.phone || ''}</p>
                       </div>
 
                       <div className="flex items-start">
@@ -365,8 +371,8 @@ export default function AddressesPage() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                         <p className="text-sm text-gray-600">
-                          {address.address_line1}
-                          {address.address_line2 && `, ${address.address_line2}`}
+                          {address.addressLine1 || address.address_line1 || ''}
+                          {(address.addressLine2 || address.address_line2) && `, ${address.addressLine2 || address.address_line2}`}
                         </p>
                       </div>
 
@@ -376,11 +382,11 @@ export default function AddressesPage() {
                         </svg>
                         <p className="text-sm text-gray-600">
                           {[
-                            (address as unknown as Record<string, unknown>).thana as string,
+                            (address as unknown as Record<string, unknown>).thana || (address as unknown as Record<string, unknown>).city,
                             address.district,
                             address.division,
                           ].filter(Boolean).join(', ')}
-                          {address.post_code && ` - ${address.post_code}`}
+                          {(address.postalCode || address.post_code) && ` - ${address.postalCode || address.post_code}`}
                         </p>
                       </div>
                     </div>

@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
+import { categories as staticCategories } from '@/data/categories';
 
 export default function Categories() {
   const { t } = useTranslation();
@@ -17,7 +18,12 @@ export default function Categories() {
     fetchCategories();
   }, [fetchCategories]);
 
-  if (loading) {
+  // Fallback to static categories if API returns empty
+  const displayCategories = useMemo(() => {
+    return categories.length > 0 ? categories : staticCategories;
+  }, [categories]);
+
+  if (loading && categories.length === 0) {
     return (
       <section className="py-8 md:py-10 bg-[#fee1e1]">
         <div className="container px-4">
@@ -39,11 +45,14 @@ export default function Categories() {
       <div className="container px-4">
         {/* Categories Grid - 6 columns, compact cards */}
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
-          {categories.slice(0, 6).map((category) => {
+          {displayCategories.slice(0, 6).map((category) => {
             const img = category.image;
-            const imageUrl = (typeof img === 'object' && img?.full_url)
-              ? img.full_url
-              : category.image_url || '';
+            const imageUrl = category.image_url || // New standardized field (priority)
+                              (typeof img === 'object' && (img?.fullUrl || img?.full_url))
+                              ? (img.fullUrl || img.full_url)
+                              : typeof img === 'string'
+                              ? img
+                              : category.imageUrl || ''; // Legacy camelCase fallback
 
             return (
               <Link
@@ -99,7 +108,7 @@ export default function Categories() {
         </div>
 
         {/* View All Button */}
-        {categories.length > 6 && (
+        {displayCategories.length > 6 && (
           <div className="text-center mt-5 md:mt-6">
             <Link
               href="/products"

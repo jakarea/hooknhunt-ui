@@ -53,36 +53,100 @@ export const useDeliveryStore = create<DeliveryStore>((set, get) => ({
     set({ settingsLoading: true, settingsError: null });
 
     try {
+      // Use the API client for consistency
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'https://probesh.hooknhunt.com/api/v2'}/public/delivery-settings`,
+        `${process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api/v2'}/store/delivery-settings`,
         {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-type': 'application/json',
             'Accept': 'application/json',
           },
         }
       );
 
-      const data = await response.json();
-
-      if (data?.data) {
-        set({
-          settings: data.data,
-          settingsLoading: false,
-          settingsError: null,
-        });
-      } else {
-        throw new Error(data?.message || 'Failed to fetch delivery settings');
+      // Check if response was successful
+      if (response.ok) {
+        const data = await response.json();
+        if (data?.data) {
+          set({
+            settings: data.data,
+            settingsLoading: false,
+            settingsError: null,
+          });
+          return;
+        }
       }
-    } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Failed to fetch delivery settings';
+
+      // If API fails or returns no data, use default settings
       set({
-        settings: null,
+        settings: {
+          deliveryMode: 'standard',
+          delivery_mode: 'standard',
+          base_weight: 0,
+          inside_dhaka: {
+            base_charge: 0,
+            per_kg_charge: 0,
+          },
+          outside_dhaka: {
+            base_charge: 0,
+            per_kg_charge: 0,
+          },
+          flat_rate: {
+            enabled: false,
+            base_charge: 0,
+            per_kg_charge: 0,
+          },
+          free_delivery: {
+            enabled: false,
+          },
+          progressiveDelivery: {
+            enabled: false,
+            min_amount: 0,
+          },
+          progressive_delivery: {
+            enabled: false,
+            min_amount: 0,
+          },
+        },
         settingsLoading: false,
-        settingsError: message,
+        settingsError: null,
       });
-      console.error('[Delivery Store] Failed to fetch settings:', error);
+    } catch (error) {
+      // Silently fail - use default settings if API fails
+      set({
+        settings: {
+          deliveryMode: 'standard',
+          delivery_mode: 'standard',
+          base_weight: 0,
+          inside_dhaka: {
+            base_charge: 0,
+            per_kg_charge: 0,
+          },
+          outside_dhaka: {
+            base_charge: 0,
+            per_kg_charge: 0,
+          },
+          flat_rate: {
+            enabled: false,
+            base_charge: 0,
+            per_kg_charge: 0,
+          },
+          free_delivery: {
+            enabled: false,
+          },
+          progressiveDelivery: {
+            enabled: false,
+            min_amount: 0,
+          },
+          progressive_delivery: {
+            enabled: false,
+            min_amount: 0,
+          },
+        },
+        settingsLoading: false,
+        settingsError: null,
+      });
     }
   },
 

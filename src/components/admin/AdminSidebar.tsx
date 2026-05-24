@@ -34,18 +34,6 @@ const menuItems: MenuItem[] = [
     ]
   },
   {
-    name: 'Inventory',
-    tKey: 'inventory',
-    href: '/admin/inventory',
-    icon: '📊',
-    children: [
-      { name: 'Stock Overview', tKey: 'stockOverview', href: '/admin/inventory', icon: '📈' },
-      { name: 'Stock Movements', tKey: 'stockMovements', href: '/admin/inventory/movements', icon: '🔄' },
-      { name: 'Low Stock Alerts', tKey: 'lowStockAlerts', href: '/admin/inventory/alerts', icon: '⚠️' },
-      { name: 'Stock Adjustments', tKey: 'stockAdjustments', href: '/admin/inventory/adjustments', icon: '✏️' }
-    ]
-  },
-  {
     name: 'Orders',
     tKey: 'orders',
     href: '/admin/orders',
@@ -64,52 +52,7 @@ const menuItems: MenuItem[] = [
     href: '/admin/customers',
     icon: '👥',
     children: [
-      { name: 'All Customers', tKey: 'allCustomers', href: '/admin/customers', icon: '👤' },
-      { name: 'Dealers', tKey: 'dealers', href: '/admin/customers/dealers', icon: '🏪' },
-      { name: 'Affiliates', tKey: 'affiliates', href: '/admin/customers/affiliates', icon: '🤝' },
-      { name: 'Dropshippers', tKey: 'dropshippers', href: '/admin/customers/dropshippers', icon: '📦' }
-    ]
-  },
-  {
-    name: 'Financial',
-    tKey: 'financial',
-    href: '/admin/financial',
-    icon: '💰',
-    children: [
-      { name: 'Revenue Overview', tKey: 'revenueOverview', href: '/admin/financial', icon: '📊' },
-      { name: 'Profit & Loss', tKey: 'profitAndLoss', href: '/admin/financial/profit-loss', icon: '📈' },
-      { name: 'Expenses', tKey: 'expenses', href: '/admin/financial/expenses', icon: '💸' },
-      { name: 'Commissions', tKey: 'commissions', href: '/admin/financial/commissions', icon: '🤝' }
-    ]
-  },
-  {
-    name: 'Reports',
-    tKey: 'reports',
-    href: '/admin/reports',
-    icon: '📊',
-    children: [
-      { name: 'Sales Reports', tKey: 'salesReports', href: '/admin/reports/sales', icon: '📈' },
-      { name: 'Inventory Reports', tKey: 'inventoryReports', href: '/admin/reports/inventory', icon: '📦' },
-      { name: 'Customer Reports', tKey: 'customerReports', href: '/admin/reports/customers', icon: '👥' },
-      { name: 'Performance', tKey: 'performance', href: '/admin/reports/performance', icon: '🎯' }
-    ]
-  },
-  {
-    name: 'Suppliers',
-    tKey: 'suppliers',
-    href: '/admin/suppliers',
-    icon: '🏭'
-  },
-  {
-    name: 'Marketing',
-    tKey: 'marketing',
-    href: '/admin/marketing',
-    icon: '📢',
-    children: [
-      { name: 'Campaigns', tKey: 'campaigns', href: '/admin/marketing/campaigns', icon: '🎯' },
-      { name: 'Coupons', tKey: 'coupons', href: '/admin/marketing/coupons', icon: '🎫' },
-      { name: 'Email Marketing', tKey: 'emailMarketing', href: '/admin/marketing/email', icon: '📧' },
-      { name: 'Analytics', tKey: 'analytics', href: '/admin/marketing/analytics', icon: '📊' }
+      { name: 'All Customers', tKey: 'allCustomers', href: '/admin/customers', icon: '👤' }
     ]
   },
   {
