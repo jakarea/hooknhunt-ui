@@ -126,7 +126,7 @@ export default function CartSidebar() {
               >
                 <Link href={`/products/${item.product.slug}`} onClick={closeCart} className="flex-shrink-0 relative w-14 h-14 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                   <Image
-                    src={item.product.variant_image || item.product.image || '/placeholder-image.jpg'}
+                    src={item.product.variant_image || item.product.image_url || '/placeholder-image.jpg'}
                     alt={getLocalizedNameForProduct(item.product) || 'Product'}
                     fill
                     className="object-cover"
@@ -213,7 +213,7 @@ export default function CartSidebar() {
                             id: product.id,
                             name: product.title,
                             price: displayPrice,
-                            image: imageUrl,
+                            image_url: imageUrl,
                             slug: product.slug,
                             stock: 999,
                           });

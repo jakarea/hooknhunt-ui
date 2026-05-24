@@ -807,7 +807,7 @@ export default function CheckoutPage() {
         variant_id: item.variant?.id || item.product.variant_id || null,
         product_name: getLocalizedNameForProduct(item.product),
         product_sku: item.variant?.sku || null,
-        product_image: item.product.variant_image || item.product.image || '/placeholder-product.png',
+        product_image: item.product.variant_image || item.product.image_url || '/placeholder-product.png',
         unit_price: item.price || 0,
         quantity: item.quantity,
         total_price: (item.price || 0) * item.quantity,
@@ -1673,7 +1673,7 @@ export default function CheckoutPage() {
                         {/* Product Image */}
                         <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
                           <img
-                            src={item.product.variant_image || item.product.image || '/placeholder-product.png'}
+                            src={item.product.variant_image || item.product.image_url || '/placeholder-product.png'}
                             alt={getLocalizedNameForProduct(item.product)}
                             className="w-full h-full object-cover"
                           />

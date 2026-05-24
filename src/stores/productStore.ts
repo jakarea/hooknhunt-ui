@@ -253,9 +253,8 @@ export const mapApiProduct = (p: ApiProduct): Product => {
       variantCount = p.variant_count ?? 0;
     }
 
-    // Handle both new gallery_images format and legacy galleryImages
-    const galleryUrls = p.gallery_images?.map((img) => img.image_url) ||
-                        p.galleryImages?.map((img) => img.fullUrl) ||
+    // Handle galleryImages format
+    const galleryUrls = p.galleryImages?.map((img) => img.fullUrl) ||
                         [];
 
     return {

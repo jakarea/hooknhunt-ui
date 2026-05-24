@@ -282,7 +282,7 @@ function ProductDetailPageContent() {
           // Build gallery from variant images when galleryImages is empty
           const variantImages = data.variants
             .map((v: ApiVariant) => v.imageUrl)
-            .filter((url): url is string => url && url.length > 0 && !placeholderPattern.test(url));
+            .filter((url): url is string => Boolean(url && url.length > 0 && !placeholderPattern.test(url)));
 
           // Remove duplicates while preserving order
           galleryUrls = [...new Set(variantImages)];
@@ -399,7 +399,7 @@ function ProductDetailPageContent() {
       name: localizedName,
       price: currentPrice,
       originalPrice,
-      image: imageUrl,
+      image_url: imageUrl,
       slug: product.slug,
       stock,
     }, quantity);
@@ -416,7 +416,7 @@ function ProductDetailPageContent() {
       name: localizedName,
       price: currentPrice,
       originalPrice,
-      image: imageUrl,
+      image_url: imageUrl,
       slug: product.slug,
       stock,
     }, quantity, [], false); // false = don't open cart drawer
@@ -436,9 +436,9 @@ function ProductDetailPageContent() {
       name: p.title,
       title: p.title,
       slug: p.slug,
-      image: p.imageUrl || p.thumbnail?.fullUrl || p.image || p.featured_image || '',
-      featured_image: p.imageUrl || p.thumbnail?.fullUrl || p.image || p.featured_image || '',
-      image_url: p.imageUrl || p.thumbnail?.fullUrl || p.image || p.featured_image || '',
+      image: p.imageUrl || p.thumbnail?.fullUrl || '',
+      featured_image: p.imageUrl || p.thumbnail?.fullUrl || '',
+      image_url: p.imageUrl || p.thumbnail?.fullUrl || '',
       price: p.retailOfferPrice || p.retailPrice,
       actual_price: p.retailOfferPrice || p.retailPrice,
       originalPrice: p.retailPrice,

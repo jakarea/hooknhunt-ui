@@ -68,7 +68,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       name: product.name || product.title,
       price: product.price || product.actual_price,
       originalPrice: product.originalPrice || product.compare_at_price,
-      image: product.image_url || product.imageUrl || product.image || product.featured_image,
+      image_url: product.image_url || product.imageUrl || '',
       slug: product.slug,
       stock: product.stock || product.inventory_quantity,
     }, 1);

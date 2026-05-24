@@ -111,7 +111,7 @@ function CrossSellCard({ product, onClose }: { product: CrossSaleProduct; onClos
       id: product.id,
       name: product.title,
       price: displayPrice,
-      image: imageUrl,
+      image_url: imageUrl,
       slug: product.slug,
       stock: 999,
     };

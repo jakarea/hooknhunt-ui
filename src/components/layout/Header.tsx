@@ -218,12 +218,15 @@ export default function Header() {
                 <div className="max-h-[400px] overflow-y-auto">
                   {displayCategories.map((category) => {
                     const img = category.image;
-                    const imageUrl = category.image_url || // New standardized field (priority)
-                                      (typeof img === 'object' && (img?.fullUrl || img?.full_url))
-                                      ? (img.fullUrl || img.full_url)
-                                      : typeof img === 'string'
-                                      ? img
-                                      : category.imageUrl || ''; // Legacy camelCase fallback
+                    let imageUrl = category.image_url || '';
+
+                    if (img) {
+                      if (typeof img === 'object' && img !== null && 'fullUrl' in img) {
+                        imageUrl = img.fullUrl || imageUrl;
+                      } else if (typeof img === 'string') {
+                        imageUrl = img;
+                      }
+                    }
                     return (
                       <Link
                         key={category.id}
@@ -387,12 +390,15 @@ export default function Header() {
                   <div className="px-2 py-2 space-y-1 bg-gray-50 dark:bg-[#0f0f0f] rounded-lg mx-3">
                     {displayCategories.map((category) => {
                       const img = category.image;
-                      const imageUrl = category.image_url || // New standardized field (priority)
-                                        (typeof img === 'object' && img?.full_url)
-                                        ? img.full_url
-                                        : typeof img === 'string'
-                                        ? img
-                                        : '';
+                      let imageUrl = category.image_url || '';
+
+                      if (img) {
+                        if (typeof img === 'object' && img !== null && 'full_url' in img) {
+                          imageUrl = img.full_url || imageUrl;
+                        } else if (typeof img === 'string') {
+                          imageUrl = img;
+                        }
+                      }
                       return (
                         <Link
                           key={category.id}

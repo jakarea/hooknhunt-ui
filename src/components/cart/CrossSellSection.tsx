@@ -79,7 +79,7 @@ function CrossSellCard({ product }: { product: CrossSaleProduct }) {
       id: product.id,
       name: product.title,
       price: displayPrice,
-      image: imageUrl,
+      image_url: imageUrl,
       slug: product.slug,
       stock: 999,
     });

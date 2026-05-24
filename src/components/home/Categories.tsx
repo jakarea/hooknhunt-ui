@@ -47,12 +47,15 @@ export default function Categories() {
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
           {displayCategories.slice(0, 6).map((category) => {
             const img = category.image;
-            const imageUrl = category.image_url || // New standardized field (priority)
-                              (typeof img === 'object' && (img?.fullUrl || img?.full_url))
-                              ? (img.fullUrl || img.full_url)
-                              : typeof img === 'string'
-                              ? img
-                              : category.imageUrl || ''; // Legacy camelCase fallback
+            let imageUrl = category.image_url || ''; // Standardized field
+
+            if (img) {
+              if (typeof img === 'object' && 'fullUrl' in img) {
+                imageUrl = img.fullUrl || imageUrl;
+              } else if (typeof img === 'string') {
+                imageUrl = img;
+              }
+            }
 
             return (
               <Link

@@ -269,7 +269,7 @@ export default function CartPage() {
                     >
                       <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 dark:bg-gray-800 overflow-hidden rounded-md">
                         <Image
-                          src={item.product.variant_image || item.product.image || '/placeholder-image.jpg'}
+                          src={item.product.variant_image || item.product.image_url || '/placeholder-image.jpg'}
                           alt={getLocalizedNameForProduct(item.product) || 'Product'}
                           fill
                           className="object-cover group-hover:scale-110 transition-transform duration-300"
