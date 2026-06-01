@@ -37,7 +37,9 @@ function SearchPageContent() {
         per_page: 24,
       }) as any;
 
-      if (response?.data?.data) {
+      // Handle response structure:
+      // { status: true, message: "...", data: { data: [...], total, current_page, last_page } }
+      if (response?.data?.data && Array.isArray(response.data.data)) {
         setProducts(response.data.data);
         setTotalPages(response.data.last_page || 1);
         setTotalCount(response.data.total || 0);

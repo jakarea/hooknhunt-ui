@@ -1812,11 +1812,17 @@ export default function CheckoutPage() {
                           value={couponCode}
                           onChange={(e) => {
                             setCouponCode(e.target.value.toUpperCase());
-                            if (couponStore.error) couponStore.clearError();
+                            if (couponStore.validationErrors.code || couponStore.validationErrors.general) {
+                              couponStore.clearValidationErrors();
+                            }
                           }}
                           onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
                           placeholder={t('checkout.enterCode')}
-                          className="flex-1 px-4 py-2.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
+                          className={`flex-1 px-4 py-2.5 border-2 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none transition-colors ${
+                            couponStore.validationErrors.code || couponStore.validationErrors.general
+                              ? 'border-red-500 dark:border-red-500 focus:ring-2 focus:ring-red-500 focus:border-red-500'
+                              : 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                          }`}
                         />
                         <button
                           onClick={handleApplyCoupon}
@@ -1835,12 +1841,22 @@ export default function CheckoutPage() {
                         </button>
                       </div>
 
-                      {couponStore.error && (
-                        <p className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      {/* Code-specific validation error */}
+                      {couponStore.validationErrors.code && (
+                        <p className="mt-1.5 text-sm text-red-600 dark:text-red-400 flex items-start gap-1">
+                          <svg className="w-4 h-4 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                           </svg>
-                          {couponStore.error}
+                          <span>{couponStore.validationErrors.code[0]}</span>
+                        </p>
+                      )}
+                      {/* General validation error (fallback) */}
+                      {couponStore.validationErrors.general && !couponStore.validationErrors.code && (
+                        <p className="mt-1.5 text-sm text-red-600 dark:text-red-400 flex items-start gap-1">
+                          <svg className="w-4 h-4 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                          </svg>
+                          <span>{couponStore.validationErrors.general[0]}</span>
                         </p>
                       )}
                     </div>

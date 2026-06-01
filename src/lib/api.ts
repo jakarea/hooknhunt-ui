@@ -367,7 +367,7 @@ class ApiClient {
       method: 'POST',
       body: JSON.stringify({
         code,
-        cart_total: cartTotal,
+        subtotal: cartTotal,
         product_ids: productIds || [],
         category_ids: categoryIds || [],
       }),
@@ -375,10 +375,14 @@ class ApiClient {
   }
 
   async getAutoApplyCoupons(cartTotal: number, productIds?: number[], categoryIds?: number[]): Promise<ApiResponse> {
-    const params = new URLSearchParams({ cart_total: String(cartTotal) });
-    if (productIds?.length) params.set('product_ids', productIds.join(','));
-    if (categoryIds?.length) params.set('category_ids', categoryIds.join(','));
-    return this.request(`/store/coupons/auto-apply?${params.toString()}`, {}, true);
+    return this.request('/store/coupons/auto-apply', {
+      method: 'POST',
+      body: JSON.stringify({
+        subtotal: cartTotal,
+        product_ids: productIds || [],
+        category_ids: categoryIds || [],
+      }),
+    }, true);
   }
 
   // Thank-you product (public)

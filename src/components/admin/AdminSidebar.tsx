@@ -34,6 +34,15 @@ const menuItems: MenuItem[] = [
     ]
   },
   {
+    name: 'Catalog',
+    tKey: 'catalog',
+    href: '/admin/catalog',
+    icon: '📚',
+    children: [
+      { name: 'Coupons', tKey: 'coupons', href: '/admin/catalog/coupons', icon: '🎟️' }
+    ]
+  },
+  {
     name: 'Orders',
     tKey: 'orders',
     href: '/admin/orders',

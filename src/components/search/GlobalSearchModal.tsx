@@ -51,10 +51,11 @@ export default function GlobalSearchModal() {
           const response = await api.searchProducts({
             q: searchQuery.trim(),
             per_page: 8
-          });
+          }) as any;
 
-          // Handle different response formats - cast response.data to any
-          const responseData = (response.data as any)?.data || (response.data as any) || [];
+          // Handle response structure:
+          // { status: true, message: "...", data: { data: [...], total, ... } }
+          const responseData = response.data?.data || [];
 
           // If it's an array, use it directly
           if (Array.isArray(responseData)) {
@@ -62,7 +63,7 @@ export default function GlobalSearchModal() {
               id: p.id,
               name: p.name || p.title,
               slug: p.slug,
-              image: p.imageUrl || p.image_url || p.image || p.featured_image || p.thumbnail || null,
+              image: p.image_url || p.imageUrl || p.image || p.featured_image || p.thumbnail || null,
               category: p.category_name || null,
               price: p.price || p.actual_price || p.retail_price || null
             })));

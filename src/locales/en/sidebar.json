@@ -5,6 +5,8 @@
   "addProduct": "Add Product",
   "categories": "Categories",
   "attributes": "Attributes",
+  "catalog": "Catalog",
+  "coupons": "Coupons",
   "inventory": "Inventory",
   "stockOverview": "Stock Overview",
   "stockMovements": "Stock Movements",
