@@ -83,7 +83,13 @@ export default function OrdersPage() {
         ? ordersData
         : ((ordersData as Record<string, unknown>)?.data as Order[]) || [];
 
-      setOrders(ordersArray);
+      // Map API field names to frontend expectations
+      const transformedOrders = ordersArray.map((order: any) => ({
+        ...order,
+        orderNumber: order.invoiceNo || order.orderNumber,
+      }));
+
+      setOrders(transformedOrders);
     } catch {
       toast.error('Failed to load orders');
     } finally {
@@ -236,8 +242,8 @@ export default function OrdersPage() {
                               <Image
                                 src={
                                   item.image_url ||
-                                  item.thumbnail_url ||
                                   item.thumbnailUrl ||
+                                  item.thumbnail_url ||
                                   item.product_image ||
                                   item.productImage ||
                                   item.image ||

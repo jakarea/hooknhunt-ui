@@ -117,6 +117,11 @@ export interface ApiVariant {
   size: string | null;
   color: string | null;
   isActive: boolean;
+  // Support BOTH formats:
+  // Format 1: thumbnailUrl
+  // Format 2: imageUrl
+  thumbnailUrl?: string;
+  imageUrl?: string;
 }
 
 export interface ApiThumbnail {
@@ -151,7 +156,12 @@ export interface ApiProduct {
   seoDescription: string | null;
   seoTags: string[] | null;
   thumbnail: ApiThumbnail | null;
-  galleryImages: ApiGalleryImage[];
+  // Support BOTH API formats:
+  // Format 1: galleryImages as array of IDs, galleryImagesUrls as array of URLs
+  // Format 2: galleryImages as array of objects with imageUrl field
+  galleryImages: number[] | Array<{ imageUrl: string }>;
+  galleryImagesUrls?: string[];          // Optional - only in Format 1
+  thumbnailUrl?: string;                 // Optional - only in Format 1
   category: { id: number; name: string; slug: string } | null;
   brand: { id: number; name: string } | null;
   variants: ApiVariant[];
@@ -253,9 +263,28 @@ export const mapApiProduct = (p: ApiProduct): Product => {
       variantCount = p.variant_count ?? 0;
     }
 
-    // Handle galleryImages format
-    const galleryUrls = p.galleryImages?.map((img) => img.fullUrl) ||
-                        [];
+    // Handle galleryImagesUrls (Format 1) or galleryImages (Format 2: objects with imageUrl)
+    let galleryUrls: string[] = [];
+    if (p.galleryImagesUrls && p.galleryImagesUrls.length > 0) {
+      // Format 1: Use the URLs directly from API response
+      galleryUrls = p.galleryImagesUrls;
+    } else if (p.galleryImages && p.galleryImages.length > 0) {
+      // Format 2: galleryImages is array of objects with imageUrl field
+      // OR Format 1 legacy: galleryImages is array of IDs (numbers)
+      const firstItem = p.galleryImages[0];
+      if (typeof firstItem === 'object' && firstItem !== null && 'imageUrl' in firstItem) {
+        // Format 2: Extract imageUrl from each object
+        galleryUrls = p.galleryImages
+          .map((item: { imageUrl?: string }) => item.imageUrl)
+          .filter((url): url is string => Boolean(url && !isPlaceholderImage(url)));
+      } else {
+        // Format 1 legacy: galleryImages is array of IDs, build from variants
+        const variantImages = p.variants
+          .map((v: ApiVariant) => v.thumbnailUrl)
+          .filter((url): url is string => Boolean(url && !isPlaceholderImage(url)));
+        galleryUrls = [...new Set(variantImages)];
+      }
+    }
 
     return {
       id: p.id,
@@ -287,22 +316,37 @@ export const mapApiProduct = (p: ApiProduct): Product => {
       sku: sku,
       gallery_images: galleryUrls.map(url => ({ image_url: url })), // New format
       gallery: galleryUrls, // Legacy format
-      variants: activeVariants.map((v) => ({
-        id: v.id,
-        product_id: p.id,
-        title: v.variantName,
-        sku: v.sku,
-        price: v.price,
-        compare_at_price: v.offerPrice || 0,
-        cost_price: 0,
-        inventory_quantity: v.stock,
-        weight: parseFloat(v.weight) || 0,
-        image_url: imageUrl, // New field
-        image: imageUrl, // Legacy field
-        barcode: '',
-        created_at: '',
-        updated_at: '',
-      })),
+      variants: activeVariants.map((v) => {
+        // Get variant image: prefer thumbnailUrl, fallback to imageUrl (skip placeholders), then product image
+        const placeholderPattern = /placeholder\.jpg$/;
+        let variantImage = imageUrl; // Default to product image
+
+        // Try variant's thumbnailUrl first (if not placeholder)
+        if (v.thumbnailUrl && !placeholderPattern.test(v.thumbnailUrl)) {
+          variantImage = v.thumbnailUrl;
+        }
+        // Then try variant's imageUrl (if not placeholder)
+        else if (v.imageUrl && !placeholderPattern.test(v.imageUrl)) {
+          variantImage = v.imageUrl;
+        }
+
+        return {
+          id: v.id,
+          product_id: p.id,
+          title: v.variantName,
+          sku: v.sku,
+          price: v.price,
+          compare_at_price: v.offerPrice || 0,
+          cost_price: 0,
+          inventory_quantity: v.stock,
+          weight: parseFloat(v.weight) || 0,
+          image_url: variantImage, // Use variant image or product image
+          image: variantImage, // Legacy field
+          barcode: '',
+          created_at: '',
+          updated_at: '',
+        };
+      }),
       tags: [],
       has_variants: variantCount > 1,
       status: 'active',

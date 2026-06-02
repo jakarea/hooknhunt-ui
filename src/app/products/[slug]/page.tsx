@@ -104,10 +104,12 @@ interface ApiVariant {
   weight: string;
   size: string | null;
   color: string | null;
-  // New format (camelCase)
+  // Support BOTH formats:
+  // Format 1: thumbnailUrl (string)
+  // Format 2: imageUrl (string) or legacy thumbnail
+  thumbnailUrl?: string;
   imageUrl?: string;
   imageId?: number;
-  // Legacy format
   thumbnail?: string | null;
   isActive: boolean;
 }
@@ -134,15 +136,18 @@ interface ApiProduct {
   seoTags: string[] | null;
   attributes: string[] | null;
   attributesBn?: string[] | null;
-  // New format - camelCase (actual API response)
+  // Support BOTH API formats:
+  // Format 1 (/catalog): galleryImages as IDs, galleryImagesUrls, thumbnailUrl
+  // Format 2 (/store): galleryImages as objects with imageUrl, imageUrl
   imageUrl?: string;
   imageId?: number;
-  galleryImages?: Array<{ fullUrl: string }>; // Still using old structure in API
+  thumbnailUrl?: string; // Main product image URL (Format 1)
+  galleryImages?: number[] | Array<{ imageUrl: string }>; // Can be IDs or objects
+  galleryImagesUrls?: string[]; // Array of full URLs (Format 1)
   // Legacy image fields (old API format)
   image?: string;
   featured_image?: string;
   thumbnail?: { id: number; fullUrl: string; alt: string } | null;
-  thumbnailUrl?: string;
   category?: { id: number; name: string; slug: string } | null;
   brand?: { id: number; name: string } | null;
   variants: ApiVariant[];
@@ -246,52 +251,106 @@ function ProductDetailPageContent() {
         setApiProduct(data);
 
         // Transform API data to UI format
-        const variants: Variant[] = data.variants.map((v: ApiVariant) => ({
-          id: v.id,
-          sku: v.sku,
-          name: v.variantName,
-          retail_price: v.offerPrice || v.price,
-          original_price: v.price,
-          stock_info: {
-            available: v.stock,
-            in_stock: v.stock > 0,
-            low_stock: v.stock > 0 && v.stock <= 5,
-            stock_status: v.stock > 0 ? (v.stock <= 5 ? 'low_stock' : 'in_stock') : 'out_of_stock',
-          },
-          image: {
-            url: v.imageUrl || v.thumbnail || data.imageUrl || data.image || data.featured_image || data.thumbnail?.fullUrl || '',
-            thumbnail_url: v.imageUrl || v.thumbnail || data.imageUrl || data.image || data.featured_image || data.thumbnail?.fullUrl || '',
-            alt_text: data.thumbnail?.alt || v.variantName,
-          },
-        }));
+        const variants: Variant[] = (data.variants || []).map((v: ApiVariant) => {
+          try {
+            // Get variant image: prefer thumbnailUrl, fallback to imageUrl (skip placeholders), then product image
+            const placeholderPattern = /placeholder\.jpg$/;
+            const productImageUrl = (data.thumbnailUrl || data.imageUrl || '') as string;
+            let variantImage = productImageUrl; // Default to product image
 
-        // Handle gallery images
+            // Try variant's thumbnailUrl first (if not placeholder)
+            if (v.thumbnailUrl && !placeholderPattern.test(v.thumbnailUrl)) {
+              variantImage = v.thumbnailUrl;
+            }
+            // Then try variant's imageUrl (if not placeholder)
+            else if (v.imageUrl && !placeholderPattern.test(v.imageUrl)) {
+              variantImage = v.imageUrl;
+            }
+
+            return {
+              id: v.id,
+              sku: v.sku || '',
+              name: v.variantName || '',
+              retail_price: v.offerPrice || v.price || 0,
+              original_price: v.price || 0,
+              stock_info: {
+                available: v.stock || 0,
+                in_stock: (v.stock || 0) > 0,
+                low_stock: (v.stock || 0) > 0 && (v.stock || 0) <= 5,
+                stock_status: (v.stock || 0) > 0 ? ((v.stock || 0) <= 5 ? 'low_stock' : 'in_stock') : 'out_of_stock',
+              },
+              image: {
+                url: variantImage,
+                thumbnail_url: variantImage,
+                alt_text: v.variantName || '',
+              },
+            };
+          } catch (err) {
+            console.error('Error processing variant:', err, v);
+            // Return a safe default variant
+            return {
+              id: v.id,
+              sku: '',
+              name: 'Unknown',
+              retail_price: 0,
+              original_price: 0,
+              stock_info: {
+                available: 0,
+                in_stock: false,
+                low_stock: false,
+                stock_status: 'out_of_stock',
+              },
+              image: {
+                url: '',
+                thumbnail_url: '',
+                alt_text: '',
+              },
+            };
+          }
+        });
+
+        // Handle gallery images - support BOTH API formats
         let galleryUrls: string[] = [];
         const placeholderPattern = /placeholder\.jpg$/;
 
-        if (data.galleryImages && data.galleryImages.length > 0) {
-          // Use galleryImages if available - handle both formats
-          galleryUrls = data.galleryImages
-            .map((img) => {
-              // Handle both old format {fullUrl} and new format {imageUrl}
-              const url = (img as { fullUrl?: string }).fullUrl || (img as { imageUrl?: string }).imageUrl || '';
-              return url;
-            })
-            .filter((url) => url && url.length > 0 && !placeholderPattern.test(url));
-        } else {
-          // Build gallery from variant images when galleryImages is empty
-          const variantImages = data.variants
-            .map((v: ApiVariant) => v.imageUrl)
-            .filter((url): url is string => Boolean(url && url.length > 0 && !placeholderPattern.test(url)));
+        try {
+          // Use galleryImagesUrls if available (Format 1 - /catalog endpoint)
+          if (data.galleryImagesUrls && Array.isArray(data.galleryImagesUrls) && data.galleryImagesUrls.length > 0) {
+            galleryUrls = data.galleryImagesUrls.filter(url =>
+              url && typeof url === 'string' && url.length > 0 && !placeholderPattern.test(url)
+            );
+          } else if (data.galleryImages && Array.isArray(data.galleryImages) && data.galleryImages.length > 0) {
+            // Check if galleryImages is Format 2 (objects with imageUrl) or Format 1 (IDs)
+            const firstItem = data.galleryImages[0];
+            if (firstItem && typeof firstItem === 'object' && 'imageUrl' in firstItem) {
+              // Format 2: Extract imageUrl from each object
+              galleryUrls = (data.galleryImages as Array<{ imageUrl?: string }>)
+                .map(item => item?.imageUrl)
+                .filter((url): url is string => Boolean(url && url.length > 0 && !placeholderPattern.test(url)));
+            }
+          }
 
-          // Remove duplicates while preserving order
-          galleryUrls = [...new Set(variantImages)];
-        }
+          // Add main product image if not already in gallery
+          const mainImageUrl = (data.thumbnailUrl || data.imageUrl || '') as string;
+          if (mainImageUrl && !galleryUrls.includes(mainImageUrl) && !placeholderPattern.test(mainImageUrl)) {
+            galleryUrls.unshift(mainImageUrl);
+          }
 
-        // Add main product image to gallery if not already present (and not a placeholder)
-        const mainImageUrl = data.imageUrl || data.image || data.featured_image || data.thumbnail?.fullUrl || '';
-        if (mainImageUrl && !galleryUrls.includes(mainImageUrl) && !placeholderPattern.test(mainImageUrl)) {
-          galleryUrls.unshift(mainImageUrl);
+          // Add variant images to gallery (if not already included)
+          variants.forEach((variant: Variant) => {
+            const variantImageUrl = variant.image?.url;
+            if (variantImageUrl &&
+                !galleryUrls.includes(variantImageUrl) &&
+                !placeholderPattern.test(variantImageUrl)) {
+              // Add variant image to gallery if it's unique
+              galleryUrls.push(variantImageUrl);
+            }
+          });
+        } catch (err) {
+          console.error('Error processing gallery images:', err);
+          // Fallback: use main image only
+          const mainImageUrl = (data.thumbnailUrl || data.imageUrl || '') as string;
+          galleryUrls = mainImageUrl ? [mainImageUrl] : [];
         }
 
         const hasOffer = variants.some((v: Variant) => v.original_price > v.retail_price);
@@ -302,7 +361,7 @@ function ProductDetailPageContent() {
           name: data.name,
           nameBn: data.nameBn,
           slug: data.slug,
-          thumbnail_url: data.imageUrl || data.image || data.featured_image || data.thumbnail?.fullUrl || data.thumbnailUrl || '',
+          thumbnail_url: data.thumbnailUrl || data.imageUrl || '',
           gallery_images: galleryUrls,
           price_range: {
             min: Math.min(...variants.map((v: Variant) => v.retail_price)).toString(),
@@ -387,6 +446,26 @@ function ProductDetailPageContent() {
   const discount = originalPrice > currentPrice ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100) : 0;
   const stock = selectedVariant?.stock_info.available || 0;
   const inStock = selectedVariant?.stock_info.in_stock || false;
+
+  const handleVariantSelect = (variant: Variant) => {
+    setSelectedVariant(variant);
+
+    // Update main image to show variant's image
+    if (variant.image?.url && product?.gallery_images) {
+      const variantImageIndex = product.gallery_images.indexOf(variant.image.url);
+      if (variantImageIndex !== -1) {
+        // Variant image is in gallery, show it
+        setSelectedImageIndex(variantImageIndex);
+      } else {
+        // Variant image not in gallery, add it and show it
+        setProduct(prev => prev ? {
+          ...prev,
+          gallery_images: [...prev.gallery_images, variant.image.url]
+        } : null);
+        setSelectedImageIndex(product.gallery_images.length);
+      }
+    }
+  };
 
   const handleAddToCart = () => {
     if (!product || !selectedVariant) return;
@@ -645,7 +724,7 @@ function ProductDetailPageContent() {
             {product.videoUrl && <YouTubeVideo videoUrl={product.videoUrl} />}
 
             {/* Variant Selection */}
-            {product.variants.length > 1 && (
+            {product.variants.length >= 1 && (
               <div className="space-y-3 overflow-x-hidden">
                 <label className="hidden sm:flex text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider items-center gap-2">
                   <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -664,7 +743,7 @@ function ProductDetailPageContent() {
                     return (
                       <button
                         key={variant.id}
-                        onClick={() => !isOutOfStock && setSelectedVariant(variant)}
+                        onClick={() => !isOutOfStock && handleVariantSelect(variant)}
                         disabled={isOutOfStock}
                         className={`
                           relative group flex items-center gap-2 px-1.5 py-1.5 sm:px-2 sm:py-2 rounded-xl border-2 transition-all duration-200 text-left

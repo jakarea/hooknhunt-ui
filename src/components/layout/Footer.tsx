@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslation } from '../../../node_modules/react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Category } from '@/types';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
 
@@ -19,10 +19,18 @@ export default function Footer() {
     const fetchCategories = async () => {
       try {
         const api = (await import('@/lib/api')).default;
-        const response = await api.getCategories();
-        if (response.data?.data) {
+
+        // Add 10-second timeout to prevent hanging
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Categories fetch timeout')), 10000);
+        });
+
+        // Race between API call and timeout
+        const response = await Promise.race([api.getCategories(), timeoutPromise]);
+
+        if (response && (response as { data?: { data?: Category[] } }).data?.data) {
           // Sort by sort_order ascending and take top 6
-          const sortedCategories = response.data.data
+          const sortedCategories = (response as { data: { data: Category[] } }).data.data
             .sort((a: Category, b: Category) => (a.sort_order || 0) - (b.sort_order || 0))
             .slice(0, 6)
             .map((cat: Category) => ({
@@ -32,8 +40,19 @@ export default function Footer() {
           setCategories(sortedCategories);
         }
       } catch (error) {
-        console.error('Failed to fetch categories:', error);
+        // Better error logging that handles all error types
+        const errorDetails = {
+          message: error instanceof Error ? error.message : 'Unknown error',
+          status: (error as { status?: number })?.status,
+          name: error instanceof Error ? error.name : undefined,
+          stack: error instanceof Error ? error.stack : undefined,
+          raw: error
+        };
+        console.error('Failed to fetch categories:', errorDetails);
+        // Graceful degradation: set empty categories instead of keeping loading state
+        setCategories([]);
       } finally {
+        // Always set loading to false
         setLoading(false);
       }
     };
@@ -46,12 +65,30 @@ export default function Footer() {
     const fetchActiveGateway = async () => {
       try {
         const api = (await import('@/lib/api')).default;
-        const response = await api.getActivePaymentGateway();
-        if (response.data?.activeGateway) {
-          setActiveGateway(response.data.activeGateway);
+
+        // Add 10-second timeout to prevent hanging
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Payment gateway fetch timeout')), 10000);
+        });
+
+        // Race between API call and timeout
+        const response = await Promise.race([api.getActivePaymentGateway(), timeoutPromise]);
+
+        if (response && (response as { data?: { activeGateway?: ActiveGateway } }).data?.activeGateway) {
+          setActiveGateway((response as { data: { activeGateway: ActiveGateway } }).data.activeGateway);
         }
       } catch (error) {
-        console.error('Failed to fetch active payment gateway:', error);
+        // Better error logging that handles all error types
+        const errorDetails = {
+          message: error instanceof Error ? error.message : 'Unknown error',
+          status: (error as { status?: number })?.status,
+          name: error instanceof Error ? error.name : undefined,
+          stack: error instanceof Error ? error.stack : undefined,
+          raw: error
+        };
+        console.error('Failed to fetch active payment gateway:', errorDetails);
+        // Graceful degradation: keep null (will show default SSLCommerz logo)
+        setActiveGateway(null);
       }
     };
 

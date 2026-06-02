@@ -44,10 +44,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         try {
-          const response = await api.getMe();
+          // Add 10-second timeout to prevent hanging
+          const timeoutPromise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Request timeout')), 10000);
+          });
+
+          // Race between API call and timeout
+          const response = await Promise.race([api.getMe(), timeoutPromise]) as unknown;
 
           // Check both possible response structures: {data: {user: ...}} or {user: ...}
-          const user = (response as { data?: { user?: User } })?.data?.user || (response as { user?: User })?.user || response as User;
+          const user = (response as { data?: { user?: User } })?.data?.user || (response as { user?: User })?.user;
           if (user) {
             setUser(user);
             setIsAuthenticated(true);
@@ -69,8 +75,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             localStorage.removeItem('cached_user');
             setUser(null);
             setIsAuthenticated(false);
-          } else if (err.status === 0 && !cachedUser) {
-            // Network error - only show error if we don't have cached data
+          } else {
+            // Network error or timeout - clear auth if no cached data
+            if (!cachedUser) {
+              api.clearAuth();
+              localStorage.removeItem('cached_user');
+            }
             setUser(null);
             setIsAuthenticated(false);
           }
@@ -82,6 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setIsAuthenticated(false);
       }
 
+      // Always set loading to false, regardless of outcome
       setIsLoading(false);
     };
 

@@ -285,8 +285,8 @@ export default function OrderDetailsPage() {
                               <Image
                                 src={
                                   item.image_url ||
-                                  item.thumbnail_url ||
                                   item.thumbnailUrl ||
+                                  item.thumbnail_url ||
                                   item.product_image ||
                                   item.productImage ||
                                   item.image ||
