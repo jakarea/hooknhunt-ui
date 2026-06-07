@@ -130,16 +130,12 @@ export default function TrackingScripts() {
     }
   }, [])
 
-  // Helper: Decode HTML entities (handles double-encoded entities from backend)
+  // Helper: Decode HTML entities (now backend returns clean HTML)
   const decodeHtmlEntities = (html: string): string => {
-    // Decode twice because backend stores double-encoded entities (&amp;lt; → &lt; → <)
-    let decoded = html
-    for (let i = 0; i < 2; i++) {
-      const textarea = document.createElement('textarea')
-      textarea.innerHTML = decoded
-      decoded = textarea.value
-    }
-    return decoded
+    // Single decode pass - backend now returns clean HTML
+    const textarea = document.createElement('textarea')
+    textarea.innerHTML = html
+    return textarea.value
   }
 
   // Helper: Inject HTML-containing script code (extracts JS from <script> tags)
