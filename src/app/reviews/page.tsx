@@ -136,8 +136,8 @@ interface ReviewCardProps {
 function ReviewCard({ review }: ReviewCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Handle both camelCase (from API) and snake_case formats
-  const screenshotUrl = review.screenshot?.fullUrl || review.screenshot?.full_url || review.screenshotUrl || review.screenshot_url || '/placeholder-review.png';
+  // Handle both nested object and direct url formats
+  const screenshotUrl = review.screenshot?.full_url || review.screenshot_url || review.image_url || '/placeholder-review.png';
 
   return (
     <div

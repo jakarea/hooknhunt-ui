@@ -14,7 +14,7 @@ const OTP_LENGTH = 5;
 export default function OtpVerification({ phone, onVerify, onResend, isLoading = false }: OtpVerificationProps) {
   const [otp, setOtp] = useState<string[]>(Array(OTP_LENGTH).fill(''));
   const [error, setError] = useState('');
-  const [countdown, setCountdown] = useState(60);
+  const [countdown, setCountdown] = useState(120);
   const [canResend, setCanResend] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -88,7 +88,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
     if (!canResend) return;
 
     setError('');
-    setCountdown(60);
+    setCountdown(120);
     setCanResend(false);
     setOtp(Array(OTP_LENGTH).fill(''));
 

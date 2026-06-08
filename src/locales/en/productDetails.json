@@ -18,5 +18,5 @@
   "easyReturns": "Easy Returns",
   "variantOptions": "options",
   "noDescription": "No description available.",
-  "whatsappMessage": "Hi, I want to order: {{name}} (৳{{price}}) - Quantity: {{quantity}}"
+  "whatsappMessage": "Hi, I want to order: {{name}} (৳{{price}}) - Quantity: {{quantity}} - Link: {{link}}"
 }

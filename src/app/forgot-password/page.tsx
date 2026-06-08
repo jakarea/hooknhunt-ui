@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import OtpVerification from '@/components/OtpVerification';
+import PasswordStrengthMeter from '@/components/PasswordStrengthMeter';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function ForgotPasswordPage() {
@@ -255,9 +256,12 @@ export default function ForgotPasswordPage() {
 
                     {/* Back to Home */}
                     <div className="mt-6 text-center">
-                        <Link href="/" className="text-sm text-gray-600 hover:text-red-700 transition-colors">
-                            ← Back to Home
-                        </Link>
+                        <button
+                            onClick={() => setStep('phone')}
+                            className="text-sm text-gray-600 hover:text-red-700 transition-colors"
+                        >
+                            ← Back to Phone Input
+                        </button>
                     </div>
                 </div>
             </div>
@@ -389,7 +393,8 @@ export default function ForgotPasswordPage() {
                                     )}
                                 </button>
                             </div>
-                            <p className="mt-1 text-xs text-gray-500">Minimum 6 characters</p>
+                            {/* Password Strength Meter */}
+                            <PasswordStrengthMeter password={password} />
                         </div>
 
                         {/* Confirm Password Field */}
@@ -463,11 +468,14 @@ export default function ForgotPasswordPage() {
                     </div>
                 </div>
 
-                {/* Back to Home */}
-                <div className="text-center">
-                    <Link href="/" className="text-sm text-gray-600 hover:text-red-700 transition-colors">
-                        ← Back to Home
-                    </Link>
+                {/* Back to OTP */}
+                <div className="mt-6 text-center">
+                    <button
+                        onClick={() => setStep('otp')}
+                        className="text-sm text-gray-600 hover:text-red-700 transition-colors"
+                    >
+                        ← Back to OTP
+                    </button>
                 </div>
             </div>
         </div>

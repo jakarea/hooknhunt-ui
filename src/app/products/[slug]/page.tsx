@@ -853,7 +853,13 @@ function ProductDetailPageContent() {
 
               {/* WhatsApp Order Button */}
               <a
-                href={`https://wa.me/8801975244202?text=${encodeURIComponent(`Hi, I want to order: ${localizedName} (৳${currentPrice.toLocaleString()}) - Quantity: ${quantity}`)}`}
+                href={`https://wa.me/8801975244202?text=${encodeURIComponent(
+                  t('whatsappMessage')
+                    .replace('{{name}}', localizedName)
+                    .replace('{{price}}', currentPrice.toLocaleString())
+                    .replace('{{quantity}}', quantity.toString())
+                    .replace('{{link}}', typeof window !== 'undefined' ? `${window.location.origin}/products/${product.slug}` : `/products/${product.slug}`)
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-3 px-6 py-3.5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"

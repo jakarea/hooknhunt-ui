@@ -18,5 +18,5 @@
   "easyReturns": "সহজে রিটার্ন",
   "variantOptions": "টি অপশন",
   "noDescription": "কোনো বিবরণ নেই",
-  "whatsappMessage": "হ্যালো, আমি অর্ডার করতে চাই: {{name}} (৳{{price}}) - পরিমাণ: {{quantity}}"
+  "whatsappMessage": "হ্যালো, আমি অর্ডার করতে চাই: {{name}} (৳{{price}}) - পরিমাণ: {{quantity}} - লিংক: {{link}}"
 }

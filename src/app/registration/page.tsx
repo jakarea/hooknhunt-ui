@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
+import PasswordStrengthMeter from '@/components/PasswordStrengthMeter';
 
 export default function RegistrationPage() {
     const { t } = useTranslation();
@@ -324,7 +325,7 @@ export default function RegistrationPage() {
                             {fieldErrors.password ? (
                                 <p className="mt-1 text-xs text-red-600">{fieldErrors.password}</p>
                             ) : (
-                                <p className="mt-1 text-xs text-gray-500">Minimum 6 characters</p>
+                                <PasswordStrengthMeter password={formData.password} />
                             )}
                         </div>
 
