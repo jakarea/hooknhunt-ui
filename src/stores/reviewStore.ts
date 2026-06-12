@@ -14,7 +14,8 @@ export interface ReviewProduct {
 
 export interface ReviewScreenshot {
   id: number;
-  full_url: string;
+  full_url: string;   // snake_case (legacy)
+  fullUrl?: string;   // camelCase (API response)
 }
 
 export interface Review {
@@ -27,8 +28,17 @@ export interface Review {
   created_at: string;
   updated_at: string;
   screenshot: ReviewScreenshot | null;
-  screenshot_url?: string | null;
+  screenshot_url?: string | null; // snake_case (legacy)
+  screenshotUrl?: string | null;  // camelCase (API response)
+  image_url?: string;
+  imageUrl?: string;
   products: ReviewProduct[];
+  // API response camelCase aliases
+  reviewText?: string;
+  isFeatured?: boolean;
+  sortOrder?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ReviewFilters {

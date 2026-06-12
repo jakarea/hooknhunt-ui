@@ -184,8 +184,9 @@ export interface Category {
   created_at?: string;
   updated_at?: string;
 
-  // Standardized image field (API response format)
-  image_url?: string;   // Full URL to category image
+  // Standardized image field (API response format - camelCase)
+  imageUrl?: string;   // Full URL to category image
+  imageId?: string | number | null;   // Image ID
 }
 
 // ✅ Product
@@ -504,7 +505,8 @@ export interface ReviewProduct {
 
 export interface ReviewScreenshot {
   id: number;
-  full_url: string;
+  full_url: string;   // snake_case (legacy)
+  fullUrl?: string;   // camelCase (API response)
 }
 
 export interface Review {
@@ -517,10 +519,18 @@ export interface Review {
   created_at: string;
   updated_at: string;
   screenshot: ReviewScreenshot | null;
-  screenshot_url?: string | null; // Legacy field
-  image_url?: string; // Standardized field (review screenshot)
+  screenshot_url?: string | null; // snake_case (legacy)
+  screenshotUrl?: string | null;  // camelCase (API response)
+  image_url?: string; // snake_case (standardized field)
+  imageUrl?: string;  // camelCase (API response)
   image_id?: number; // Image ID
   products: ReviewProduct[];
+  // Also support API's nested snake_case format
+  reviewText?: string;    // camelCase (API response)
+  isFeatured?: boolean;    // camelCase (API response)
+  sortOrder?: number;      // camelCase (API response)
+  createdAt?: string;      // camelCase (API response)
+  updatedAt?: string;      // camelCase (API response)
 }
 
 export interface ReviewFilters {

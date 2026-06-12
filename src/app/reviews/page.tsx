@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useReviewStore } from '@/stores/reviewStore';
 import { useTranslation } from 'react-i18next';
 import { Review } from '@/types';
+import { getUrlFromObject } from '@/lib/utils';
 
 /**
  * Reviews Page
@@ -136,8 +137,16 @@ interface ReviewCardProps {
 function ReviewCard({ review }: ReviewCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Handle both nested object and direct url formats
-  const screenshotUrl = review.screenshot?.full_url || review.screenshot_url || review.image_url || '/placeholder-review.png';
+  // Handle both nested object and direct url formats (API returns camelCase: fullUrl, screenshotUrl)
+  // Use getUrlFromObject to handle multiple possible keys and normalize the URL
+  const screenshotUrl = getUrlFromObject(review, [
+    'screenshot.fullUrl',
+    'screenshotUrl',
+    'screenshot.full_url',
+    'screenshot_url',
+    'image_url',
+    'imageUrl',
+  ]) || '/placeholder-review.png';
 
   return (
     <div

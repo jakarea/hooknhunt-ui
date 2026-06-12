@@ -3,19 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Enable Next.js Image optimization for best performance
   images: {
-    // Enable image optimization (WebP, AVIF, resizing, lazy loading)
-    unoptimized: false,
+    // Disable optimization to avoid SSL/certificate issues with hooknhunt-api.test
+    unoptimized: true,
 
     // Allow optimized images from backend domains
     remotePatterns: [
       {
         protocol: "https",
         hostname: "hooknhunt-api.test",
-        pathname: "/storage/**",
-      },
-      {
-        protocol: "https",
-        hostname: "probesh.hooknhunt.com",
         pathname: "/storage/**",
       },
       // Development only

@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
-import { categories as staticCategories } from '@/data/categories';
 
 export default function Categories() {
   const { t } = useTranslation();
@@ -17,11 +16,6 @@ export default function Categories() {
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
-
-  // Fallback to static categories if API returns empty
-  const displayCategories = useMemo(() => {
-    return categories.length > 0 ? categories : staticCategories;
-  }, [categories]);
 
   if (loading && categories.length === 0) {
     return (
@@ -45,17 +39,8 @@ export default function Categories() {
       <div className="container px-4">
         {/* Categories Grid - 6 columns, compact cards */}
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
-          {displayCategories.slice(0, 6).map((category) => {
-            const img = category.image;
-            let imageUrl = category.image_url || ''; // Standardized field
-
-            if (img) {
-              if (typeof img === 'object' && 'fullUrl' in img) {
-                imageUrl = img.fullUrl || imageUrl;
-              } else if (typeof img === 'string') {
-                imageUrl = img;
-              }
-            }
+          {categories.slice(0, 6).map((category) => {
+            const imageUrl = category.imageUrl || '';
 
             return (
               <Link
@@ -111,7 +96,7 @@ export default function Categories() {
         </div>
 
         {/* View All Button */}
-        {displayCategories.length > 6 && (
+        {categories.length > 6 && (
           <div className="text-center mt-5 md:mt-6">
             <Link
               href="/products"

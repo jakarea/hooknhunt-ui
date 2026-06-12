@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,6 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useSearchModal } from '@/contexts/SearchModalContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
-import { categories as staticCategories } from '@/data/categories';
 
 export default function Header() {
   const { t } = useTranslation();
@@ -23,11 +22,6 @@ export default function Header() {
 
   const categories = useCategoryStore((s) => s.categories);
   const fetchCategories = useCategoryStore((s) => s.fetchCategories);
-
-  // Fallback to static categories if API returns empty
-  const displayCategories = useMemo(() => {
-    return categories.length > 0 ? categories : staticCategories;
-  }, [categories]);
   const { getCartCount, toggleCart } = useCart();
   const { isAuthenticated, isLoading } = useAuth();
   const { toggleTheme } = useTheme();
@@ -216,17 +210,8 @@ export default function Header() {
               {/* Dropdown Menu - Shows on Hover */}
               <div className={`absolute top-full left-0 mt-1 w-56 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50 transition-opacity duration-200 ${isCategoryDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                 <div className="max-h-[400px] overflow-y-auto">
-                  {displayCategories.map((category) => {
-                    const img = category.image;
-                    let imageUrl = category.image_url || '';
-
-                    if (img) {
-                      if (typeof img === 'object' && img !== null && 'fullUrl' in img) {
-                        imageUrl = img.fullUrl || imageUrl;
-                      } else if (typeof img === 'string') {
-                        imageUrl = img;
-                      }
-                    }
+                  {categories.map((category) => {
+                    const imageUrl = category.imageUrl || '';
                     return (
                       <Link
                         key={category.id}
@@ -388,17 +373,8 @@ export default function Header() {
                   }`}
                 >
                   <div className="px-2 py-2 space-y-1 bg-gray-50 dark:bg-[#0f0f0f] rounded-lg mx-3">
-                    {displayCategories.map((category) => {
-                      const img = category.image;
-                      let imageUrl = category.image_url || '';
-
-                      if (img) {
-                        if (typeof img === 'object' && img !== null && 'full_url' in img) {
-                          imageUrl = img.full_url || imageUrl;
-                        } else if (typeof img === 'string') {
-                          imageUrl = img;
-                        }
-                      }
+                    {categories.map((category) => {
+                      const imageUrl = category.imageUrl || '';
                       return (
                         <Link
                           key={category.id}
