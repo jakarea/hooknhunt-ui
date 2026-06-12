@@ -397,8 +397,15 @@ function ProductDetailPageContent() {
         setProduct(transformedProduct);
         setSelectedVariant(variants.find((v: Variant) => v.stock_info.in_stock) || variants[0] || null);
       } catch (err) {
-        console.error('Error fetching product:', err);
-        setError('Failed to load product');
+        // Log error details properly
+        const error = err as { status?: number; message?: string; errors?: Record<string, string[]> };
+        console.error('Error fetching product:', {
+          status: error.status,
+          message: error.message,
+          errors: error.errors,
+          fullError: err
+        });
+        setError(error.message || 'Failed to load product');
       } finally {
         setLoading(false);
       }
