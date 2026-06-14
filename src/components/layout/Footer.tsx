@@ -154,7 +154,7 @@ export default function Footer() {
             {loading ? (
               <div className="space-y-2 md:space-y-3">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="h-5 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                  <div key={i} className="h-5 bg-white/10 rounded animate-pulse"></div>
                 ))}
               </div>
             ) : (
@@ -262,13 +262,15 @@ export default function Footer() {
       <div className="border-t border-white/10" suppressHydrationWarning>
         <div className="max-w-[1192px] mx-auto px-3 md:px-4 py-4 md:py-6" suppressHydrationWarning>
           {/* Payment Banner */}
-          <div className="flex justify-center mb-4" suppressHydrationWarning>
-            <img
-              src={activeGateway === 'eps' ? '/eps-payment-all-logo.png' : '/SSLCommerz-Pay-With-logo-All-Size-01.png'}
-              alt="Payment Methods"
-              className="h-auto w-full"
-            />
-          </div>
+          {activeGateway && (
+            <div className="flex justify-center mb-4" suppressHydrationWarning>
+              <img
+                src={activeGateway === 'eps' ? '/eps-payment-all-logo.png' : '/SSLCommerz-Pay-With-logo-All-Size-01.png'}
+                alt="Payment Methods"
+                className="h-auto w-full"
+              />
+            </div>
+          )}
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4" suppressHydrationWarning>
             <p className="text-xs md:text-sm lg:text-[17px] text-white/70 text-center md:text-left">

@@ -10,6 +10,7 @@ import { useCouponStore } from '@/stores/couponStore';
 import { useDeliveryStore } from '@/stores/deliveryStore';
 import { usePayment } from '@/hooks/usePayment';
 import { useServiceCharge } from '@/hooks/useServiceCharge';
+import { useAffiliateTracking } from '@/contexts/AffiliateTrackingContext';
 import AnimatedCounter from '@/components/common/AnimatedCounter';
 import ProgressiveDeliveryBreakdown from '@/components/cart/ProgressiveDeliveryBreakdown';
 import DeliveryInfo from '@/components/checkout/DeliveryInfo';
@@ -35,6 +36,7 @@ export default function CheckoutPage() {
   const { language } = useLanguage();
   const couponStore = useCouponStore();
   const { initiateAndPay, loading: paymentLoading } = usePayment();
+  const { referralCode, referralId } = useAffiliateTracking();
 
   // Select divisions data based on current language
   const divisions = i18n.language === 'bn' ? bangladeshDivisionsBn : bangladeshDivisions;
@@ -840,6 +842,9 @@ export default function CheckoutPage() {
         coupon_code: appliedCoupon?.code ?? null,
         total_amount: subtotal,
         payable_amount: payableTotal,
+        // Affiliate tracking
+        affiliate_referral_code: referralCode || null,
+        affiliate_referral_id: referralId || null,
       };
 
       // Add customer_id and shipping_address_id if existing customer

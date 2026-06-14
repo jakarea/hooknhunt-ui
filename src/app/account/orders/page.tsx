@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import UserNavigation from '@/components/user/UserNavigation';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
@@ -144,57 +143,35 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fcf8f6]">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="container py-4">
-          <div className="flex items-center text-sm text-gray-600">
-            <Link href="/account" className="hover:text-red-700 transition-colors">My Account</Link>
-            <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="text-gray-900 font-medium">My Orders</span>
+    <>
+      {/* Header */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+              আমার অর্ডারসমূহ
+            </h1>
+            <p className="text-gray-600 mt-2">
+              মোট অর্ডার: {orders.length}
+            </p>
           </div>
-        </div>
-      </div>
-
-      <div className="container py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar Navigation */}
-          <div className="lg:w-64 flex-shrink-0">
-            <UserNavigation />
-          </div>
-
-          {/* Main Content */}
-          <div className="flex-1 space-y-6">
-            {/* Header */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                  <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-                    My Orders
-                  </h1>
-                  <p className="text-gray-600 mt-2">
-                    Total Orders: {orders.length}
-                  </p>
-                </div>
 
                 {/* Status Filter */}
                 <div className="flex items-center gap-3">
                   <label className="text-sm font-medium text-gray-700">
-                    Status:
+                    স্ট্যাটাস:
                   </label>
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
                     className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-700 focus:border-red-700 bg-white"
                   >
-                    <option value="">All Orders</option>
-                    <option value="completed">Completed</option>
-                    <option value="shipped">Shipped</option>
-                    <option value="processing">Processing</option>
-                    <option value="pending">Pending</option>
-                    <option value="cancelled">Cancelled</option>
+                    <option value="">সকল অর্ডার</option>
+                    <option value="completed">সম্পন্ন</option>
+                    <option value="shipped">পাঠানো হয়েছে</option>
+                    <option value="processing">প্রক্রিয়াধীন</option>
+                    <option value="pending">পেন্ডিং</option>
+                    <option value="cancelled">বাতিল</option>
                   </select>
                 </div>
               </div>
@@ -209,10 +186,10 @@ export default function OrdersPage() {
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                       <div>
                         <h2 className="text-lg font-semibold text-gray-900">
-                          Order ID: <span className="text-red-700">#{order.orderNumber}</span> ({order.items?.length || 0} items)
+                          অর্ডার আইডি: <span className="text-red-700">#{order.orderNumber}</span> ({order.items?.length || 0} টি আইটেম)
                         </h2>
                         <p className="text-sm text-gray-600 mt-1">
-                          Order Date: {formatDate(order.createdAt)} | Total: {formatCurrency(order.totalAmount)}
+                          অর্ডার তারিখ: {formatDate(order.createdAt)} | মোট: {formatCurrency(order.totalAmount)}
                         </p>
                       </div>
 
@@ -224,7 +201,7 @@ export default function OrdersPage() {
                           href={`/account/orders/${order.orderNumber}`}
                           className="bg-red-700 hover:bg-red-800 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2"
                         >
-                          View Details
+                          বিস্তারিত দেখুন
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
@@ -270,11 +247,11 @@ export default function OrdersPage() {
                                     {formatCurrency(item.unitPrice)}
                                   </span>
                                   <span className="text-xs text-gray-500">
-                                    Qty: {item.quantity}
+                                    পরিমাণ: {item.quantity}
                                   </span>
                                 </div>
                                 <div className="text-sm text-gray-600">
-                                  Subtotal: {formatCurrency(item.totalPrice)}
+                                  সাবটোটাল: {formatCurrency(item.totalPrice)}
                                 </div>
                               </div>
                             </div>
@@ -287,7 +264,7 @@ export default function OrdersPage() {
                     <div className="mt-6 pt-6 border-t border-gray-200 flex flex-wrap gap-3">
                       {order.status === 'completed' && (
                         <button className="bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium py-2 px-4 rounded-lg transition-colors">
-                          Leave Review
+                          রিভিউ দিন
                         </button>
                       )}
                     </div>
@@ -295,31 +272,27 @@ export default function OrdersPage() {
                 ))}
               </div>
             ) : (
-              /* Empty State */
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 text-center py-12">
                 <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No orders found</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">কোনো অর্ডার পাওয়া যায়নি</h3>
                 <p className="text-gray-600 mb-6">
                   {selectedStatus
-                    ? `No orders with status "${selectedStatus}" found.`
-                    : "You haven't placed any orders yet."
+                    ? `"${selectedStatus}" স্ট্যাটাসে কোনো অর্ডার পাওয়া যায়নি`
+                    : 'আপনি এখনো কোনো অর্ডার করেননি'
                   }
                 </p>
                 <Link
                   href="/products"
                   className="bg-red-700 hover:bg-red-800 text-white font-medium py-2 px-6 rounded-lg transition-colors inline-block"
                 >
-                  Start Shopping
+                পণ্য দেখুন
                 </Link>
               </div>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+      </>
+    );
 }

@@ -119,16 +119,16 @@ export default function Header() {
               </div>
 
               {/* Theme Toggle - Desktop */}
-              <button
+              {/* <button
                 onClick={toggleTheme}
                 className="hidden lg:flex w-9 h-9 bg-[#ec3137]/90 hover:bg-[#ec3137]/70 transition-colors rounded-lg items-center justify-center"
                 aria-label="Toggle theme"
-              >
+              > 
                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               </button>
-
+*/}
               {/* Account */}
               {mounted && !isLoading && (
                 <Link

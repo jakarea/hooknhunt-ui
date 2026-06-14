@@ -65,10 +65,10 @@ export default function ReviewsPage() {
       <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
         <div className="container py-8 sm:py-12">
           <h1 className="text-heading-2xl sm:text-heading-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Customer Reviews
+            গ্রাহক রিভিউ
           </h1>
           <p className="text-body-md text-gray-600 dark:text-gray-400">
-            See what our customers are saying about us
+            আমাদের গ্রাহকরা আমাদের সম্পর্কে কী বলছেন তা দেখুন
           </p>
         </div>
       </div>
@@ -83,10 +83,10 @@ export default function ReviewsPage() {
               </svg>
             </div>
             <h3 className="text-heading-lg font-semibold text-gray-900 dark:text-white mb-2">
-              No Reviews Yet
+              এখনো কোনো রিভিউ নেই
             </h3>
             <p className="text-body-md text-gray-600 dark:text-gray-400">
-              Be the first to leave a review!
+              প্রথম রিভিউ দিন!
             </p>
           </div>
         )}
@@ -104,7 +104,7 @@ export default function ReviewsPage() {
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-gray-800 rounded-full shadow-lg">
               <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#ec3137] border-t-transparent"></div>
               <span className="text-body-sm font-medium text-gray-700 dark:text-gray-300">
-                Loading reviews...
+                রিভিউ লোড হচ্ছে...
               </span>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function ReviewsPage() {
         {!hasMorePages && reviews.length > 0 && (
           <div className="text-center py-8">
             <p className="text-body-sm text-gray-500 dark:text-gray-400">
-              You've reached the end
+              আপনি শেষ পর্যন্ত পৌঁছেছেন
             </p>
           </div>
         )}
@@ -191,7 +191,7 @@ function ReviewCard({ review }: ReviewCardProps) {
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                     </svg>
-                    View Product
+                    পণ্য দেখুন
                   </Link>
                 ))}
               </div>
