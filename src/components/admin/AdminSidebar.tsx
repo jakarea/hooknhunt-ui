@@ -65,6 +65,26 @@ const menuItems: MenuItem[] = [
     ]
   },
   {
+    name: 'CRM',
+    tKey: 'crm',
+    href: '/admin/crm',
+    icon: '👥',
+    children: [
+      { name: 'Leads', tKey: 'leads', href: '/admin/crm/leads', icon: '📋' }
+    ]
+  },
+  {
+    name: 'Affiliate',
+    tKey: 'affiliate',
+    href: '/admin/affiliate',
+    icon: '🤝',
+    children: [
+      { name: 'Dashboard', tKey: 'dashboard', href: '/admin/affiliate', icon: '📊' },
+      { name: 'Applications', tKey: 'applications', href: '/admin/affiliate/applications', icon: '📋' },
+      { name: 'Payouts', tKey: 'payouts', href: '/admin/affiliate/payouts', icon: '💰' }
+    ]
+  },
+  {
     name: 'Settings',
     tKey: 'settings',
     href: '/admin/settings',

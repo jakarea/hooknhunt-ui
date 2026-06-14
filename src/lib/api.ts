@@ -2,7 +2,7 @@
 
 import { User, Address, Category, Slider } from '@/types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api/v2';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api';
 
 interface ApiResponse<T = unknown> {
   data?: T;
@@ -794,6 +794,637 @@ class ApiClient {
   // Clear authentication
   clearAuth(): void {
     this.removeToken();
+  }
+
+  // ==================== Affiliate Endpoints ====================
+
+  /**
+   * Check if authenticated user is an affiliate
+   * GET /api/v2/affiliate/check
+   */
+  async checkAffiliateStatus(): Promise<{
+    success: boolean;
+    isAffiliate: boolean;
+    data?: {
+      id: number;
+      referralCode: string;
+      commissionRate: number;
+      isApproved: boolean;
+    };
+  }> {
+    return this.request('/affiliate/check', {}, true) as any;
+  }
+
+  /**
+   * Apply to become an affiliate
+   * POST /api/v2/store/affiliate/apply
+   */
+  async applyForAffiliate(data: {
+    name: string;
+    phone: string;
+    email: string;
+    address?: string;
+    why_join?: string;
+  }): Promise<{
+    success: boolean;
+    message: string;
+    data?: {
+      affiliate_id: number;
+      referral_code: string;
+      referral_link: string;
+      is_approved: boolean;
+    };
+  }> {
+    return this.request('/store/affiliate/apply', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }, true) as any;
+  }
+
+  /**
+   * Get affiliate dashboard data
+   * GET /api/v2/store/affiliate/dashboard?period=30days
+   */
+  async getAffiliateDashboard(period?: '7days' | '30days' | '90days' | '1year'): Promise<{
+    success: boolean;
+    data?: {
+      affiliate: {
+        id: number;
+        referral_code: string;
+        referral_link: string;
+        commission_rate: number;
+        total_earned: number;
+        withdrawn_amount: number;
+        available_balance: number;
+        total_clicks: number;
+        total_conversions: number;
+        conversion_rate: number;
+        is_approved: boolean;
+      };
+      recent_referrals: Array<{
+        id: number;
+        ip_address: string | null;
+        clicked_at: string;
+        converted_at: string | null;
+        order_amount: number | null;
+        commission_amount: number | null;
+        status: string;
+        customer_id?: number | null;
+        customer_name?: string | null;
+        customer_email?: string | null;
+      }>;
+      recent_earnings: Array<{
+        id: number;
+        order_invoice: string;
+        order_amount: number;
+        commission_amount: number;
+        status: string;
+        created_at: string;
+      }>;
+      product_commissions: Array<{
+        id: number;
+        product_id: number;
+        product_name: string;
+        commission_rate: number;
+        is_active: boolean;
+      }>;
+      category_commissions: Array<{
+        id: number;
+        category_id: number;
+        category_name: string;
+        commission_rate: number;
+        is_active: boolean;
+      }>;
+    };
+    message?: string;
+  }> {
+    const query = period ? `?period=${period}` : '';
+    return this.request(`/store/affiliate/dashboard${query}`, {}, true) as any;
+  }
+
+  /**
+   * Request payout
+   * POST /api/v2/store/affiliate/payout-request
+   */
+  async requestAffiliatePayout(data: {
+    amount: number;
+    payment_method: 'bank_transfer' | 'bkash' | 'nagad' | 'rocket' | 'other';
+    payment_details: string;
+  }): Promise<{
+    success: boolean;
+    message: string;
+    data?: {
+      payout_id: number;
+      amount: number;
+      status: string;
+    };
+  }> {
+    return this.request('/store/affiliate/payout-request', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }, true) as any;
+  }
+
+  /**
+   * Get products with prices and commission information
+   * GET /api/v2/store/affiliate/products
+   */
+  async getAffiliateProducts(): Promise<{
+    success: boolean;
+    data?: {
+      products: Array<{
+        id: number;
+        name: string;
+        slug: string;
+        price: number;
+        category: string;
+        image: string | null;
+        commission_rate: number;
+        commission_amount: number;
+        commission_type: 'product' | 'category' | 'default';
+      }>;
+      default_commission_rate: number;
+    };
+    message?: string;
+  }> {
+    return this.request('/store/affiliate/products', {}, true) as any;
+  }
+
+  // ==================== Admin Affiliate Endpoints ====================
+
+  /**
+   * Get admin affiliates list
+   * GET /api/v2/website-admin/affiliates
+   */
+  async getAdminAffiliates(params?: {
+    page?: number;
+    status?: 'all' | 'pending' | 'approved' | 'rejected';
+    search?: string;
+    per_page?: number;
+  }): Promise<{
+    success: boolean;
+    data?: {
+      affiliates: Array<{
+        id: number;
+        user_id: number;
+        referral_code: string;
+        commission_rate: number;
+        total_earned: number;
+        withdrawn_amount: number;
+        available_balance: number;
+        total_clicks: number;
+        total_conversions: number;
+        conversion_rate: number;
+        is_approved: boolean;
+        rejection_reason?: string;
+        admin_notes?: string;
+        approved_at?: string;
+        approved_by?: number;
+        created_at: string;
+        updated_at: string;
+        user?: {
+          id: number;
+          name: string;
+          email: string;
+          phone?: string;
+        };
+      }>;
+      pagination: {
+        total: number;
+        per_page: number;
+        current_page: number;
+        last_page: number;
+        from: number;
+        to: number;
+      };
+    };
+    message?: string;
+  }> {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.status && params.status !== 'all') query.set('status', params.status);
+    if (params?.search) query.set('search', params.search);
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    const qs = query.toString();
+
+    return this.adminRequest(`/website-admin/affiliates${qs ? `?${qs}` : ''}`) as any;
+  }
+
+  /**
+   * Get admin affiliate statistics
+   * GET /api/v2/website-admin/affiliates/stats
+   */
+  async getAdminAffiliateStats(): Promise<{
+    success: boolean;
+    data?: {
+      total_affiliates: number;
+      active_affiliates: number;
+      pending_affiliates: number;
+      rejected_affiliates: number;
+      total_earned: number;
+      total_withdrawn: number;
+      total_pending_payouts: number;
+      total_completed_payouts: number;
+      total_clicks: number;
+      total_conversions: number;
+      this_month_earnings: number;
+      this_month_clicks: number;
+    };
+    message?: string;
+  }> {
+    return this.adminRequest('/website-admin/affiliates/stats') as any;
+  }
+
+  /**
+   * Get affiliate details
+   * GET /api/v2/website-admin/affiliates/{id}
+   */
+  async getAdminAffiliateDetails(id: number): Promise<{
+    success: boolean;
+    data?: {
+      affiliate: {
+        id: number;
+        user_id: number;
+        referral_code: string;
+        commission_rate: number;
+        total_earned: number;
+        withdrawn_amount: number;
+        available_balance: number;
+        total_clicks: number;
+        total_conversions: number;
+        conversion_rate: number;
+        is_approved: boolean;
+        rejection_reason?: string;
+        admin_notes?: string;
+        approved_at?: string;
+        approved_by?: number;
+        created_at: string;
+        updated_at: string;
+        user?: {
+          id: number;
+          name: string;
+          email: string;
+          phone?: string;
+        };
+      };
+      recent_earnings: Array<unknown>;
+      recent_referrals: Array<unknown>;
+      recent_payouts: Array<unknown>;
+      product_commissions: Array<unknown>;
+      category_commissions: Array<unknown>;
+    };
+    message?: string;
+  }> {
+    return this.adminRequest(`/website-admin/affiliates/${id}`) as any;
+  }
+
+  /**
+   * Approve affiliate application
+   * POST /api/v2/website-admin/affiliates/{id}/approve
+   */
+  async approveAffiliate(id: number, commissionRate?: number): Promise<{
+    success: boolean;
+    message: string;
+    data?: {
+      id: number;
+      is_approved: boolean;
+    };
+  }> {
+    return this.adminRequest(`/website-admin/affiliates/${id}/approve`, {
+      method: 'POST',
+      body: JSON.stringify({ commission_rate: commissionRate }),
+    }) as any;
+  }
+
+  /**
+   * Reject affiliate application
+   * POST /api/v2/website-admin/affiliates/{id}/reject
+   */
+  async rejectAffiliate(id: number, reason?: string): Promise<{
+    success: boolean;
+    message: string;
+    data?: {
+      id: number;
+      is_approved: boolean;
+      rejection_reason?: string;
+    };
+  }> {
+    return this.adminRequest(`/website-admin/affiliates/${id}/reject`, {
+      method: 'POST',
+      body: JSON.stringify({ rejection_reason: reason }),
+    }) as any;
+  }
+
+  /**
+   * Update affiliate information
+   * PUT /api/v2/website-admin/affiliates/{id}
+   */
+  async updateAffiliate(id: number, data: {
+    commission_rate?: number;
+    admin_notes?: string;
+    is_approved?: boolean;
+    referral_code?: string;
+  }): Promise<{
+    success: boolean;
+    message: string;
+    data?: {
+      id: number;
+      is_approved: boolean;
+      referral_code?: string;
+    };
+  }> {
+    return this.adminRequest(`/website-admin/affiliates/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }) as any;
+  }
+
+  /**
+   * Get affiliate earnings
+   * GET /api/v2/website-admin/affiliates/{id}/earnings
+   */
+  async getAdminAffiliateEarnings(id: number, params?: { page?: number; per_page?: number }): Promise<{
+    success: boolean;
+    data?: {
+      earnings: Array<unknown>;
+      pagination: {
+        total: number;
+        per_page: number;
+        current_page: number;
+        last_page: number;
+      };
+    };
+    message?: string;
+  }> {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    const qs = query.toString();
+
+    return this.adminRequest(`/website-admin/affiliates/${id}/earnings${qs ? `?${qs}` : ''}`) as any;
+  }
+
+  /**
+   * Get affiliate payouts
+   * GET /api/v2/website-admin/affiliates/{id}/payouts
+   */
+  async getAdminAffiliatePayouts(id: number, params?: { page?: number; per_page?: number }): Promise<{
+    success: boolean;
+    data?: {
+      payouts: Array<unknown>;
+      pagination: {
+        total: number;
+        per_page: number;
+        current_page: number;
+        last_page: number;
+      };
+    };
+    message?: string;
+  }> {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    const qs = query.toString();
+
+    return this.adminRequest(`/website-admin/affiliates/${id}/payouts${qs ? `?${qs}` : ''}`) as any;
+  }
+
+  /**
+   * Get affiliate referrals
+   * GET /api/v2/website-admin/affiliates/{id}/referrals
+   */
+  async getAdminAffiliateReferrals(id: number, params?: { page?: number; per_page?: number }): Promise<{
+    success: boolean;
+    data?: {
+      referrals: Array<unknown>;
+      pagination: {
+        total: number;
+        per_page: number;
+        current_page: number;
+        last_page: number;
+      };
+    };
+    message?: string;
+  }> {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    const qs = query.toString();
+
+    return this.adminRequest(`/website-admin/affiliates/${id}/referrals${qs ? `?${qs}` : ''}`) as any;
+  }
+
+  // ==================== CRM Leads Admin Endpoints ====================
+
+  /**
+   * Get all leads (admin endpoint)
+   * GET /api/v2/website-admin/crm/leads
+   */
+  async getAdminLeads(params?: {
+    page?: number;
+    per_page?: number;
+    status?: string;
+    source?: string;
+    priority?: string;
+    assigned_to?: number;
+    search?: string;
+    date_from?: string;
+    date_to?: string;
+  }): Promise<{
+    success: boolean;
+    data: {
+      leads: Array<{
+        id: number;
+        name: string;
+        phone: string;
+        email?: string;
+        subject?: string;
+        notes?: string;
+        source: string;
+        status: 'new' | 'contacted' | 'qualified' | 'proposal' | 'negotiation' | 'converted' | 'lost';
+        priority: 'low' | 'medium' | 'high' | 'urgent';
+        assigned_to?: number;
+        assignedAgent?: {
+          id: number;
+          name: string;
+        };
+        customer?: any;
+        created_at: string;
+        updated_at: string;
+      }>;
+      pagination: {
+        current_page: number;
+        last_page: number;
+        per_page: number;
+        total: number;
+        from: number;
+        to: number;
+      };
+    };
+    message?: string;
+  }> {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.per_page) query.set('per_page', String(params.per_page));
+    if (params?.status) query.set('status', params.status);
+    if (params?.source) query.set('source', params.source);
+    if (params?.priority) query.set('priority', params.priority);
+    if (params?.assigned_to) query.set('assigned_to', String(params.assigned_to));
+    if (params?.search) query.set('search', params.search);
+    if (params?.date_from) query.set('date_from', params.date_from);
+    if (params?.date_to) query.set('date_to', params.date_to);
+    const qs = query.toString();
+
+    return this.adminRequest(`/website-admin/crm/leads${qs ? `?${qs}` : ''}`) as any;
+  }
+
+  /**
+   * Get lead details (admin endpoint)
+   * GET /api/v2/website-admin/crm/leads/{id}
+   */
+  async getAdminLead(id: number): Promise<{
+    success: boolean;
+    data?: {
+      id: number;
+      name: string;
+      phone: string;
+      email?: string;
+      subject?: string;
+      notes?: string;
+      source: string;
+      status: 'new' | 'contacted' | 'qualified' | 'proposal' | 'negotiation' | 'converted' | 'lost';
+      priority: 'low' | 'medium' | 'high' | 'urgent';
+      assigned_to?: number;
+      assignedAgent?: {
+        id: number;
+        name: string;
+      };
+      customer?: any;
+      activities?: Array<{
+        id: number;
+        type: string;
+        summary: string;
+        notes?: string;
+        schedule_at?: string;
+        created_at: string;
+      }>;
+      created_at: string;
+      updated_at: string;
+    };
+    message?: string;
+  }> {
+    return this.adminRequest(`/website-admin/crm/leads/${id}`) as any;
+  }
+
+  /**
+   * Update lead (admin endpoint)
+   * PUT /api/v2/website-admin/crm/leads/{id}
+   */
+  async updateAdminLead(id: number, data: {
+    status?: string;
+    priority?: string;
+    assigned_to?: number;
+    notes?: string;
+  }): Promise<{
+    success: boolean;
+    data?: {
+      id: number;
+      name: string;
+      phone: string;
+      email?: string;
+      subject?: string;
+      notes?: string;
+      source: string;
+      status: 'new' | 'contacted' | 'qualified' | 'proposal' | 'negotiation' | 'converted' | 'lost';
+      priority: 'low' | 'medium' | 'high' | 'urgent';
+      assigned_to?: number;
+      assignedAgent?: {
+        id: number;
+        name: string;
+      };
+      created_at: string;
+      updated_at: string;
+    };
+    message?: string;
+  }> {
+    return this.adminRequest(`/website-admin/crm/leads/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }) as any;
+  }
+
+  /**
+   * Delete lead (admin endpoint)
+   * DELETE /api/v2/website-admin/crm/leads/{id}
+   */
+  async deleteAdminLead(id: number): Promise<{
+    success: boolean;
+    message?: string;
+  }> {
+    return this.adminRequest(`/website-admin/crm/leads/${id}`, {
+      method: 'DELETE',
+    }) as any;
+  }
+
+  /**
+   * Get leads statistics (admin endpoint)
+   * GET /api/v2/website-admin/crm/leads/stats
+   */
+  async getAdminLeadsStats(): Promise<{
+    success: boolean;
+    data?: {
+      total: number;
+      new: number;
+      contacted: number;
+      qualified: number;
+      converted: number;
+      lost: number;
+      by_source: Record<string, number>;
+      unassigned: number;
+    };
+    message?: string;
+  }> {
+    return this.adminRequest('/website-admin/crm/leads/stats') as any;
+  }
+
+  // ==================== Affiliate Tracking (Public) ====================
+
+  /**
+   * Track affiliate referral visit (no auth required)
+   * POST /api/v2/store/affiliate/track
+   */
+  async trackAffiliate(data: {
+    referral_code: string;
+    landing_page?: string;
+    user_agent?: string;
+  }): Promise<{
+    success: boolean;
+    message: string;
+    data?: {
+      referral_id: number;
+      affiliate_id: number;
+      tracked_at: string;
+    };
+  }> {
+    return this.request('/store/affiliate/track', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }, false) as any; // false = no auth required
+  }
+
+  /**
+   * Verify referral code is valid (no auth required)
+   * GET /api/v2/store/affiliate/verify-code?code=XXX
+   */
+  async verifyAffiliateCode(code: string): Promise<{
+    success: boolean;
+    message: string;
+    data?: {
+      affiliate_id: number;
+      referral_code: string;
+    };
+  }> {
+    return this.request(`/store/affiliate/verify-code?code=${encodeURIComponent(code)}`, {}, false) as any;
   }
 }
 
