@@ -243,6 +243,33 @@ export function useAdminAffiliate() {
   }, []);
 
   /**
+   * Get affiliate detail with period filtering
+   */
+  const getAffiliateDetail = useCallback(async (id: string, period: '7days' | '30days' | '90days' | '1year' = '30days') => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await api.getAffiliateDetail(id, period);
+
+      if (response.success && response.data) {
+        return response;
+      }
+
+      if (response.message && !response.success) {
+        setError(response.message);
+      }
+
+      return { success: false, data: null };
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch affiliate detail');
+      return { success: false, data: null };
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  /**
    * Clear error
    */
   const clearError = useCallback(() => {
@@ -264,6 +291,7 @@ export function useAdminAffiliate() {
     rejectAffiliate,
     updateAffiliate,
     getAffiliateDetails,
+    getAffiliateDetail,
     clearError,
   };
 }

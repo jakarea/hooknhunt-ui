@@ -1079,6 +1079,45 @@ class ApiClient {
   }
 
   /**
+   * Get affiliate detail with period filtering
+   * GET /api/v2/admin/affiliates/{id}?period=30days
+   */
+  async getAffiliateDetail(id: string, period: '7days' | '30days' | '90days' | '1year' = '30days'): Promise<{
+    success: boolean;
+    data?: {
+      id: number;
+      userId: number;
+      name: string;
+      email: string;
+      phone: string;
+      referralCode: string;
+      referralLink: string;
+      commissionRate: number;
+      totalEarned: number;
+      withdrawnAmount: number;
+      availableBalance: number;
+      totalClicks: number;
+      totalConversions: number;
+      conversionRate: number;
+      isApproved: boolean;
+      joinedAt: string;
+      lastConversionAt?: string;
+      periodStats: {
+        period: string;
+        clicks: number;
+        conversions: number;
+        earnings: number;
+        conversionRate: number;
+      };
+      productCommissions: Array<any>;
+      categoryCommissions: Array<any>;
+    };
+    message?: string;
+  }> {
+    return this.adminRequest(`/admin/affiliates/${id}?period=${period}`) as any;
+  }
+
+  /**
    * Approve affiliate application
    * POST /api/v2/website-admin/affiliates/{id}/approve
    */
