@@ -30,7 +30,7 @@ type PaymentMethod = 'cod' | 'sslcommerz' | 'eps';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cartItems, getCartTotal, clearCart, removeFromCart, updateQuantity } = useCart();
+  const { cartItems, getCartTotal, clearCart, removeFromCart, updateQuantity, addToCart } = useCart();
   const { user, isAuthenticated } = useAuth();
   const { t, i18n } = useTranslation();
   const { language } = useLanguage();
@@ -484,6 +484,28 @@ export default function CheckoutPage() {
     deliveryStore.fetchSettings();
   }, []);
 
+  // Restore cart from sessionStorage if user returns after payment fail/cancel
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const backup = sessionStorage.getItem('checkout_cart_backup');
+    if (backup && cartItems.length === 0) {
+      try {
+        const restoredItems = JSON.parse(backup) as typeof cartItems;
+        if (Array.isArray(restoredItems) && restoredItems.length > 0) {
+          // Restore each item back to cart
+          restoredItems.forEach(item => {
+            addToCart(item.product, item.quantity, [], false);
+          });
+        }
+        // Clear backup after restoration
+        sessionStorage.removeItem('checkout_cart_backup');
+      } catch (error) {
+        console.error('Failed to restore cart from sessionStorage:', error);
+      }
+    }
+  }, [addToCart]);
+
   // Pre-fill user data and fetch addresses when user is logged in
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -868,6 +890,16 @@ export default function CheckoutPage() {
 
         // Handle SSL Commerz payment - ONLY for sslcommerz payment method
         if (paymentMethod === 'sslcommerz') {
+          // Save order items to sessionStorage before payment (for retry on fail/cancel)
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('checkout_order_items', JSON.stringify({
+              items: orderItems,
+              orderId: orderId,
+              invoiceNo: invoiceNo,
+              timestamp: Date.now(),
+            }));
+          }
+
           try {
             // Initiate SSL Commerz payment
             await initiateAndPay({
@@ -959,6 +991,11 @@ export default function CheckoutPage() {
         if (paymentMethod === 'eps') {
           // Redirect to payment initiation page where user will click Pay Now button
           const paymentPageUrl = `/checkout/payment/${orderId}`;
+
+          // Save cart items to sessionStorage before clearing cart (for retry on fail/cancel)
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('checkout_cart_backup', JSON.stringify(cartItems));
+          }
 
           // Clear cart after redirect to avoid triggering the empty cart redirect useEffect
           setTimeout(() => clearCart(), 100);

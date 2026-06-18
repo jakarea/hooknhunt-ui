@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import toast, { Toaster } from 'react-hot-toast';
+import { recordRedirect, detectInfiniteLoop, handleInfiniteLoop } from '@/lib/redirectGuard';
 
 export default function LoginPage() {
   return (
@@ -27,15 +28,37 @@ function LoginForm() {
     const searchParams = useSearchParams();
     const { login, sendOtp, isAuthenticated, isLoading: authLoading } = useAuth();
 
-    // Get redirect URL from query params (for middleware-based protection)
+    // Get redirect URL from query params
     const redirectUrl = searchParams.get('redirect') || '/account';
 
     // Redirect if already authenticated
     useEffect(() => {
+        // Detect infinite redirect loop
+        if (detectInfiniteLoop()) {
+            console.error('🛑 INFINITE REDIRECT LOOP DETECTED - BREAKING LOOP');
+            handleInfiniteLoop();
+            return;
+        }
+
         if (!authLoading && isAuthenticated) {
+            recordRedirect('/login', redirectUrl);
             router.replace(redirectUrl);
         }
     }, [isAuthenticated, authLoading, router, redirectUrl]);
+
+    // Show loading if auth is still being checked
+    if (authLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-700"></div>
+            </div>
+        );
+    }
+
+    // If already authenticated, don't show login form
+    if (isAuthenticated) {
+        return null;
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -62,21 +85,11 @@ function LoginForm() {
 
         try {
             await login(phone, password, rememberMe);
-            toast.success('Login successful! Redirecting...', {
-                id: 'login-success', // Prevent duplicate toasts
-            });
-            setIsLoading(false); // Reset loading state after successful login
-            setTimeout(() => {
-                // Try Next.js router first - redirect to the page user was trying to access
-                router.replace(redirectUrl);
+            toast.success('Login successful!');
+            setIsLoading(false);
 
-                // Fallback: Force browser navigation after a delay if Next.js doesn't work
-                setTimeout(() => {
-                    if (window.location.pathname === '/login') {
-                        window.location.href = redirectUrl;
-                    }
-                }, 300);
-            }, 200);
+            // Redirect to requested page
+            router.replace(redirectUrl);
         } catch (err: unknown) {
             const error = err as Error & { errors?: { [key: string]: string[] }; error_code?: string };
 

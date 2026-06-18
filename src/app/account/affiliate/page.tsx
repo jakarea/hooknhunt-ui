@@ -27,6 +27,7 @@ export default function AffiliateDashboard() {
     categoryCommissions,
     products,
     loadingProducts,
+    periodStats,
     fetchDashboard,
     fetchProducts,
     requestPayout,
@@ -178,35 +179,35 @@ export default function AffiliateDashboard() {
     );
   }
 
-  // Calculate stats from API data
+  // Use period stats from API response
   const affiliateStats = affiliate ? [
     {
-      name: 'মোট আয়',
-      value: `৳${(affiliate.totalEarned ?? affiliate.total_earned ?? 0).toFixed(2)}`,
+      name: 'আয়',
+      value: `৳${(periodStats?.earnings ?? 0).toFixed(2)}`,
       change: '+0%',
       changeType: 'positive' as const,
       icon: '💰',
     },
     {
-      name: 'রেফারেল',
-      value: (affiliate.totalClicks ?? affiliate.total_clicks ?? 0).toString(),
+      name: 'ক্লিক',
+      value: (periodStats?.clicks ?? 0).toString(),
       change: '+0%',
       changeType: 'positive' as const,
       icon: '👥',
     },
     {
+      name: 'কনভার্সন',
+      value: (periodStats?.conversions ?? 0).toString(),
+      change: '+0%',
+      changeType: 'positive' as const,
+      icon: '📦',
+    },
+    {
       name: 'কনভার্সন রেট',
-      value: `${(affiliate.conversionRateValue ?? affiliate.conversion_rate ?? 0).toFixed(1)}%`,
+      value: `${(periodStats?.conversion_rate ?? 0).toFixed(1)}%`,
       change: '+0%',
       changeType: 'positive' as const,
       icon: '📈',
-    },
-    {
-      name: 'পেন্ডিং পেমেন্ট',
-      value: `৳${(affiliate.availableBalance ?? affiliate.available_balance ?? 0).toFixed(2)}`,
-      change: '+0%',
-      changeType: 'positive' as const,
-      icon: '⏳',
     },
   ] : [];
 
@@ -671,6 +672,12 @@ export default function AffiliateDashboard() {
               <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">মোট উত্তোলন</dt>
               <dd className="mt-1 text-sm font-semibold text-gray-900 dark:text-white">
                 ৳{((affiliate?.withdrawn_amount || affiliate?.withdrawnAmount || 0)).toFixed(2)}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">সর্বশেষ কনভার্সন</dt>
+              <dd className="mt-1 text-sm text-gray-900 dark:text-white">
+                {affiliate?.last_conversion_at ? new Date(affiliate.last_conversion_at).toLocaleDateString() : 'এখনো কোনো কনভার্সন নেই'}
               </dd>
             </div>
           </dl>

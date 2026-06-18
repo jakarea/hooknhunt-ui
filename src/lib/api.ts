@@ -292,7 +292,7 @@ class ApiClient {
       country: string;
     };
   }): Promise<ApiResponse> {
-    return this.request('/store/payments/eps/initiate', {
+    return this.request('/store/payments/initiate', {
       method: 'POST',
       body: JSON.stringify(data),
     });

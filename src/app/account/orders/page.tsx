@@ -13,13 +13,25 @@ interface OrderItem {
   variantId?: number;
   quantity: number;
   unitPrice?: number;
+  unit_price?: number;
   totalPrice?: number;
+  total_price?: number;
   productName?: string;
+  product_name?: string;
   variantName?: string;
+  variant_name?: string;
   sku?: string;
+  product_sku?: string;
+  productSku?: string;
+  product_code?: string;
+  product_slug?: string;
+  productSlug?: string;
+  originalPrice?: number;
+  original_price?: number;
   // Standardized image field
   image_url: string;
   image_id?: number;
+  imageUrl?: string;
   // Legacy fields (for backward compatibility)
   image?: string;
   thumbnail_url?: string;
@@ -85,7 +97,24 @@ export default function OrdersPage() {
       // Map API field names to frontend expectations
       const transformedOrders = ordersArray.map((order: any) => ({
         ...order,
-        orderNumber: order.invoiceNo || order.orderNumber,
+        orderNumber: order.invoice_no || order.orderNumber,
+        subTotal: order.sub_total || order.subTotal,
+        totalAmount: order.total_amount || order.totalAmount,
+        deliveryCharge: order.delivery_charge || order.deliveryCharge,
+        paidAmount: order.paid_amount || order.paidAmount,
+        dueAmount: order.due_amount || order.dueAmount,
+        createdAt: order.created_at || order.createdAt,
+        items: (order.items || []).map((item: any) => ({
+          ...item,
+          unitPrice: item.unit_price ?? item.unitPrice,
+          originalPrice: item.original_price ?? item.originalPrice,
+          totalPrice: item.total_price ?? item.totalPrice,
+          productName: item.product_name ?? item.productName,
+          variantName: item.variant_name ?? item.variantName,
+          productSku: item.product_sku ?? item.sku,
+          productSlug: item.product_slug,
+          imageUrl: item.image_url ?? item.imageUrl ?? item.thumbnailUrl,
+        })),
       }));
 
       setOrders(transformedOrders);
@@ -145,7 +174,7 @@ export default function OrdersPage() {
   return (
     <>
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -211,52 +240,96 @@ export default function OrdersPage() {
 
                     {/* Order Items */}
                     {order.items && order.items.length > 0 && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-                        {order.items.map((item) => (
-                          <div key={item.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                            {/* Product Image */}
-                            <div className="aspect-square bg-gray-100 rounded-lg mb-3 overflow-hidden relative">
-                              <Image
-                                src={
-                                  item.image_url ||
-                                  item.thumbnailUrl ||
-                                  item.thumbnail_url ||
-                                  item.product_image ||
-                                  item.productImage ||
-                                  item.image ||
-                                  '/placeholder-image.jpg'
-                                }
-                                alt={item.productName || 'Product image'}
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                onError={(e) => {
-                                  // Image failed to load - fallback will be shown
-                                }}
-                              />
-                            </div>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm">
+                          <thead className="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                              <th className="text-left px-4 py-3 font-semibold text-gray-900">Product</th>
+                              <th className="text-left px-4 py-3 font-semibold text-gray-900">Variant</th>
+                              <th className="text-left px-4 py-3 font-semibold text-gray-900">SKU</th>
+                              <th className="text-center px-4 py-3 font-semibold text-gray-900">Qty</th>
+                              <th className="text-right px-4 py-3 font-semibold text-gray-900">Price</th>
+                              <th className="text-right px-4 py-3 font-semibold text-gray-900">Total</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            {order.items.map((item) => (
+                              <tr key={item.id} className="hover:bg-gray-50">
+                                {/* Product with Thumbnail */}
+                                <td className="px-4 py-4">
+                                  <a
+                                    href={`/products/${item.productSlug || item.productName?.toLowerCase().replace(/\s+/g, '-')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-3 hover:opacity-80 transition"
+                                  >
+                                    <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                                      <Image
+                                        src={
+                                          item.imageUrl ||
+                                          item.image_url ||
+                                          item.thumbnailUrl ||
+                                          item.thumbnail_url ||
+                                          item.product_image ||
+                                          item.productImage ||
+                                          item.image ||
+                                          '/placeholder-image.jpg'
+                                        }
+                                        alt={item.productName || item.product_name || 'Product'}
+                                        width={48}
+                                        height={48}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                    <span className="font-medium text-gray-900 hover:text-[#bc1215]">
+                                      {item.productName || item.product_name}
+                                    </span>
+                                  </a>
+                                </td>
 
-                            {/* Product Info */}
-                            <div>
-                              <h3 className="font-semibold text-gray-900 text-sm mb-2 line-clamp-2">
-                                {item.productName}
-                              </h3>
-                              <div className="space-y-1">
-                                <div className="flex items-center justify-between">
-                                  <span className="text-lg font-bold text-red-700">
-                                    {formatCurrency(item.unitPrice)}
-                                  </span>
-                                  <span className="text-xs text-gray-500">
-                                    পরিমাণ: {item.quantity}
-                                  </span>
-                                </div>
-                                <div className="text-sm text-gray-600">
-                                  সাবটোটাল: {formatCurrency(item.totalPrice)}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+                                {/* Variant Name */}
+                                <td className="px-4 py-4 text-gray-600">
+                                  {item.variantName || item.variant_name || '-'}
+                                </td>
+
+                                {/* SKU */}
+                                <td className="px-4 py-4 text-gray-600 font-mono text-xs">
+                                  {item.productSku || item.product_sku || item.sku || item.product_code || '-'}
+                                </td>
+
+                                {/* Quantity */}
+                                <td className="px-4 py-4 text-center font-medium">
+                                  {item.quantity}
+                                </td>
+
+                                {/* Price (Unit Price & Offer Price merged) */}
+                                <td className="px-4 py-4 text-right">
+                                  <div className="flex flex-col items-end gap-1">
+                                    {item.originalPrice && item.originalPrice !== item.unitPrice ? (
+                                      <>
+                                        <del className="text-xs text-gray-400">
+                                          {formatCurrency(item.unitPrice)}
+                                        </del>
+                                        <span className="text-[#bc1215] font-semibold">
+                                          {formatCurrency(item.originalPrice)}
+                                        </span>
+                                      </>
+                                    ) : (
+                                      <span className="font-medium text-gray-900">
+                                        {formatCurrency(item.unitPrice)}
+                                      </span>
+                                    )}
+                                  </div>
+                                </td>
+
+                                {/* Total */}
+                                <td className="px-4 py-4 text-right font-bold text-[#bc1215]">
+                                  {formatCurrency(item.totalPrice)}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     )}
 

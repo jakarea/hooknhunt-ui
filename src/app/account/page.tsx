@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
+import { recordRedirect, detectInfiniteLoop, handleInfiniteLoop } from '@/lib/redirectGuard';
 
 interface Order {
   id: number;
@@ -23,9 +24,7 @@ interface Stats {
 }
 
 export default function UserDashboard() {
-  console.log('🔴🔴🔴 ACCOUNT PAGE COMPONENT FIRED! 🔴🔴🔴');
-
-  const { user, isAuthenticated, isLoading: authLoading, logout } = useAuth();
+  const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [stats, setStats] = useState<Stats>({
@@ -35,123 +34,40 @@ export default function UserDashboard() {
     completedOrders: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [hasValidated, setHasValidated] = useState(false); // Prevent multiple validations
-
-  // Immediate console log and alert for debugging
-  console.log('🔴🔴🔴 ACCOUNT PAGE: COMPONENT FIRED! 🔴🔴🔴');
-  console.log('╔════════════════════════════════════════╗');
-  console.log('║   ACCOUNT PAGE: COMPONENT MOUNT        ║');
-  console.log('╚════════════════════════════════════════╝');
-  console.log('Initial Auth State:');
-  console.log('  • authLoading:', authLoading);
-  console.log('  • isAuthenticated:', isAuthenticated);
-  console.log('  • user:', user ? `ID: ${user.id}, Name: ${user.name}` : 'null');
-  console.log('LocalStorage Check:');
-  console.log('  • auth_token:', api.getToken() ? 'exists' : 'missing');
-  console.log('  • cached_user:', localStorage.getItem('cached_user') ? 'exists' : 'missing');
-  console.log('════════════════════════════════════════');
 
   useEffect(() => {
-    console.log('=== ACCOUNT PAGE: USEEFFECT VALIDATION ===');
-    console.log('Step 1: Check authLoading:', authLoading);
+    // Detect infinite redirect loop
+    if (detectInfiniteLoop()) {
+      console.error('🛑 INFINITE REDIRECT LOOP DETECTED - BREAKING LOOP');
+      handleInfiniteLoop();
+      return;
+    }
 
-    // Wait for auth loading to complete
+    // Wait for auth to finish loading
     if (authLoading) {
-      console.log('Decision: Still loading auth state, waiting...');
       return;
     }
 
-    console.log('Step 2: Check isAuthenticated:', isAuthenticated);
-
-    // If not authenticated, redirect to login
+    // Not authenticated - redirect to login
     if (!isAuthenticated) {
-      console.log('Decision: Not authenticated, redirecting to /login');
-      console.log('Action: router.push("/login")');
-      router.push('/login');
+      recordRedirect('/account', '/login');
+      router.replace('/login');
       return;
     }
 
-    console.log('Step 3: User is authenticated, validating localStorage...');
+    // Authenticated - allow access
+  }, [isAuthenticated, authLoading, router]);
 
-    // Additional validation: Check if auth state matches localStorage
-    const token = api.getToken();
-    const cachedUser = localStorage.getItem('cached_user');
-
-    console.log('Step 4: localStorage check:', {
-      hasToken: !!token,
-      hasCachedUser: !!cachedUser,
-      token: token ? 'exists' : 'missing',
-      cachedUser: cachedUser ? 'exists' : 'missing'
-    });
-
-    // If authenticated but missing token or user data, logout and redirect
-    if (!token || !cachedUser) {
-      console.warn('⚠️  AUTH STATE MISMATCH DETECTED!');
-      console.warn('Reason:', !token ? 'Token missing' : 'Cached user missing');
-      console.warn('Action: Logging out and redirecting to /login');
-
-      logout().then(() => {
-        console.log('Logout successful, redirecting to /login');
-        window.location.href = '/login';
-      }).catch((error) => {
-        console.error('Logout error:', error);
-        console.log('Force redirecting to /login despite logout error');
-        window.location.href = '/login';
-      });
-      return;
-    }
-
-    console.log('✅ AUTH STATE VALID: User authenticated, token exists, cached_user exists');
-    console.log('Decision: Allow access to account page');
-    console.log('===========================================');
-  }, [isAuthenticated, authLoading, router, logout]);
-
-  // Fetch orders only when properly authenticated
+  // Fetch orders only when authenticated
   useEffect(() => {
-    console.log('=== ACCOUNT PAGE: FETCH ORDERS ===');
-    console.log(' isAuthenticated:', isAuthenticated);
-    console.log(' authLoading:', authLoading);
-
     if (isAuthenticated && !authLoading) {
-      console.log('Step 1: Double-check localStorage before fetching orders');
-
-      // Double-check localStorage before fetching
-      const token = api.getToken();
-      const cachedUser = localStorage.getItem('cached_user');
-
-      console.log('Step 2: localStorage validation for order fetch:', {
-        hasToken: !!token,
-        hasCachedUser: !!cachedUser
-      });
-
-      if (token && cachedUser) {
-        console.log('Decision: Auth data valid, fetching orders...');
-        fetchOrders();
-      } else {
-        console.warn('⚠️  AUTH STATE MISMATCH (order fetch):');
-        console.warn('Reason:', !token ? 'Token missing' : 'Cached user missing');
-        console.warn('Action: Logout and redirect to /login');
-
-        logout();
-        router.push('/login');
-      }
-    } else {
-      console.log('Decision: Skipping order fetch -', authLoading ? 'still loading auth' : 'not authenticated');
+      console.log('📊 Fetching order data...');
+      fetchOrders();
     }
-    console.log('==========================================');
   }, [isAuthenticated, authLoading]);
 
-  // Early redirect if not authenticated (client-side middleware)
-  if (!authLoading && !isAuthenticated) {
-    console.log('=== EARLY CHECK: Not authenticated ===');
-    console.log('Decision: Return null (redirect will happen in useEffect)');
-    return null; // Will redirect in useEffect
-  }
-
-  // Show loading spinner while checking auth or loading data
+  // Show loading spinner while auth is being validated
   if (authLoading) {
-    console.log('=== EARLY CHECK: Loading auth state ===');
-    console.log('Decision: Show loading spinner');
     return (
       <div className="min-h-screen bg-[#fcf8f6] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-700"></div>
@@ -159,19 +75,16 @@ export default function UserDashboard() {
     );
   }
 
+  // If not authenticated, useEffect will handle redirect
+  if (!isAuthenticated) {
+    return null;
+  }
+
   const fetchOrders = async () => {
-    console.log('=== FETCHING ORDER SUMMARY ===');
     try {
       setIsLoading(true);
-      console.log('Step 1: Calling API getOrderSummary()...');
       const response = await api.getOrderSummary();
       const summary = (response.data || response) as Record<string, unknown>;
-
-      console.log('Step 2: API response received:', {
-        hasData: !!summary,
-        totalOrders: (summary.totalOrders as number) || 0,
-        totalSpent: (summary.totalSpent as number) || 0
-      });
 
       if (summary) {
         setStats({
@@ -183,27 +96,17 @@ export default function UserDashboard() {
 
         const recent = (summary.recentOrders as Order[]) || [];
         setOrders(recent);
-        console.log('Step 3: Orders fetched successfully:', {
-          stats: (summary.totalOrders as number) || 0 + ' orders',
-          recentOrders: recent.length + ' recent'
-        });
       }
     } catch (error) {
-      console.error('❌ FAILED TO FETCH ORDER SUMMARY');
-      console.error('Error:', error);
       const err = error as { status?: number; message?: string };
       if (err.status === 401) {
-        console.error('Decision: 401 Unauthorized - Session expired');
         toast.error('Session expired. Please login again.');
       } else {
-        console.error('Decision: Other error -', err.message || 'Failed to load orders');
         toast.error(err.message || 'Failed to load orders');
       }
     } finally {
-      console.log('Step 4: Order fetch complete, loading set to false');
       setIsLoading(false);
     }
-    console.log('====================================');
   };
 
   const formatDate = (dateString: string) => {
@@ -241,16 +144,6 @@ export default function UserDashboard() {
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-700"></div>
       </div>
     );
-  }
-
-  if (!isAuthenticated) {
-    // Force redirect to login page
-    console.log('=== PRE-RENDER CHECK: Not authenticated ===');
-    console.log('Decision: Force redirect to /login');
-    if (typeof window !== 'undefined') {
-      router.push('/login');
-    }
-    return null;
   }
 
   return (

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
@@ -16,7 +16,9 @@ import { CrossSaleProduct } from '@/stores/crossSellModalStore';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getLocalizedName, getLocalizedDescription, getLocalizedShortDescription, getLocalizedHighlights, getLocalizedIncludesInBox } from '@/stores/productStore';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
-import ProductReviews from '@/components/product/ProductReviews';
+
+// Lazy load reviews component to improve initial page load
+const ProductReviews = lazy(() => import('@/components/product/ProductReviews'));
 
 // Decode entity-encoded HTML from API and clean unwanted tags
 function decodeHtmlEntities(html: string): string {
@@ -395,7 +397,11 @@ function ProductDetailPageContent() {
         };
 
         setProduct(transformedProduct);
-        setSelectedVariant(variants.find((v: Variant) => v.stock_info.in_stock) || variants[0] || null);
+        // Auto-select first in-stock variant for better UX
+        const defaultVariant = variants.find((v: Variant) => v.stock_info.in_stock) || variants[0] || null;
+        setSelectedVariant(defaultVariant);
+        // Always start with product thumbnail first (index 0)
+        setSelectedImageIndex(0);
       } catch (err) {
         // Log error details properly
         const error = err as { status?: number; message?: string; errors?: Record<string, string[]> };
@@ -448,28 +454,28 @@ function ProductDetailPageContent() {
   }, [product, language]);
   const localizedIncludesInBox = useMemo(() => product ? getLocalizedIncludesInBox(product, language) : null, [product, language]);
 
-  const currentPrice = selectedVariant?.retail_price || product?.variants[0]?.retail_price || 0;
-  const originalPrice = selectedVariant?.original_price || product?.variants[0]?.original_price || 0;
+  const currentPrice = selectedVariant?.retail_price || parseFloat(product?.price_range?.min || '0') || 0;
+  const originalPrice = selectedVariant?.original_price || parseFloat(product?.price_range?.min || '0') || 0;
   const discount = originalPrice > currentPrice ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100) : 0;
-  const stock = selectedVariant?.stock_info.available || 0;
-  const inStock = selectedVariant?.stock_info.in_stock || false;
+  const stock = selectedVariant?.stock_info.available || product?.stock_info?.total_available || 0;
+  const inStock = selectedVariant ? selectedVariant.stock_info.in_stock : (product?.stock_info?.in_stock ?? true);
 
   const handleVariantSelect = (variant: Variant) => {
     setSelectedVariant(variant);
 
-    // Update main image to show variant's image
+    // When user manually selects a variant, show its image as preview (if it has one)
     if (variant.image?.url && product?.gallery_images) {
       const variantImageIndex = product.gallery_images.indexOf(variant.image.url);
       if (variantImageIndex !== -1) {
         // Variant image is in gallery, show it
         setSelectedImageIndex(variantImageIndex);
-      } else {
+      } else if (variant.image.url) {
         // Variant image not in gallery, add it and show it
         setProduct(prev => prev ? {
           ...prev,
-          gallery_images: [...prev.gallery_images, variant.image.url]
+          gallery_images: [variant.image.url, ...prev.gallery_images]
         } : null);
-        setSelectedImageIndex(product.gallery_images.length);
+        setSelectedImageIndex(0); // Show the newly added variant image
       }
     }
   };
@@ -637,7 +643,7 @@ function ProductDetailPageContent() {
               {product.gallery_images[selectedImageIndex] ? (
                 <Image
                   src={product.gallery_images[selectedImageIndex]}
-                  alt={selectedVariant.image.alt_text || localizedName}
+                  alt={selectedVariant?.image?.alt_text || localizedName}
                   fill
                   className="object-cover"
                   priority
@@ -730,8 +736,8 @@ function ProductDetailPageContent() {
             {/* YouTube Video */}
             {product.videoUrl && <YouTubeVideo videoUrl={product.videoUrl} />}
 
-            {/* Variant Selection */}
-            {product.variants.length >= 1 && (
+            {/* Variant Selection - only show if multiple variants */}
+            {product.variants.length > 1 && (
               <div className="space-y-3 overflow-x-hidden">
                 <label className="hidden sm:flex text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider items-center gap-2">
                   <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -742,7 +748,7 @@ function ProductDetailPageContent() {
 
                 <div className="grid grid-cols-3 gap-1 sm:gap-2">
                   {product.variants.map((variant) => {
-                    const isSelected = selectedVariant.id === variant.id;
+                    const isSelected = selectedVariant?.id === variant.id;
                     const hasDiscount = variant.original_price > variant.retail_price;
                     const isOutOfStock = !variant.stock_info.in_stock;
                     const hasImage = variant.image?.url && typeof variant.image.url === 'string' && variant.image.url.trim() !== '';
@@ -761,7 +767,7 @@ function ProductDetailPageContent() {
                           ${isOutOfStock ? 'opacity-50 cursor-not-allowed grayscale' : 'cursor-pointer'}
                         `}
                       >
-                        {/* Variant Image */}
+                        {/* Variant Image - only show if exists */}
                         {hasImage && (
                           <div className={`w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 ${isSelected ? 'ring-2 ring-white/30' : ''}`}>
                             <img
@@ -772,17 +778,19 @@ function ProductDetailPageContent() {
                           </div>
                         )}
 
-                        {/* Variant Info */}
+                        {/* Variant Info - show name and price if image, only name if no image */}
                         <div className="flex flex-col items-start gap-0.5">
                           {/* Variant Name - remove index numbers */}
                           <span className="text-xs font-bold leading-tight">
                             {variant.name.replace(/^[\d\s\.\#]+/, '').trim()}
                           </span>
 
-                          {/* Price */}
-                          <span className="text-xs font-semibold">
-                            ৳{variant.retail_price.toLocaleString()}
-                          </span>
+                          {/* Price - only show if variant has image */}
+                          {hasImage && (
+                            <span className="text-xs font-semibold">
+                              ৳{variant.retail_price.toLocaleString()}
+                            </span>
+                          )}
                         </div>
 
                         {/* Discount Badge - Desktop only */}
@@ -1001,7 +1009,48 @@ function ProductDetailPageContent() {
               )}
 
               {activeTab === 'reviews' && (
-                <ProductReviews productSlug={product.slug} productId={product.id} />
+                <Suspense fallback={
+                  <div className="space-y-6">
+                    {/* Filter skeleton */}
+                    <div className="flex gap-2 flex-wrap">
+                      {[...Array(5)].map((_, i) => (
+                        <div key={i} className="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse"></div>
+                      ))}
+                    </div>
+
+                    {/* Review cards skeleton */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {[...Array(4)].map((_, i) => (
+                        <div key={i} className="bg-white dark:bg-[#0a0a0a] p-6 rounded-xl shadow-sm animate-pulse">
+                          {/* Avatar + Name */}
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                            <div className="flex-1">
+                              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+                              <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                            </div>
+                          </div>
+
+                          {/* Rating stars skeleton */}
+                          <div className="flex gap-1 mb-3">
+                            {[...Array(5)].map((_, j) => (
+                              <div key={j} className="w-4 h-4 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                            ))}
+                          </div>
+
+                          {/* Review text skeleton */}
+                          <div className="space-y-2">
+                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-4/6"></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                }>
+                  <ProductReviews productSlug={product.slug} productId={product.id} />
+                </Suspense>
               )}
             </div>
           </div>

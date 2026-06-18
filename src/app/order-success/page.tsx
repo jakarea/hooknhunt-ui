@@ -43,15 +43,25 @@ function OrderSuccessContent() {
   const invoiceNo = searchParams.get('invoice') || '';
   const orderTotal = parseFloat(searchParams.get('total') || '0');
   const customerName = searchParams.get('name') || 'Customer';
+  const paymentStatus = searchParams.get('payment_status') || '';
+  const gateway = searchParams.get('gateway') || '';
+
+  // Payment failure detection
+  const isPaymentFailed = paymentStatus === 'failed';
+  const isSSLCommerz = gateway === 'sslcommerz';
+  const isEPS = gateway === 'eps';
 
   useEffect(() => {
     setMounted(true);
-    clearCart();
+    // Only clear cart if payment succeeded (not failed)
+    if (!isPaymentFailed) {
+      clearCart();
+    }
 
     const confettiTimer = setTimeout(() => setShowConfetti(false), 5000);
     return () => clearTimeout(confettiTimer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isPaymentFailed]);
 
   // Fetch thank-you product
   useEffect(() => {
@@ -193,7 +203,7 @@ function OrderSuccessContent() {
       )}
 
       <div className="max-w-[1200px] mx-auto px-4 lg:px-8 xl:px-12 py-12">
-        {/* Success Message */}
+        {/* Success Message - with payment failure detection */}
         <div className="text-center mb-10 animate-slideUp">
           <div className="relative inline-block mb-6">
             <div className="w-28 h-28 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center animate-scaleIn shadow-2xl">
@@ -207,9 +217,38 @@ function OrderSuccessContent() {
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3">
             {t('orderSuccess.title', { name: customerName })}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-1">
-            {t('orderSuccess.confirmed')}
-          </p>
+
+          {/* SSL Commerz - Payment Failed */}
+          {isPaymentFailed && isSSLCommerz && (
+            <>
+              <p className="text-lg text-amber-600 dark:text-amber-400 mb-1 font-semibold">
+                Payment collection pending
+              </p>
+              <p className="text-gray-600 dark:text-gray-400 mb-2">
+                Your payment via SSLCommerz could not be processed. We'll contact you shortly to collect payment via cash on delivery.
+              </p>
+            </>
+          )}
+
+          {/* EPS - Payment Failed */}
+          {isPaymentFailed && isEPS && (
+            <>
+              <p className="text-lg text-amber-600 dark:text-amber-400 mb-1 font-semibold">
+                Payment collection pending
+              </p>
+              <p className="text-gray-600 dark:text-gray-400 mb-2">
+                Your payment via EPS could not be processed. We'll contact you shortly to collect payment via cash on delivery.
+              </p>
+            </>
+          )}
+
+          {/* Normal Success - No payment failure */}
+          {!isPaymentFailed && (
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-1">
+              {t('orderSuccess.confirmed')}
+            </p>
+          )}
+
           {invoiceNo && (
             <p className="text-base text-gray-600 dark:text-gray-400">
               {t('orderSuccess.invoice')}: <span className="font-bold text-[#ec3137]">{invoiceNo}</span>
@@ -221,12 +260,36 @@ function OrderSuccessContent() {
         <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl p-6 mb-8 shadow-lg animate-slideUp" style={{ animationDelay: '0.2s' }}>
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('orderSuccess.summary')}</h2>
-            <div className="flex items-center gap-1.5 text-green-600 dark:text-green-400">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span className="font-semibold text-sm">{t('orderSuccess.confirmedStatus')}</span>
-            </div>
+
+            {/* SSL Commerz - Payment Failed Status */}
+            {isPaymentFailed && isSSLCommerz && (
+              <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="font-semibold text-sm">Payment pending (SSLCommerz failed)</span>
+              </div>
+            )}
+
+            {/* EPS - Payment Failed Status */}
+            {isPaymentFailed && isEPS && (
+              <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="font-semibold text-sm">Payment pending (EPS failed)</span>
+              </div>
+            )}
+
+            {/* Normal Success Status */}
+            {!isPaymentFailed && (
+              <div className="flex items-center gap-1.5 text-green-600 dark:text-green-400">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="font-semibold text-sm">{t('orderSuccess.confirmedStatus')}</span>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-3 gap-4">
@@ -254,8 +317,8 @@ function OrderSuccessContent() {
           </div>
         </div>
 
-        {/* Exclusive Offer Section — only if a product is available */}
-        {(giftStatus === 'offering' || giftStatus === 'adding' || giftStatus === 'added' || giftStatus === 'expired' || giftStatus === 'error') && giftProduct && (
+        {/* Exclusive Offer Section — only if payment succeeded and product available */}
+        {!isPaymentFailed && (giftStatus === 'offering' || giftStatus === 'adding' || giftStatus === 'added' || giftStatus === 'expired' || giftStatus === 'error') && giftProduct && (
           <div className="border-2 border-amber-300 dark:border-amber-800 rounded-xl p-5 mb-8 bg-amber-50/50 dark:bg-amber-900/10 animate-slideUp" style={{ animationDelay: '0.3s' }}>
 
             {/* Added state */}

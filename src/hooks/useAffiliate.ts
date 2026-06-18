@@ -25,6 +25,7 @@ export function useAffiliate() {
   const [categoryCommissions, setCategoryCommissions] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
+  const [periodStats, setPeriodStats] = useState<any>(null);
 
   /**
    * Fetch affiliate dashboard data
@@ -72,9 +73,10 @@ export function useAffiliate() {
         setAffiliate(affiliateData);
         setRecentReferrals(data.recent_referrals || []);
         setRecentEarnings(data.recent_earnings || []);
-        setRecentPayouts([]); // recent_payouts not in API response
+        setRecentPayouts(data.recent_payouts || []);
         setProductCommissions(data.product_commissions || []);
         setCategoryCommissions(data.category_commissions || []);
+        setPeriodStats(data.period_stats || null);
 
         return data;
       }
@@ -216,8 +218,9 @@ export function useAffiliate() {
         value: `৳${affiliate.available_balance.toFixed(2)}`,
         raw: affiliate.available_balance,
       },
+      period_stats: periodStats,
     };
-  }, [affiliate]);
+  }, [affiliate, periodStats]);
 
   return {
     // State
@@ -231,6 +234,7 @@ export function useAffiliate() {
     categoryCommissions,
     products,
     loadingProducts,
+    periodStats,
     setAffiliate,
 
     // Methods

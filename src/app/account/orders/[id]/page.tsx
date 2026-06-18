@@ -14,14 +14,24 @@ interface OrderItem {
   variantId?: number;
   quantity: number;
   unitPrice?: number;
+  unit_price?: number;
   originalPrice?: number | null;
+  original_price?: number | null;
   totalPrice?: number;
+  total_price?: number;
   productName?: string;
+  product_name?: string;
   variantName?: string;
+  variant_name?: string;
   sku?: string;
+  product_sku?: string;
+  productSku?: string;
+  product_slug?: string;
+  productSlug?: string;
   // Standardized image field
   image_url: string;
   image_id?: number;
+  imageUrl?: string;
   // Legacy fields (for backward compatibility)
   image?: string;
   thumbnail_url?: string;
@@ -89,8 +99,33 @@ export default function OrderDetailsPage() {
     try {
       setIsLoading(true);
       const response = await api.getOrder(orderId);
-      const orderData = response.data || response;
-      setOrder(orderData as Order);
+      const orderData = (response.data || response) as any;
+
+      // Transform snake_case API response to camelCase
+      const transformedOrder = {
+        ...orderData,
+        orderNumber: orderData.invoice_no || orderData.orderNumber,
+        subTotal: orderData.sub_total || orderData.subTotal,
+        discountAmount: orderData.discount_amount || orderData.discountAmount,
+        deliveryCharge: orderData.delivery_charge || orderData.deliveryCharge,
+        totalAmount: orderData.total_amount || orderData.totalAmount,
+        paidAmount: orderData.paid_amount || orderData.paidAmount,
+        dueAmount: orderData.due_amount || orderData.dueAmount,
+        createdAt: orderData.created_at || orderData.createdAt,
+        items: (orderData.items || []).map((item: any) => ({
+          ...item,
+          unitPrice: item.unit_price || item.unitPrice,
+          originalPrice: item.original_price || item.originalPrice,
+          totalPrice: item.total_price || item.totalPrice,
+          productName: item.product_name || item.productName,
+          variantName: item.variant_name || item.variantName,
+          productSku: item.product_sku || item.sku,
+          productSlug: item.product_slug,
+          imageUrl: item.image_url || item.imageUrl || item.thumbnailUrl,
+        })),
+      };
+
+      setOrder(transformedOrder as Order);
     } catch {
       toast.error('Failed to load order details');
       router.push('/account/orders');
@@ -270,7 +305,6 @@ export default function OrderDetailsPage() {
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell">SKU</th>
                       <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Quantity</th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Unit Price</th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Total</th>
@@ -280,10 +314,16 @@ export default function OrderDetailsPage() {
                     {order.items?.map((item) => (
                       <tr key={item.id}>
                         <td className="px-6 py-4">
-                          <div className="flex items-center">
+                          <a
+                            href={`/products/${item.product_slug || item.productName?.toLowerCase().replace(/\s+/g, '-')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center hover:opacity-80 transition"
+                          >
                             <div className="h-16 w-16 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden mr-4">
                               <Image
                                 src={
+                                  item.imageUrl ||
                                   item.image_url ||
                                   item.thumbnailUrl ||
                                   item.thumbnail_url ||
@@ -292,7 +332,7 @@ export default function OrderDetailsPage() {
                                   item.image ||
                                   '/placeholder-image.jpg'
                                 }
-                                alt={item.productName || 'Product image'}
+                                alt={item.product_name || item.productName || 'Product image'}
                                 width={64}
                                 height={64}
                                 className="object-cover"
@@ -302,26 +342,28 @@ export default function OrderDetailsPage() {
                               />
                             </div>
                             <div>
-                              <span className="text-sm font-medium text-gray-900">{item.productName}</span>
-                              {item.variantName && (
-                                <p className="text-xs text-gray-500">{item.variantName}</p>
+                              <span className="text-sm font-medium text-gray-900 hover:text-red-700"><b>{item.product_name || item.productName}</b> - {item.variant_name || item.variantName }</span>
+                              {(item.product_sku || item.productSku || item.sku) && (
+                                <p className="text-xs text-gray-500 font-mono"> {item.product_sku || item.productSku || item.sku}</p>
                               )}
                             </div>
-                          </div>
+                          </a>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-600 hidden sm:table-cell">{item.sku || '-'}</td>
+                       
                         <td className="px-6 py-4 text-center text-sm text-gray-900">{item.quantity}</td>
                         <td className="px-6 py-4 text-right text-sm text-gray-900">
-                          {item.unitPrice && item.originalPrice && item.originalPrice > item.unitPrice ? (
-                            <div className="flex flex-col items-end">
-                              <span className="text-sm font-semibold text-red-600">{formatCurrency(item.unitPrice)}</span>
-                              <span className="text-xs text-gray-400 line-through">{formatCurrency(item.originalPrice)}</span>
-                            </div>
-                          ) : (
-                            <span>{formatCurrency(item.unitPrice || 0)}</span>
-                          )}
+                          <div className="flex flex-col items-end gap-0.5">
+                            <span className="text-sm font-bold text-gray-900">
+                              {formatCurrency(item.originalPrice || item.original_price || 0)}
+                            </span>
+                            {(item.unitPrice || item.unit_price) && (
+                              <del className="text-xs text-gray-400">
+                                {formatCurrency(item.unitPrice || item.unit_price)}
+                              </del>
+                            )}
+                          </div>
                         </td>
-                        <td className="px-6 py-4 text-right text-sm font-medium text-gray-900">{formatCurrency(item.totalPrice)}</td>
+                        <td className="px-6 py-4 text-right text-sm font-medium text-gray-900">{formatCurrency(item.totalPrice || item.total_price || 0)}</td>
                       </tr>
                     ))}
                   </tbody>

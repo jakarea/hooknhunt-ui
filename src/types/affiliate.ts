@@ -149,12 +149,22 @@ export interface AffiliateApplicationResponse {
   };
 }
 
+export interface PeriodStats {
+  period: '7days' | '30days' | '90days' | '1year';
+  clicks: number;
+  conversions: number;
+  earnings: number;
+  conversion_rate: number;
+}
+
 export interface AffiliateDashboardResponse {
   success: boolean;
   data: {
     affiliate: Affiliate;
+    period_stats?: PeriodStats;
     recent_referrals: AffiliateReferral[];
     recent_earnings: AffiliateEarning[];
+    recent_payouts?: AffiliatePayout[];
     product_commissions: ProductCommission[];
     category_commissions: CategoryCommission[];
   };

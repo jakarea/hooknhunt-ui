@@ -226,6 +226,10 @@ export function usePayment() {
         const data = response.data as {
           order_invoice: string;
           callback_type: string;
+          order_total?: number;
+          customer_name?: string;
+          customer_phone?: string;
+          gateway?: string;
         };
 
         // Clear payment session storage
@@ -233,9 +237,9 @@ export function usePayment() {
         sessionStorage.removeItem('ssl_payment_order_id');
         sessionStorage.removeItem('ssl_payment_timestamp');
 
-        // Redirect to appropriate page
+        // Redirect to appropriate page with full order data
         const redirectUrl = callbackType === 'success'
-          ? `/order-success?invoice=${data.order_invoice}&payment=sslcommerz`
+          ? `/order-success?invoice=${data.order_invoice}&total=${data.order_total || 0}&name=${data.customer_name || 'Customer'}&phone=${data.customer_phone || ''}&gateway=${data.gateway || 'sslcommerz'}`
           : `/payment/${callbackType}`;
 
         return { success: true, redirectUrl };

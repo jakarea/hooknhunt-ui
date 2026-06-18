@@ -145,8 +145,8 @@ export default function PaymentInitiationPage() {
         const paymentWindow = window.open(gatewayUrl, '_blank', 'noopener,noreferrer,width=1000,height=800')
 
         if (!paymentWindow) {
-          // Popup blocked - show error with fallback
-          setPaymentError('Popup was blocked. Please click the link below to open payment gateway.')
+          // Popup blocked - auto fallback to same window redirect
+          window.location.href = gatewayUrl
         } else {
           // Successfully opened - show notification
           toast.success('Payment gateway opened. Complete your payment in the new tab.')
