@@ -332,9 +332,12 @@ function ProductDetailPageContent() {
             }
           }
 
-          // Add main product image if not already in gallery
+          // Ensure main product image is ALWAYS first in gallery (featured image)
           const mainImageUrl = (data.thumbnailUrl || data.imageUrl || '') as string;
-          if (mainImageUrl && !galleryUrls.includes(mainImageUrl) && !placeholderPattern.test(mainImageUrl)) {
+          if (mainImageUrl && !placeholderPattern.test(mainImageUrl)) {
+            // Remove featured image if it exists anywhere in the gallery
+            galleryUrls = galleryUrls.filter(url => url !== mainImageUrl);
+            // Add it to the front so it's the first/active image on page load
             galleryUrls.unshift(mainImageUrl);
           }
 
