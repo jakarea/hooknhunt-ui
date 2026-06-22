@@ -780,9 +780,9 @@ function ProductDetailPageContent() {
 
                         {/* Variant Info - show name and price if image, only name if no image */}
                         <div className="flex flex-col items-start gap-0.5">
-                          {/* Variant Name - remove index numbers */}
+                          {/* Variant Name */}
                           <span className="text-xs font-bold leading-tight">
-                            {variant.name.replace(/^[\d\s\.\#]+/, '').trim()}
+                            {variant.name}
                           </span>
 
                           {/* Price - only show if variant has image */}
