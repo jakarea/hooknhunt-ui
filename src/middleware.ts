@@ -17,12 +17,23 @@ export function middleware(request: NextRequest) {
   if (isPublicRoute && token) {
     const url = request.nextUrl.clone()
     url.pathname = '/account'
+    // Preserve query parameters (especially ref code for affiliate tracking)
+    url.search = request.nextUrl.search
     return NextResponse.redirect(url)
   }
 
   // For protected routes, let the client-side AuthContext handle authentication
   // This avoids cross-domain cookie issues
-  return NextResponse.next()
+  // Preserve query parameters for affiliate tracking
+  const response = NextResponse.next()
+  
+  // Log affiliate ref parameter if present for debugging
+  const refParam = request.nextUrl.searchParams.get('ref')
+  if (refParam) {
+    console.log('🎯 Middleware detected ref parameter:', refParam, 'on path:', pathname)
+  }
+  
+  return response
 }
 
 // Configure which routes the middleware should run on

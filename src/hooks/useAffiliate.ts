@@ -26,6 +26,9 @@ export function useAffiliate() {
   const [products, setProducts] = useState<any[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [periodStats, setPeriodStats] = useState<any>(null);
+  const [topProducts, setTopProducts] = useState<any[]>([]);
+  const [weeklyEarnings, setWeeklyEarnings] = useState<any[]>([]);
+  const [balanceBreakdown, setBalanceBreakdown] = useState<any>(null);
 
   /**
    * Fetch affiliate dashboard data
@@ -69,14 +72,17 @@ export function useAffiliate() {
           isApproved: data.affiliate?.is_approved ?? data.affiliate?.isApproved ?? false,
         };
 
-        // Set all data from response
+        // Set all data from response (handle both camelCase and snake_case)
         setAffiliate(affiliateData);
-        setRecentReferrals(data.recent_referrals || []);
-        setRecentEarnings(data.recent_earnings || []);
-        setRecentPayouts(data.recent_payouts || []);
-        setProductCommissions(data.product_commissions || []);
-        setCategoryCommissions(data.category_commissions || []);
-        setPeriodStats(data.period_stats || null);
+        setRecentReferrals(data.recent_referrals || data.recentReferrals || []);
+        setRecentEarnings(data.recent_earnings || data.recentEarnings || []);
+        setRecentPayouts(data.recent_payouts || data.recentPayouts || []);
+        setProductCommissions(data.product_commissions || data.productCommissions || []);
+        setCategoryCommissions(data.category_commissions || data.categoryCommissions || []);
+        setPeriodStats(data.period_stats || data.periodStats || null);
+        setTopProducts(data.top_products || data.topProducts || []);
+        setWeeklyEarnings(data.weekly_earnings || data.weeklyEarnings || []);
+        setBalanceBreakdown(data.balance_breakdown || data.balanceBreakdown || null);
 
         return data;
       }
@@ -235,6 +241,9 @@ export function useAffiliate() {
     products,
     loadingProducts,
     periodStats,
+    topProducts,
+    weeklyEarnings,
+    balanceBreakdown,
     setAffiliate,
 
     // Methods
