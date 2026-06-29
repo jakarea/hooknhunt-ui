@@ -1284,28 +1284,6 @@ export default function CheckoutPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    {t('checkout.fullName')} <span className="text-red-600">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    readOnly={isAuthenticated}
-                    className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
-                      isAuthenticated
-                        ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
-                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
-                    }`}
-                    placeholder={t('checkout.enterYourFullName')}
-                  />
-                  {isAuthenticated && (
-                    <p className="mt-1 text-xs text-gray-500">{t('checkout.prefilledFromAccount')}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     {t('checkout.phoneNumber')} <span className="text-red-600">*</span>
                   </label>
                   <input
@@ -1326,6 +1304,28 @@ export default function CheckoutPage() {
                   {phoneError && (
                     <p className="mt-1 text-xs text-red-600 dark:text-red-400">{phoneError}</p>
                   )}
+                  {isAuthenticated && (
+                    <p className="mt-1 text-xs text-gray-500">{t('checkout.prefilledFromAccount')}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    {t('checkout.fullName')} <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    readOnly={isAuthenticated}
+                    className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
+                      isAuthenticated
+                        ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
+                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                    }`}
+                    placeholder={t('checkout.enterYourFullName')}
+                  />
                   {isAuthenticated && (
                     <p className="mt-1 text-xs text-gray-500">{t('checkout.prefilledFromAccount')}</p>
                   )}

@@ -28,6 +28,8 @@ export default function Footer() {
         // Race between API call and timeout
         const response = await Promise.race([api.getCategories(), timeoutPromise]);
 
+        console.log('Categories API Response:', response);
+
         if (response && (response as { data?: { data?: Category[] } }).data?.data) {
           // Sort by sort_order ascending and take top 6
           const sortedCategories = (response as { data: { data: Category[] } }).data.data
@@ -49,6 +51,7 @@ export default function Footer() {
           raw: error
         };
         console.error('Failed to fetch categories:', errorDetails);
+        console.warn('Categories will not display in footer');
         // Graceful degradation: set empty categories instead of keeping loading state
         setCategories([]);
       } finally {

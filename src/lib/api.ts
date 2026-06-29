@@ -1465,6 +1465,15 @@ class ApiClient {
   }> {
     return this.request(`/store/affiliate/verify-code?code=${encodeURIComponent(code)}`, {}, false) as any;
   }
+
+  /**
+   * Generic GET request method
+   */
+  async get<T = unknown>(endpoint: string, includeAuth: boolean = true): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, {
+      method: 'GET',
+    }, includeAuth);
+  }
 }
 
 // Export singleton instance

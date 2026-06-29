@@ -23,11 +23,11 @@ export default function AffiliateDetailsPage() {
       setLoading(true);
       const response = await api.get(`/admin/affiliates/${affiliateId}?period=${selectedPeriod}`);
 
-      if (response.data?.success) {
-        console.log('Affiliate data loaded:', response.data.data);
-        setAffiliate(response.data.data);
+      if (response.data) {
+        console.log('Affiliate data loaded:', response.data);
+        setAffiliate(response.data);
       } else {
-        console.error('API response failed:', response.data);
+        console.error('API response failed:', response);
         toast.error('Failed to load affiliate data');
       }
     } catch (error) {

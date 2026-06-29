@@ -46,14 +46,14 @@ export const useCouponStore = create<CouponState>((set, get) => ({
       const appliedCoupon: AppliedCoupon = {
         code: data.code as string,
         description: (data.description as string | undefined) ?? undefined,
-        type: data.discount_type === 'percentage' || data.discount_type === 'fixed_amount' || data.discount_type === 'shipping'
-          ? data.discount_type as AppliedCoupon['type']
+        type: (data.discountType || data.discount_type) === 'percentage' || (data.discountType || data.discount_type) === 'fixed_amount' || (data.discountType || data.discount_type) === 'shipping'
+          ? (data.discountType || data.discount_type) as AppliedCoupon['type']
           : 'fixed_amount',
-        value: data.discount_value as number,
-        maxDiscountAmount: (data.max_discount_amount as number | null) ?? null,
-        discountAmount: data.discount_amount as number,
-        minPurchaseAmount: (data.min_purchase_amount as number) ?? 0,
-        finalTotal: data.final_total as number,
+        value: (data.discountValue || data.discount_value) as number,
+        maxDiscountAmount: ((data.maxDiscountAmount || data.max_discount_amount) as number | null) ?? null,
+        discountAmount: (data.discountAmount || data.discount_amount) as number,
+        minPurchaseAmount: ((data.minPurchaseAmount || data.min_purchase_amount) as number) ?? 0,
+        finalTotal: (data.finalTotal || data.final_total) as number,
       };
 
       set({ appliedCoupon, isValidating: false, error: null, validationErrors: {} });

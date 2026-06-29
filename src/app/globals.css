@@ -492,7 +492,7 @@ button:hover, .btn:hover, [role="button"]:hover {
 
 /* Container - Consistent max width across all pages and sections */
 .container {
-  max-width: 1380px;
+  max-width: 1320px;
   margin-left: auto;
   margin-right: auto;
 }

@@ -399,7 +399,7 @@ export default function AffiliateDashboard() {
         isOpen={showPayoutModal}
         onClose={() => setShowPayoutModal(false)}
         onSubmit={requestPayout}
-        maxAmount={balanceBreakdown?.confirmed || 0}
+        availableBalance={balanceBreakdown?.confirmed || 0}
       />
     </AccountPageWrapper>
   );
