@@ -1015,8 +1015,13 @@ export default function CheckoutPage() {
               // Clear cart after redirect to avoid triggering the empty cart redirect useEffect
               setTimeout(() => clearCart(), 100);
 
-              // Redirect directly to EPS gateway
-              window.location.href = gatewayUrl;
+              // Open payment gateway in new tab (same as SSL Commerz flow)
+              const paymentWindow = window.open(gatewayUrl, '_blank', 'noopener,noreferrer,width=1000,height=800');
+
+              if (!paymentWindow) {
+                // Popup blocked - fallback to same window redirect
+                window.location.href = gatewayUrl;
+              }
               return;
             } else {
               throw new Error('Payment gateway URL not received');
