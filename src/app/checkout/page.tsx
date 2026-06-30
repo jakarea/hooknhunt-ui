@@ -1009,7 +1009,7 @@ export default function CheckoutPage() {
               },
             });
 
-            const gatewayUrl = (paymentResponse.data as any)?.gateway_url as string | undefined;
+            const gatewayUrl = (paymentResponse.data as any)?.gatewayUrl as string | undefined;
 
             if (gatewayUrl) {
               // Clear cart after redirect to avoid triggering the empty cart redirect useEffect

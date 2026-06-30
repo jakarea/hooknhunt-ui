@@ -138,7 +138,7 @@ export default function PaymentInitiationPage() {
         },
       })
 
-      const gatewayUrl = (response.data as any)?.gateway_url as string | undefined
+      const gatewayUrl = (response.data as any)?.gatewayUrl as string | undefined
 
       if (gatewayUrl) {
         // Open payment gateway in new tab
