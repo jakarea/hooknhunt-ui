@@ -986,27 +986,87 @@ export default function CheckoutPage() {
           }
         }
 
-        // Handle EPS payment - redirect to payment initiation page
-        // This ensures window.open() is triggered by direct user action (Pay Now button)
+        // Handle EPS payment - initiate directly and redirect to gateway
         if (paymentMethod === 'eps') {
-          // Redirect to payment initiation page where user will click Pay Now button
-          const paymentPageUrl = `/checkout/payment/${orderId}`;
-
           // Save cart items to sessionStorage before clearing cart (for retry on fail/cancel)
           if (typeof window !== 'undefined') {
             sessionStorage.setItem('checkout_cart_backup', JSON.stringify(cartItems));
           }
 
-          // Clear cart after redirect to avoid triggering the empty cart redirect useEffect
-          setTimeout(() => clearCart(), 100);
-
           try {
-            router.push(paymentPageUrl);
-          } catch {
-            // Fallback: use window.location
-            window.location.href = paymentPageUrl;
+            // Initiate EPS payment to get gateway URL
+            const paymentResponse = await api.initiateEpsPayment({
+              sales_order_id: orderId,
+              customer_name: formData.name,
+              customer_email: formData.email || undefined,
+              customer_phone: formData.phone,
+              customer_address: {
+                address_line1: formData.address,
+                address_line2: formData.thana || undefined,
+                city: formData.district || '',
+                postal_code: '',
+                country: 'Bangladesh',
+              },
+            });
+
+            const gatewayUrl = (paymentResponse.data as any)?.gateway_url as string | undefined;
+
+            if (gatewayUrl) {
+              // Clear cart after redirect to avoid triggering the empty cart redirect useEffect
+              setTimeout(() => clearCart(), 100);
+
+              // Redirect directly to EPS gateway
+              window.location.href = gatewayUrl;
+              return;
+            } else {
+              throw new Error('Payment gateway URL not received');
+            }
+          } catch (paymentErr: unknown) {
+            // Handle different error structures
+            let errorMsg = 'Payment initiation failed. Please try again.';
+
+            // Check if it's a PaymentError with message
+            if (paymentErr && typeof paymentErr === 'object' && 'message' in paymentErr) {
+              errorMsg = (paymentErr as { message: string }).message;
+            }
+
+            // Check for API response errors
+            const apiErr = paymentErr as {
+              response?: {
+                data?: {
+                  errors?: Record<string, string[]> | string;
+                  message?: string;
+                  error?: string;
+                  gateway_unavailable?: boolean;
+                  status?: boolean;
+                };
+                error?: string;
+                message?: string;
+                status?: boolean;
+              };
+              message?: string;
+            };
+
+            // Extract error message from different possible locations
+            if (apiErr.response?.data?.error) {
+              errorMsg = apiErr.response.data.error;
+            } else if (apiErr.response?.data?.message) {
+              errorMsg = apiErr.response.data.message;
+            } else if (apiErr.response?.error) {
+              errorMsg = apiErr.response.error;
+            } else if (apiErr.response?.message) {
+              errorMsg = apiErr.response.message;
+            } else if (apiErr.message) {
+              errorMsg = apiErr.message;
+            }
+
+            // Set payment error state
+            setPaymentError({
+              message: errorMsg,
+              type: 'eps'
+            });
+            return;
           }
-          return;
         }
 
         if (paymentMethod === 'cod') {
