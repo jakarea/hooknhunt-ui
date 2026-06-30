@@ -998,11 +998,11 @@ export default function CheckoutPage() {
             const paymentResponse = await api.initiateEpsPayment({
               sales_order_id: orderId,
               customer_name: formData.name,
-              customer_email: formData.email || undefined,
+              customer_email: formData.email || '',
               customer_phone: formData.phone,
               customer_address: {
                 address_line1: formData.address,
-                address_line2: formData.thana || undefined,
+                address_line2: formData.thana || '',
                 city: formData.district || '',
                 postal_code: '',
                 country: 'Bangladesh',
