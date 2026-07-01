@@ -70,20 +70,6 @@ export default function PasswordStrengthMeter({ password }: PasswordStrengthMete
           </p>
         </div>
       )}
-
-      {/* Password Tips */}
-      {password && strength.level < 3 && (
-        <div className="text-xs text-gray-500 space-y-1 mt-2">
-          <p>To make your password stronger:</p>
-          <ul className="list-disc list-inside space-y-0.5 ml-2">
-            {!/[a-z]/.test(password) && <li>Use lowercase letters</li>}
-            {!/[A-Z]/.test(password) && <li>Use uppercase letters</li>}
-            {!/\d/.test(password) && <li>Use numbers</li>}
-            {!/[!@#$%^&*(),.?":{}|<>]/.test(password) && <li>Use special characters (!@#$%^&*)</li>}
-            {password.length < 10 && <li>Make it longer (10+ characters)</li>}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }
