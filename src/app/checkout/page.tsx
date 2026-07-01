@@ -918,7 +918,8 @@ export default function CheckoutPage() {
               payment_method: 'sslcommerz',
               emi_option: selectedEmiBank,
             });
-            // Payment initiated successfully - gateway will open in new tab
+            // Hide loading modal since gateway is now opening in new tab
+            setIsProcessingPayment(false);
             return;
           } catch (paymentErr: unknown) {
             // Handle different error structures
@@ -1022,6 +1023,9 @@ export default function CheckoutPage() {
                 // Popup blocked - fallback to same window redirect
                 window.location.href = gatewayUrl;
               }
+
+              // Hide loading modal since gateway is now opening
+              setIsProcessingPayment(false);
               return;
             } else {
               throw new Error('Payment gateway URL not received');
