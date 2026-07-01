@@ -14,7 +14,6 @@ export default function PaymentLinkPage() {
   const [amount, setAmount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [gateway, setGateway] = useState<'eps' | 'sslcommerz'>('eps');
   const [processing, setProcessing] = useState(false);
 
   // Validate payment link
@@ -24,7 +23,17 @@ export default function PaymentLinkPage() {
     const validateLink = async () => {
       try {
         const api = (await import('@/lib/api')).default;
-        const response = await api.get(`/store/payment-links/validate/${token}`);
+        const response = await api.get<{
+          token: string;
+          order_id: number;
+          amount: number;
+          expires_at: string;
+          customer_name?: string;
+          customer_email?: string;
+          customer_phone?: string;
+          shipping_address?: string;
+          shipping_city?: string;
+        }>(`/store/payment-links/validate/${token}`);
 
         if (response.data) {
           const linkData = response.data;
@@ -51,22 +60,22 @@ export default function PaymentLinkPage() {
     try {
       const api = (await import('@/lib/api')).default;
 
-      // Initiate payment
-      const response = await api.post('/store/payments/initiate', {
+      // Payment links use EPS gateway only
+      const response = await api.initiateEpsPayment({
         sales_order_id: order.order_id,
         customer_name: order.customer_name || 'Customer',
         customer_email: order.customer_email || '',
         customer_phone: order.customer_phone || '',
         customer_address: {
-          address_line1: 'N/A',
+          address_line1: order.shipping_address || 'N/A',
           address_line2: '',
-          city: 'N/A',
+          city: order.shipping_city || 'N/A',
           postal_code: '',
           country: 'Bangladesh',
         },
       });
 
-      const gatewayUrl = response.data?.gateway_url;
+      const gatewayUrl = (response.data as any)?.gatewayUrl;
       if (!gatewayUrl) {
         throw new Error('Payment gateway URL not received');
       }
@@ -149,32 +158,13 @@ export default function PaymentLinkPage() {
               <p className="text-gray-500 text-xs mt-2">This amount is locked and cannot be changed</p>
             </div>
 
-            {/* Gateway Selection */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-3">Payment Gateway</label>
-              <div className="space-y-2">
-                <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                  <input
-                    type="radio"
-                    name="gateway"
-                    value="eps"
-                    checked={gateway === 'eps'}
-                    onChange={(e) => setGateway(e.target.value as 'eps')}
-                    className="w-4 h-4"
-                  />
-                  <span className="ml-3 text-gray-700">EPS Payment Gateway</span>
-                </label>
-                <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                  <input
-                    type="radio"
-                    name="gateway"
-                    value="sslcommerz"
-                    checked={gateway === 'sslcommerz'}
-                    onChange={(e) => setGateway(e.target.value as 'sslcommerz')}
-                    className="w-4 h-4"
-                  />
-                  <span className="ml-3 text-gray-700">SSL Commerz</span>
-                </label>
+            {/* Payment via EPS */}
+            <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <p className="text-sm text-blue-700">Payment will be processed via EPS payment gateway</p>
               </div>
             </div>
 
