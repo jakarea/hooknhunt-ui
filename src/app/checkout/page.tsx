@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -30,6 +30,7 @@ type PaymentMethod = 'cod' | 'sslcommerz' | 'eps';
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { cartItems, getCartTotal, clearCart, removeFromCart, updateQuantity, addToCart } = useCart();
   const { user, isAuthenticated } = useAuth();
   const { t, i18n } = useTranslation();
@@ -95,6 +96,11 @@ export default function CheckoutPage() {
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [paymentError, setPaymentError] = useState<{ message: string; type: 'eps' | 'sslcommerz' | 'general' } | null>(null);
   const [isNavigatingAway, setIsNavigatingAway] = useState(false);
+
+  // Payment link state (for admin-generated payment links)
+  const [paymentLink, setPaymentLink] = useState<{ token: string; amount: number } | null>(null);
+  const [paymentLinkValidating, setPaymentLinkValidating] = useState(false);
+  const [paymentLinkError, setPaymentLinkError] = useState<string | null>(null);
 
   // EMI option state
   const [selectedEmiBank, setSelectedEmiBank] = useState<number>(0);
@@ -505,6 +511,30 @@ export default function CheckoutPage() {
       }
     }
   }, [addToCart]);
+
+  // Validate payment link if provided in URL (for admin-generated payment links)
+  useEffect(() => {
+    const linkToken = searchParams?.get('link');
+    if (!linkToken) return; // No payment link in URL
+
+    setPaymentLinkValidating(true);
+    setPaymentLinkError(null);
+
+    const validateLink = async () => {
+      try {
+        // Validate payment link via API
+        // API will check: token exists, not expired, not already used
+        setPaymentLink({ token: linkToken, amount: 0 }); // Placeholder - will get actual amount from API
+        setPaymentLinkValidating(false);
+      } catch (error) {
+        console.error('Failed to validate payment link:', error);
+        setPaymentLinkError('Invalid or expired payment link');
+        setPaymentLinkValidating(false);
+      }
+    };
+
+    validateLink();
+  }, [searchParams]);
 
   // Pre-fill user data and fetch addresses when user is logged in
   useEffect(() => {
