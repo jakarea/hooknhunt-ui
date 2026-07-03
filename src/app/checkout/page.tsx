@@ -1313,7 +1313,7 @@ export default function CheckoutPage() {
       />
       <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-500">
+      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-400">
         <div className="container py-4">
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
@@ -1342,7 +1342,7 @@ export default function CheckoutPage() {
           {/* Left Column - Customer Info & Payment */}
           <div className="lg:col-span-2 space-y-6">
             {/* Customer Information */}
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 p-6 rounded-lg">
+            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 p-6 rounded-lg">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                   {t('checkout.customerInfo')}
@@ -1366,7 +1366,7 @@ export default function CheckoutPage() {
                         ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
                         : phoneError
                         ? 'border-red-500 bg-red-50 dark:bg-red-900/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.phoneNumberPlaceholder')}
                   />
@@ -1391,7 +1391,7 @@ export default function CheckoutPage() {
                     className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
                       isAuthenticated
                         ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
-                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.enterYourFullName')}
                   />
@@ -1413,7 +1413,7 @@ export default function CheckoutPage() {
                     className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
                       (isAuthenticated && !!user?.email)
                         ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
-                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.emailPlaceholder')}
                   />
@@ -1449,7 +1449,7 @@ export default function CheckoutPage() {
                         className={`flex items-start gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${
                           selectedAddress === address.id
                             ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/10'
-                            : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                            : 'border-gray-300 dark:border-gray-400 hover:border-gray-400 dark:hover:border-gray-500'
                         }`}
                       >
                         <input
@@ -1517,7 +1517,7 @@ export default function CheckoutPage() {
                           }
                         }
                       }}
-                      className="w-4 h-4 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137]"
+                      className="w-4 h-4 text-[#ec3137] border-2 border-gray-300 dark:border-gray-400 rounded focus:ring-2 focus:ring-[#ec3137]"
                     />
                     <span className="text-sm text-gray-700 dark:text-gray-100 group-hover:text-gray-900 dark:group-hover:text-white">
                       {t('checkout.useDifferentAddress')}
@@ -1544,7 +1544,7 @@ export default function CheckoutPage() {
                           thana: '',
                         }));
                       }}
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
                       required
                     >
                       <option value="">{t('checkout.selectDivision')}</option>
@@ -1569,7 +1569,7 @@ export default function CheckoutPage() {
                         }));
                       }}
                       disabled={!formData.division}
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
                       required
                     >
                       <option value="">{formData.division ? t('checkout.selectDistrict') : t('checkout.selectDivisionFirst')}</option>
@@ -1589,7 +1589,7 @@ export default function CheckoutPage() {
                       value={formData.thana}
                       onChange={handleInputChange}
                       disabled={!formData.district}
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
                       required
                     >
                       <option value="">{formData.district ? t('checkout.selectThana') : t('checkout.selectDistrictFirst')}</option>
@@ -1612,7 +1612,7 @@ export default function CheckoutPage() {
                     value={formData.address}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
                     placeholder={t('checkout.addressPlaceholder')}
                   />
                 </div>
@@ -1631,7 +1631,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 p-6 rounded-lg">
+            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 p-6 rounded-lg">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 {t('checkout.paymentMethod')}
               </h2>
@@ -1692,7 +1692,7 @@ export default function CheckoutPage() {
                     className={`flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${
                       paymentMethod === activeGateway
                         ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/10'
-                        : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                        : 'border-gray-300 dark:border-gray-400 hover:border-gray-400 dark:hover:border-gray-500'
                     }`}
                   >
                     <input
@@ -1737,7 +1737,7 @@ export default function CheckoutPage() {
                   className={`flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${
                     paymentMethod === 'cod'
                       ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/10'
-                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                      : 'border-gray-300 dark:border-gray-400 hover:border-gray-400 dark:hover:border-gray-500'
                   }`}
                 >
                   <input
@@ -1766,7 +1766,7 @@ export default function CheckoutPage() {
 
           {/* Right Column - Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 rounded-lg overflow-hidden lg:sticky lg:top-24">
+            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 rounded-lg overflow-hidden lg:sticky lg:top-24">
               {/* Header */}
               <div className="bg-gradient-to-r from-[#ec3137] to-[#8a0f12] text-white p-6">
                 <h2 className="text-2xl font-bold">{t('checkout.summary')}</h2>
@@ -1777,12 +1777,12 @@ export default function CheckoutPage() {
 
               <div className="p-6">
                 {/* Cart Items with Thumbnails */}
-                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-500 max-h-[300px] overflow-y-auto">
+                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-400 max-h-[300px] overflow-y-auto">
                   <div className="space-y-4">
                     {cartItems.map((item) => (
                       <div key={`${item.product.id}-${item.variant?.id || 'default'}`} className="flex gap-3">
                         {/* Product Image */}
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-[#1a1a1a]">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-400 bg-gray-50 dark:bg-[#1a1a1a]">
                           <img
                             src={item.product.variant_image || item.product.image_url || '/placeholder-product.png'}
                             alt={getLocalizedNameForProduct(item.product)}
@@ -1811,7 +1811,7 @@ export default function CheckoutPage() {
                               <button
                                 type="button"
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-200"
+                                className="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-200"
                                 disabled={item.quantity <= 1}
                               >
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1824,7 +1824,7 @@ export default function CheckoutPage() {
                               <button
                                 type="button"
                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-200"
+                                className="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-200"
                               >
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -1878,7 +1878,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Coupon Code */}
-                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-500">
+                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-400">
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
@@ -1932,7 +1932,7 @@ export default function CheckoutPage() {
                           className={`flex-1 px-4 py-2.5 border-2 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none transition-colors ${
                             couponStore.validationErrors.code || couponStore.validationErrors.general
                               ? 'border-red-500 dark:border-red-500 focus:ring-2 focus:ring-red-500 focus:border-red-500'
-                              : 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                              : 'border-gray-300 dark:border-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                           }`}
                         />
                         <button
@@ -1975,7 +1975,7 @@ export default function CheckoutPage() {
 
                   {/* Auto-apply coupon suggestions */}
                   {!appliedCoupon && couponStore.autoApplyCoupons.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-500">
+                    <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-400">
                       <p className="text-xs font-medium text-gray-500 dark:text-gray-200 mb-2">
                         {t('checkout.availableOffers')}
                       </p>
@@ -2037,7 +2037,7 @@ export default function CheckoutPage() {
                 )}
 
                 {/* Summary Items */}
-                <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-500">
+                <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-400">
                   <div className="flex justify-between text-gray-700 dark:text-gray-100">
                     <span>{t('common.subtotal')}</span>
                     <span className="font-bold text-gray-900 dark:text-white">
@@ -2114,7 +2114,7 @@ export default function CheckoutPage() {
                     type="checkbox"
                     checked={agreeToTerms}
                     onChange={(e) => setAgreeToTerms(e.target.checked)}
-                    className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 mt-0.5"
+                    className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 dark:border-gray-400 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 mt-0.5"
                   />
                   <span className="text-sm text-gray-700 dark:text-gray-100 group-hover:text-gray-900 dark:group-hover:text-white">
                     {t('checkout.agreeToTerms')}{' '}
@@ -2157,7 +2157,7 @@ export default function CheckoutPage() {
                 </button>
 
                 {/* Trust Badges */}
-                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-500 space-y-3">
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-400 space-y-3">
                   <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-200">
                     <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
                       <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
@@ -2246,7 +2246,7 @@ export default function CheckoutPage() {
                   setOtpCode(value);
                   setOtpError('');
                 }}
-                className="w-full px-4 py-4 text-2xl text-center tracking-widest border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors font-mono"
+                className="w-full px-4 py-4 text-2xl text-center tracking-widest border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors font-mono"
                 placeholder={t('checkout.otpPlaceholder')}
               />
             </div>

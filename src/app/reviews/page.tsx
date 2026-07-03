@@ -62,7 +62,7 @@ export default function ReviewsPage() {
   return (
     <div className="bg-gray-50 dark:bg-[#0f0f0f] min-h-screen">
       {/* Header */}
-      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-500">
+      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-400">
         <div className="container py-8 sm:py-12">
           <h1 className="text-heading-2xl sm:text-heading-3xl font-bold text-gray-900 dark:text-white mb-2">
             গ্রাহক রিভিউ

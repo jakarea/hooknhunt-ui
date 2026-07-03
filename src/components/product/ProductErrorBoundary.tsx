@@ -74,7 +74,7 @@ export default class ProductErrorBoundary extends Component<Props, State> {
               </button>
               <a
                 href="/products"
-                className="px-6 py-2.5 min-h-[44px] bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold text-sm rounded-xl transition-all transform hover:scale-[1.02] inline-flex items-center justify-center"
+                className="px-6 py-2.5 min-h-[44px] bg-gray-200 dark:bg-[#1a1a1a] hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold text-sm rounded-xl transition-all transform hover:scale-[1.02] inline-flex items-center justify-center"
               >
                 Browse Products
               </a>

@@ -48,9 +48,9 @@ export default function HotDealsPage() {
           {loading
             ? Array.from({ length: 12 }).map((_, i) => (
                 <div key={i} className="animate-pulse">
-                  <div className="aspect-square bg-gray-200 dark:bg-gray-700 rounded" />
-                  <div className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
-                  <div className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                  <div className="aspect-square bg-gray-200 dark:bg-[#1a1a1a] rounded" />
+                  <div className="mt-2 h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-3/4" />
+                  <div className="mt-1 h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-1/2" />
                 </div>
               ))
             : products.map((product, index) => (
@@ -83,7 +83,7 @@ export default function HotDealsPage() {
             <input
               type="email"
               placeholder={t('newsletter.emailPlaceholder')}
-              className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 text-sm border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+              className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 text-sm border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
             />
             <button className="px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-[#bc1215] text-white font-semibold rounded-lg hover:bg-[#8a0e10] focus:outline-none focus:ring-2 focus:ring-[#bc1215]/50 focus:ring-offset-2 transition-all min-h-[42px] sm:min-h-0">
               {t('newsletter.submitButton')}

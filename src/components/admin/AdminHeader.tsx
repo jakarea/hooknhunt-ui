@@ -7,7 +7,7 @@ export default function AdminHeader() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
-    <header className="bg-white dark:bg-[#1a1a1a] shadow-sm border-b border-gray-200 dark:border-gray-500 fixed top-0 left-0 right-0 z-40 lg:left-64">
+    <header className="bg-white dark:bg-[#1a1a1a] shadow-sm border-b border-gray-200 dark:border-gray-400 fixed top-0 left-0 right-0 z-40 lg:left-64">
       <div className="px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Left side - Mobile menu button and breadcrumb */}
@@ -38,7 +38,7 @@ export default function AdminHeader() {
               <input
                 type="text"
                 placeholder="Search..."
-                className="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-transparent"
+                className="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-transparent"
               />
               <svg className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -60,7 +60,7 @@ export default function AdminHeader() {
               <button className="px-3 py-1.5 text-sm bg-[#ec3137] hover:bg-[#8a0f12] text-white rounded-lg transition-colors">
                 New Order
               </button>
-              <button className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-100 rounded-lg transition-colors">
+              <button className="px-3 py-1.5 text-sm bg-gray-100 dark:bg-[#1a1a1a] hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-100 rounded-lg transition-colors">
                 Add Product
               </button>
             </div>
@@ -85,18 +85,18 @@ export default function AdminHeader() {
 
               {/* Profile Dropdown Menu */}
               {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-500 py-1 z-50">
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-400 py-1 z-50">
                   <Link href="/admin/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">
                     Profile Settings
                   </Link>
                   <Link href="/admin/settings" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">
                     System Settings
                   </Link>
-                  <hr className="my-1 border-gray-200 dark:border-gray-500" />
+                  <hr className="my-1 border-gray-200 dark:border-gray-400" />
                   <Link href="/admin/logs" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">
                     Activity Logs
                   </Link>
-                  <hr className="my-1 border-gray-200 dark:border-gray-500" />
+                  <hr className="my-1 border-gray-200 dark:border-gray-400" />
                   <Link href="/" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700">
                     View Store
                   </Link>

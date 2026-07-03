@@ -49,7 +49,7 @@ export default function TrackOrderPage() {
                   value={trackingId}
                   onChange={(e) => setTrackingId(e.target.value)}
                   placeholder="আপনার স্টেডফাস্ট ট্র্যাকিং আইডি লিখুন"
-                  className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                   required
                 />
                 <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-200 leading-relaxed">

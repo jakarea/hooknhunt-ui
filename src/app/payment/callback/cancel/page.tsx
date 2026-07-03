@@ -89,13 +89,13 @@ function PaymentCancelContent() {
               </button>
               <button
                 onClick={() => router.push('/account/orders')}
-                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-colors"
+                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-400 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-colors"
               >
                 My Orders
               </button>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-500">
+            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-400">
               <button
                 onClick={() => router.push('/')}
                 className="text-sm text-[#ec3137] hover:text-[#8a0f12] dark:hover:text-red-400 font-medium"

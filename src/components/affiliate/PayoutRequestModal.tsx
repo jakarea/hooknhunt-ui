@@ -153,8 +153,8 @@ export default function PayoutRequestModal({
                   min="100"
                   max={availableBalance}
                   step="0.01"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white ${
-                    errors.amount ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white ${
+                    errors.amount ? 'border-red-500' : 'border-gray-300 dark:border-gray-400'
                   }`}
                   placeholder="পরিমাণ লিখুন"
                 />
@@ -172,7 +172,7 @@ export default function PayoutRequestModal({
                   name="payment_method"
                   value={formData.payment_method}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 >
                   <option value="bank_transfer">ব্যাংক ট্রান্সফার</option>
                   <option value="bkash">বিকাশ</option>
@@ -196,8 +196,8 @@ export default function PayoutRequestModal({
                   value={formData.payment_details}
                   onChange={handleInputChange}
                   rows={3}
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white ${
-                    errors.payment_details ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white ${
+                    errors.payment_details ? 'border-red-500' : 'border-gray-300 dark:border-gray-400'
                   }`}
                   placeholder={
                     formData.payment_method === 'bank_transfer'
@@ -239,7 +239,7 @@ export default function PayoutRequestModal({
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-700 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ec3137] sm:mt-0 sm:text-sm"
+                  className="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 dark:border-gray-400 shadow-sm px-4 py-2 bg-white dark:bg-[#1a1a1a] text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ec3137] sm:mt-0 sm:text-sm"
                 >
                   বাতিল
                 </button>

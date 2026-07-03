@@ -97,7 +97,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1">{t('contactInfo.phone.label')}</h3>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200">{t('contactInfo.phone.number')}</p>
-                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">{t('contactInfo.phone.hours')}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-300">{t('contactInfo.phone.hours')}</p>
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1">{t('contactInfo.email.label')}</h3>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200">{t('contactInfo.email.address')}</p>
-                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">{t('contactInfo.email.responseTime')}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-300">{t('contactInfo.email.responseTime')}</p>
                 </div>
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1">{t('contactInfo.location.label')}</h3>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200">{t('contactInfo.location.address')}</p>
-                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">{t('contactInfo.location.note')}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-300">{t('contactInfo.location.note')}</p>
                 </div>
               </div>
             </div>
@@ -161,7 +161,7 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t('form.fullName.placeholder')}
-                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                       required
                       disabled={isSubmitting}
                     />
@@ -177,7 +177,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder={t('form.phone.placeholder')}
-                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                       required
                       disabled={isSubmitting}
                     />
@@ -194,7 +194,7 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder={t('form.email.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                     disabled={isSubmitting}
                   />
                 </div>
@@ -209,7 +209,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder={t('form.subject.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                     required
                     disabled={isSubmitting}
                   />
@@ -225,7 +225,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     rows={5}
                     placeholder={t('form.message.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 resize-none"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 resize-none"
                     required
                     disabled={isSubmitting}
                   />

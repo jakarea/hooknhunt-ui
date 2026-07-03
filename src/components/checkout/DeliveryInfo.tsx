@@ -37,7 +37,7 @@ export default function DeliveryInfo({ orderAmount, freeShippingFromCoupon = fal
         <span className="text-body-sm text-gray-700 dark:text-gray-100">{t('checkout.deliveryCharge')}</span>
         <div className="flex items-center gap-2">
           <div className="animate-spin h-4 w-4 border-2 border-[#ec3137] border-t-transparent rounded-full" />
-          <span className="text-body-sm text-gray-400 dark:text-gray-500">Calculating...</span>
+          <span className="text-body-sm text-gray-400 dark:text-gray-300">Calculating...</span>
         </div>
       </div>
     );
@@ -61,7 +61,7 @@ export default function DeliveryInfo({ orderAmount, freeShippingFromCoupon = fal
     return (
       <div className="flex items-center justify-between py-2">
         <span className="text-body-sm text-gray-700 dark:text-gray-100">{t('checkout.deliveryCharge')}</span>
-        <span className="text-body-sm text-gray-400 dark:text-gray-500">Select delivery location</span>
+        <span className="text-body-sm text-gray-400 dark:text-gray-300">Select delivery location</span>
       </div>
     );
   }

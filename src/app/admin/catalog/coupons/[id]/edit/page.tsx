@@ -240,7 +240,7 @@ export default function EditCouponPage() {
                   onChange={handleChange}
                   required
                   placeholder="e.g., SUMMER20"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white uppercase"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white uppercase"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Unique code for the coupon (will be converted to uppercase)</p>
               </div>
@@ -254,7 +254,7 @@ export default function EditCouponPage() {
                   value={formData.type}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 >
                   <option value="percentage">Percentage Discount</option>
                   <option value="fixed_amount">Fixed Amount Discount</option>
@@ -275,7 +275,7 @@ export default function EditCouponPage() {
                   min="0"
                   step="0.01"
                   placeholder={formData.type === 'percentage' ? 'e.g., 20' : 'e.g., 100'}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">
                   {formData.type === 'percentage' ? 'Percentage value (e.g., 20 for 20% off)' : 'Fixed amount in BDT'}
@@ -292,7 +292,7 @@ export default function EditCouponPage() {
                   onChange={handleChange}
                   rows={3}
                   placeholder="Brief description of this coupon..."
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
               </div>
             </div>
@@ -300,7 +300,7 @@ export default function EditCouponPage() {
 
           {/* Usage Statistics */}
           {discount && (
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+            <div className="bg-gray-50 dark:bg-[#1a1a1a] rounded-lg p-4">
               <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-100 mb-3">Usage Statistics</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
@@ -330,7 +330,7 @@ export default function EditCouponPage() {
           )}
 
           {/* Limits & Restrictions */}
-          <div className="border-t border-gray-200 dark:border-gray-500 pt-6">
+          <div className="border-t border-gray-200 dark:border-gray-400 pt-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Limits & Restrictions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -345,7 +345,7 @@ export default function EditCouponPage() {
                   min="0"
                   step="0.01"
                   placeholder="0"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Minimum order value to use this coupon (leave 0 for no minimum)</p>
               </div>
@@ -362,7 +362,7 @@ export default function EditCouponPage() {
                   min="0"
                   step="0.01"
                   placeholder="0"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum discount cap in BDT (for percentage coupons)</p>
               </div>
@@ -378,7 +378,7 @@ export default function EditCouponPage() {
                   onChange={handleChange}
                   min="0"
                   placeholder="0"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum times this coupon can be used (leave 0 for unlimited)</p>
               </div>
@@ -394,7 +394,7 @@ export default function EditCouponPage() {
                   onChange={handleChange}
                   min="0"
                   placeholder="0"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum times each customer can use this coupon</p>
               </div>
@@ -408,7 +408,7 @@ export default function EditCouponPage() {
                   name="starts_at"
                   value={formData.starts_at}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
               </div>
 
@@ -421,14 +421,14 @@ export default function EditCouponPage() {
                   name="expires_at"
                   value={formData.expires_at}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
               </div>
             </div>
           </div>
 
           {/* Targeting */}
-          <div className="border-t border-gray-200 dark:border-gray-500 pt-6">
+          <div className="border-t border-gray-200 dark:border-gray-400 pt-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Targeting (Optional)</h2>
             <div className="grid grid-cols-1 gap-6">
               <div>
@@ -441,7 +441,7 @@ export default function EditCouponPage() {
                   value={formData.product_ids}
                   onChange={handleChange}
                   placeholder="e.g., 1,2,3"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific products</p>
               </div>
@@ -456,7 +456,7 @@ export default function EditCouponPage() {
                   value={formData.category_ids}
                   onChange={handleChange}
                   placeholder="e.g., 1,2,3"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific categories</p>
               </div>
@@ -471,7 +471,7 @@ export default function EditCouponPage() {
                   value={formData.customer_ids}
                   onChange={handleChange}
                   placeholder="e.g., 1,2,3"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific customers</p>
               </div>
@@ -479,7 +479,7 @@ export default function EditCouponPage() {
           </div>
 
           {/* Settings */}
-          <div className="border-t border-gray-200 dark:border-gray-500 pt-6">
+          <div className="border-t border-gray-200 dark:border-gray-400 pt-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Settings</h2>
             <div className="space-y-4">
               <div className="flex items-center">
@@ -527,7 +527,7 @@ export default function EditCouponPage() {
           </div>
 
           {/* Actions */}
-          <div className="border-t border-gray-200 dark:border-gray-500 pt-6 flex justify-between">
+          <div className="border-t border-gray-200 dark:border-gray-400 pt-6 flex justify-between">
             <button
               type="button"
               onClick={() => {
@@ -555,7 +555,7 @@ export default function EditCouponPage() {
             <div className="flex gap-4">
               <Link
                 href="/admin/catalog/coupons"
-                className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-100 transition-colors"
+                className="px-6 py-3 border border-gray-300 dark:border-gray-400 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-100 transition-colors"
               >
                 Cancel
               </Link>

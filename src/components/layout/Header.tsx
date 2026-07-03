@@ -92,7 +92,7 @@ export default function Header() {
                   className="w-full h-9 sm:h-10 pl-10 pr-12 text-sm border-2 border-gray-200 dark:border-gray-400 rounded-full focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 cursor-pointer"
                 />
                 <div className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-gray-400 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
@@ -217,7 +217,7 @@ export default function Header() {
                         href={`/products?category=${category.slug}`}
                         className="flex items-center gap-3 px-4 py-2 text-sm md:text-base text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] hover:text-[#bc1215] transition-colors"
                       >
-                        <span className="relative w-6 h-6 flex-shrink-0 rounded overflow-hidden bg-gray-100 dark:bg-gray-700">
+                        <span className="relative w-6 h-6 flex-shrink-0 rounded overflow-hidden bg-gray-100 dark:bg-[#1a1a1a]">
                           {imageUrl && (
                             <Image
                               src={imageUrl}
@@ -381,7 +381,7 @@ export default function Header() {
                           className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-white dark:hover:bg-[#1a1a1a] hover:text-[#bc1215] transition-colors rounded-md"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          <span className="relative w-6 h-6 flex-shrink-0 rounded overflow-hidden bg-gray-200 dark:bg-gray-700">
+                          <span className="relative w-6 h-6 flex-shrink-0 rounded overflow-hidden bg-gray-200 dark:bg-[#1a1a1a]">
                             {imageUrl && (
                               <Image
                                 src={imageUrl}
@@ -401,7 +401,7 @@ export default function Header() {
               </div>
 
               {/* Track Order & Contact - After Categories */}
-              <div className="pt-2 border-t border-gray-100 dark:border-gray-500 mt-2">
+              <div className="pt-2 border-t border-gray-100 dark:border-gray-400 mt-2">
                 {navItemsAfterCategory.map((item) => (
                   <Link
                     key={item.href}
@@ -416,7 +416,7 @@ export default function Header() {
             </nav>
 
             {/* Contact Info - Bottom */}
-            <div className="py-4 mt-auto border-t border-gray-100 dark:border-gray-500">
+            <div className="py-4 mt-auto border-t border-gray-100 dark:border-gray-400">
               <a
                 href="tel:8801975244202"
                 className="flex items-center justify-center gap-2 px-4 py-3 bg-[#ec3137] hover:bg-[#c5282d] text-white rounded-lg transition-colors font-medium mb-2"

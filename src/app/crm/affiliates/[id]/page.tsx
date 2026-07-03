@@ -110,7 +110,7 @@ export default function AdminAffiliateDetail() {
               <select
                 value={selectedPeriod}
                 onChange={(e) => setSelectedPeriod(e.target.value as any)}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white"
+                className="px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
               >
                 <option value="7days">Last 7 Days</option>
                 <option value="30days">Last 30 Days</option>
@@ -124,7 +124,7 @@ export default function AdminAffiliateDetail() {
             <div className="space-y-8">
               {/* Period Stats Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">Earnings</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     ৳{(periodStats?.earnings ?? 0).toFixed(2)}
@@ -137,7 +137,7 @@ export default function AdminAffiliateDetail() {
                   </p>
                 </div>
 
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">Clicks</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {periodStats?.clicks ?? 0}
@@ -147,7 +147,7 @@ export default function AdminAffiliateDetail() {
                   </p>
                 </div>
 
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">Conversions</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {periodStats?.conversions ?? 0}
@@ -157,7 +157,7 @@ export default function AdminAffiliateDetail() {
                   </p>
                 </div>
 
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">Conversion Rate</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {(periodStats?.conversionRate ?? 0).toFixed(1)}%
@@ -170,28 +170,28 @@ export default function AdminAffiliateDetail() {
 
               {/* All-Time Stats */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">Total Earned (All-Time)</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     ৳{affiliate.totalEarned.toFixed(2)}
                   </p>
                 </div>
 
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">Total Clicks</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {affiliate.totalClicks}
                   </p>
                 </div>
 
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">Total Conversions</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {affiliate.totalConversions}
                   </p>
                 </div>
 
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">Available Balance</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     ৳{affiliate.availableBalance.toFixed(2)}
@@ -200,7 +200,7 @@ export default function AdminAffiliateDetail() {
               </div>
 
               {/* Account Information */}
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
                   Account Information
                 </h2>
@@ -260,7 +260,7 @@ export default function AdminAffiliateDetail() {
 
               {/* Commission Rates */}
               {(affiliate.productCommissions?.length > 0 || affiliate.categoryCommissions?.length > 0) && (
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
                     Commission Configuration
                   </h2>

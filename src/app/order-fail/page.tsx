@@ -83,7 +83,7 @@ function OrderFailContent() {
         </div>
 
         {/* What To Do */}
-        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 rounded-xl p-8 shadow-lg">
+        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 rounded-xl p-8 shadow-lg">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">What You Can Do</h2>
 
           <div className="space-y-4 mb-8">
@@ -139,7 +139,7 @@ function OrderFailContent() {
 
             <Link
               href="/products"
-              className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold rounded-xl transition-all duration-300 text-center"
+              className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-gray-400 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold rounded-xl transition-all duration-300 text-center"
             >
               Continue Shopping
             </Link>
@@ -157,7 +157,7 @@ function OrderFailContent() {
         <div className="text-center mt-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-bold rounded-xl transition-all duration-300 text-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-[#1a1a1a] hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-bold rounded-xl transition-all duration-300 text-sm"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7m7 7v14m0 0l-7-7m7 7v10a2 2 0 002-2h3a2 2 0 002-2v-4a2 2 0 00-2-2h-3m0 0h3a2 2 0 002 2v3a2 2 0 002 2h3a2 2 0 002-2v-4a2 2 0 00-2-2h-3m-6 0h6" />

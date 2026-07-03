@@ -139,7 +139,7 @@ export default function GlobalSearchModal() {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Header */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-500">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-400">
           <form onSubmit={handleSearch} className="relative">
             <input
               ref={inputRef}
@@ -147,7 +147,7 @@ export default function GlobalSearchModal() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('header.search') || 'Search products...'}
-              className="w-full h-12 pl-12 pr-24 text-base border-2 border-gray-200 dark:border-gray-500 rounded-xl focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 placeholder-gray-400"
+              className="w-full h-12 pl-12 pr-24 text-base border-2 border-gray-200 dark:border-gray-400 rounded-xl focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 placeholder-gray-400"
               autoFocus
             />
             {/* Search Icon */}
@@ -198,7 +198,7 @@ export default function GlobalSearchModal() {
                   <div
                     key={suggestion.id}
                     onClick={() => handleSuggestionClick(suggestion.slug)}
-                    className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer border-b border-gray-100 dark:border-gray-500 last:border-b-0 transition-colors"
+                    className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer border-b border-gray-100 dark:border-gray-400 last:border-b-0 transition-colors"
                   >
                     {suggestion.image && (
                       <div className="relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-[#1a1a1a]">
@@ -246,7 +246,7 @@ export default function GlobalSearchModal() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <p className="text-gray-600 dark:text-gray-200">No products found</p>
-                <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">Try different keywords</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">Try different keywords</p>
               </div>
             ) : null}
           </div>

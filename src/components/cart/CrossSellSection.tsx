@@ -90,7 +90,7 @@ function CrossSellCard({ product }: { product: CrossSaleProduct }) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-500 hover:border-gray-200 dark:hover:border-gray-700 rounded-none overflow-hidden transition-all duration-200 hover:shadow-md flex flex-col"
+      className="group bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-400 hover:border-gray-200 dark:hover:border-gray-700 rounded-none overflow-hidden transition-all duration-200 hover:shadow-md flex flex-col"
     >
       <div className="relative aspect-[4/3] bg-gray-50 dark:bg-[#1a1a1a] overflow-hidden">
         {imageUrl ? (

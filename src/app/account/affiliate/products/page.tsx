@@ -125,7 +125,7 @@ export default function AffiliateProductsPage() {
   if (products.length === 0) {
     return (
       <div className="flex-1">
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-8">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-8">
           <div className="text-center">
             <svg
             className="w-16 h-16 text-gray-400 mx-auto mb-4"
@@ -199,7 +199,7 @@ export default function AffiliateProductsPage() {
         </div>
 
             {/* Filters */}
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-4">
+            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
             <div className="flex flex-col md:flex-row gap-4">
             {/* Search */}
             <div className="flex-1">
@@ -208,7 +208,7 @@ export default function AffiliateProductsPage() {
             placeholder="পণ্য খুঁজুন..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
             />
             </div>
 
@@ -218,7 +218,7 @@ export default function AffiliateProductsPage() {
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             disabled={loadingCategories}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white disabled:opacity-50"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white disabled:opacity-50"
             >
             <option value="all">সব ক্যাটাগরি</option>
             {!loadingCategories && categories.map(category => (
@@ -237,7 +237,7 @@ export default function AffiliateProductsPage() {
             <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
             >
             <option value="default">ডিফল্ট</option>
             <option value="price-low">মূল্য: কম থেকে বেশি</option>
@@ -260,9 +260,9 @@ export default function AffiliateProductsPage() {
             {/* Products Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
-            <div key={product.id} className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 overflow-hidden hover:shadow-md transition-shadow">
+            <div key={product.id} className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 overflow-hidden hover:shadow-md transition-shadow">
             {/* Product Image */}
-            <div className="relative h-48 bg-gray-200 dark:bg-gray-700">
+            <div className="relative h-48 bg-gray-200 dark:bg-[#1a1a1a]">
             {product.image ? (
             <img
             src={product.image}
@@ -272,7 +272,7 @@ export default function AffiliateProductsPage() {
             ) : (
             <div className="w-full h-full flex items-center justify-center">
             <svg
-            className="w-16 h-16 text-gray-400 dark:text-gray-600"
+            className="w-16 h-16 text-gray-400 dark:text-gray-200"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -348,7 +348,7 @@ export default function AffiliateProductsPage() {
 
             {/* Empty State for Filtered Results */}
             {filteredProducts.length === 0 && products.length > 0 && (
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-8">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-8">
             <div className="text-center">
             <svg
             className="w-16 h-16 text-gray-400 mx-auto mb-4"

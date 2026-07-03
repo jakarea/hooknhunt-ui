@@ -611,7 +611,7 @@ function ProductDetailPageContent() {
   return (
     <div className="min-h-screen bg-[#fee1e1] overflow-x-hidden">
       {/* Breadcrumb */}
-      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-500/50 overflow-x-hidden">
+      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-400/50 overflow-x-hidden">
         <div className="container px-3 md:px-4 py-3">
           <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#bc1215] transition-colors">Home</Link>
@@ -765,7 +765,7 @@ function ProductDetailPageContent() {
                           relative group flex items-center gap-2 px-1.5 py-1.5 sm:px-2 sm:py-2 rounded-xl border-2 transition-all duration-200 text-left
                           ${isSelected
                             ? 'border-[#bc1215] bg-gradient-to-r from-[#bc1215] to-[#8a0e10] text-white shadow-md'
-                            : 'border-gray-200 dark:border-gray-500 hover:border-[#bc1215]/30 text-gray-700 dark:text-gray-100'
+                            : 'border-gray-200 dark:border-gray-400 hover:border-[#bc1215]/30 text-gray-700 dark:text-gray-100'
                           }
                           ${isOutOfStock ? 'opacity-50 cursor-not-allowed grayscale' : 'cursor-pointer'}
                         `}
@@ -939,7 +939,7 @@ function ProductDetailPageContent() {
         <div className="mt-12 overflow-x-hidden">
           <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm">
             {/* Tab Headers */}
-            <div className="flex border-b border-gray-200/50 dark:border-gray-500/50">
+            <div className="flex border-b border-gray-200/50 dark:border-gray-400/50">
               <button
                 onClick={() => setActiveTab('description')}
                 className={`flex-1 px-6 py-4 font-semibold transition-colors ${
@@ -1017,7 +1017,7 @@ function ProductDetailPageContent() {
                     {/* Filter skeleton */}
                     <div className="flex gap-2 flex-wrap">
                       {[...Array(5)].map((_, i) => (
-                        <div key={i} className="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse"></div>
+                        <div key={i} className="h-8 w-20 bg-gray-200 dark:bg-[#1a1a1a] rounded-full animate-pulse"></div>
                       ))}
                     </div>
 
@@ -1027,25 +1027,25 @@ function ProductDetailPageContent() {
                         <div key={i} className="bg-white dark:bg-[#0a0a0a] p-6 rounded-xl shadow-sm animate-pulse">
                           {/* Avatar + Name */}
                           <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                            <div className="w-10 h-10 bg-gray-200 dark:bg-[#1a1a1a] rounded-full"></div>
                             <div className="flex-1">
-                              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
-                              <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                              <div className="h-3 bg-gray-200 dark:bg-[#1a1a1a] rounded w-3/4 mb-2"></div>
+                              <div className="h-2 bg-gray-200 dark:bg-[#1a1a1a] rounded w-1/2"></div>
                             </div>
                           </div>
 
                           {/* Rating stars skeleton */}
                           <div className="flex gap-1 mb-3">
                             {[...Array(5)].map((_, j) => (
-                              <div key={j} className="w-4 h-4 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                              <div key={j} className="w-4 h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded-full"></div>
                             ))}
                           </div>
 
                           {/* Review text skeleton */}
                           <div className="space-y-2">
-                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-4/6"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-[#1a1a1a] rounded w-full"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-[#1a1a1a] rounded w-5/6"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-[#1a1a1a] rounded w-4/6"></div>
                           </div>
                         </div>
                       ))}

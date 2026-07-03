@@ -90,7 +90,7 @@ export default function MobileBottomNav() {
   return (
     <>
       {/* Mobile Bottom Navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-gray-500 z-50 pb-safe overflow-x-hidden">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-gray-400 z-50 pb-safe overflow-x-hidden">
         <div className="flex items-center justify-around py-2 w-full max-w-full">
           {navItems.map((item) => {
             const isExternal = (item as any).external;

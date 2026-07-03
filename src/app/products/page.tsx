@@ -432,8 +432,8 @@ function ProductsPageContent() {
                 )}
 
                 {/* Categories Filter - Premium Card */}
-                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-500/50 overflow-hidden">
+                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-400/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-400/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
                     <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -451,7 +451,7 @@ function ProductsPageContent() {
                         }`}
                     >
                       <span className="flex items-center gap-3">
-                        <div className={`w-5 h-5 rounded-md flex items-center justify-center ${selectedCategories.includes('all') ? 'bg-white/20' : 'bg-gray-200 dark:bg-gray-700'}`}>
+                        <div className={`w-5 h-5 rounded-md flex items-center justify-center ${selectedCategories.includes('all') ? 'bg-white/20' : 'bg-gray-200 dark:bg-[#1a1a1a]'}`}>
                           {selectedCategories.includes('all') && (
                             <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -481,7 +481,7 @@ function ProductsPageContent() {
                             }`}
                         >
                           <span className="flex items-center gap-3">
-                            <div className={`w-5 h-5 rounded-md flex items-center justify-center ${isSelected ? 'bg-white/20' : 'bg-gray-200 dark:bg-gray-700'}`}>
+                            <div className={`w-5 h-5 rounded-md flex items-center justify-center ${isSelected ? 'bg-white/20' : 'bg-gray-200 dark:bg-[#1a1a1a]'}`}>
                               {isSelected && (
                                 <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -497,8 +497,8 @@ function ProductsPageContent() {
                 </div>
 
                 {/* Price Range - Modern Checkboxes */}
-                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-500/50 overflow-hidden">
+                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-400/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-400/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
                     <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -520,7 +520,7 @@ function ProductsPageContent() {
                           <div className={`w-5 h-5 rounded-md border-2 transition-all duration-200 flex items-center justify-center ${
                             priceRange.includes(option.value)
                               ? 'bg-gradient-to-r from-[#bc1215] to-[#8a0e10] border-transparent'
-                              : 'border-gray-300 dark:border-gray-600 group-hover:border-[#bc1215]/50'
+                              : 'border-gray-300 dark:border-gray-400 group-hover:border-[#bc1215]/50'
                           }`}>
                             {priceRange.includes(option.value) && (
                               <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -538,8 +538,8 @@ function ProductsPageContent() {
                 </div>
 
                 {/* Rating Filter - Star Based */}
-                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-500/50 overflow-hidden">
+                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-400/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-400/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
                     <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
@@ -562,7 +562,7 @@ function ProductsPageContent() {
                           {[...Array(5)].map((_, i) => (
                             <svg
                               key={i}
-                              className={`w-4.5 h-4.5 transition-all ${i < rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'
+                              className={`w-4.5 h-4.5 transition-all ${i < rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-200'
                                 }`}
                               fill="currentColor"
                               viewBox="0 0 20 20"
@@ -610,7 +610,7 @@ function ProductsPageContent() {
           {/* Products Grid */}
           <div className="flex-1 relative z-10">
             {/* Sort Bar - Modern */}
-            <div className="relative bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl p-3 md:p-4 mb-3 md:mb-4 border border-gray-200/50 dark:border-gray-500/50 shadow-sm z-10">
+            <div className="relative bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl p-3 md:p-4 mb-3 md:mb-4 border border-gray-200/50 dark:border-gray-400/50 shadow-sm z-10">
               <div className="flex flex-col sm:flex-row justify-end items-start sm:items-center gap-2 sm:gap-4">
                 {/* Sort By - Moved to right */}
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
@@ -626,7 +626,7 @@ function ProductsPageContent() {
                     {/* Dropdown Button */}
                     <button
                       onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
-                      className="flex items-center justify-between gap-2 px-3 py-2 h-9 sm:h-auto sm:px-4 sm:py-2.5 sm:min-h-[44px] border-2 border-gray-200 dark:border-gray-500 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#bc1215]/20 focus:border-[#bc1215] outline-none rounded-xl font-medium shadow-sm hover:shadow-md hover:border-[#bc1215]/30 transition-all cursor-pointer text-xs sm:text-sm w-full sm:w-auto sm:min-w-[180px] relative z-50"
+                      className="flex items-center justify-between gap-2 px-3 py-2 h-9 sm:h-auto sm:px-4 sm:py-2.5 sm:min-h-[44px] border-2 border-gray-200 dark:border-gray-400 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#bc1215]/20 focus:border-[#bc1215] outline-none rounded-xl font-medium shadow-sm hover:shadow-md hover:border-[#bc1215]/30 transition-all cursor-pointer text-xs sm:text-sm w-full sm:w-auto sm:min-w-[180px] relative z-50"
                     >
                       <span suppressHydrationWarning>{t(`sortOptions.${sortBy === 'best-selling' ? 'bestSelling' : sortBy === 'price-low' ? 'priceLow' : sortBy === 'price-high' ? 'priceHigh' : sortBy}`)}</span>
                       <svg
@@ -641,7 +641,7 @@ function ProductsPageContent() {
 
                     {/* Dropdown Menu */}
                     {isSortDropdownOpen && (
-                      <div className="absolute top-full right-0 mt-2 w-full bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 rounded-xl shadow-2xl overflow-hidden z-50 animate-fadeIn">
+                      <div className="absolute top-full right-0 mt-2 w-full bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 rounded-xl shadow-2xl overflow-hidden z-50 animate-fadeIn">
                         <div className="py-1">
                           {[
                             { value: 'best-selling', label: 'sortOptions.bestSelling', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' },
@@ -682,11 +682,11 @@ function ProductsPageContent() {
             {loading && !fetched ? (
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4">
                 {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-xl overflow-hidden">
-                    <div className="aspect-square bg-gray-200/70 dark:bg-gray-700/50 animate-pulse" />
+                  <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-400/50 rounded-xl overflow-hidden">
+                    <div className="aspect-square bg-gray-200/70 dark:bg-[#1a1a1a]/50 animate-pulse" />
                     <div className="p-3 space-y-2">
-                      <div className="h-4 bg-gray-200/70 dark:bg-gray-700/50 rounded animate-pulse w-3/4" />
-                      <div className="h-4 bg-gray-200/70 dark:bg-gray-700/50 rounded animate-pulse w-1/2" />
+                      <div className="h-4 bg-gray-200/70 dark:bg-[#1a1a1a]/50 rounded animate-pulse w-3/4" />
+                      <div className="h-4 bg-gray-200/70 dark:bg-[#1a1a1a]/50 rounded animate-pulse w-1/2" />
                     </div>
                   </div>
                 ))}
@@ -710,11 +710,11 @@ function ProductsPageContent() {
                   {loading && fetched ? (
                     <div className="w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
                       {Array.from({ length: 4 }).map((_, i) => (
-                        <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-xl overflow-hidden opacity-60">
-                          <div className="aspect-square bg-gray-200/70 dark:bg-gray-700/50 animate-pulse" />
+                        <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-400/50 rounded-xl overflow-hidden opacity-60">
+                          <div className="aspect-square bg-gray-200/70 dark:bg-[#1a1a1a]/50 animate-pulse" />
                           <div className="p-3 space-y-2">
-                            <div className="h-4 bg-gray-200/70 dark:bg-gray-700/50 rounded animate-pulse w-3/4" />
-                            <div className="h-4 bg-gray-200/70 dark:bg-gray-700/50 rounded animate-pulse w-1/2" />
+                            <div className="h-4 bg-gray-200/70 dark:bg-[#1a1a1a]/50 rounded animate-pulse w-3/4" />
+                            <div className="h-4 bg-gray-200/70 dark:bg-[#1a1a1a]/50 rounded animate-pulse w-1/2" />
                           </div>
                         </div>
                       ))}

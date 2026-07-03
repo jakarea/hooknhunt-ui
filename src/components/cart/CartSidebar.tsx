@@ -121,10 +121,10 @@ export default function CartSidebar() {
             cartItems.map((item, index) => (
               <div
                 key={item.id}
-                className="flex gap-2.5 bg-white dark:bg-[#111] p-2.5 border border-gray-200 dark:border-gray-500 rounded-lg shadow-sm animate-slideIn hover:shadow-md transition-shadow"
+                className="flex gap-2.5 bg-white dark:bg-[#111] p-2.5 border border-gray-200 dark:border-gray-400 rounded-lg shadow-sm animate-slideIn hover:shadow-md transition-shadow"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <Link href={`/products/${item.product.slug}`} onClick={closeCart} className="flex-shrink-0 relative w-14 h-14 rounded-md overflow-hidden bg-gray-100 dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-500">
+                <Link href={`/products/${item.product.slug}`} onClick={closeCart} className="flex-shrink-0 relative w-14 h-14 rounded-md overflow-hidden bg-gray-100 dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-400">
                   <Image
                     src={item.product.variant_image || item.product.image_url || '/placeholder-image.jpg'}
                     alt={getLocalizedNameForProduct(item.product) || 'Product'}
@@ -151,11 +151,11 @@ export default function CartSidebar() {
                   </div>
                   <div className="flex items-center justify-between mt-1.5">
                     <div className="flex items-center gap-1">
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 rounded-md hover:border-[#ec3137] hover:text-[#ec3137] transition-all text-sm" aria-label={t('cart.sidebar.decrease')}>
+                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-400 text-gray-700 dark:text-gray-100 rounded-md hover:border-[#ec3137] hover:text-[#ec3137] transition-all text-sm" aria-label={t('cart.sidebar.decrease')}>
                         <svg className="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M20 12H4" /></svg>
                       </button>
                       <span className="w-6 text-center font-bold text-gray-900 dark:text-white text-sm">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} disabled={item.quantity >= (item.product.stock || 999)} className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 rounded-md hover:border-[#ec3137] hover:text-[#ec3137] transition-all text-sm disabled:opacity-40 disabled:cursor-not-allowed" aria-label={t('cart.sidebar.increase')}>
+                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} disabled={item.quantity >= (item.product.stock || 999)} className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-400 text-gray-700 dark:text-gray-100 rounded-md hover:border-[#ec3137] hover:text-[#ec3137] transition-all text-sm disabled:opacity-40 disabled:cursor-not-allowed" aria-label={t('cart.sidebar.increase')}>
                         <svg className="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" /></svg>
                       </button>
                     </div>
@@ -172,7 +172,7 @@ export default function CartSidebar() {
 
         {/* Cross-Sell — dynamic from API */}
         {cartItems.length > 0 && crossSellProducts.length > 0 && (
-          <div className="flex-shrink-0 border-t border-gray-200 dark:border-gray-500 px-3 py-2 bg-white dark:bg-[#0a0a0a]">
+          <div className="flex-shrink-0 border-t border-gray-200 dark:border-gray-400 px-3 py-2 bg-white dark:bg-[#0a0a0a]">
             <span className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-2 block">{t('cart.sidebar.youMightAlsoLike')}</span>
             <div className="grid grid-cols-2 gap-2">
               {crossSellProducts.filter(p => !cartItems.some(item => item.product.id === p.id)).slice(0, 2).map((product) => {
@@ -184,7 +184,7 @@ export default function CartSidebar() {
                   : 0;
 
                 return (
-                  <Link key={product.id} href={`/products/${product.slug}`} onClick={closeCart} className="group border border-gray-200 dark:border-gray-500 rounded-md overflow-hidden hover:border-[#ec3137] transition-all hover:shadow-md">
+                  <Link key={product.id} href={`/products/${product.slug}`} onClick={closeCart} className="group border border-gray-200 dark:border-gray-400 rounded-md overflow-hidden hover:border-[#ec3137] transition-all hover:shadow-md">
                     <div className="relative h-20 bg-gray-50 dark:bg-[#1a1a1a]">
                       {imageUrl ? (
                         <Image src={imageUrl} alt={product.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="150px" unoptimized />
@@ -230,7 +230,7 @@ export default function CartSidebar() {
 
         {/* Footer */}
         {cartItems.length > 0 && (
-          <div className="border-t border-gray-200 dark:border-gray-500 px-3 py-3 space-y-2 bg-gray-50 dark:bg-[#0f0f0f] flex-shrink-0">
+          <div className="border-t border-gray-200 dark:border-gray-400 px-3 py-3 space-y-2 bg-gray-50 dark:bg-[#0f0f0f] flex-shrink-0">
             <div className="flex justify-between items-center">
               <span className="font-semibold text-gray-700 dark:text-gray-100 text-sm">{t('cart.sidebar.subtotal')}</span>
               <span className="font-bold text-base text-[#ec3137]">
@@ -243,7 +243,7 @@ export default function CartSidebar() {
 
             <p className="text-xs text-gray-500 dark:text-gray-200 text-center">{t('cart.sidebar.shippingNote')}</p>
             <div className="grid grid-cols-2 gap-2">
-              <button onClick={handleViewCart} className="py-2 bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 text-white text-sm font-semibold transition-colors rounded-lg flex items-center justify-center gap-1.5 shadow-sm">
+              <button onClick={handleViewCart} className="py-2 bg-gray-800 dark:bg-[#1a1a1a] hover:bg-gray-900 dark:hover:bg-gray-600 text-white text-sm font-semibold transition-colors rounded-lg flex items-center justify-center gap-1.5 shadow-sm">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

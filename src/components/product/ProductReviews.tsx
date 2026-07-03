@@ -133,7 +133,7 @@ export default function ProductReviews({ productSlug, productId }: ProductReview
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 transition-all ${
                 isSelected
                   ? 'border-[#ec3137] bg-[#ec3137] text-white'
-                  : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 hover:border-[#ec3137] dark:hover:border-[#ec3137]'
+                  : 'border-gray-300 dark:border-gray-400 text-gray-700 dark:text-gray-100 hover:border-[#ec3137] dark:hover:border-[#ec3137]'
               }`}
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">

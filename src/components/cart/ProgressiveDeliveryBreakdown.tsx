@@ -32,7 +32,7 @@ export default function ProgressiveDeliveryBreakdown({
   const min_amount = progressive_delivery.min_amount || 0;
 
   return (
-    <div className={`bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-500 rounded-lg p-4 ${className}`}>
+    <div className={`bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-400 rounded-lg p-4 ${className}`}>
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Delivery Details</h3>
         <span className="text-xs font-medium px-2.5 py-0.5 rounded bg-gray-100 dark:bg-[#1a1a1a] text-gray-800 dark:text-gray-200">
@@ -41,7 +41,7 @@ export default function ProgressiveDeliveryBreakdown({
       </div>
 
       {/* Weight Info */}
-      <div className="mb-3 pb-3 border-b border-gray-200 dark:border-gray-500">
+      <div className="mb-3 pb-3 border-b border-gray-200 dark:border-gray-400">
         <span className="text-sm text-gray-600 dark:text-gray-200">
           Total Weight: {total_weight} KG
         </span>
@@ -107,7 +107,7 @@ export default function ProgressiveDeliveryBreakdown({
           )}
 
           {/* Cost Breakdown */}
-          <div className="pt-3 border-t border-gray-200 dark:border-gray-500 space-y-2">
+          <div className="pt-3 border-t border-gray-200 dark:border-gray-400 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-gray-600 dark:text-gray-200">Base delivery charge:</span>
               <span className="font-medium text-gray-900 dark:text-white">৳{base_charge.toFixed(0)}</span>
@@ -118,7 +118,7 @@ export default function ProgressiveDeliveryBreakdown({
                 <span className="font-medium text-violet-600 dark:text-violet-400">-৳{discount_amount.toFixed(0)}</span>
               </div>
             )}
-            <div className="flex justify-between text-sm pt-2 border-t border-gray-200 dark:border-gray-500">
+            <div className="flex justify-between text-sm pt-2 border-t border-gray-200 dark:border-gray-400">
               <span className="text-gray-900 dark:text-white font-semibold">Total Delivery:</span>
               <span className={`font-bold ${is_free ? 'text-green-600 dark:text-green-400' : 'text-[#ec3137]'}`}>
                 {is_free ? 'FREE' : `৳${total_charge.toFixed(0)}`}
@@ -133,7 +133,7 @@ export default function ProgressiveDeliveryBreakdown({
             <span className="text-gray-600 dark:text-gray-200">Base delivery charge:</span>
             <span className="font-medium text-gray-900 dark:text-white">৳{base_charge.toFixed(0)}</span>
           </div>
-          <div className="flex justify-between text-sm pt-2 border-t border-gray-200 dark:border-gray-500">
+          <div className="flex justify-between text-sm pt-2 border-t border-gray-200 dark:border-gray-400">
             <span className="text-gray-900 dark:text-white font-semibold">Total Delivery:</span>
             <span className="font-bold text-[#ec3137]">৳{total_charge.toFixed(0)}</span>
           </div>

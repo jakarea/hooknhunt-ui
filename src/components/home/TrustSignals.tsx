@@ -91,7 +91,7 @@ export default function TrustSignals() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="text-center p-4 sm:p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-500 hover:shadow-lg transition-all duration-300"
+              className="text-center p-4 sm:p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-400 hover:shadow-lg transition-all duration-300"
             >
               <div className="flex justify-center mb-3 sm:mb-4">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-[#ec3137] to-[#8a0f12] rounded-2xl flex items-center justify-center text-white shadow-md">

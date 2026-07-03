@@ -119,7 +119,7 @@ function PaymentSuccessContent() {
                 </p>
               </div>
             )}
-            <p className="text-sm text-gray-500 dark:text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-300">
               Redirecting to your order details...
             </p>
           </div>
@@ -147,7 +147,7 @@ function PaymentSuccessContent() {
               </button>
               <button
                 onClick={() => router.push('/contact')}
-                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-colors"
+                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-400 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-colors"
               >
                 Contact Support
               </button>

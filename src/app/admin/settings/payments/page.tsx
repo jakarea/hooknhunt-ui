@@ -166,7 +166,7 @@ export default function PaymentSettingsPage() {
             className={`border-2 rounded-lg p-6 cursor-pointer transition-all ${
               settings?.active_gateway === 'sslcommerz'
                 ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/20'
-                : 'border-gray-200 dark:border-gray-500 hover:border-gray-300'
+                : 'border-gray-200 dark:border-gray-400 hover:border-gray-300'
             }`}
             onClick={() => settings?.active_gateway !== 'sslcommerz' && switchGateway('sslcommerz')}
           >
@@ -206,7 +206,7 @@ export default function PaymentSettingsPage() {
             className={`border-2 rounded-lg p-6 cursor-pointer transition-all ${
               settings?.active_gateway === 'eps'
                 ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/20'
-                : 'border-gray-200 dark:border-gray-500 hover:border-gray-300'
+                : 'border-gray-200 dark:border-gray-400 hover:border-gray-300'
             }`}
             onClick={() => settings?.active_gateway !== 'eps' && switchGateway('eps')}
           >
@@ -272,7 +272,7 @@ export default function PaymentSettingsPage() {
                 </div>
                 <button
                   onClick={() => testEPS('sandbox')}
-                  className="mt-3 w-full bg-gray-100 dark:bg-gray-700 py-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  className="mt-3 w-full bg-gray-100 dark:bg-[#1a1a1a] py-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   Test Sandbox Connection
                 </button>
@@ -296,7 +296,7 @@ export default function PaymentSettingsPage() {
                 </div>
                 <button
                   onClick={() => testEPS('live')}
-                  className="mt-3 w-full bg-gray-100 dark:bg-gray-700 py-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  className="mt-3 w-full bg-gray-100 dark:bg-[#1a1a1a] py-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   Test Live Connection
                 </button>

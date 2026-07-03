@@ -122,7 +122,7 @@ export default function CartPage() {
     return (
       <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
         {/* Breadcrumb */}
-        <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-500">
+        <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-400">
           <div className="container px-3 md:px-4 py-4">
             <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
               <Link href="/" className="hover:text-[#ec3137] transition-colors">
@@ -183,7 +183,7 @@ export default function CartPage() {
   return (
     <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-500">
+      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-400">
         <div className="container px-3 md:px-4 py-4">
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
@@ -198,7 +198,7 @@ export default function CartPage() {
       </div>
 
       {/* Page Header with Select All */}
-      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-500">
+      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-400">
         <div className="container px-3 md:px-4 py-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             {/* Select All */}
@@ -209,7 +209,7 @@ export default function CartPage() {
                     type="checkbox"
                     checked={allSelected}
                     onChange={toggleSelectAll}
-                    className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 cursor-pointer"
+                    className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 dark:border-gray-400 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 cursor-pointer"
                   />
                 </div>
                 <span className="ml-3 text-lg font-semibold text-gray-900 dark:text-white">
@@ -247,7 +247,7 @@ export default function CartPage() {
                   className={`bg-white dark:bg-[#0a0a0a] border ${
                     isSelected
                       ? 'border-[#ec3137] shadow-sm'
-                      : 'border-gray-200 dark:border-gray-500'
+                      : 'border-gray-200 dark:border-gray-400'
                   } p-3 sm:p-4 transition-all duration-300 animate-slideIn rounded-lg`}
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
@@ -258,7 +258,7 @@ export default function CartPage() {
                         type="checkbox"
                         checked={isSelected}
                         onChange={() => toggleItemSelection(item.product.id)}
-                        className="w-4 h-4 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 cursor-pointer"
+                        className="w-4 h-4 text-[#ec3137] border-2 border-gray-300 dark:border-gray-400 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 cursor-pointer"
                       />
                     </div>
 
@@ -325,7 +325,7 @@ export default function CartPage() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:border-[#ec3137] text-gray-600 dark:text-gray-100 transition-colors rounded"
+                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-400 hover:border-[#ec3137] text-gray-600 dark:text-gray-100 transition-colors rounded"
                             aria-label="Decrease quantity"
                           >
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -340,7 +340,7 @@ export default function CartPage() {
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             disabled={item.quantity >= (item.product.stock || 999)}
-                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:border-[#ec3137] text-gray-600 dark:text-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed rounded"
+                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-400 hover:border-[#ec3137] text-gray-600 dark:text-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed rounded"
                             aria-label="Increase quantity"
                           >
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -390,7 +390,7 @@ export default function CartPage() {
             <div className="pt-4">
               <Link
                 href="/products"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-semibold transition-all duration-300 transform hover:scale-[1.02] rounded"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-[#1a1a1a] hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-semibold transition-all duration-300 transform hover:scale-[1.02] rounded"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -405,7 +405,7 @@ export default function CartPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 sticky top-24 rounded-lg overflow-hidden">
+            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 sticky top-24 rounded-lg overflow-hidden">
               {/* Header */}
               <div className="bg-gradient-to-r from-[#ec3137] to-[#8a0f12] text-white p-6">
                 <h2 className="text-2xl font-bold">{t('cart.page.orderSummary')}</h2>
@@ -427,7 +427,7 @@ export default function CartPage() {
                 ) : (
                   <>
                     {/* Summary Items */}
-                    <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-500">
+                    <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-400">
                       <div className="flex justify-between text-gray-700 dark:text-gray-100">
                         <span>{t('cart.page.subtotal')} ({getSelectedCount()} {getSelectedCount() === 1 ? t('cart.page.item') : t('cart.page.items')})</span>
                         <span className="font-bold text-gray-900 dark:text-white">
@@ -504,7 +504,7 @@ export default function CartPage() {
                     </button>
 
                     {/* Trust Badges */}
-                    <div className="space-y-3 pt-6 border-t border-gray-200 dark:border-gray-500">
+                    <div className="space-y-3 pt-6 border-t border-gray-200 dark:border-gray-400">
                       <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-200">
                         <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
                           <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">

@@ -78,7 +78,7 @@ export default function AffiliateDetailsPage() {
           <select
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value as '7days' | '30days' | '90days' | '1year')}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white"
+            className="px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
           >
             <option value="7days">গত ৭ দিন</option>
             <option value="30days">গত ৩০ দিন</option>
@@ -89,28 +89,28 @@ export default function AffiliateDetailsPage() {
 
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
             <div className="text-center">
               <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">👥 মোট ক্লিক</p>
               <p className="text-3xl font-bold text-gray-900 dark:text-white">{affiliate.periodStats?.clicks ?? 0}</p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
             <div className="text-center">
               <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">✅ অর্ডার</p>
               <p className="text-3xl font-bold text-gray-900 dark:text-white">{affiliate.periodStats?.conversions ?? 0}</p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
             <div className="text-center">
               <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">💰 মোট আয়</p>
               <p className="text-3xl font-bold text-[#ec3137]">৳{(affiliate.totalEarned || 0).toFixed(2)}</p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
             <div className="text-center">
               <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">📈 কনভার্সন রেট</p>
               <p className="text-3xl font-bold text-gray-900 dark:text-white">{affiliate.periodStats?.conversionRate ?? 0}%</p>
@@ -119,7 +119,7 @@ export default function AffiliateDetailsPage() {
         </div>
 
         {/* Balance Overview */}
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6 mb-8">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">💳 ব্যালেন্স বিবরণ</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -139,7 +139,7 @@ export default function AffiliateDetailsPage() {
         </div>
 
         {/* Profile Information */}
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6 mb-8">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">👤 অ্যাকাউন্ট তথ্য</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -194,8 +194,8 @@ export default function AffiliateDetailsPage() {
 
         {/* Recent Earnings */}
         {affiliate.recentEarnings && affiliate.recentEarnings.length > 0 && (
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 mb-8">
-            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-500">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 mb-8">
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-400">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">📦 সাম্প্রতিক আয়</h2>
             </div>
             <div className="overflow-x-auto">
@@ -245,8 +245,8 @@ export default function AffiliateDetailsPage() {
 
         {/* Recent Payouts */}
         {affiliate.recentPayouts && affiliate.recentPayouts.length > 0 && (
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500">
-            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-500">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400">
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-400">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">💸 সাম্প্রতিক পেমেন্ট</h2>
             </div>
             <div className="overflow-x-auto">

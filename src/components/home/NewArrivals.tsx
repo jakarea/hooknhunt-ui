@@ -39,9 +39,9 @@ export default function NewArrivals() {
           {loading
             ? Array.from({ length: 12 }).map((_, i) => (
                 <div key={i} className="animate-pulse">
-                  <div className="aspect-square bg-gray-200 dark:bg-gray-700 rounded" />
-                  <div className="mt-2 h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
-                  <div className="mt-1 h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                  <div className="aspect-square bg-gray-200 dark:bg-[#1a1a1a] rounded" />
+                  <div className="mt-2 h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-3/4" />
+                  <div className="mt-1 h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-1/2" />
                 </div>
               ))
             : products.map(product => (

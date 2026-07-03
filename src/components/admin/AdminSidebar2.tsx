@@ -90,7 +90,7 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-16 bottom-0 w-64 bg-white dark:bg-[#1a1a1a] shadow-lg border-r border-gray-200 dark:border-gray-500 overflow-y-auto z-30">
+    <aside className="fixed left-0 top-16 bottom-0 w-64 bg-white dark:bg-[#1a1a1a] shadow-lg border-r border-gray-200 dark:border-gray-400 overflow-y-auto z-30">
       <div className="p-4">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-8">
@@ -166,7 +166,7 @@ export default function AdminSidebar() {
         </nav>
 
         {/* Bottom Section */}
-        <div className="mt-8 pt-4 border-t border-gray-200 dark:border-gray-500">
+        <div className="mt-8 pt-4 border-t border-gray-200 dark:border-gray-400">
           <div className="space-y-2">
             <Link
               href="/admin/help"

@@ -257,7 +257,7 @@ function OrderSuccessContent() {
         </div>
 
         {/* Order Summary Card */}
-        <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-500 rounded-xl p-6 mb-8 shadow-lg animate-slideUp" style={{ animationDelay: '0.2s' }}>
+        <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-400 rounded-xl p-6 mb-8 shadow-lg animate-slideUp" style={{ animationDelay: '0.2s' }}>
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('orderSuccess.summary')}</h2>
 
@@ -339,7 +339,7 @@ function OrderSuccessContent() {
             ) : giftStatus === 'expired' ? (
               /* Expired state */
               <div className="text-center py-4">
-                <div className="w-14 h-14 bg-gray-300 dark:bg-gray-700 rounded-full mx-auto mb-3 flex items-center justify-center">
+                <div className="w-14 h-14 bg-gray-300 dark:bg-[#1a1a1a] rounded-full mx-auto mb-3 flex items-center justify-center">
                   <svg className="w-8 h-8 text-gray-500 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -347,7 +347,7 @@ function OrderSuccessContent() {
                 <h3 className="text-lg font-bold text-gray-500 dark:text-gray-200 mb-1">
                   {t('orderSuccess.offerExpired')}
                 </h3>
-                <p className="text-sm text-gray-400 dark:text-gray-500">
+                <p className="text-sm text-gray-400 dark:text-gray-300">
                   {t('orderSuccess.offerExpiredDesc')}
                 </p>
               </div>
@@ -465,7 +465,7 @@ function OrderSuccessContent() {
 
         {/* Next Steps */}
         <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-500 rounded-xl p-5 text-center hover:shadow-lg transition-shadow">
+          <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-400 rounded-xl p-5 text-center hover:shadow-lg transition-shadow">
             <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full mx-auto mb-3 flex items-center justify-center">
               <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -476,7 +476,7 @@ function OrderSuccessContent() {
             <Link href="/track-order" className="text-[#ec3137] hover:underline font-semibold text-xs">{t('orderSuccess.trackOrderLink')}</Link>
           </div>
 
-          <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-500 rounded-xl p-5 text-center hover:shadow-lg transition-shadow">
+          <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-400 rounded-xl p-5 text-center hover:shadow-lg transition-shadow">
             <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full mx-auto mb-3 flex items-center justify-center">
               <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -487,7 +487,7 @@ function OrderSuccessContent() {
             <Link href="/products" className="text-[#ec3137] hover:underline font-semibold text-xs">{t('orderSuccess.browseProducts')}</Link>
           </div>
 
-          <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-500 rounded-xl p-5 text-center hover:shadow-lg transition-shadow">
+          <div className="bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-400 rounded-xl p-5 text-center hover:shadow-lg transition-shadow">
             <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full mx-auto mb-3 flex items-center justify-center">
               <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -503,7 +503,7 @@ function OrderSuccessContent() {
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-gray-700 hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-bold rounded-xl transition-all duration-300 text-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-[#1a1a1a] hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-bold rounded-xl transition-all duration-300 text-sm"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />

@@ -80,7 +80,7 @@ export default function AboutUsPage() {
           </section>
 
           {/* Outro */}
-          <p className="text-gray-700 dark:text-gray-100 leading-relaxed font-medium text-center border-t dark:border-gray-500 pt-6">
+          <p className="text-gray-700 dark:text-gray-100 leading-relaxed font-medium text-center border-t dark:border-gray-400 pt-6">
             {t('about.outro')}
           </p>
         </div>
