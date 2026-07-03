@@ -139,7 +139,7 @@ export default function PaymentSettingsPage() {
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Payment Gateway Settings
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-2">
+        <p className="text-gray-600 dark:text-gray-200 mt-2">
           Manage and configure your payment gateways
         </p>
       </div>
@@ -156,7 +156,7 @@ export default function PaymentSettingsPage() {
       )}
 
       {/* Active Gateway Selector */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+      <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
           Active Payment Gateway
         </h2>
@@ -166,7 +166,7 @@ export default function PaymentSettingsPage() {
             className={`border-2 rounded-lg p-6 cursor-pointer transition-all ${
               settings?.active_gateway === 'sslcommerz'
                 ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                : 'border-gray-200 dark:border-gray-500 hover:border-gray-300'
             }`}
             onClick={() => settings?.active_gateway !== 'sslcommerz' && switchGateway('sslcommerz')}
           >
@@ -206,7 +206,7 @@ export default function PaymentSettingsPage() {
             className={`border-2 rounded-lg p-6 cursor-pointer transition-all ${
               settings?.active_gateway === 'eps'
                 ? 'border-[#ec3137] bg-red-50 dark:bg-red-900/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                : 'border-gray-200 dark:border-gray-500 hover:border-gray-300'
             }`}
             onClick={() => settings?.active_gateway !== 'eps' && switchGateway('eps')}
           >
@@ -245,14 +245,14 @@ export default function PaymentSettingsPage() {
 
       {/* EPS Configuration Details */}
       {settings?.active_gateway === 'eps' && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
             EPS Configuration Details
           </h2>
 
           {/* Credentials Status */}
           <div className="mb-6">
-            <h3 className="font-medium mb-3 text-gray-700 dark:text-gray-300">Credentials</h3>
+            <h3 className="font-medium mb-3 text-gray-700 dark:text-gray-100">Credentials</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="border rounded-lg p-4">
                 <div className="font-medium mb-2">Sandbox</div>
@@ -306,7 +306,7 @@ export default function PaymentSettingsPage() {
 
           {/* Callback URLs Status */}
           <div>
-            <h3 className="font-medium mb-3 text-gray-700 dark:text-gray-300">Callback URLs</h3>
+            <h3 className="font-medium mb-3 text-gray-700 dark:text-gray-100">Callback URLs</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div className={`border rounded-lg p-3 text-center ${settings.eps.callbacks_configured.success ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}`}>
                 <div className="font-medium text-sm">Success</div>
@@ -372,7 +372,7 @@ export default function PaymentSettingsPage() {
 
       {saving && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 flex items-center gap-3">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg p-6 flex items-center gap-3">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#ec3137]"></div>
             <span>Saving changes...</span>
           </div>

@@ -14,7 +14,7 @@ export default function TermsAndConditionsPage() {
 
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow-lg p-8 space-y-8">
           {/* Introduction */}
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
             {t('terms.intro')}
           </p>
 
@@ -23,7 +23,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.agreement.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.agreement.text')}
             </p>
           </section>
@@ -33,7 +33,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.account.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.account.text')}
             </p>
           </section>
@@ -43,7 +43,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.products.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.products.text')}
             </p>
           </section>
@@ -53,7 +53,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.orders.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.orders.text')}
             </p>
           </section>
@@ -63,7 +63,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.intellectual.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.intellectual.text')}
             </p>
           </section>
@@ -73,7 +73,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.limitations.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.limitations.text')}
             </p>
           </section>
@@ -83,7 +83,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.governing.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.governing.text')}
             </p>
           </section>
@@ -93,7 +93,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.changes.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.changes.text')}
             </p>
           </section>
@@ -103,7 +103,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('terms.contact.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('terms.contact.text')}
             </p>
           </section>

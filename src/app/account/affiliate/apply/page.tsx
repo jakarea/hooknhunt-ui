@@ -137,7 +137,7 @@ export default function AffiliateApplicationPage() {
   if (affiliateStatus?.isAffiliate && !affiliateStatus?.isApproved) {
     return (
       <div className="flex-1">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-8">
           <div className="text-center max-w-md mx-auto">
             <div className="mb-6">
               <svg
@@ -159,7 +159,7 @@ export default function AffiliateApplicationPage() {
               Application Pending Approval
             </h2>
 
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-gray-600 dark:text-gray-200 mb-6">
               Your affiliate application has been submitted and is currently under review. We will notify you once your application is approved.
             </p>
 
@@ -185,7 +185,7 @@ export default function AffiliateApplicationPage() {
   if (submitted) {
     return (
       <div className="flex-1">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-8">
           <div className="text-center max-w-md mx-auto">
             <div className="mb-6">
               <svg
@@ -207,7 +207,7 @@ export default function AffiliateApplicationPage() {
               Application Submitted Successfully!
             </h2>
 
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-gray-600 dark:text-gray-200 mb-6">
               Thank you for your interest in becoming an affiliate. Your application has been submitted and is under review. We will notify you once it's approved.
             </p>
 
@@ -251,14 +251,14 @@ export default function AffiliateApplicationPage() {
 
       {/* Main Content */}
       <div className="flex-1">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-8">
           <div className="max-w-2xl mx-auto">
             {/* Header */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 Become an Affiliate
               </h1>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600 dark:text-gray-200">
                 Join our affiliate program and earn commissions on every sale you refer.
               </p>
             </div>
@@ -274,7 +274,7 @@ export default function AffiliateApplicationPage() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                       Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -296,7 +296,7 @@ export default function AffiliateApplicationPage() {
 
                   {/* Phone */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                       Phone Number <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -318,7 +318,7 @@ export default function AffiliateApplicationPage() {
 
                   {/* Email */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                       Email Address <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -340,7 +340,7 @@ export default function AffiliateApplicationPage() {
 
                   {/* Address (Optional) */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                       Address <span className="text-gray-400">(Optional)</span>
                     </label>
                     <input
@@ -355,7 +355,7 @@ export default function AffiliateApplicationPage() {
 
                   {/* Why Join (Optional) */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                       Why do you want to join? <span className="text-gray-400">(Optional)</span>
                     </label>
                     <textarea
@@ -372,7 +372,7 @@ export default function AffiliateApplicationPage() {
                   <div className="flex items-center justify-end gap-4 pt-4">
                     <Link
                       href="/account"
-                      className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                      className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition-colors"
                     >
                       Cancel
                     </Link>
@@ -397,11 +397,11 @@ export default function AffiliateApplicationPage() {
                 </form>
 
                 {/* Benefits */}
-                <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-500">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     Affiliate Benefits
                   </h3>
-                  <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                  <ul className="space-y-2 text-gray-600 dark:text-gray-200">
                     <li className="flex items-start">
                       <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

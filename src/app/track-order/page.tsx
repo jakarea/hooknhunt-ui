@@ -30,7 +30,7 @@ export default function TrackOrderPage() {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 leading-tight">
             অর্ডার ট্র্যাক করুন
           </h1>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200 max-w-2xl mx-auto leading-relaxed">
             আপনার কুরিয়ার ট্র্যাকিং আইডি দিয়ে অর্ডারের অবস্থান ট্র্যাক করুন
           </p>
         </div>
@@ -40,7 +40,7 @@ export default function TrackOrderPage() {
           <div className="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm p-4 sm:p-6 lg:p-8">
             <form onSubmit={handleCourierTrack}>
               <div className="mb-4 sm:mb-6">
-                <label htmlFor="trackingId" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="trackingId" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-100 mb-2">
                   ট্র্যাকিং আইডি
                 </label>
                 <input
@@ -49,10 +49,10 @@ export default function TrackOrderPage() {
                   value={trackingId}
                   onChange={(e) => setTrackingId(e.target.value)}
                   placeholder="আপনার স্টেডফাস্ট ট্র্যাকিং আইডি লিখুন"
-                  className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                   required
                 />
-                <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-200 leading-relaxed">
                   আপনার Steadfast কুরিয়ার ট্র্যাকিং আইডি প্রদান করে আপনার শিপমেন্ট ট্র্যাক করুন
                 </p>
               </div>
@@ -89,7 +89,7 @@ export default function TrackOrderPage() {
 
         {/* Help Section */}
         <div className="mt-12 sm:mt-16 text-center">
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200 mb-4 leading-relaxed">
             আপনার অর্ডারের সাথে সাহায্য প্রয়োজন?
           </p>
           <Link

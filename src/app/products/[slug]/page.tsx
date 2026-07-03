@@ -611,9 +611,9 @@ function ProductDetailPageContent() {
   return (
     <div className="min-h-screen bg-[#fee1e1] overflow-x-hidden">
       {/* Breadcrumb */}
-      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-800/50 overflow-x-hidden">
+      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-500/50 overflow-x-hidden">
         <div className="container px-3 md:px-4 py-3">
-          <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#bc1215] transition-colors">Home</Link>
             <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -731,7 +731,7 @@ function ProductDetailPageContent() {
 
             {/* Short Description */}
             {localizedShortDescription && (
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-200 leading-relaxed">
                 {localizedShortDescription}
               </p>
             )}
@@ -765,7 +765,7 @@ function ProductDetailPageContent() {
                           relative group flex items-center gap-2 px-1.5 py-1.5 sm:px-2 sm:py-2 rounded-xl border-2 transition-all duration-200 text-left
                           ${isSelected
                             ? 'border-[#bc1215] bg-gradient-to-r from-[#bc1215] to-[#8a0e10] text-white shadow-md'
-                            : 'border-gray-200 dark:border-gray-700 hover:border-[#bc1215]/30 text-gray-700 dark:text-gray-300'
+                            : 'border-gray-200 dark:border-gray-500 hover:border-[#bc1215]/30 text-gray-700 dark:text-gray-100'
                           }
                           ${isOutOfStock ? 'opacity-50 cursor-not-allowed grayscale' : 'cursor-pointer'}
                         `}
@@ -806,7 +806,7 @@ function ProductDetailPageContent() {
                         {/* Out of Stock */}
                         {isOutOfStock && (
                           <span className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-black/70 rounded-xl">
-                            <span className="text-[9px] font-bold text-gray-700 dark:text-gray-300">Sold Out</span>
+                            <span className="text-[9px] font-bold text-gray-700 dark:text-gray-100">Sold Out</span>
                           </span>
                         )}
                       </button>
@@ -903,7 +903,7 @@ function ProductDetailPageContent() {
                         <svg className="w-4 h-4 text-[#bc1215] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{highlight}</span>
+                        <span className="text-sm text-gray-700 dark:text-gray-100 leading-relaxed">{highlight}</span>
                       </li>
                     ))}
                   </ul>
@@ -925,7 +925,7 @@ function ProductDetailPageContent() {
                         <svg className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{item}</span>
+                        <span className="text-sm text-gray-700 dark:text-gray-100 leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -939,13 +939,13 @@ function ProductDetailPageContent() {
         <div className="mt-12 overflow-x-hidden">
           <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm">
             {/* Tab Headers */}
-            <div className="flex border-b border-gray-200/50 dark:border-gray-800/50">
+            <div className="flex border-b border-gray-200/50 dark:border-gray-500/50">
               <button
                 onClick={() => setActiveTab('description')}
                 className={`flex-1 px-6 py-4 font-semibold transition-colors ${
                   activeTab === 'description'
                     ? 'text-[#bc1215] border-b-2 border-[#bc1215]'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                    : 'text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 Description
@@ -955,7 +955,7 @@ function ProductDetailPageContent() {
                 className={`flex-1 px-6 py-4 font-semibold transition-colors ${
                   activeTab === 'attributes'
                     ? 'text-[#bc1215] border-b-2 border-[#bc1215]'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                    : 'text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 Attributes
@@ -965,7 +965,7 @@ function ProductDetailPageContent() {
                 className={`flex-1 px-6 py-4 font-semibold transition-colors ${
                   activeTab === 'reviews'
                     ? 'text-[#bc1215] border-b-2 border-[#bc1215]'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                    : 'text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 Reviews
@@ -1000,12 +1000,12 @@ function ProductDetailPageContent() {
                             <svg className="w-4 h-4 text-[#bc1215] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
-                            <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed" dangerouslySetInnerHTML={{ __html: attr }} />
+                            <span className="text-sm text-gray-700 dark:text-gray-100 leading-relaxed" dangerouslySetInnerHTML={{ __html: attr }} />
                           </li>
                         ))}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-500 dark:text-gray-400">No attributes available.</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-200">No attributes available.</p>
                     )}
                   </div>
                 </div>

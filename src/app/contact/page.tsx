@@ -79,7 +79,7 @@ export default function ContactPage() {
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 leading-tight">
             {t('title')}
           </h1>
-          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-200 max-w-2xl mx-auto leading-relaxed">
             {t('subtitle')}
           </p>
         </div>
@@ -96,7 +96,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1">{t('contactInfo.phone.label')}</h3>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">{t('contactInfo.phone.number')}</p>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200">{t('contactInfo.phone.number')}</p>
                   <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">{t('contactInfo.phone.hours')}</p>
                 </div>
               </div>
@@ -111,7 +111,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1">{t('contactInfo.email.label')}</h3>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">{t('contactInfo.email.address')}</p>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200">{t('contactInfo.email.address')}</p>
                   <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">{t('contactInfo.email.responseTime')}</p>
                 </div>
               </div>
@@ -127,7 +127,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1">{t('contactInfo.location.label')}</h3>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">{t('contactInfo.location.address')}</p>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200">{t('contactInfo.location.address')}</p>
                   <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500">{t('contactInfo.location.note')}</p>
                 </div>
               </div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="name" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-100 mb-2">
                       {t('form.fullName.label')} {t('form.fullName.required')}
                     </label>
                     <input
@@ -161,14 +161,14 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t('form.fullName.placeholder')}
-                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                       required
                       disabled={isSubmitting}
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="phone" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-100 mb-2">
                       {t('form.phone.label')} {t('form.fullName.required')}
                     </label>
                     <input
@@ -177,7 +177,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder={t('form.phone.placeholder')}
-                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                       required
                       disabled={isSubmitting}
                     />
@@ -185,7 +185,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="mb-4 sm:mb-6">
-                  <label htmlFor="email" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-100 mb-2">
                     {t('form.email.label')}
                   </label>
                   <input
@@ -194,13 +194,13 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder={t('form.email.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                     disabled={isSubmitting}
                   />
                 </div>
 
                 <div className="mb-4 sm:mb-6">
-                  <label htmlFor="subject" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="subject" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-100 mb-2">
                     {t('form.subject.label')} {t('form.subject.required')}
                   </label>
                   <input
@@ -209,14 +209,14 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder={t('form.subject.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                     required
                     disabled={isSubmitting}
                   />
                 </div>
 
                 <div className="mb-4 sm:mb-6">
-                  <label htmlFor="message" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-100 mb-2">
                     {t('form.message.label')} {t('form.message.required')}
                   </label>
                   <textarea
@@ -225,7 +225,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     rows={5}
                     placeholder={t('form.message.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 resize-none"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 resize-none"
                     required
                     disabled={isSubmitting}
                   />

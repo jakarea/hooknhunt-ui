@@ -78,7 +78,7 @@ function PaymentSuccessContent() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
               Processing Payment...
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-200">
               Please wait while we verify your payment
             </p>
           </div>
@@ -90,7 +90,7 @@ function PaymentSuccessContent() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
               Verifying Payment...
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-200">
               Confirming your transaction with the bank
             </p>
           </div>
@@ -106,12 +106,12 @@ function PaymentSuccessContent() {
             <h1 className="text-3xl font-bold text-green-600 dark:text-green-400">
               Payment Successful!
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-200">
               Thank you for your payment. Your order is being processed.
             </p>
             {orderData && (
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 mt-4">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="bg-gray-50 dark:bg-[#1a1a1a] rounded-lg p-4 mt-4">
+                <p className="text-sm text-gray-600 dark:text-gray-200">
                   Order Invoice
                 </p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">
@@ -135,7 +135,7 @@ function PaymentSuccessContent() {
             <h1 className="text-3xl font-bold text-red-600 dark:text-red-400">
               Verification Failed
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-200">
               We could not verify your payment. Please contact support if the amount was deducted.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
@@ -147,7 +147,7 @@ function PaymentSuccessContent() {
               </button>
               <button
                 onClick={() => router.push('/contact')}
-                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-colors"
+                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-colors"
               >
                 Contact Support
               </button>

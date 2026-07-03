@@ -14,7 +14,7 @@ export default function RefundPolicyPage() {
 
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow-lg p-8 space-y-8">
           {/* Introduction */}
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
             {t('refund.intro')}
           </p>
 
@@ -23,7 +23,7 @@ export default function RefundPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('refund.eligibility.title')}
             </h2>
-            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-100">
               <li>{t('refund.eligibility.condition1')}</li>
               <li>{t('refund.eligibility.condition2')}</li>
               <li>{t('refund.eligibility.condition3')}</li>
@@ -35,7 +35,7 @@ export default function RefundPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('refund.process.title')}
             </h2>
-            <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300">
+            <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-100">
               <li>{t('refund.process.step1')}</li>
               <li>{t('refund.process.step2')}</li>
               <li>{t('refund.process.step3')}</li>
@@ -47,10 +47,10 @@ export default function RefundPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('refund.lateRefunds.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed mb-3">
               {t('refund.lateRefunds.info1')}
             </p>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('refund.lateRefunds.info2')}
             </p>
           </section>
@@ -60,13 +60,13 @@ export default function RefundPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('refund.changes.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('refund.changes.text')}
             </p>
           </section>
 
           {/* Outro */}
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
+          <p className="text-gray-700 dark:text-gray-100 leading-relaxed font-medium">
             {t('refund.outro')}
           </p>
         </div>

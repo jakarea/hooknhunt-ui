@@ -122,9 +122,9 @@ export default function CartPage() {
     return (
       <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
         {/* Breadcrumb */}
-        <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800">
+        <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-500">
           <div className="container px-3 md:px-4 py-4">
-            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
               <Link href="/" className="hover:text-[#ec3137] transition-colors">
                 {t('common.home')}
               </Link>
@@ -139,7 +139,7 @@ export default function CartPage() {
         {/* Empty Cart State */}
         <div className="container px-3 md:px-4 py-20">
           <div className="text-center max-w-md mx-auto">
-            <div className="w-32 h-32 bg-gray-100 dark:bg-gray-800 rounded-full mx-auto mb-8 flex items-center justify-center">
+            <div className="w-32 h-32 bg-gray-100 dark:bg-[#1a1a1a] rounded-full mx-auto mb-8 flex items-center justify-center">
               <svg
                 className="w-16 h-16 text-gray-400"
                 fill="none"
@@ -157,7 +157,7 @@ export default function CartPage() {
             <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               {t('cart.page.emptyTitle')}
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">
+            <p className="text-gray-600 dark:text-gray-200 mb-8 text-lg">
               {t('cart.page.emptyMessage')}
             </p>
             <Link
@@ -183,9 +183,9 @@ export default function CartPage() {
   return (
     <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800">
+      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-500">
         <div className="container px-3 md:px-4 py-4">
-          <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
               {t('common.home')}
             </Link>
@@ -198,7 +198,7 @@ export default function CartPage() {
       </div>
 
       {/* Page Header with Select All */}
-      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
+      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-500">
         <div className="container px-3 md:px-4 py-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             {/* Select All */}
@@ -220,7 +220,7 @@ export default function CartPage() {
 
             {/* Total Display */}
             <div className="flex items-center gap-2 text-right">
-              <span className="text-gray-700 dark:text-gray-300 font-medium">{t('cart.page.yourTotal')}</span>
+              <span className="text-gray-700 dark:text-gray-100 font-medium">{t('cart.page.yourTotal')}</span>
               {hasDiscount && (
                 <span className="text-lg text-red-600 dark:text-red-400 line-through font-semibold">
                   ৳{originalTotal.toLocaleString()}
@@ -247,7 +247,7 @@ export default function CartPage() {
                   className={`bg-white dark:bg-[#0a0a0a] border ${
                     isSelected
                       ? 'border-[#ec3137] shadow-sm'
-                      : 'border-gray-200 dark:border-gray-800'
+                      : 'border-gray-200 dark:border-gray-500'
                   } p-3 sm:p-4 transition-all duration-300 animate-slideIn rounded-lg`}
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
@@ -267,7 +267,7 @@ export default function CartPage() {
                       href={`/products/${item.product.slug}`}
                       className="flex-shrink-0 group"
                     >
-                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 dark:bg-gray-800 overflow-hidden rounded-md">
+                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden rounded-md">
                         <Image
                           src={item.product.variant_image || item.product.image_url || '/placeholder-image.jpg'}
                           alt={getLocalizedNameForProduct(item.product) || 'Product'}
@@ -286,7 +286,7 @@ export default function CartPage() {
                             {getLocalizedNameForProduct(item.product)}
                           </h3>
                           {item.product.variant_name && (
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
+                            <p className="text-xs text-gray-500 dark:text-gray-200 mt-0.5 truncate">
                               {item.product.variant_name}
                             </p>
                           )}
@@ -325,7 +325,7 @@ export default function CartPage() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:border-[#ec3137] text-gray-600 dark:text-gray-300 transition-colors rounded"
+                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:border-[#ec3137] text-gray-600 dark:text-gray-100 transition-colors rounded"
                             aria-label="Decrease quantity"
                           >
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -340,7 +340,7 @@ export default function CartPage() {
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             disabled={item.quantity >= (item.product.stock || 999)}
-                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:border-[#ec3137] text-gray-600 dark:text-gray-300 transition-colors disabled:opacity-40 disabled:cursor-not-allowed rounded"
+                            className="w-6 h-6 flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:border-[#ec3137] text-gray-600 dark:text-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed rounded"
                             aria-label="Increase quantity"
                           >
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -405,7 +405,7 @@ export default function CartPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 sticky top-24 rounded-lg overflow-hidden">
+            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 sticky top-24 rounded-lg overflow-hidden">
               {/* Header */}
               <div className="bg-gradient-to-r from-[#ec3137] to-[#8a0f12] text-white p-6">
                 <h2 className="text-2xl font-bold">{t('cart.page.orderSummary')}</h2>
@@ -420,15 +420,15 @@ export default function CartPage() {
                     <svg className="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-gray-200">
                       {t('cart.page.noItemsSelected')}
                     </p>
                   </div>
                 ) : (
                   <>
                     {/* Summary Items */}
-                    <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-800">
-                      <div className="flex justify-between text-gray-700 dark:text-gray-300">
+                    <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-500">
+                      <div className="flex justify-between text-gray-700 dark:text-gray-100">
                         <span>{t('cart.page.subtotal')} ({getSelectedCount()} {getSelectedCount() === 1 ? t('cart.page.item') : t('cart.page.items')})</span>
                         <span className="font-bold text-gray-900 dark:text-white">
                           <AnimatedCounter
@@ -450,7 +450,7 @@ export default function CartPage() {
                           </span>
                         </div>
                       )}
-                      <div className="flex justify-between text-gray-700 dark:text-gray-300">
+                      <div className="flex justify-between text-gray-700 dark:text-gray-100">
                         <span>{t('cart.page.shipping')}</span>
                         <span className="font-bold text-blue-600 dark:text-blue-400">
                           {t('cart.page.calculatedAtCheckout')}
@@ -464,7 +464,7 @@ export default function CartPage() {
                         <span className="text-xl font-bold text-gray-900 dark:text-white">{t('cart.page.subtotal')}</span>
                         <div className="text-right">
                           {hasDiscount && (
-                            <p className="text-sm text-gray-500 dark:text-gray-400 line-through">
+                            <p className="text-sm text-gray-500 dark:text-gray-200 line-through">
                               ৳{originalTotal.toLocaleString()}
                             </p>
                           )}
@@ -486,7 +486,7 @@ export default function CartPage() {
                           )}
                         </div>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                      <p className="text-xs text-gray-500 dark:text-gray-200 text-center">
                         * Delivery charge will be calculated at checkout based on your location
                       </p>
                     </div>
@@ -504,8 +504,8 @@ export default function CartPage() {
                     </button>
 
                     {/* Trust Badges */}
-                    <div className="space-y-3 pt-6 border-t border-gray-200 dark:border-gray-800">
-                      <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="space-y-3 pt-6 border-t border-gray-200 dark:border-gray-500">
+                      <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-200">
                         <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
                           <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -517,7 +517,7 @@ export default function CartPage() {
                         </div>
                         <span className="font-medium text-gray-900 dark:text-white">{t('cart.page.secureCheckout')}</span>
                       </div>
-                      <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-200">
                         <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0">
                           <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
@@ -528,7 +528,7 @@ export default function CartPage() {
                           {t('cart.page.freeShippingOver')} ৳{shippingThreshold.toLocaleString()}
                         </span>
                       </div>
-                      <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-200">
                         <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center flex-shrink-0">
                           <svg className="w-4 h-4 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />

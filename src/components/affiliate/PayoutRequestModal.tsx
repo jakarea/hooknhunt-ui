@@ -119,8 +119,8 @@ export default function PayoutRequestModal({
         ></div>
 
         {/* Modal panel */}
-        <div className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-          <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div className="inline-block align-bottom bg-white dark:bg-[#1a1a1a] rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div className="bg-white dark:bg-[#1a1a1a] px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             {/* Header */}
             <div className="sm:flex sm:items-start mb-4">
               <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
@@ -128,7 +128,7 @@ export default function PayoutRequestModal({
                   পেমেন্ট অনুরোধ করুন
                 </h3>
                 <div className="mt-1">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-500 dark:text-gray-200">
                     উপলব্ধ ব্যালেন্স: <span className="font-semibold text-[#ec3137]">৳{availableBalance.toFixed(2)}</span>
                   </p>
                 </div>
@@ -139,9 +139,9 @@ export default function PayoutRequestModal({
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Amount */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   পেমেন্ট পরিমাণ (৳) <span className="text-red-500">*</span>
-                  <span className="text-gray-500 dark:text-gray-400 text-xs ml-2">
+                  <span className="text-gray-500 dark:text-gray-200 text-xs ml-2">
                     ন্যূনতম: ৳১০০
                   </span>
                 </label>
@@ -165,7 +165,7 @@ export default function PayoutRequestModal({
 
               {/* Payment Method */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   পেমেন্ট পদ্ধতি <span className="text-red-500">*</span>
                 </label>
                 <select
@@ -184,9 +184,9 @@ export default function PayoutRequestModal({
 
               {/* Payment Details */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   পেমেন্ট বিবরণ <span className="text-red-500">*</span>
-                  <span className="text-gray-500 dark:text-gray-400 text-xs ml-2">
+                  <span className="text-gray-500 dark:text-gray-200 text-xs ml-2">
                     {formData.payment_method === 'bank_transfer' && 'ব্যাংক অ্যাকাউন্ট নম্বর'}
                     {(formData.payment_method === 'bkash' || formData.payment_method === 'nagad' || formData.payment_method === 'rocket') && 'মোবাইল নম্বর'}
                   </span>

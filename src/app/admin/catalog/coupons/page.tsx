@@ -134,7 +134,7 @@ export default function CouponsListPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Coupons & Discounts</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage promotional coupons and discount codes</p>
+          <p className="text-gray-600 dark:text-gray-200 mt-1">Manage promotional coupons and discount codes</p>
         </div>
         <Link
           href="/admin/catalog/coupons/create"
@@ -148,7 +148,7 @@ export default function CouponsListPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+      <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-6">
         <div className="flex gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
             <input
@@ -190,34 +190,34 @@ export default function CouponsListPage() {
 
       {/* Table */}
       {loading ? (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-12 text-center">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-12 text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#ec3137]"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading coupons...</p>
+          <p className="mt-4 text-gray-600 dark:text-gray-200">Loading coupons...</p>
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md overflow-hidden">
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider">
                   Code
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider">
                   Type
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider">
                   Value
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider">
                   Usage
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider">
                   Validity
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -229,7 +229,7 @@ export default function CouponsListPage() {
                     <div>
                       <div className="text-sm font-medium text-gray-900 dark:text-white">{discount.code}</div>
                       {discount.description && (
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{discount.description}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-200">{discount.description}</div>
                       )}
                     </div>
                   </td>
@@ -243,7 +243,7 @@ export default function CouponsListPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                     {discount.type === 'percentage' ? `${discount.amount}%` : `৳${discount.amount}`}
                     {discount.max_discount_amount && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400 block">
+                      <span className="text-xs text-gray-500 dark:text-gray-200 block">
                         (Max: ৳{discount.max_discount_amount})
                       </span>
                     )}
@@ -251,7 +251,7 @@ export default function CouponsListPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                     {discount.used_count} / {discount.max_uses || '∞'}
                     {discount.usage_limit_per_customer && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400 block">
+                      <span className="text-xs text-gray-500 dark:text-gray-200 block">
                         (Per user: {discount.usage_limit_per_customer})
                       </span>
                     )}
@@ -264,7 +264,7 @@ export default function CouponsListPage() {
                       <div>To: {new Date(discount.expires_at).toLocaleDateString()}</div>
                     )}
                     {!discount.starts_at && !discount.expires_at && (
-                      <span className="text-gray-500 dark:text-gray-400">No expiry</span>
+                      <span className="text-gray-500 dark:text-gray-200">No expiry</span>
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -297,7 +297,7 @@ export default function CouponsListPage() {
               ))}
               {discounts?.data?.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                  <td colSpan={7} className="px-6 py-12 text-center text-gray-500 dark:text-gray-200">
                     No coupons found. Create your first coupon to get started!
                   </td>
                 </tr>
@@ -307,8 +307,8 @@ export default function CouponsListPage() {
 
           {/* Pagination */}
           {discounts && discounts.last_page > 1 && (
-            <div className="bg-white dark:bg-gray-800 px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-              <div className="text-sm text-gray-700 dark:text-gray-300">
+            <div className="bg-white dark:bg-[#1a1a1a] px-6 py-4 border-t border-gray-200 dark:border-gray-500 flex items-center justify-between">
+              <div className="text-sm text-gray-700 dark:text-gray-100">
                 Showing {((discounts.current_page - 1) * discounts.per_page) + 1} to{' '}
                 {Math.min(discounts.current_page * discounts.per_page, discounts.total)} of {discounts.total} results
               </div>

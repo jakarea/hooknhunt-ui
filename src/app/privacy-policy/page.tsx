@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow-lg p-8 space-y-8">
           {/* Introduction */}
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
             {t('privacy.intro')}
           </p>
 
@@ -23,20 +23,20 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('privacy.informationCollect.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-3">
+            <p className="text-gray-700 dark:text-gray-100 mb-3">
               {t('privacy.informationCollect.subtitle')}
             </p>
-            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 mb-4">
+            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-100 mb-4">
               <li>{t('privacy.informationCollect.items.0')}</li>
               <li>{t('privacy.informationCollect.items.1')}</li>
               <li>{t('privacy.informationCollect.items.2')}</li>
               <li>{t('privacy.informationCollect.items.3')}</li>
               <li>{t('privacy.informationCollect.items.4')}</li>
             </ul>
-            <p className="text-gray-700 dark:text-gray-300 mb-2">
+            <p className="text-gray-700 dark:text-gray-100 mb-2">
               {t('privacy.informationCollect.collectWhen')}
             </p>
-            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-100">
               <li>{t('privacy.informationCollect.collectWhenItems.0')}</li>
               <li>{t('privacy.informationCollect.collectWhenItems.1')}</li>
               <li>{t('privacy.informationCollect.collectWhenItems.2')}</li>
@@ -50,10 +50,10 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('privacy.informationUse.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-3">
+            <p className="text-gray-700 dark:text-gray-100 mb-3">
               {t('privacy.informationUse.intro')}
             </p>
-            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-100">
               <li>{t('privacy.informationUse.items.0')}</li>
               <li>{t('privacy.informationUse.items.1')}</li>
               <li>{t('privacy.informationUse.items.2')}</li>
@@ -67,10 +67,10 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('privacy.informationShare.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-3">
+            <p className="text-gray-700 dark:text-gray-100 mb-3">
               {t('privacy.informationShare.intro')}
             </p>
-            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-100">
               <li>{t('privacy.informationShare.items.0')}</li>
               <li>{t('privacy.informationShare.items.1')}</li>
               <li>{t('privacy.informationShare.items.2')}</li>
@@ -82,7 +82,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('privacy.dataSecurity.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('privacy.dataSecurity.text')}
             </p>
           </section>
@@ -92,10 +92,10 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('privacy.yourRights.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-3">
+            <p className="text-gray-700 dark:text-gray-100 mb-3">
               {t('privacy.yourRights.intro')}
             </p>
-            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+            <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-100">
               <li>{t('privacy.yourRights.items.0')}</li>
               <li>{t('privacy.yourRights.items.1')}</li>
               <li>{t('privacy.yourRights.items.2')}</li>
@@ -107,7 +107,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('privacy.cookies.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('privacy.cookies.text')}
             </p>
           </section>
@@ -117,7 +117,7 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('privacy.changes.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('privacy.changes.text')}
             </p>
           </section>
@@ -127,10 +127,10 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('privacy.contact.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed mb-2">
               {t('privacy.contact.text')}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-gray-500 dark:text-gray-200">
               {t('privacy.contact.updated')}
             </p>
           </section>

@@ -33,8 +33,8 @@ export default class ProductErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4 py-12">
-          <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
+        <div className="min-h-screen bg-gray-50 dark:bg-[#1a1a1a] flex items-center justify-center px-4 py-12">
+          <div className="max-w-md w-full bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 text-center">
             {/* Error Icon */}
             <div className="w-16 h-16 mx-auto mb-4 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
               <svg className="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@ export default class ProductErrorBoundary extends Component<Props, State> {
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Oops! Something went wrong
             </h2>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200 mb-6">
               We couldn't load this product. Please try again or contact support if the problem persists.
             </p>
 

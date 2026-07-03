@@ -33,11 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="bn" suppressHydrationWarning>
+    <html lang="bn" className="dark" suppressHydrationWarning>
       <head>
 
       </head>
-      <body className={`${notoSansBengali.className} ${anekBangla.className} antialiased bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
+      <body className={`${notoSansBengali.className} ${anekBangla.className} antialiased dark:bg-[#0f0808] dark:text-gray-100 bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
         <script
           dangerouslySetInnerHTML={{
             __html: `

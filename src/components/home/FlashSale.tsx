@@ -193,9 +193,9 @@ export default function FlashSale() {
             >
               {flashProducts.map((product) => (
                 <div key={product.id} className="w-1/6 flex-shrink-0 px-2">
-                  <div className="group bg-white dark:bg-gray-900 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                  <div className="group bg-white dark:bg-[#1a1a1a] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
                     {/* Image */}
-                    <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-800">
+                    <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-[#1a1a1a]">
                       <Link href={`/products/${product.id}`}>
                         <Image
                           src={product.image}
@@ -228,7 +228,7 @@ export default function FlashSale() {
                         <span className="text-sm font-bold text-[#ec3137]">
                           ৳{product.discountPrice.toLocaleString()}
                         </span>
-                        <span className="text-[10px] text-gray-500 dark:text-gray-400 line-through">
+                        <span className="text-[10px] text-gray-500 dark:text-gray-200 line-through">
                           ৳{product.originalPrice.toLocaleString()}
                         </span>
                       </div>

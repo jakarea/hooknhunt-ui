@@ -121,7 +121,7 @@ export default function ProfilePage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">প্রোফাইল</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">আপনার অ্যাকাউন্ট তথ্য এবং পছন্দগুলো পরিচালনা করুন</p>
+          <p className="text-gray-600 dark:text-gray-200 mt-2">আপনার অ্যাকাউন্ট তথ্য এবং পছন্দগুলো পরিচালনা করুন</p>
         </div>
         {!isEditing && (
           <button
@@ -150,7 +150,7 @@ export default function ProfilePage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Profile Card */}
             <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
             <div className="text-center">
             <div className="w-24 h-24 bg-[#ec3137] rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-white font-bold text-2xl">
@@ -160,7 +160,7 @@ export default function ProfilePage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
             {user?.name || 'গ্রাহক'}
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">{getPhoneNumber() || 'সেট করা নেই'}</p>
+            <p className="text-gray-600 dark:text-gray-200 mt-1">{getPhoneNumber() || 'সেট করা নেই'}</p>
             <div className="mt-4 inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -173,29 +173,29 @@ export default function ProfilePage() {
 
             {/* Profile Form */}
             <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">ব্যক্তিগত তথ্য</h3>
 
             <div className="space-y-4">
             {/* Phone Number (Read-only) */}
             <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
             ফোন নম্বর
             </label>
             <input
             type="text"
             value={getPhoneNumber()}
             disabled
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-200 cursor-not-allowed"
             />
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">
             ফোন নম্বর পরিবর্তন করা যাবে না
             </p>
             </div>
 
             {/* Name */}
             <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
             পূর্ণ নাম
             </label>
             <input
@@ -211,8 +211,8 @@ export default function ProfilePage() {
             : 'border-gray-300 dark:border-gray-600 focus:ring-[#ec3137]'
             } ${
             isEditing
-            ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-white'
-            : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+            ? 'bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white'
+            : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-200 cursor-not-allowed'
             } focus:outline-none focus:ring-2`}
             />
             {getFieldError('name') && (
@@ -222,7 +222,7 @@ export default function ProfilePage() {
 
             {/* Email */}
             <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
             ইমেইল ঠিকানা
             </label>
             <input
@@ -238,8 +238,8 @@ export default function ProfilePage() {
             : 'border-gray-300 dark:border-gray-600 focus:ring-[#ec3137]'
             } ${
             isEditing
-            ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-white'
-            : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+            ? 'bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white'
+            : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-200 cursor-not-allowed'
             } focus:outline-none focus:ring-2`}
             />
             {getFieldError('email') && (
@@ -249,7 +249,7 @@ export default function ProfilePage() {
 
             {/* WhatsApp Number */}
             <div>
-            <label htmlFor="whatsapp_number" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="whatsapp_number" className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
             হোয়াটসঅ্যাপ নম্বর
             </label>
             <input
@@ -266,14 +266,14 @@ export default function ProfilePage() {
             : 'border-gray-300 dark:border-gray-600 focus:ring-[#ec3137]'
             } ${
             isEditing
-            ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-white'
-            : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+            ? 'bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white'
+            : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-200 cursor-not-allowed'
             } focus:outline-none focus:ring-2`}
             />
             {getFieldError('whatsapp_number') && (
             <p className="text-red-500 text-sm mt-1">{getFieldError('whatsapp_number')}</p>
             )}
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">
             ঐচ্ছিক: অর্ডার আপডেট এবং গ্রাহক সহায়তার জন্য
             </p>
             </div>
@@ -311,17 +311,17 @@ export default function ProfilePage() {
             </div>
 
             {/* Account Information */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mt-6">
+            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6 mt-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">অ্যাকাউন্ট তথ্য</h3>
             <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-            <span className="text-gray-600 dark:text-gray-400">অ্যাকাউন্ট ধরন:</span>
+            <span className="text-gray-600 dark:text-gray-200">অ্যাকাউন্ট ধরন:</span>
             <span className="font-medium text-gray-900 dark:text-white capitalize">
             {user?.role?.replace('_', ' ') || 'গ্রাহক'}
             </span>
             </div>
             <div className="flex justify-between">
-            <span className="text-gray-600 dark:text-gray-400">সদস্য হয়েছেন:</span>
+            <span className="text-gray-600 dark:text-gray-200">সদস্য হয়েছেন:</span>
             <span className="font-medium text-gray-900 dark:text-white">
             {getCreatedAt() ? new Date(getCreatedAt()).toLocaleDateString('en-US', {
             year: 'numeric',
@@ -331,7 +331,7 @@ export default function ProfilePage() {
             </span>
             </div>
             <div className="flex justify-between">
-            <span className="text-gray-600 dark:text-gray-400">ফোন যাচাই করা হয়েছে:</span>
+            <span className="text-gray-600 dark:text-gray-200">ফোন যাচাই করা হয়েছে:</span>
             <span className="font-medium text-gray-900 dark:text-white">
             {isPhoneVerified() ? (
             <span className="text-green-600 dark:text-green-400">✓ যাচাই করা হয়েছে</span>

@@ -77,7 +77,7 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
           <p className="text-xs font-bold text-gray-900 dark:text-white mb-0.5">
             Delivery Estimate
           </p>
-          <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p className="text-xs text-gray-600 dark:text-gray-200 leading-relaxed">
             Inside Dhaka: ৳60-100 | Outside Dhaka: ৳120-150
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
       <>
         {staticEstimate}
         <div className="flex items-center justify-between py-1">
-          <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Calculating exact delivery...</span>
+          <span className="text-xs text-gray-500 dark:text-gray-200 font-semibold">Calculating exact delivery...</span>
           <div className="flex items-center gap-2">
             <div className="animate-spin h-3 w-3 border-2 border-[#ec3137] border-t-transparent rounded-full" />
           </div>
@@ -135,7 +135,7 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
                   {motivationalMessageFromAPI}
                 </p>
                 {!isAlmostFree && (
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 font-semibold">
+                  <p className="text-xs text-gray-600 dark:text-gray-200 mt-0.5 font-semibold">
                     Boost your cart & save!
                   </p>
                 )}
@@ -145,8 +145,8 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
 
           {/* Delivery charge (smaller, below message) */}
           <div className="flex items-center justify-between py-1">
-            <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
-            <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
+            <span className="text-xs text-gray-500 dark:text-gray-200 font-semibold">Delivery</span>
+            <span className="text-sm font-bold text-gray-700 dark:text-gray-100">
               ৳{charge.toFixed(0)}
             </span>
           </div>
@@ -169,15 +169,15 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
                 <p className="text-xs font-bold text-orange-800 dark:text-orange-200 leading-tight">
                   Add ৳{remainingAmount.toLocaleString()} more get delivery in ৳{nextTierCharge}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 font-semibold">
+                <p className="text-xs text-gray-600 dark:text-gray-200 mt-0.5 font-semibold">
                   Boost your cart & save!
                 </p>
               </div>
             </div>
           </div>
           <div className="flex items-center justify-between py-1">
-            <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
-            <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
+            <span className="text-xs text-gray-500 dark:text-gray-200 font-semibold">Delivery</span>
+            <span className="text-sm font-bold text-gray-700 dark:text-gray-100">
               ৳{charge.toFixed(0)}
             </span>
           </div>
@@ -188,8 +188,8 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
     // Fallback: If no motivational message from API yet, show loading or simple delivery
     return (
       <div className="flex items-center justify-between py-1.5">
-        <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
-        <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
+        <span className="text-xs text-gray-500 dark:text-gray-200 font-semibold">Delivery</span>
+        <span className="text-sm font-bold text-gray-700 dark:text-gray-100">
           ৳{charge.toFixed(0)}
         </span>
       </div>
@@ -200,7 +200,7 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
   if (deliveryMode === 'free_delivery') {
     return (
       <div className="flex items-center justify-between py-1">
-        <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery</span>
+        <span className="text-xs text-gray-500 dark:text-gray-200 font-semibold">Delivery</span>
         <span className="text-sm font-bold text-green-600 dark:text-green-400 flex items-center gap-1">
           🎉 FREE!
         </span>
@@ -211,7 +211,7 @@ export default function CartDeliveryEstimate({ onCalculated }: CartDeliveryEstim
   // Standard delivery charge
   return (
     <div className="flex items-center justify-between py-1.5">
-      <span className="text-xs text-gray-500 dark:text-gray-400 font-semibold">Delivery (Inside Dhaka)</span>
+      <span className="text-xs text-gray-500 dark:text-gray-200 font-semibold">Delivery (Inside Dhaka)</span>
       <span className="text-sm font-bold text-[#ec3137]">
         ৳{charge.toFixed(0)}
       </span>

@@ -285,7 +285,7 @@ function ProductsPageContent() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#bc1215]/5 to-transparent"></div>
         <div className="container px-3 md:px-4 relative py-3 sm:py-4">
           <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400 min-w-0 flex-1">
+            <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-200 min-w-0 flex-1">
               <Link href="/" className="hover:text-[#bc1215] transition-colors font-medium" suppressHydrationWarning>{t('breadcrumb.home')}</Link>
               <svg className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -347,7 +347,7 @@ function ProductsPageContent() {
                 onClick={() => setIsSidebarOpen(false)}
                 className="lg:hidden absolute top-4 right-4 p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg z-50"
               >
-                <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-600 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -432,8 +432,8 @@ function ProductsPageContent() {
                 )}
 
                 {/* Categories Filter - Premium Card */}
-                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-800/50 overflow-hidden">
+                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-500/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
                     <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -447,7 +447,7 @@ function ProductsPageContent() {
                       onClick={() => handleCategoryChange(['all'])}
                       className={`w-full text-left px-3 py-2.5 min-h-[48px] transition-all duration-200 font-medium flex items-center justify-between rounded-xl ${selectedCategories.includes('all')
                         ? 'bg-gradient-to-r from-[#bc1215] to-[#8a0e10] text-white shadow-md'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
+                        : 'text-gray-700 dark:text-gray-100 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
                         }`}
                     >
                       <span className="flex items-center gap-3">
@@ -477,7 +477,7 @@ function ProductsPageContent() {
                           }}
                           className={`w-full text-left px-3 py-2.5 min-h-[48px] transition-all duration-200 flex items-center justify-between rounded-xl ${isSelected
                             ? 'bg-gradient-to-r from-[#bc1215] to-[#8a0e10] text-white shadow-md'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
+                            : 'text-gray-700 dark:text-gray-100 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
                             }`}
                         >
                           <span className="flex items-center gap-3">
@@ -497,8 +497,8 @@ function ProductsPageContent() {
                 </div>
 
                 {/* Price Range - Modern Checkboxes */}
-                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-800/50 overflow-hidden">
+                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-500/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
                     <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -529,7 +529,7 @@ function ProductsPageContent() {
                             )}
                           </div>
                         </div>
-                        <span className="ml-3 text-sm text-gray-700 dark:text-gray-300 group-hover:text-[#bc1215] transition-colors" suppressHydrationWarning>
+                        <span className="ml-3 text-sm text-gray-700 dark:text-gray-100 group-hover:text-[#bc1215] transition-colors" suppressHydrationWarning>
                           {t(option.label)}
                         </span>
                       </label>
@@ -538,8 +538,8 @@ function ProductsPageContent() {
                 </div>
 
                 {/* Rating Filter - Star Based */}
-                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-800/50 overflow-hidden">
+                <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <div className="relative bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 px-4 py-3.5 border-b border-gray-200/50 dark:border-gray-500/50 overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-[#bc1215]/5 rounded-full blur-xl"></div>
                     <h3 className="relative font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider flex items-center gap-2" suppressHydrationWarning>
                       <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
@@ -570,7 +570,7 @@ function ProductsPageContent() {
                               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
                           ))}
-                          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300" suppressHydrationWarning>{t('andUp')}</span>
+                          <span className="ml-2 text-sm text-gray-700 dark:text-gray-100" suppressHydrationWarning>{t('andUp')}</span>
                         </div>
                         {minRating === rating && (
                           <svg className="w-4 h-4 text-[#bc1215]" fill="currentColor" viewBox="0 0 20 20">
@@ -610,11 +610,11 @@ function ProductsPageContent() {
           {/* Products Grid */}
           <div className="flex-1 relative z-10">
             {/* Sort Bar - Modern */}
-            <div className="relative bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl p-3 md:p-4 mb-3 md:mb-4 border border-gray-200/50 dark:border-gray-800/50 shadow-sm z-10">
+            <div className="relative bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl p-3 md:p-4 mb-3 md:mb-4 border border-gray-200/50 dark:border-gray-500/50 shadow-sm z-10">
               <div className="flex flex-col sm:flex-row justify-end items-start sm:items-center gap-2 sm:gap-4">
                 {/* Sort By - Moved to right */}
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                  <label className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-semibold whitespace-nowrap flex items-center gap-1.5 sm:gap-2" suppressHydrationWarning>
+                  <label className="text-xs sm:text-sm text-gray-700 dark:text-gray-100 font-semibold whitespace-nowrap flex items-center gap-1.5 sm:gap-2" suppressHydrationWarning>
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4h4m-4 4v-4m0 4l-4 4" />
                     </svg>
@@ -626,7 +626,7 @@ function ProductsPageContent() {
                     {/* Dropdown Button */}
                     <button
                       onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
-                      className="flex items-center justify-between gap-2 px-3 py-2 h-9 sm:h-auto sm:px-4 sm:py-2.5 sm:min-h-[44px] border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#bc1215]/20 focus:border-[#bc1215] outline-none rounded-xl font-medium shadow-sm hover:shadow-md hover:border-[#bc1215]/30 transition-all cursor-pointer text-xs sm:text-sm w-full sm:w-auto sm:min-w-[180px] relative z-50"
+                      className="flex items-center justify-between gap-2 px-3 py-2 h-9 sm:h-auto sm:px-4 sm:py-2.5 sm:min-h-[44px] border-2 border-gray-200 dark:border-gray-500 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#bc1215]/20 focus:border-[#bc1215] outline-none rounded-xl font-medium shadow-sm hover:shadow-md hover:border-[#bc1215]/30 transition-all cursor-pointer text-xs sm:text-sm w-full sm:w-auto sm:min-w-[180px] relative z-50"
                     >
                       <span suppressHydrationWarning>{t(`sortOptions.${sortBy === 'best-selling' ? 'bestSelling' : sortBy === 'price-low' ? 'priceLow' : sortBy === 'price-high' ? 'priceHigh' : sortBy}`)}</span>
                       <svg
@@ -641,7 +641,7 @@ function ProductsPageContent() {
 
                     {/* Dropdown Menu */}
                     {isSortDropdownOpen && (
-                      <div className="absolute top-full right-0 mt-2 w-full bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl overflow-hidden z-50 animate-fadeIn">
+                      <div className="absolute top-full right-0 mt-2 w-full bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 rounded-xl shadow-2xl overflow-hidden z-50 animate-fadeIn">
                         <div className="py-1">
                           {[
                             { value: 'best-selling', label: 'sortOptions.bestSelling', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' },
@@ -656,7 +656,7 @@ function ProductsPageContent() {
                               className={`w-full flex items-center gap-3 px-4 py-2 text-sm transition-all ${
                                 sortBy === option.value
                                   ? 'bg-gradient-to-r from-[#bc1215]/10 to-[#8a0e10]/5 text-[#bc1215] font-semibold'
-                                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                  : 'text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                               }`}
                             >
                               <svg className={`w-4 h-4 flex-shrink-0 ${sortBy === option.value ? 'text-[#bc1215]' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -682,7 +682,7 @@ function ProductsPageContent() {
             {loading && !fetched ? (
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4">
                 {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-xl overflow-hidden">
+                  <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-xl overflow-hidden">
                     <div className="aspect-square bg-gray-200/70 dark:bg-gray-700/50 animate-pulse" />
                     <div className="p-3 space-y-2">
                       <div className="h-4 bg-gray-200/70 dark:bg-gray-700/50 rounded animate-pulse w-3/4" />
@@ -710,7 +710,7 @@ function ProductsPageContent() {
                   {loading && fetched ? (
                     <div className="w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3">
                       {Array.from({ length: 4 }).map((_, i) => (
-                        <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-xl overflow-hidden opacity-60">
+                        <div key={i} className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-500/50 rounded-xl overflow-hidden opacity-60">
                           <div className="aspect-square bg-gray-200/70 dark:bg-gray-700/50 animate-pulse" />
                           <div className="p-3 space-y-2">
                             <div className="h-4 bg-gray-200/70 dark:bg-gray-700/50 rounded animate-pulse w-3/4" />
@@ -721,7 +721,7 @@ function ProductsPageContent() {
                     </div>
                   ) : !hasMore && products.length > 0 ? (
                     <div className="text-center py-8 w-full">
-                      <p className="text-gray-500 dark:text-gray-400 text-sm" suppressHydrationWarning>
+                      <p className="text-gray-500 dark:text-gray-200 text-sm" suppressHydrationWarning>
                         {t('products.noMoreProducts', { defaultValue: 'You\'ve reached the end' })}
                       </p>
                     </div>
@@ -760,7 +760,7 @@ function ProductsPageContent() {
                   </div>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4" suppressHydrationWarning>{t('noProducts.title')}</h3>
-                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 max-w-md mx-auto leading-relaxed" suppressHydrationWarning>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-200 mb-6 sm:mb-8 max-w-md mx-auto leading-relaxed" suppressHydrationWarning>
                   {t('noProducts.message')}
                 </p>
                 <button

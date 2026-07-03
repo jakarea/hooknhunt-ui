@@ -50,7 +50,7 @@ export default function TrustBar() {
   ];
 
   return (
-    <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
+    <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-500">
       <div className="container">
         <div className="flex items-center justify-center gap-2 sm:gap-6 py-2.5 sm:py-3 overflow-x-auto">
           {trustItems.map((item, index) => (
@@ -61,7 +61,7 @@ export default function TrustBar() {
               <div className={`flex-shrink-0 ${item.color}`}>
                 {item.icon}
               </div>
-              <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 leading-tight">
+              <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-100 leading-tight">
                 {item.text}
               </span>
             </div>

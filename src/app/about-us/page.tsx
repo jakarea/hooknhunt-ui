@@ -14,7 +14,7 @@ export default function AboutUsPage() {
 
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow-lg p-8 space-y-8">
           {/* Introduction */}
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+          <p className="text-gray-700 dark:text-gray-100 leading-relaxed text-lg">
             {t('about.intro')}
           </p>
 
@@ -23,7 +23,7 @@ export default function AboutUsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('about.mission.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('about.mission.text')}
             </p>
           </section>
@@ -33,7 +33,7 @@ export default function AboutUsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('about.offer.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('about.offer.text')}
             </p>
           </section>
@@ -64,7 +64,7 @@ export default function AboutUsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('about.commitment.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('about.commitment.text')}
             </p>
           </section>
@@ -74,13 +74,13 @@ export default function AboutUsPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('about.connect.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('about.connect.text')}
             </p>
           </section>
 
           {/* Outro */}
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed font-medium text-center border-t dark:border-gray-700 pt-6">
+          <p className="text-gray-700 dark:text-gray-100 leading-relaxed font-medium text-center border-t dark:border-gray-500 pt-6">
             {t('about.outro')}
           </p>
         </div>

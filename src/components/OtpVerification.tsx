@@ -114,7 +114,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           Verify Your Phone
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
           We&apos;ve sent a {OTP_LENGTH}-digit code to <span className="font-semibold">{phone}</span>
         </p>
       </div>
@@ -142,7 +142,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
             onKeyDown={(e) => handleKeyDown(index, e)}
             onPaste={index === 0 ? handlePaste : undefined}
             disabled={isLoading}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 dark:border-gray-700 rounded-lg focus:border-[#ec3137] focus:ring-2 focus:ring-[#ec3137]/20 bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 dark:border-gray-500 rounded-lg focus:border-[#ec3137] focus:ring-2 focus:ring-[#ec3137]/20 bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           />
         ))}
       </div>
@@ -168,7 +168,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
             Resend OTP
           </button>
         ) : (
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-gray-600 dark:text-gray-200">
             Resend OTP in <span className="font-semibold text-[#ec3137]">{countdown}s</span>
           </p>
         )}

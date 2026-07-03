@@ -15,25 +15,32 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
 
-    // Force light mode by clearing any existing dark theme
-    localStorage.removeItem('theme');
-    setTheme('light');
+    // Load saved theme preference or default to dark
+    const savedTheme = (localStorage.getItem('theme') as Theme) || 'dark';
+    setTheme(savedTheme);
 
-    // Remove dark class and update CSS variables
-    document.documentElement.classList.remove('dark');
-    document.documentElement.style.setProperty('--background', '#ffffff');
-    document.documentElement.style.setProperty('--foreground', '#171717');
-
-    // Also update body styles directly
-    document.body.style.background = '#ffffff';
-    document.body.style.color = '#171717';
-    document.body.classList.remove('dark');
+    // Apply the saved theme to the DOM
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.setProperty('--background', '#0f0808');
+      document.documentElement.style.setProperty('--foreground', '#ededed');
+      document.body.style.background = '#0f0808';
+      document.body.style.color = '#ededed';
+      document.body.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.style.setProperty('--background', '#ffffff');
+      document.documentElement.style.setProperty('--foreground', '#171717');
+      document.body.style.background = '#ffffff';
+      document.body.style.color = '#171717';
+      document.body.classList.remove('dark');
+    }
   }, []);
 
   const toggleTheme = () => {
@@ -59,7 +66,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // Prevent hydration mismatch
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: 'light', toggleTheme }}>
+      <ThemeContext.Provider value={{ theme: 'dark', toggleTheme }}>
         {children}
       </ThemeContext.Provider>
     );

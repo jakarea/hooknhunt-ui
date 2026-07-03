@@ -125,7 +125,7 @@ export default function AffiliateProductsPage() {
   if (products.length === 0) {
     return (
       <div className="flex-1">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-8">
           <div className="text-center">
             <svg
             className="w-16 h-16 text-gray-400 mx-auto mb-4"
@@ -143,7 +143,7 @@ export default function AffiliateProductsPage() {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
             কোনো পণ্য উপলব্ধ নেই
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-200">
             প্রচারের জন্য পণ্য পেতে পরবর্তে দেখুন।
             </p>
           </div>
@@ -185,7 +185,7 @@ export default function AffiliateProductsPage() {
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             অ্যাফিলিয়েট পণ্যসমূহ
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <p className="text-gray-600 dark:text-gray-200 mt-2">
             আপনার অ্যাফিলিয়েট লিংক সহ পণ্য ব্রাউজ এবং প্রচার করুন
             </p>
           </div>
@@ -199,7 +199,7 @@ export default function AffiliateProductsPage() {
         </div>
 
             {/* Filters */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-4">
             <div className="flex flex-col md:flex-row gap-4">
             {/* Search */}
             <div className="flex-1">
@@ -250,7 +250,7 @@ export default function AffiliateProductsPage() {
 
             {/* Results count */}
             <div className="md:w-auto flex items-center">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-gray-600 dark:text-gray-200">
             {filteredProducts.length} টি পণ্য
             </span>
             </div>
@@ -260,7 +260,7 @@ export default function AffiliateProductsPage() {
             {/* Products Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
-            <div key={product.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow">
+            <div key={product.id} className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 overflow-hidden hover:shadow-md transition-shadow">
             {/* Product Image */}
             <div className="relative h-48 bg-gray-200 dark:bg-gray-700">
             {product.image ? (
@@ -298,7 +298,7 @@ export default function AffiliateProductsPage() {
             {/* Product Details */}
             <div className="p-4">
             {/* Category */}
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{product.category ?? 'N/A'}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-200 mb-1">{product.category ?? 'N/A'}</p>
 
             {/* Product Name - Clickable Link */}
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
@@ -348,7 +348,7 @@ export default function AffiliateProductsPage() {
 
             {/* Empty State for Filtered Results */}
             {filteredProducts.length === 0 && products.length > 0 && (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-8">
             <div className="text-center">
             <svg
             className="w-16 h-16 text-gray-400 mx-auto mb-4"
@@ -366,7 +366,7 @@ export default function AffiliateProductsPage() {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
             কোনো পণ্য পাওয়া যায়নি
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-200">
             আপনার অনুসন্ধান বা ফিল্টার পরিবর্তন করে দেখুন
             </p>
             </div>

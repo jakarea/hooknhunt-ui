@@ -1313,9 +1313,9 @@ export default function CheckoutPage() {
       />
       <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-800">
+      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-500">
         <div className="container py-4">
-          <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
               {t('common.home')}
             </Link>
@@ -1342,7 +1342,7 @@ export default function CheckoutPage() {
           {/* Left Column - Customer Info & Payment */}
           <div className="lg:col-span-2 space-y-6">
             {/* Customer Information */}
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 p-6 rounded-lg">
+            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 p-6 rounded-lg">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                   {t('checkout.customerInfo')}
@@ -1352,7 +1352,7 @@ export default function CheckoutPage() {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2">
                     {t('checkout.phoneNumber')} <span className="text-red-600">*</span>
                   </label>
                   <input
@@ -1379,7 +1379,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2">
                     {t('checkout.fullName')} <span className="text-red-600">*</span>
                   </label>
                   <input
@@ -1401,7 +1401,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2">
                     {t('checkout.email')} ({t('checkout.optional')})
                   </label>
                   <input
@@ -1470,7 +1470,7 @@ export default function CheckoutPage() {
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-line">
+                          <p className="text-sm text-gray-600 dark:text-gray-200 whitespace-pre-line">
                             {[
                               address.addressLine1 || address.address_line1,
                               address.addressLine2 || address.address_line2,
@@ -1519,7 +1519,7 @@ export default function CheckoutPage() {
                       }}
                       className="w-4 h-4 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137]"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
+                    <span className="text-sm text-gray-700 dark:text-gray-100 group-hover:text-gray-900 dark:group-hover:text-white">
                       {t('checkout.useDifferentAddress')}
                     </span>
                   </label>
@@ -1530,7 +1530,7 @@ export default function CheckoutPage() {
               {(!isAuthenticated || addresses.length === 0 || useDifferentAddress) && (
                 <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2">
                       {t('checkout.division')} <span className="text-red-600">*</span>
                     </label>
                     <select
@@ -1555,7 +1555,7 @@ export default function CheckoutPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2">
                       {t('checkout.district')} <span className="text-red-600">*</span>
                     </label>
                     <select
@@ -1581,7 +1581,7 @@ export default function CheckoutPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2">
                       {t('checkout.thana')} <span className="text-red-600">*</span>
                     </label>
                     <select
@@ -1604,7 +1604,7 @@ export default function CheckoutPage() {
               {/* Address Field - Show when guest or user wants different address */}
               {(!isAuthenticated || addresses.length === 0 || useDifferentAddress) && (
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2">
                     {t('checkout.address')} <span className="text-red-600">*</span>
                   </label>
                   <textarea
@@ -1631,7 +1631,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 p-6 rounded-lg">
+            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 p-6 rounded-lg">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 {t('checkout.paymentMethod')}
               </h2>
@@ -1711,7 +1711,7 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex-1">
                         <p className="font-bold text-gray-900 dark:text-white">{t('checkout.paymentGateway')}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{t('checkout.paymentGatewayDesc')}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-200">{t('checkout.paymentGatewayDesc')}</p>
                         <div className="flex items-center gap-3 mt-2">
                           {activeGateway === 'sslcommerz' ? (
                             <img
@@ -1756,7 +1756,7 @@ export default function CheckoutPage() {
                     </div>
                     <div>
                       <p className="font-bold text-gray-900 dark:text-white">{t('checkout.cashOnDelivery')}</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{t('checkout.payWhenReceive')}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-200">{t('checkout.payWhenReceive')}</p>
                     </div>
                   </div>
                 </label>
@@ -1766,7 +1766,7 @@ export default function CheckoutPage() {
 
           {/* Right Column - Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden lg:sticky lg:top-24">
+            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 rounded-lg overflow-hidden lg:sticky lg:top-24">
               {/* Header */}
               <div className="bg-gradient-to-r from-[#ec3137] to-[#8a0f12] text-white p-6">
                 <h2 className="text-2xl font-bold">{t('checkout.summary')}</h2>
@@ -1777,12 +1777,12 @@ export default function CheckoutPage() {
 
               <div className="p-6">
                 {/* Cart Items with Thumbnails */}
-                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-800 max-h-[300px] overflow-y-auto">
+                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-500 max-h-[300px] overflow-y-auto">
                   <div className="space-y-4">
                     {cartItems.map((item) => (
                       <div key={`${item.product.id}-${item.variant?.id || 'default'}`} className="flex gap-3">
                         {/* Product Image */}
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-[#1a1a1a]">
                           <img
                             src={item.product.variant_image || item.product.image_url || '/placeholder-product.png'}
                             alt={getLocalizedNameForProduct(item.product)}
@@ -1800,7 +1800,7 @@ export default function CheckoutPage() {
                           </Link>
 
                           {item.variant && (
-                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                            <p className="text-xs text-gray-600 dark:text-gray-200 mt-1">
                               {item.variant.name}
                             </p>
                           )}
@@ -1811,7 +1811,7 @@ export default function CheckoutPage() {
                               <button
                                 type="button"
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400"
+                                className="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-200"
                                 disabled={item.quantity <= 1}
                               >
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1824,7 +1824,7 @@ export default function CheckoutPage() {
                               <button
                                 type="button"
                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400"
+                                className="w-7 h-7 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-200"
                               >
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -1843,7 +1843,7 @@ export default function CheckoutPage() {
                                     <span className="text-xs text-gray-400 line-through">
                                       ৳{item.product.originalPrice} {t('checkout.each')}
                                     </span>
-                                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                                    <span className="text-xs text-gray-600 dark:text-gray-200">
                                       ৳{item.price || 0} {t('checkout.each')}
                                     </span>
                                   </div>
@@ -1853,7 +1853,7 @@ export default function CheckoutPage() {
                                   <p className="text-sm font-bold text-gray-900 dark:text-white">
                                     ৳{(item.price || 0) * item.quantity}
                                   </p>
-                                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                                  <p className="text-xs text-gray-600 dark:text-gray-200">
                                     ৳{item.price || 0} {t('checkout.each')}
                                   </p>
                                 </>
@@ -1878,7 +1878,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Coupon Code */}
-                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-800">
+                <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-500">
                   <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
@@ -1975,8 +1975,8 @@ export default function CheckoutPage() {
 
                   {/* Auto-apply coupon suggestions */}
                   {!appliedCoupon && couponStore.autoApplyCoupons.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
-                      <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
+                    <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-500">
+                      <p className="text-xs font-medium text-gray-500 dark:text-gray-200 mb-2">
                         {t('checkout.availableOffers')}
                       </p>
                       <div className="space-y-2">
@@ -2037,8 +2037,8 @@ export default function CheckoutPage() {
                 )}
 
                 {/* Summary Items */}
-                <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-800">
-                  <div className="flex justify-between text-gray-700 dark:text-gray-300">
+                <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-500">
+                  <div className="flex justify-between text-gray-700 dark:text-gray-100">
                     <span>{t('common.subtotal')}</span>
                     <span className="font-bold text-gray-900 dark:text-white">
                       <AnimatedCounter value={subtotal} prefix="৳" duration={600} />
@@ -2064,7 +2064,7 @@ export default function CheckoutPage() {
 
                   {/* Service Charge */}
                   {serviceChargeSettings?.enabled && serviceCharge >= 0 && (
-                    <div className="flex justify-between text-sm text-gray-700 dark:text-gray-300">
+                    <div className="flex justify-between text-sm text-gray-700 dark:text-gray-100">
                       <span className="flex items-center gap-1">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -2116,7 +2116,7 @@ export default function CheckoutPage() {
                     onChange={(e) => setAgreeToTerms(e.target.checked)}
                     className="w-5 h-5 text-[#ec3137] border-2 border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-[#ec3137] focus:ring-offset-0 mt-0.5"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
+                  <span className="text-sm text-gray-700 dark:text-gray-100 group-hover:text-gray-900 dark:group-hover:text-white">
                     {t('checkout.agreeToTerms')}{' '}
                     <Link href="/privacy-policy" className="text-[#ec3137] hover:underline font-semibold">
                       {t('footer.privacy')}
@@ -2157,8 +2157,8 @@ export default function CheckoutPage() {
                 </button>
 
                 {/* Trust Badges */}
-                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800 space-y-3">
-                  <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-500 space-y-3">
+                  <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-200">
                     <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
                       <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -2166,7 +2166,7 @@ export default function CheckoutPage() {
                     </div>
                     <span className="font-medium text-gray-900 dark:text-white">{t('checkout.secureCheckout')}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-200">
                     <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0">
                       <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
@@ -2214,7 +2214,7 @@ export default function CheckoutPage() {
             </h2>
 
             {/* Order Number */}
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-center text-gray-600 dark:text-gray-200 mb-4">
               {t('checkout.orderNumber')}{pendingOrder.order_number}
             </p>
 
@@ -2233,7 +2233,7 @@ export default function CheckoutPage() {
 
             {/* OTP Input */}
             <div className="mb-4">
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 text-center">
+              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-100 mb-2 text-center">
                 {t('checkout.enterOtp')}
               </label>
               <input
@@ -2322,7 +2322,7 @@ export default function CheckoutPage() {
               {t('checkout.processingPayment')}
             </h2>
 
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-gray-600 dark:text-gray-200 mb-4">
               {t('checkout.pleaseWaitProcessOrder')}
             </p>
 

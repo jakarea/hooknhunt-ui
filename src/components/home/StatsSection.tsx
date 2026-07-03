@@ -83,7 +83,7 @@ export default function StatsSection() {
           <h3 className="text-heading-lg md:text-heading-xl font-bold text-gray-900 dark:text-white mb-4">
             Why Choose Hook & Hunt?
           </h3>
-          <p className="text-body-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-body-lg text-gray-600 dark:text-gray-200 max-w-2xl mx-auto">
             Join thousands of satisfied customers who trust us for their fishing adventures
           </p>
         </div>
@@ -111,7 +111,7 @@ export default function StatsSection() {
                 </div>
 
                 {/* Label */}
-                <span className="text-body-md font-semibold text-gray-700 dark:text-gray-300 group-hover:text-[#ec3137] transition-colors block">
+                <span className="text-body-md font-semibold text-gray-700 dark:text-gray-100 group-hover:text-[#ec3137] transition-colors block">
                   {stat.label}
                 </span>
 
@@ -124,26 +124,26 @@ export default function StatsSection() {
 
         {/* Additional Info */}
         <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-6 px-8 py-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800">
+          <div className="inline-flex items-center gap-6 px-8 py-4 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-500">
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-300">Free Shipping</span>
+              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-100">Free Shipping</span>
             </div>
             <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-300">Quality Guaranteed</span>
+              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-100">Quality Guaranteed</span>
             </div>
             <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
               </svg>
-              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-300">Lifetime Support</span>
+              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-100">Lifetime Support</span>
             </div>
           </div>
         </div>

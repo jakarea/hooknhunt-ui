@@ -39,7 +39,7 @@ function OrderFailContent() {
             Payment Failed
           </h1>
 
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-lg text-gray-600 dark:text-gray-200">
             We couldn't process your payment. Please try again.
           </p>
         </div>
@@ -54,36 +54,36 @@ function OrderFailContent() {
           </div>
 
           {invoiceNo && (
-            <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Invoice Number</p>
+            <div className="mb-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+              <p className="text-sm text-gray-600 dark:text-gray-200">Invoice Number</p>
               <p className="text-lg font-bold text-gray-900 dark:text-white">{invoiceNo}</p>
             </div>
           )}
 
           {orderTotal > 0 && (
-            <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Order Total</p>
+            <div className="mb-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+              <p className="text-sm text-gray-600 dark:text-gray-200">Order Total</p>
               <p className="text-lg font-bold text-[#ec3137]">৳{orderTotal.toLocaleString()}</p>
             </div>
           )}
 
           {tranId && (
             <div className="p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Transaction ID</p>
+              <p className="text-sm text-gray-600 dark:text-gray-200">Transaction ID</p>
               <p className="text-sm font-mono text-gray-900 dark:text-white">{tranId}</p>
             </div>
           )}
 
           {reason && (
             <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Reason</p>
+              <p className="text-sm text-gray-600 dark:text-gray-200">Reason</p>
               <p className="text-sm text-gray-900 dark:text-white">{reason}</p>
             </div>
           )}
         </div>
 
         {/* What To Do */}
-        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-xl p-8 shadow-lg">
+        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 rounded-xl p-8 shadow-lg">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">What You Can Do</h2>
 
           <div className="space-y-4 mb-8">
@@ -93,7 +93,7 @@ function OrderFailContent() {
               </div>
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">Try a different payment method</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Switch between EPS, SSLCommerz, or Cash on Delivery</p>
+                <p className="text-sm text-gray-600 dark:text-gray-200">Switch between EPS, SSLCommerz, or Cash on Delivery</p>
               </div>
             </div>
 
@@ -103,7 +103,7 @@ function OrderFailContent() {
               </div>
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">Check your card details</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Ensure your card has sufficient balance and details are correct</p>
+                <p className="text-sm text-gray-600 dark:text-gray-200">Ensure your card has sufficient balance and details are correct</p>
               </div>
             </div>
 
@@ -113,7 +113,7 @@ function OrderFailContent() {
               </div>
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">Contact your bank</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Some banks block online transactions by default</p>
+                <p className="text-sm text-gray-600 dark:text-gray-200">Some banks block online transactions by default</p>
               </div>
             </div>
 
@@ -123,7 +123,7 @@ function OrderFailContent() {
               </div>
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">Try again later</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Temporary network issues can cause payment failures</p>
+                <p className="text-sm text-gray-600 dark:text-gray-200">Temporary network issues can cause payment failures</p>
               </div>
             </div>
           </div>
@@ -139,7 +139,7 @@ function OrderFailContent() {
 
             <Link
               href="/products"
-              className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold rounded-xl transition-all duration-300 text-center"
+              className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold rounded-xl transition-all duration-300 text-center"
             >
               Continue Shopping
             </Link>

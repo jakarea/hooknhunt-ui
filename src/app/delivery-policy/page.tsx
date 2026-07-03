@@ -14,7 +14,7 @@ export default function DeliveryPolicyPage() {
 
         <div className="bg-white dark:bg-[#121212] rounded-lg shadow-lg p-8 space-y-8">
           {/* Introduction */}
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
             {t('delivery.intro')}
           </p>
 
@@ -23,10 +23,10 @@ export default function DeliveryPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('delivery.processingTime.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed mb-2">
               {t('delivery.processingTime.info1')}
             </p>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('delivery.processingTime.info2')}
             </p>
           </section>
@@ -36,7 +36,7 @@ export default function DeliveryPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('delivery.deliveryMethods.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('delivery.deliveryMethods.text')}
             </p>
           </section>
@@ -46,7 +46,7 @@ export default function DeliveryPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('delivery.shippingAddresses.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('delivery.shippingAddresses.text')}
             </p>
           </section>
@@ -56,7 +56,7 @@ export default function DeliveryPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('delivery.restrictions.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('delivery.restrictions.text')}
             </p>
           </section>
@@ -66,7 +66,7 @@ export default function DeliveryPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('delivery.confirmation.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('delivery.confirmation.text')}
             </p>
           </section>
@@ -76,7 +76,7 @@ export default function DeliveryPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('delivery.delays.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('delivery.delays.text')}
             </p>
           </section>
@@ -86,7 +86,7 @@ export default function DeliveryPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('delivery.returns.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('delivery.returns.text')}
             </p>
           </section>
@@ -96,7 +96,7 @@ export default function DeliveryPolicyPage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {t('delivery.contact.title')}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
               {t('delivery.contact.text')}
             </p>
           </section>

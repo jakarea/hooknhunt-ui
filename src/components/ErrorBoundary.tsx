@@ -73,7 +73,7 @@ function DefaultErrorFallback({ error, reset }: { error: Error | null; reset: ()
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
           Something went wrong
         </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
+        <p className="text-gray-600 dark:text-gray-200 mb-4">
           {process.env.NODE_ENV === 'development'
             ? error?.message || 'An unexpected error occurred'
             : 'An unexpected error occurred. Please refresh the page.'

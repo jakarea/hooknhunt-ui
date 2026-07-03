@@ -76,7 +76,7 @@ export default function Header() {
             </Link>
 
             {/* Welcome - Hidden on small screens */}
-            {/* <div className="hidden lg:block text-sm text-gray-600 dark:text-gray-400 flex-shrink-0">
+            {/* <div className="hidden lg:block text-sm text-gray-600 dark:text-gray-200 flex-shrink-0">
               {t('header.welcome')}
             </div> */}
 
@@ -89,7 +89,7 @@ export default function Header() {
                   onClick={openSearchModal}
                   onFocus={openSearchModal}
                   placeholder={(t('header.search') || 'Search products') + ' ⌘K'}
-                  className="w-full h-9 sm:h-10 pl-10 pr-12 text-sm border-2 border-gray-200 dark:border-gray-700 rounded-full focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 placeholder-gray-400 cursor-pointer"
+                  className="w-full h-9 sm:h-10 pl-10 pr-12 text-sm border-2 border-gray-200 dark:border-gray-500 rounded-full focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 placeholder-gray-400 cursor-pointer"
                 />
                 <div className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none">
                   <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,8 +118,8 @@ export default function Header() {
                 <LanguageSwitcher />
               </div>
 
-              {/* Theme Toggle - Desktop */}
-              {/* <button
+               {/* Theme Toggle - Desktop */}
+               <button
                 onClick={toggleTheme}
                 className="hidden lg:flex w-9 h-9 bg-[#ec3137]/90 hover:bg-[#ec3137]/70 transition-colors rounded-lg items-center justify-center"
                 aria-label="Toggle theme"
@@ -128,7 +128,6 @@ export default function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               </button>
-*/}
               {/* Account */}
               {mounted && !isLoading && (
                 <Link
@@ -208,7 +207,7 @@ export default function Header() {
               </button>
 
               {/* Dropdown Menu - Shows on Hover */}
-              <div className={`absolute top-full left-0 mt-1 w-56 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50 transition-opacity duration-200 ${isCategoryDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+              <div className={`absolute top-full left-0 mt-1 w-56 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-500 py-2 z-50 transition-opacity duration-200 ${isCategoryDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                 <div className="max-h-[400px] overflow-y-auto">
                   {categories.map((category) => {
                     const imageUrl = category.imageUrl || '';
@@ -269,7 +268,7 @@ export default function Header() {
           }`}
         >
           {/* Sidebar Header */}
-          <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800 bg-[#fee1e1] dark:bg-[#1a1a1a]">
+          <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-500 bg-[#fee1e1] dark:bg-[#1a1a1a]">
             <Link href="/" className="flex-shrink-0" onClick={() => setIsMenuOpen(false)}>
               <Image
                 src="/hook-and-hunt-logo.svg"
@@ -293,7 +292,7 @@ export default function Header() {
           {/* Sidebar Content */}
           <div className="overflow-y-auto h-full pb-20 px-3">
             {/* Mobile Search */}
-            <div className="py-4 border-b border-gray-100 dark:border-gray-800">
+            <div className="py-4 border-b border-gray-100 dark:border-gray-500">
               <div className="relative flex items-center">
                 <input
                   type="text"
@@ -301,7 +300,7 @@ export default function Header() {
                   onClick={openSearchModal}
                   onFocus={openSearchModal}
                   placeholder={(t('header.search') || 'Search') + ' ⌘K'}
-                  className="w-full h-10 pl-10 pr-4 text-sm border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 placeholder-gray-400 cursor-pointer"
+                  className="w-full h-10 pl-10 pr-4 text-sm border border-gray-200 dark:border-gray-500 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 placeholder-gray-400 cursor-pointer"
                 />
                 <svg className="absolute left-3 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -310,7 +309,7 @@ export default function Header() {
             </div>
 
             {/* User Actions - Mobile */}
-            <div className="py-3 border-b border-gray-100 dark:border-gray-800 flex items-center gap-2">
+            <div className="py-3 border-b border-gray-100 dark:border-gray-500 flex items-center gap-2">
               {mounted && !isLoading && (
                 <Link
                   href={isAuthenticated ? "/account" : "/login"}
@@ -329,7 +328,7 @@ export default function Header() {
                   className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-[#1a1a1a] hover:bg-gray-200 dark:hover:bg-[#2a2a2a] transition-colors"
                   aria-label="Toggle theme"
                 >
-                  <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-gray-700 dark:text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                   </svg>
                 </button>
@@ -379,7 +378,7 @@ export default function Header() {
                         <Link
                           key={category.id}
                           href={`/products?category=${category.slug}`}
-                          className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-[#1a1a1a] hover:text-[#bc1215] transition-colors rounded-md"
+                          className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-white dark:hover:bg-[#1a1a1a] hover:text-[#bc1215] transition-colors rounded-md"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           <span className="relative w-6 h-6 flex-shrink-0 rounded overflow-hidden bg-gray-200 dark:bg-gray-700">
@@ -402,7 +401,7 @@ export default function Header() {
               </div>
 
               {/* Track Order & Contact - After Categories */}
-              <div className="pt-2 border-t border-gray-100 dark:border-gray-800 mt-2">
+              <div className="pt-2 border-t border-gray-100 dark:border-gray-500 mt-2">
                 {navItemsAfterCategory.map((item) => (
                   <Link
                     key={item.href}
@@ -417,7 +416,7 @@ export default function Header() {
             </nav>
 
             {/* Contact Info - Bottom */}
-            <div className="py-4 mt-auto border-t border-gray-100 dark:border-gray-800">
+            <div className="py-4 mt-auto border-t border-gray-100 dark:border-gray-500">
               <a
                 href="tel:8801975244202"
                 className="flex items-center justify-center gap-2 px-4 py-3 bg-[#ec3137] hover:bg-[#c5282d] text-white rounded-lg transition-colors font-medium mb-2"

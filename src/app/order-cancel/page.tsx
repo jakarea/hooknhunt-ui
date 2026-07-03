@@ -39,7 +39,7 @@ function OrderCancelContent() {
             Payment Cancelled
           </h1>
 
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-lg text-gray-600 dark:text-gray-200">
             You cancelled the payment process. Your order has not been placed.
           </p>
         </div>
@@ -54,72 +54,72 @@ function OrderCancelContent() {
           </div>
 
           {invoiceNo && (
-            <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Invoice Number</p>
+            <div className="mb-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+              <p className="text-sm text-gray-600 dark:text-gray-200">Invoice Number</p>
               <p className="text-lg font-bold text-gray-900 dark:text-white">{invoiceNo}</p>
             </div>
           )}
 
           {orderTotal > 0 && (
-            <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Order Total</p>
+            <div className="mb-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+              <p className="text-sm text-gray-600 dark:text-gray-200">Order Total</p>
               <p className="text-lg font-bold text-[#ec3137]">৳{orderTotal.toLocaleString()}</p>
             </div>
           )}
 
           {tranId && (
-            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Transaction ID</p>
+            <div className="p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+              <p className="text-sm text-gray-600 dark:text-gray-200">Transaction ID</p>
               <p className="text-sm font-mono text-gray-900 dark:text-white">{tranId}</p>
             </div>
           )}
 
           {message && message !== 'Payment was cancelled' && (
             <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">Message</p>
+              <p className="text-sm text-gray-600 dark:text-gray-200">Message</p>
               <p className="text-sm text-gray-900 dark:text-white">{message}</p>
             </div>
           )}
         </div>
 
         {/* Info Box */}
-        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-xl p-8 shadow-lg">
+        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-500 rounded-xl p-8 shadow-lg">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">What Happens Next</h2>
 
           <div className="space-y-4 mb-8">
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-8 h-8 bg-gray-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-gray-600 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">No payment was made</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Your card was not charged and no order was created</p>
+                <p className="text-sm text-gray-600 dark:text-gray-200">Your card was not charged and no order was created</p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-8 h-8 bg-gray-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-gray-600 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">Your cart is preserved</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">You can return to checkout anytime to complete your purchase</p>
+                <p className="text-sm text-gray-600 dark:text-gray-200">You can return to checkout anytime to complete your purchase</p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-8 h-8 bg-gray-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-gray-600 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">Try a different payment method</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Switch between EPS, SSLCommerz, or Cash on Delivery</p>
+                <p className="text-sm text-gray-600 dark:text-gray-200">Switch between EPS, SSLCommerz, or Cash on Delivery</p>
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@ function OrderCancelContent() {
 
             <Link
               href="/products"
-              className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold rounded-xl transition-all duration-300 text-center"
+              className="flex-1 px-6 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold rounded-xl transition-all duration-300 text-center"
             >
               Continue Shopping
             </Link>

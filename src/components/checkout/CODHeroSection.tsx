@@ -60,7 +60,7 @@ export default function CODHeroSection() {
               <h3 className="text-heading-lg sm:text-heading-xl font-bold text-gray-900 dark:text-white mb-1">
                 Cash on Delivery
               </h3>
-              <p className="text-body-sm text-gray-600 dark:text-gray-400">
+              <p className="text-body-sm text-gray-600 dark:text-gray-200">
                 Pay when you receive - Most popular payment method in Bangladesh
               </p>
             </div>
@@ -86,7 +86,7 @@ export default function CODHeroSection() {
             <div className="flex-shrink-0 text-green-600 dark:text-green-400">
               {benefit.icon}
             </div>
-            <span className="text-label-sm sm:text-body-sm font-medium text-gray-700 dark:text-gray-300 leading-tight">
+            <span className="text-label-sm sm:text-body-sm font-medium text-gray-700 dark:text-gray-100 leading-tight">
               {benefit.text}
             </span>
           </div>
@@ -95,7 +95,7 @@ export default function CODHeroSection() {
 
       {/* Trust Note */}
       <div className="mt-5 pt-4 border-t border-green-200 dark:border-green-700/50">
-        <div className="flex items-center gap-2 text-label-sm text-gray-600 dark:text-gray-400">
+        <div className="flex items-center gap-2 text-label-sm text-gray-600 dark:text-gray-200">
           <svg className="w-4 h-4 text-green-600 dark:text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>

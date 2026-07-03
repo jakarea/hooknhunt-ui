@@ -24,7 +24,7 @@ export default function BestDeals() {
                 <span className="text-label-md font-bold text-[#ec3137] uppercase tracking-wider">Special Offers</span>
               </div>
               <h3 className="text-heading-xl md:text-heading-2xl font-bold text-gray-900 dark:text-white mb-4">Best Deals</h3>
-              <p className="text-body-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Limited time offers you can&apos;t miss</p>
+              <p className="text-body-lg text-gray-600 dark:text-gray-200 max-w-2xl mx-auto">Limited time offers you can&apos;t miss</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3">
               {bestDeals.slice(0, 6).map(product => (

@@ -90,7 +90,7 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-16 bottom-0 w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700 overflow-y-auto z-30">
+    <aside className="fixed left-0 top-16 bottom-0 w-64 bg-white dark:bg-[#1a1a1a] shadow-lg border-r border-gray-200 dark:border-gray-500 overflow-y-auto z-30">
       <div className="p-4">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-8">
@@ -99,7 +99,7 @@ export default function AdminSidebar() {
           </div>
           <div>
             <h2 className="text-lg font-bold text-gray-900 dark:text-white">{t('hookAndHunt')}</h2>
-            <p className="text-xs text-gray-500 dark:text-gray-400">{t('adminPanel')}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-200">{t('adminPanel')}</p>
           </div>
         </div>
 
@@ -114,7 +114,7 @@ export default function AdminSidebar() {
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group ${
                     isParentActive(item)
                       ? 'bg-[#ec3137] text-white'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      : 'text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
                   <span className="text-lg">{item.icon}</span>
@@ -151,7 +151,7 @@ export default function AdminSidebar() {
                         className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-sm ${
                           isActive(child.href)
                             ? 'bg-[#ec3137] text-white'
-                            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                            : 'text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
                         }`}
                       >
                         <span>{child.icon}</span>
@@ -166,18 +166,18 @@ export default function AdminSidebar() {
         </nav>
 
         {/* Bottom Section */}
-        <div className="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-8 pt-4 border-t border-gray-200 dark:border-gray-500">
           <div className="space-y-2">
             <Link
               href="/admin/help"
-              className="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
               <span className="text-lg">❓</span>
               <span className="font-medium">{t('helpAndSupport')}</span>
             </Link>
             <Link
               href="/"
-              className="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
               <span className="text-lg">🏪</span>
               <span className="font-medium">{t('viewStore')}</span>

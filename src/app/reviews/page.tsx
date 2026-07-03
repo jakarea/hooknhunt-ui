@@ -62,12 +62,12 @@ export default function ReviewsPage() {
   return (
     <div className="bg-gray-50 dark:bg-[#0f0f0f] min-h-screen">
       {/* Header */}
-      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-800">
+      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-500">
         <div className="container py-8 sm:py-12">
           <h1 className="text-heading-2xl sm:text-heading-3xl font-bold text-gray-900 dark:text-white mb-2">
             গ্রাহক রিভিউ
           </h1>
-          <p className="text-body-md text-gray-600 dark:text-gray-400">
+          <p className="text-body-md text-gray-600 dark:text-gray-200">
             আমাদের গ্রাহকরা আমাদের সম্পর্কে কী বলছেন তা দেখুন
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function ReviewsPage() {
       <div className="container py-8 sm:py-12">
         {reviews.length === 0 && !loading && (
           <div className="text-center py-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 dark:bg-[#1a1a1a] rounded-full mb-4">
               <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
@@ -85,7 +85,7 @@ export default function ReviewsPage() {
             <h3 className="text-heading-lg font-semibold text-gray-900 dark:text-white mb-2">
               এখনো কোনো রিভিউ নেই
             </h3>
-            <p className="text-body-md text-gray-600 dark:text-gray-400">
+            <p className="text-body-md text-gray-600 dark:text-gray-200">
               প্রথম রিভিউ দিন!
             </p>
           </div>
@@ -101,9 +101,9 @@ export default function ReviewsPage() {
         {/* Loading Spinner */}
         {loading && (
           <div className="flex justify-center py-12">
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-gray-800 rounded-full shadow-lg">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg">
               <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#ec3137] border-t-transparent"></div>
-              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-body-sm font-medium text-gray-700 dark:text-gray-100">
                 রিভিউ লোড হচ্ছে...
               </span>
             </div>
@@ -116,7 +116,7 @@ export default function ReviewsPage() {
         {/* End of List */}
         {!hasMorePages && reviews.length > 0 && (
           <div className="text-center py-8">
-            <p className="text-body-sm text-gray-500 dark:text-gray-400">
+            <p className="text-body-sm text-gray-500 dark:text-gray-200">
               আপনি শেষ পর্যন্ত পৌঁছেছেন
             </p>
           </div>
@@ -150,11 +150,11 @@ function ReviewCard({ review }: ReviewCardProps) {
 
   return (
     <div
-      className="break-inside-avoid mb-4 sm:mb-6 group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+      className="break-inside-avoid mb-4 sm:mb-6 group relative bg-white dark:bg-[#1a1a1a] rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
       onClick={() => setIsExpanded(!isExpanded)}
     >
       {/* Screenshot Image */}
-      <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-900">
+      <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-[#1a1a1a]">
         <Image
           src={screenshotUrl}
           alt={`Customer review - ${review.rating} stars`}
@@ -164,7 +164,7 @@ function ReviewCard({ review }: ReviewCardProps) {
         />
 
         {/* Rating Badge Overlay */}
-        <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm px-2.5 py-1.5 rounded-full shadow-lg">
+        <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/95 dark:bg-[#1a1a1a]/95 backdrop-blur-sm px-2.5 py-1.5 rounded-full shadow-lg">
           <svg className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>

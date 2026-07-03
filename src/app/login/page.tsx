@@ -143,7 +143,7 @@ function LoginForm() {
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                         {t('auth.login.title')}
                     </h2>
-                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
                         {t('auth.login.subtitle')}
                     </p>
                 </div>
@@ -154,7 +154,7 @@ function LoginForm() {
 
                         {/* Phone Number Field */}
                         <div>
-                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                                 {t('auth.login.phone')}
                             </label>
                             <div className="relative">
@@ -170,16 +170,16 @@ function LoginForm() {
                                     required
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
-                                    className="appearance-none block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-700 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec3137] focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                                    className="appearance-none block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-500 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec3137] focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                                     placeholder={t('checkout.phoneNumberPlaceholder')}
                                 />
                             </div>
-                            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t('auth.register.phoneHint')}</p>
+                            <p className="mt-1 text-xs text-gray-500 dark:text-gray-200">{t('auth.register.phoneHint')}</p>
                         </div>
 
                         {/* Password Field */}
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                                 {t('auth.login.password')}
                             </label>
                             <div className="relative">
@@ -195,7 +195,7 @@ function LoginForm() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="appearance-none block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-700 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec3137] focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                                    className="appearance-none block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-500 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec3137] focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                                     placeholder={t('auth.login.passwordPlaceholder')}
                                 />
                                 
@@ -230,7 +230,7 @@ function LoginForm() {
                                     onChange={(e) => setRememberMe(e.target.checked)}
                                     className="h-4 w-4 text-[#ec3137] focus:ring-[#ec3137] border-gray-300 rounded"
                                 />
-                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 dark:text-gray-100 cursor-pointer">
                                     {t('auth.login.rememberMe')}
                                 </label>
                             </div>
@@ -262,10 +262,10 @@ function LoginForm() {
                     <div className="mt-6">
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
+                                <div className="w-full border-t border-gray-300 dark:border-gray-500"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white dark:bg-[#1a1a1a] text-gray-500 dark:text-gray-400">
+                                <span className="px-2 bg-white dark:bg-[#1a1a1a] text-gray-500 dark:text-gray-200">
                                     {t('auth.login.noAccount')}
                                 </span>
                             </div>
@@ -276,7 +276,7 @@ function LoginForm() {
                     <div className="mt-6">
                         <Link
                             href="/registration"
-                            className="w-full flex justify-center py-3 px-4 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-[#2a2a2a] hover:bg-gray-50 dark:hover:bg-[#333333] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ec3137] transition-all duration-300"
+                            className="w-full flex justify-center py-3 px-4 border border-gray-300 dark:border-gray-500 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] hover:bg-gray-50 dark:hover:bg-[#333333] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ec3137] transition-all duration-300"
                         >
                             {t('auth.login.signUp')}
                         </Link>
@@ -285,7 +285,7 @@ function LoginForm() {
 
                 {/* Back to Home */}
                 <div className="text-center">
-                    <Link href="/" className="text-sm text-gray-600 dark:text-gray-400 hover:text-[#ec3137] dark:hover:text-[#ec3137] transition-colors">
+                    <Link href="/" className="text-sm text-gray-600 dark:text-gray-200 hover:text-[#ec3137] dark:hover:text-[#ec3137] transition-colors">
                         ← {t('auth.reset.backToHome')}
                     </Link>
                 </div>

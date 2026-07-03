@@ -91,7 +91,7 @@ export default function TrustSignals() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="text-center p-4 sm:p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+              className="text-center p-4 sm:p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-500 hover:shadow-lg transition-all duration-300"
             >
               <div className="flex justify-center mb-3 sm:mb-4">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-[#ec3137] to-[#8a0f12] rounded-2xl flex items-center justify-center text-white shadow-md">
@@ -104,7 +104,7 @@ export default function TrustSignals() {
               <p className="text-body-sm sm:text-body-md font-semibold text-gray-900 dark:text-white mb-1">
                 {stat.label}
               </p>
-              <p className="text-label-sm sm:text-label-md text-gray-600 dark:text-gray-400">
+              <p className="text-label-sm sm:text-label-md text-gray-600 dark:text-gray-200">
                 {stat.description}
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function TrustSignals() {
                 <span className="text-body-sm sm:text-body-md font-semibold text-gray-900 dark:text-white mb-2 block">
                   {guarantee.title}
                 </span>
-                <p className="text-label-sm sm:text-label-md text-gray-600 dark:text-gray-400">
+                <p className="text-label-sm sm:text-label-md text-gray-600 dark:text-gray-200">
                   {guarantee.description}
                 </p>
               </div>
@@ -138,7 +138,7 @@ export default function TrustSignals() {
 
         {/* CTA Section */}
         <div className="mt-12 text-center">
-          <p className="text-body-md sm:text-body-lg text-gray-700 dark:text-gray-300 mb-4 sm:mb-6">
+          <p className="text-body-md sm:text-body-lg text-gray-700 dark:text-gray-100 mb-4 sm:mb-6">
             Join thousands of satisfied anglers across Bangladesh
           </p>
           <a

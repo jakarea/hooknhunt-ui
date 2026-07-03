@@ -54,7 +54,7 @@ export default function WishlistPage() {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             My Wishlist
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-gray-600 dark:text-gray-200 mt-2">
             {wishlistItems.length} {wishlistItems.length === 1 ? 'item' : 'items'} saved • Total Value: ৳{getTotalValue().toLocaleString()}
           </p>
         </div>
@@ -79,9 +79,9 @@ export default function WishlistPage() {
 
             {/* Filters and Controls */}
             {wishlistItems.length > 0 && (
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
             <div className="flex items-center gap-4">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-100">
             Sort by:
             </label>
             <select
@@ -97,13 +97,13 @@ export default function WishlistPage() {
             </div>
 
             <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">View:</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-100">View:</span>
             <button
             onClick={() => setViewMode('grid')}
             className={`p-2 rounded-lg transition-colors ${
             viewMode === 'grid'
             ? 'bg-[#ec3137] text-white'
-            : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500'
+            : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-500'
             }`}
             >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@ export default function WishlistPage() {
             className={`p-2 rounded-lg transition-colors ${
             viewMode === 'list'
             ? 'bg-[#ec3137] text-white'
-            : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500'
+            : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-500'
             }`}
             >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,11 +135,11 @@ export default function WishlistPage() {
             {sortedItems.map((product) => (
             <div key={product.id} className="group relative">
             {viewMode === 'grid' ? (
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 overflow-hidden hover:shadow-lg transition-shadow">
             {/* Remove Button */}
             <button
             onClick={() => removeFromWishlist(product.id)}
-            className="absolute top-3 right-3 z-10 p-2 bg-white dark:bg-gray-700 rounded-full shadow-md hover:bg-red-100 dark:hover:bg-red-900 text-gray-600 hover:text-red-600 dark:text-gray-300 dark:hover:text-red-400 transition-colors"
+            className="absolute top-3 right-3 z-10 p-2 bg-white dark:bg-gray-700 rounded-full shadow-md hover:bg-red-100 dark:hover:bg-red-900 text-gray-600 hover:text-red-600 dark:text-gray-100 dark:hover:text-red-400 transition-colors"
             >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -196,7 +196,7 @@ export default function WishlistPage() {
             </div>
             </div>
             ) : (
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-4">
+            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-4 flex items-center gap-4">
             {/* Remove Button */}
             <button
             onClick={() => removeFromWishlist(product.id)}
@@ -264,7 +264,7 @@ export default function WishlistPage() {
             </svg>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Your wishlist is empty</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
+            <p className="text-gray-600 dark:text-gray-200 mb-8 max-w-md mx-auto">
             Save items you love by clicking the heart icon on any product. They&apos;ll appear here for easy access later.
             </p>
             <Link

@@ -250,13 +250,13 @@ function AdminAffiliateApplicationsContent() {
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                 Affiliate Applications
               </h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">
+              <p className="text-gray-600 dark:text-gray-200 mt-2">
                 Review and manage affiliate applications
               </p>
             </div>
             <Link
               href="/admin/affiliate"
-              className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              className="text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
             >
               ← Back to Dashboard
             </Link>
@@ -273,7 +273,7 @@ function AdminAffiliateApplicationsContent() {
           )}
 
           {/* Filters */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-4 mb-6">
             <div className="flex flex-col md:flex-row gap-4">
               {/* Search */}
               <div className="flex-1">
@@ -337,7 +337,7 @@ function AdminAffiliateApplicationsContent() {
           )}
 
           {/* Affiliates Table */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-700">
@@ -350,28 +350,28 @@ function AdminAffiliateApplicationsContent() {
                         className="rounded border-gray-300 dark:border-gray-600"
                       />
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                       ID
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                       Applicant
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                       Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                       Referral Code
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                       Commission
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                       Joined
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -396,7 +396,7 @@ function AdminAffiliateApplicationsContent() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                        <div className="text-sm text-gray-600 dark:text-gray-200">
                           {affiliate.user?.email || 'N/A'}
                         </div>
                       </td>
@@ -424,7 +424,7 @@ function AdminAffiliateApplicationsContent() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                         {affiliate.commission_rate}%
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-200">
                         {formatDate(affiliate.created_at)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -466,14 +466,14 @@ function AdminAffiliateApplicationsContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">No affiliates found</h3>
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Try adjusting your search or filter</p>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">Try adjusting your search or filter</p>
               </div>
             )}
 
             {/* Pagination */}
             {pagination.total > 0 && (
               <div className="bg-gray-50 dark:bg-gray-700 px-6 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-600">
-                <div className="text-sm text-gray-700 dark:text-gray-300">
+                <div className="text-sm text-gray-700 dark:text-gray-100">
                   Showing <span className="font-medium">{pagination.from || 0}</span> to{' '}
                   <span className="font-medium">{pagination.to || 0}</span> of{' '}
                   <span className="font-medium">{pagination.total}</span> results
@@ -482,14 +482,14 @@ function AdminAffiliateApplicationsContent() {
                   <button
                     onClick={() => fetchAffiliates({ page: pagination.current_page - 1, status: statusFilter, per_page: 15 })}
                     disabled={pagination.current_page === 1}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Previous
                   </button>
                   <button
                     onClick={() => fetchAffiliates({ page: pagination.current_page + 1, status: statusFilter, per_page: 15 })}
                     disabled={pagination.current_page === pagination.last_page}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next
                   </button>
@@ -501,14 +501,14 @@ function AdminAffiliateApplicationsContent() {
           {/* Reject Modal */}
           {showRejectModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-xl max-w-md w-full mx-4">
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     Reject Affiliate Application
                   </h3>
                   <form onSubmit={(e) => { e.preventDefault(); handleReject(rejectingId!, rejectReason); }}>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Reason for Rejection <span className="text-red-500">*</span>
                       </label>
                       <textarea
@@ -528,7 +528,7 @@ function AdminAffiliateApplicationsContent() {
                           setRejectingId(null);
                           setRejectReason('');
                         }}
-                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700"
                       >
                         Cancel
                       </button>
@@ -548,14 +548,14 @@ function AdminAffiliateApplicationsContent() {
           {/* Approve Modal */}
           {showApproveModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-xl max-w-md w-full mx-4">
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     Approve Affiliate Application
                   </h3>
                   <form onSubmit={(e) => { e.preventDefault(); handleApprove(approvingId!, commissionRate); }}>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Commission Rate (%)
                       </label>
                       <input
@@ -567,7 +567,7 @@ function AdminAffiliateApplicationsContent() {
                         step="0.01"
                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white"
                       />
-                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">
                         Default commission rate. Can be customized later.
                       </p>
                     </div>
@@ -579,7 +579,7 @@ function AdminAffiliateApplicationsContent() {
                           setApprovingId(null);
                           setCommissionRate(5);
                         }}
-                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700"
                       >
                         Cancel
                       </button>
@@ -599,14 +599,14 @@ function AdminAffiliateApplicationsContent() {
           {/* Edit Referral Code Modal */}
           {showEditReferralModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-xl max-w-md w-full mx-4">
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     Edit Referral Code
                   </h3>
                   <form onSubmit={(e) => { e.preventDefault(); handleSaveReferralCode(); }}>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                         Referral Code <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -618,7 +618,7 @@ function AdminAffiliateApplicationsContent() {
                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-gray-700 dark:text-white font-mono"
                         placeholder="ENTER CODE"
                       />
-                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">
                         Referral code will be automatically converted to uppercase
                       </p>
                     </div>
@@ -630,7 +630,7 @@ function AdminAffiliateApplicationsContent() {
                           setEditingReferralId(null);
                           setNewReferralCode('');
                         }}
-                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700"
                       >
                         Cancel
                       </button>

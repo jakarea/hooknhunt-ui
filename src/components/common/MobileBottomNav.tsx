@@ -90,7 +90,7 @@ export default function MobileBottomNav() {
   return (
     <>
       {/* Mobile Bottom Navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-gray-800 z-50 pb-safe overflow-x-hidden">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-gray-500 z-50 pb-safe overflow-x-hidden">
         <div className="flex items-center justify-around py-2 w-full max-w-full">
           {navItems.map((item) => {
             const isExternal = (item as any).external;
@@ -105,7 +105,7 @@ export default function MobileBottomNav() {
                     relative flex flex-col items-center justify-center
                     min-w-[64px] min-h-[56px] px-2 py-1
                     transition-colors duration-200
-                    text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200
+                    text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-200
                   "
                 >
                   {/* Icon */}
@@ -158,7 +158,7 @@ export default function MobileBottomNav() {
                   transition-colors duration-200
                   ${isActive(item.href)
                     ? 'text-[#ec3137]'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                    : 'text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-200'
                   }
                 `}
               >

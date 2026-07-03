@@ -71,7 +71,7 @@ export default function AdminAffiliateDashboard() {
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               Affiliate Management
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <p className="text-gray-600 dark:text-gray-200 mt-2">
               Manage affiliate applications, performance, and payouts
             </p>
           </div>
@@ -87,10 +87,10 @@ export default function AdminAffiliateDashboard() {
           {stats && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               {/* Total Affiliates */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-200">
                       Total Affiliates
                     </p>
                     <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
@@ -106,10 +106,10 @@ export default function AdminAffiliateDashboard() {
               </div>
 
               {/* Active Affiliates */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-200">
                       Active Affiliates
                     </p>
                     <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
@@ -125,10 +125,10 @@ export default function AdminAffiliateDashboard() {
               </div>
 
               {/* Pending Applications */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-200">
                       Pending Applications
                     </p>
                     <p className="text-3xl font-bold text-[#ec3137] mt-2">
@@ -152,10 +152,10 @@ export default function AdminAffiliateDashboard() {
               </div>
 
               {/* Total Payouts */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-200">
                       Completed Payouts
                     </p>
                     <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
@@ -176,7 +176,7 @@ export default function AdminAffiliateDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Link
               href="/admin/affiliate/applications"
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-4">
                 <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-full">
@@ -186,14 +186,14 @@ export default function AdminAffiliateDashboard() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white">Applications</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">View all applications</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-200">View all applications</p>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/admin/affiliate/applications?status=pending"
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-4">
                 <div className="bg-green-100 dark:bg-green-900 p-3 rounded-full">
@@ -203,14 +203,14 @@ export default function AdminAffiliateDashboard() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white">Pending</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Review applications</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-200">Review applications</p>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/admin/affiliate/payouts"
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-4">
                 <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-full">
@@ -220,7 +220,7 @@ export default function AdminAffiliateDashboard() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 dark:text-white">Payouts</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Manage payouts</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-200">Manage payouts</p>
                 </div>
               </div>
             </Link>
@@ -229,31 +229,31 @@ export default function AdminAffiliateDashboard() {
           {/* Revenue Statistics */}
           {stats && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Performance Overview
                 </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-400">Total Earned</span>
+                    <span className="text-gray-600 dark:text-gray-200">Total Earned</span>
                     <span className="text-xl font-bold text-gray-900 dark:text-white">
                       ৳{stats.total_earned.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-400">Total Withdrawn</span>
+                    <span className="text-gray-600 dark:text-gray-200">Total Withdrawn</span>
                     <span className="text-xl font-bold text-gray-900 dark:text-white">
                       ৳{stats.total_withdrawn.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-400">Pending Payouts</span>
+                    <span className="text-gray-600 dark:text-gray-200">Pending Payouts</span>
                     <span className="text-xl font-bold text-[#ec3137]">
                       ৳{stats.total_pending_payouts.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-400">This Month</span>
+                    <span className="text-gray-600 dark:text-gray-200">This Month</span>
                     <span className="text-xl font-bold text-green-600 dark:text-green-400">
                       ৳{stats.this_month_earnings.toFixed(2)}
                     </span>
@@ -261,25 +261,25 @@ export default function AdminAffiliateDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Engagement Metrics
                 </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-400">Total Clicks</span>
+                    <span className="text-gray-600 dark:text-gray-200">Total Clicks</span>
                     <span className="text-xl font-bold text-gray-900 dark:text-white">
                       {stats.total_clicks.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-400">Conversions</span>
+                    <span className="text-gray-600 dark:text-gray-200">Conversions</span>
                     <span className="text-xl font-bold text-gray-900 dark:text-white">
                       {stats.total_conversions.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-400">Conversion Rate</span>
+                    <span className="text-gray-600 dark:text-gray-200">Conversion Rate</span>
                     <span className="text-xl font-bold text-gray-900 dark:text-white">
                       {stats.total_clicks > 0
                         ? ((stats.total_conversions / stats.total_clicks) * 100).toFixed(2)
@@ -287,7 +287,7 @@ export default function AdminAffiliateDashboard() {
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-400">This Month Clicks</span>
+                    <span className="text-gray-600 dark:text-gray-200">This Month Clicks</span>
                     <span className="text-xl font-bold text-blue-600 dark:text-blue-400">
                       {stats.this_month_clicks.toLocaleString()}
                     </span>

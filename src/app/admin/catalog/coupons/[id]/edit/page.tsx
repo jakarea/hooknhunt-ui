@@ -179,7 +179,7 @@ export default function EditCouponPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#ec3137]"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading coupon details...</p>
+          <p className="mt-4 text-gray-600 dark:text-gray-200">Loading coupon details...</p>
         </div>
       </div>
     );
@@ -189,7 +189,7 @@ export default function EditCouponPage() {
     return (
       <div className="text-center py-12">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Coupon Not Found</h1>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">The coupon you're looking for doesn't exist or has been deleted.</p>
+        <p className="text-gray-600 dark:text-gray-200 mb-6">The coupon you're looking for doesn't exist or has been deleted.</p>
         <Link
           href="/admin/catalog/coupons"
           className="inline-block bg-[#ec3137] text-white px-6 py-3 rounded-lg hover:bg-[#d42a35] transition-colors"
@@ -214,7 +214,7 @@ export default function EditCouponPage() {
           Back to Coupons
         </Link>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mt-4">Edit Coupon</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Update coupon details and settings</p>
+        <p className="text-gray-600 dark:text-gray-200 mt-1">Update coupon details and settings</p>
       </div>
 
       {error && (
@@ -223,14 +223,14 @@ export default function EditCouponPage() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-8">
         <div className="space-y-6">
           {/* Basic Information */}
           <div>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Basic Information</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Coupon Code *
                 </label>
                 <input
@@ -242,11 +242,11 @@ export default function EditCouponPage() {
                   placeholder="e.g., SUMMER20"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white uppercase"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Unique code for the coupon (will be converted to uppercase)</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Unique code for the coupon (will be converted to uppercase)</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Discount Type *
                 </label>
                 <select
@@ -263,7 +263,7 @@ export default function EditCouponPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Discount Value *
                 </label>
                 <input
@@ -277,13 +277,13 @@ export default function EditCouponPage() {
                   placeholder={formData.type === 'percentage' ? 'e.g., 20' : 'e.g., 100'}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">
                   {formData.type === 'percentage' ? 'Percentage value (e.g., 20 for 20% off)' : 'Fixed amount in BDT'}
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Description
                 </label>
                 <textarea
@@ -301,26 +301,26 @@ export default function EditCouponPage() {
           {/* Usage Statistics */}
           {discount && (
             <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Usage Statistics</h3>
+              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-100 mb-3">Usage Statistics</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
-                  <div className="text-gray-500 dark:text-gray-400">Total Used</div>
+                  <div className="text-gray-500 dark:text-gray-200">Total Used</div>
                   <div className="text-lg font-semibold text-gray-900 dark:text-white">{discount.usedCount}</div>
                 </div>
                 <div>
-                  <div className="text-gray-500 dark:text-gray-400">Remaining</div>
+                  <div className="text-gray-500 dark:text-gray-200">Remaining</div>
                   <div className="text-lg font-semibold text-gray-900 dark:text-white">
                     {discount.maxUses ? discount.maxUses - discount.usedCount : '∞'}
                   </div>
                 </div>
                 <div>
-                  <div className="text-gray-500 dark:text-gray-400">Created</div>
+                  <div className="text-gray-500 dark:text-gray-200">Created</div>
                   <div className="text-sm text-gray-900 dark:text-white">
                     {new Date(discount.createdAt).toLocaleDateString()}
                   </div>
                 </div>
                 <div>
-                  <div className="text-gray-500 dark:text-gray-400">Last Updated</div>
+                  <div className="text-gray-500 dark:text-gray-200">Last Updated</div>
                   <div className="text-sm text-gray-900 dark:text-white">
                     {new Date(discount.updatedAt).toLocaleDateString()}
                   </div>
@@ -330,11 +330,11 @@ export default function EditCouponPage() {
           )}
 
           {/* Limits & Restrictions */}
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+          <div className="border-t border-gray-200 dark:border-gray-500 pt-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Limits & Restrictions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Minimum Purchase Amount
                 </label>
                 <input
@@ -347,11 +347,11 @@ export default function EditCouponPage() {
                   placeholder="0"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Minimum order value to use this coupon (leave 0 for no minimum)</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Minimum order value to use this coupon (leave 0 for no minimum)</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Maximum Discount Amount
                 </label>
                 <input
@@ -364,11 +364,11 @@ export default function EditCouponPage() {
                   placeholder="0"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Maximum discount cap in BDT (for percentage coupons)</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum discount cap in BDT (for percentage coupons)</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Total Usage Limit
                 </label>
                 <input
@@ -380,11 +380,11 @@ export default function EditCouponPage() {
                   placeholder="0"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Maximum times this coupon can be used (leave 0 for unlimited)</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum times this coupon can be used (leave 0 for unlimited)</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Per Customer Usage Limit
                 </label>
                 <input
@@ -396,11 +396,11 @@ export default function EditCouponPage() {
                   placeholder="0"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Maximum times each customer can use this coupon</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum times each customer can use this coupon</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Start Date
                 </label>
                 <input
@@ -413,7 +413,7 @@ export default function EditCouponPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   End Date
                 </label>
                 <input
@@ -428,11 +428,11 @@ export default function EditCouponPage() {
           </div>
 
           {/* Targeting */}
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+          <div className="border-t border-gray-200 dark:border-gray-500 pt-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Targeting (Optional)</h2>
             <div className="grid grid-cols-1 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Product IDs (comma separated)
                 </label>
                 <input
@@ -443,11 +443,11 @@ export default function EditCouponPage() {
                   placeholder="e.g., 1,2,3"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Restrict coupon to specific products</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific products</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Category IDs (comma separated)
                 </label>
                 <input
@@ -458,11 +458,11 @@ export default function EditCouponPage() {
                   placeholder="e.g., 1,2,3"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Restrict coupon to specific categories</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific categories</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-100 mb-2">
                   Customer IDs (comma separated)
                 </label>
                 <input
@@ -473,13 +473,13 @@ export default function EditCouponPage() {
                   placeholder="e.g., 1,2,3"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-gray-700 dark:text-white"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Restrict coupon to specific customers</p>
+                <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific customers</p>
               </div>
             </div>
           </div>
 
           {/* Settings */}
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+          <div className="border-t border-gray-200 dark:border-gray-500 pt-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Settings</h2>
             <div className="space-y-4">
               <div className="flex items-center">
@@ -491,7 +491,7 @@ export default function EditCouponPage() {
                   onChange={handleChange}
                   className="h-4 w-4 text-[#ec3137] focus:ring-[#ec3137] border-gray-300 rounded"
                 />
-                <label htmlFor="is_active" className="ml-3 text-sm text-gray-700 dark:text-gray-300">
+                <label htmlFor="is_active" className="ml-3 text-sm text-gray-700 dark:text-gray-100">
                   Active (coupon is enabled and can be used)
                 </label>
               </div>
@@ -505,7 +505,7 @@ export default function EditCouponPage() {
                   onChange={handleChange}
                   className="h-4 w-4 text-[#ec3137] focus:ring-[#ec3137] border-gray-300 rounded"
                 />
-                <label htmlFor="is_auto_apply" className="ml-3 text-sm text-gray-700 dark:text-gray-300">
+                <label htmlFor="is_auto_apply" className="ml-3 text-sm text-gray-700 dark:text-gray-100">
                   Auto Apply (automatically apply best coupon at checkout)
                 </label>
               </div>
@@ -519,7 +519,7 @@ export default function EditCouponPage() {
                   onChange={handleChange}
                   className="h-4 w-4 text-[#ec3137] focus:ring-[#ec3137] border-gray-300 rounded"
                 />
-                <label htmlFor="first_purchase_only" className="ml-3 text-sm text-gray-700 dark:text-gray-300">
+                <label htmlFor="first_purchase_only" className="ml-3 text-sm text-gray-700 dark:text-gray-100">
                   First Purchase Only (only for new customers)
                 </label>
               </div>
@@ -527,7 +527,7 @@ export default function EditCouponPage() {
           </div>
 
           {/* Actions */}
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-6 flex justify-between">
+          <div className="border-t border-gray-200 dark:border-gray-500 pt-6 flex justify-between">
             <button
               type="button"
               onClick={() => {
@@ -555,7 +555,7 @@ export default function EditCouponPage() {
             <div className="flex gap-4">
               <Link
                 href="/admin/catalog/coupons"
-                className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors"
+                className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-100 transition-colors"
               >
                 Cancel
               </Link>
