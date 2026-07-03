@@ -26,10 +26,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTheme(savedTheme);
 
     // Apply the saved theme to the DOM
-    if (savedTheme === 'dark') {
+    applyTheme(savedTheme);
+  }, []);
+
+  const applyTheme = (themeToApply: Theme) => {
+    if (themeToApply === 'dark') {
       document.documentElement.classList.add('dark');
       document.documentElement.style.setProperty('--background', '#0f0808');
       document.documentElement.style.setProperty('--foreground', '#ededed');
+      document.documentElement.style.colorScheme = 'dark';
       document.body.style.background = '#0f0808';
       document.body.style.color = '#ededed';
       document.body.classList.add('dark');
@@ -37,30 +42,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       document.documentElement.classList.remove('dark');
       document.documentElement.style.setProperty('--background', '#ffffff');
       document.documentElement.style.setProperty('--foreground', '#171717');
+      document.documentElement.style.colorScheme = 'light';
       document.body.style.background = '#ffffff';
       document.body.style.color = '#171717';
       document.body.classList.remove('dark');
     }
-  }, []);
+  };
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.documentElement.style.setProperty('--background', '#0a0a0a');
-      document.documentElement.style.setProperty('--foreground', '#ededed');
-      document.body.style.background = '#0a0a0a';
-      document.body.style.color = '#ededed';
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.style.setProperty('--background', '#ffffff');
-      document.documentElement.style.setProperty('--foreground', '#171717');
-      document.body.style.background = '#ffffff';
-      document.body.style.color = '#171717';
-    }
+    applyTheme(newTheme);
   };
 
   // Prevent hydration mismatch

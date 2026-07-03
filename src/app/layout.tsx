@@ -35,7 +35,20 @@ export default function RootLayout({
   return (
     <html lang="bn" className="dark" suppressHydrationWarning>
       <head>
-
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                // Ensure dark mode is applied before page renders
+                document.documentElement.classList.add('dark');
+                document.body.classList.add('dark');
+                document.documentElement.style.background = '#0f0808';
+                document.body.style.background = '#0f0808';
+                document.body.style.color = '#ededed';
+              })();
+            `,
+          }}
+        />
       </head>
       <body className={`${notoSansBengali.className} ${anekBangla.className} antialiased dark:bg-[#0f0808] dark:text-gray-100 bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
         <script
