@@ -50,7 +50,7 @@ export default function TrendingProduct() {
         </Link>
       </div> */}
 
-      <div className="bg-[#fef2f2] p-3 lg:p-4 rounded-lg rounded-t-none shadow border border-t-0 border-[#ffa2a2]">
+      <div className="bg-[#fef2f2] dark:bg-[#1a1a1a] p-3 lg:p-4 rounded-lg rounded-t-none shadow border border-t-0 border-[#ffa2a2] dark:border-[#6b2a2a]">
       <h3 className="text-heading-base md:text-heading-xl font-bold text-black dark:text-white mb-2 lg:mb-3">{t('home.trending.title')}</h3>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1 lg:gap-2 ">
