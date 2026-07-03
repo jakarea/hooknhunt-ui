@@ -81,7 +81,7 @@ export default function CODHeroSection() {
         {benefits.map((benefit, index) => (
           <div
             key={index}
-            className="flex items-center gap-2 bg-white dark:bg-white/10 backdrop-blur-sm px-3 py-2.5 rounded-xl border border-green-200 dark:border-green-700/50"
+            className="flex items-center gap-2 bg-white dark:bg-white dark:bg-[#2a2a2a]/10 backdrop-blur-sm px-3 py-2.5 rounded-xl border border-green-200 dark:border-green-700/50"
           >
             <div className="flex-shrink-0 text-green-600 dark:text-green-400">
               {benefit.icon}

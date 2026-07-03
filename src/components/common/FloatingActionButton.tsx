@@ -81,7 +81,7 @@ export default function FloatingActionButton() {
               className="flex items-center gap-3 animate-fadeInUp"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
                 {action.label}
                 {action.count && action.count > 0 && (
                   <span className="ml-1 inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">

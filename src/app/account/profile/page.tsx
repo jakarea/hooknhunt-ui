@@ -150,7 +150,7 @@ export default function ProfilePage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Profile Card */}
             <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
             <div className="text-center">
             <div className="w-24 h-24 bg-[#ec3137] rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-white font-bold text-2xl">
@@ -173,7 +173,7 @@ export default function ProfilePage() {
 
             {/* Profile Form */}
             <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">ব্যক্তিগত তথ্য</h3>
 
             <div className="space-y-4">
@@ -186,7 +186,7 @@ export default function ProfilePage() {
             type="text"
             value={getPhoneNumber()}
             disabled
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg bg-gray-100 dark:bg-[#1a1a1a] text-gray-500 dark:text-gray-200 cursor-not-allowed"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg bg-gray-100 dark:bg-[#322020] text-gray-500 dark:text-gray-200 cursor-not-allowed"
             />
             <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">
             ফোন নম্বর পরিবর্তন করা যাবে না
@@ -211,8 +211,8 @@ export default function ProfilePage() {
             : 'border-gray-300 dark:border-gray-400 focus:ring-[#ec3137]'
             } ${
             isEditing
-            ? 'bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white'
-            : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-500 dark:text-gray-200 cursor-not-allowed'
+            ? 'bg-white dark:bg-[#322020] text-gray-900 dark:text-white'
+            : 'bg-gray-100 dark:bg-[#322020] text-gray-500 dark:text-gray-200 cursor-not-allowed'
             } focus:outline-none focus:ring-2`}
             />
             {getFieldError('name') && (
@@ -238,8 +238,8 @@ export default function ProfilePage() {
             : 'border-gray-300 dark:border-gray-400 focus:ring-[#ec3137]'
             } ${
             isEditing
-            ? 'bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white'
-            : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-500 dark:text-gray-200 cursor-not-allowed'
+            ? 'bg-white dark:bg-[#322020] text-gray-900 dark:text-white'
+            : 'bg-gray-100 dark:bg-[#322020] text-gray-500 dark:text-gray-200 cursor-not-allowed'
             } focus:outline-none focus:ring-2`}
             />
             {getFieldError('email') && (
@@ -266,8 +266,8 @@ export default function ProfilePage() {
             : 'border-gray-300 dark:border-gray-400 focus:ring-[#ec3137]'
             } ${
             isEditing
-            ? 'bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white'
-            : 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-500 dark:text-gray-200 cursor-not-allowed'
+            ? 'bg-white dark:bg-[#322020] text-gray-900 dark:text-white'
+            : 'bg-gray-100 dark:bg-[#322020] text-gray-500 dark:text-gray-200 cursor-not-allowed'
             } focus:outline-none focus:ring-2`}
             />
             {getFieldError('whatsapp_number') && (
@@ -301,7 +301,7 @@ export default function ProfilePage() {
             <button
             onClick={handleCancel}
             disabled={updating}
-            className="flex-1 bg-gray-200 dark:bg-[#1a1a1a] hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 bg-gray-200 dark:bg-[#322020] hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
             বাতিল
             </button>
@@ -311,7 +311,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Account Information */}
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 mt-6">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 mt-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">অ্যাকাউন্ট তথ্য</h3>
             <div className="space-y-3 text-sm">
             <div className="flex justify-between">

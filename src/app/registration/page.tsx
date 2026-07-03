@@ -194,7 +194,7 @@ export default function RegistrationPage() {
                 </div>
 
                 {/* Registration Form */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-8">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Error Message */}
                         {error && (
@@ -308,7 +308,7 @@ export default function RegistrationPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
                                 >
                                     {showPassword ? (
                                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -357,7 +357,7 @@ export default function RegistrationPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
                                 >
                                     {showConfirmPassword ? (
                                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -428,7 +428,7 @@ export default function RegistrationPage() {
                                 <div className="w-full border-t border-gray-300"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500" suppressHydrationWarning>
+                                <span className="px-2 bg-white dark:bg-[#2a2a2a] text-gray-500" suppressHydrationWarning>
                                     {t('auth.register.haveAccount')}
                                 </span>
                             </div>
@@ -439,7 +439,7 @@ export default function RegistrationPage() {
                     <div className="mt-6">
                         <Link
                             href="/login"
-                            className="w-full flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700 transition-all duration-300"
+                            className="w-full flex justify-center py-3 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] hover:bg-gray-50 dark:hover:bg-[#4a3030] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700 transition-all duration-300"
                         >
                             {t('auth.register.login')}
                         </Link>
@@ -448,7 +448,7 @@ export default function RegistrationPage() {
 
                 {/* Back to Home */}
                 <div className="text-center">
-                    <Link href="/" className="text-sm text-gray-600 hover:text-red-700 transition-colors">
+                    <Link href="/" className="text-sm text-gray-600 dark:text-gray-400 hover:text-red-700 dark:hover:text-red-400 transition-colors">
                         ← {t('common.backToHome', { defaultValue: 'Back to Home' })}
                     </Link>
                 </div>

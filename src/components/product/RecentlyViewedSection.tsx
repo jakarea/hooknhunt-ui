@@ -27,7 +27,7 @@ export default function RecentlyViewedSection({ currentProductId }: RecentlyView
   }
 
   return (
-    <section className="py-8 sm:py-12 bg-white/50 dark:bg-[#0a0a0a]/50">
+    <section className="py-8 sm:py-12 bg-white dark:bg-[#2a2a2a]/50 dark:bg-[#1f1515]/50">
       <div className="container px-3 md:px-4">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-6 sm:mb-8">

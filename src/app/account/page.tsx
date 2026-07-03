@@ -159,7 +159,7 @@ export default function UserDashboard() {
       {/* Stats Grid */}
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">মোট অর্ডার</p>
@@ -173,7 +173,7 @@ export default function UserDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">মোট ব্যয়</p>
@@ -187,7 +187,7 @@ export default function UserDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">পেন্ডিং অর্ডার</p>
@@ -201,7 +201,7 @@ export default function UserDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">সম্পন্ন অর্ডার</p>
@@ -217,7 +217,7 @@ export default function UserDashboard() {
           </div>
 
           {/* Recent Orders */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+          <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200">
               <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-gray-900">সাম্প্রতিক অর্ডার</h2>
                 <Link href="/account/orders" className="text-sm text-red-700 hover:text-red-800 font-medium">
@@ -263,7 +263,7 @@ export default function UserDashboard() {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-white dark:bg-[#2a2a2a] divide-y divide-gray-200">
                       {orders.slice(0, 5).map((order) => (
                         <tr key={order.id} className="hover:bg-gray-50 cursor-pointer">
                           <td className="px-6 py-4 whitespace-nowrap">
@@ -296,7 +296,7 @@ export default function UserDashboard() {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">দ্রুত পদক্ষেপ</h3>
                 <div className="space-y-3">
                   <Link
@@ -329,7 +329,7 @@ export default function UserDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">অ্যাকাউন্ট তথ্য</h3>
                 <div className="space-y-3">
                   <div className="flex items-start">
@@ -362,7 +362,7 @@ export default function UserDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">সহায়তা প্রয়োজন?</h3>
                 <div className="space-y-3">
                   <Link href="/track-order" className="flex items-center text-sm text-gray-700 hover:text-red-700 transition-colors">

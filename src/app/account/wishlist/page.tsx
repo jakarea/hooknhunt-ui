@@ -79,7 +79,7 @@ export default function WishlistPage() {
 
             {/* Filters and Controls */}
             {wishlistItems.length > 0 && (
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gray-50 dark:bg-[#322020] rounded-lg">
             <div className="flex items-center gap-4">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-100">
             Sort by:
@@ -87,7 +87,7 @@ export default function WishlistPage() {
             <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+            className="px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
             >
             <option value="date-added">Date Added</option>
             <option value="price-low">Price: Low to High</option>
@@ -135,11 +135,11 @@ export default function WishlistPage() {
             {sortedItems.map((product) => (
             <div key={product.id} className="group relative">
             {viewMode === 'grid' ? (
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 overflow-hidden hover:shadow-lg transition-shadow">
             {/* Remove Button */}
             <button
             onClick={() => removeFromWishlist(product.id)}
-            className="absolute top-3 right-3 z-10 p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-md hover:bg-red-100 dark:hover:bg-red-900 text-gray-600 hover:text-red-600 dark:text-gray-100 dark:hover:text-red-400 transition-colors"
+            className="absolute top-3 right-3 z-10 p-2 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-full shadow-md hover:bg-red-100 dark:hover:bg-red-900 text-gray-600 hover:text-red-600 dark:text-gray-100 dark:hover:text-red-400 transition-colors"
             >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -147,7 +147,7 @@ export default function WishlistPage() {
             </button>
 
             {/* Product Image */}
-            <div className="aspect-square bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden relative">
+            <div className="aspect-square bg-gray-100 dark:bg-[#322020] overflow-hidden relative">
             <Image
             src={product.image || '/placeholder-image.jpg'}
             alt={product.name || 'Product image'}
@@ -189,14 +189,14 @@ export default function WishlistPage() {
             <button className="w-full bg-[#ec3137] hover:bg-[#8a0f12] text-white font-medium py-2 px-4 rounded-lg transition-colors">
             Add to Cart
             </button>
-            <button className="w-full bg-gray-100 hover:bg-gray-200 dark:bg-[#1a1a1a] dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors">
+            <button className="w-full bg-gray-100 hover:bg-gray-200 dark:bg-[#322020] dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors">
             Quick View
             </button>
             </div>
             </div>
             </div>
             ) : (
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4 flex items-center gap-4">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4 flex items-center gap-4">
             {/* Remove Button */}
             <button
             onClick={() => removeFromWishlist(product.id)}
@@ -208,7 +208,7 @@ export default function WishlistPage() {
             </button>
 
             {/* Product Image */}
-            <div className="w-20 h-20 bg-gray-100 dark:bg-[#1a1a1a] rounded-lg overflow-hidden flex-shrink-0 relative">
+            <div className="w-20 h-20 bg-gray-100 dark:bg-[#322020] rounded-lg overflow-hidden flex-shrink-0 relative">
             <Image
             src={product.image || '/placeholder-image.jpg'}
             alt={product.name || 'Product image'}
@@ -247,7 +247,7 @@ export default function WishlistPage() {
             <button className="bg-[#ec3137] hover:bg-[#8a0f12] text-white font-medium py-2 px-4 rounded-lg transition-colors">
             Add to Cart
             </button>
-            <button className="bg-gray-100 hover:bg-gray-200 dark:bg-[#1a1a1a] dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors">
+            <button className="bg-gray-100 hover:bg-gray-200 dark:bg-[#322020] dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors">
             View
             </button>
             </div>
@@ -258,7 +258,7 @@ export default function WishlistPage() {
             </div>
             ) : (
             <div className="text-center py-16">
-            <div className="w-32 h-32 bg-gray-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-32 h-32 bg-gray-100 dark:bg-[#322020] rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
@@ -294,7 +294,7 @@ export default function WishlistPage() {
             <p className="text-white/90 text-sm">Total Value</p>
             <p className="text-2xl font-bold">৳{getTotalValue().toLocaleString()}</p>
             </div>
-            <button className="bg-white text-[#ec3137] hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition-colors">
+            <button className="bg-white dark:bg-[#2a2a2a] text-[#ec3137] hover:bg-gray-100 font-bold py-3 px-6 rounded-lg transition-colors">
             Add All to Cart
             </button>
             </div>

@@ -115,7 +115,7 @@ export default function AdminCRMLeadsPage() {
   // Initial loading state
   if (loading && leads.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-[#0f0f0f]">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#2a1a1a]">
         <AdminHeader />
         <div className="flex">
           <AdminSidebar />
@@ -128,7 +128,7 @@ export default function AdminCRMLeadsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0f0f0f]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#2a1a1a]">
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
 
       <AdminHeader />
@@ -163,19 +163,19 @@ export default function AdminCRMLeadsPage() {
         {/* Stats Cards */}
         {stats && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
               <div className="text-sm text-gray-600 dark:text-gray-200">Total Leads</div>
               <div className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{stats.total}</div>
             </div>
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
               <div className="text-sm text-gray-600 dark:text-gray-200">New Leads</div>
               <div className="text-2xl font-bold text-blue-600 mt-1">{stats.new}</div>
             </div>
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
               <div className="text-sm text-gray-600 dark:text-gray-200">Converted</div>
               <div className="text-2xl font-bold text-green-600 mt-1">{stats.converted}</div>
             </div>
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4">
               <div className="text-sm text-gray-600 dark:text-gray-200">Unassigned</div>
               <div className="text-2xl font-bold text-orange-600 mt-1">{stats.unassigned}</div>
             </div>
@@ -183,7 +183,7 @@ export default function AdminCRMLeadsPage() {
         )}
 
         {/* Filters */}
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4 mb-6">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4 mb-6">
           <div className="flex flex-col md:flex-row gap-4">
             <input
               type="text"
@@ -191,12 +191,12 @@ export default function AdminCRMLeadsPage() {
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
             />
             <select
               value={filters.status}
               onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              className="md:w-40 px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+              className="md:w-40 px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
             >
               <option value="all">All Status</option>
               <option value="new">New</option>
@@ -208,7 +208,7 @@ export default function AdminCRMLeadsPage() {
             <select
               value={filters.source}
               onChange={(e) => setFilters({ ...filters, source: e.target.value })}
-              className="md:w-40 px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+              className="md:w-40 px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
             >
               <option value="all">All Sources</option>
               <option value="website_contact_form">Contact Form</option>
@@ -225,10 +225,10 @@ export default function AdminCRMLeadsPage() {
         </div>
 
         {/* Leads Table */}
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 overflow-hidden">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-[#1a1a1a]">
+              <thead className="bg-gray-50 dark:bg-[#322020]">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">
                     Name
@@ -330,7 +330,7 @@ export default function AdminCRMLeadsPage() {
 
           {/* Pagination */}
           {pagination.total > 0 && (
-            <div className="bg-gray-50 dark:bg-[#1a1a1a] px-6 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-400">
+            <div className="bg-gray-50 dark:bg-[#322020] px-6 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-400">
               <div className="text-sm text-gray-700 dark:text-gray-100">
                 Showing <span className="font-medium">{pagination.from || 0}</span> to{' '}
                 <span className="font-medium">{pagination.to || 0}</span> of{' '}
@@ -340,14 +340,14 @@ export default function AdminCRMLeadsPage() {
                 <button
                   onClick={() => handlePageChange(pagination.current_page - 1)}
                   disabled={pagination.current_page === 1}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
                 <button
                   onClick={() => handlePageChange(pagination.current_page + 1)}
                   disabled={pagination.current_page === pagination.last_page}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>
@@ -360,7 +360,7 @@ export default function AdminCRMLeadsPage() {
       {/* Lead Detail Modal */}
       {showDetailModal && selectedLead && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
+          <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">

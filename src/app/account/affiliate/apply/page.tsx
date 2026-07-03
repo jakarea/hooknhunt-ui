@@ -137,7 +137,7 @@ export default function AffiliateApplicationPage() {
   if (affiliateStatus?.isAffiliate && !affiliateStatus?.isApproved) {
     return (
       <div className="flex-1">
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-8">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-8">
           <div className="text-center max-w-md mx-auto">
             <div className="mb-6">
               <svg
@@ -171,7 +171,7 @@ export default function AffiliateApplicationPage() {
 
             <Link
               href="/account"
-              className="inline-block bg-gray-200 dark:bg-[#1a1a1a] text-gray-800 dark:text-gray-200 font-medium py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              className="inline-block bg-gray-200 dark:bg-[#322020] text-gray-800 dark:text-gray-200 font-medium py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             >
               Back to Account
             </Link>
@@ -185,7 +185,7 @@ export default function AffiliateApplicationPage() {
   if (submitted) {
     return (
       <div className="flex-1">
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-8">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-8">
           <div className="text-center max-w-md mx-auto">
             <div className="mb-6">
               <svg
@@ -251,7 +251,7 @@ export default function AffiliateApplicationPage() {
 
       {/* Main Content */}
       <div className="flex-1">
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-8">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-8">
           <div className="max-w-2xl mx-auto">
             {/* Header */}
             <div className="mb-8">
@@ -282,7 +282,7 @@ export default function AffiliateApplicationPage() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white ${
+                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white ${
                         validationErrors.name
                           ? 'border-red-500 dark:border-red-500'
                           : 'border-gray-300 dark:border-gray-400'
@@ -304,7 +304,7 @@ export default function AffiliateApplicationPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white ${
+                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white ${
                         validationErrors.phone
                           ? 'border-red-500 dark:border-red-500'
                           : 'border-gray-300 dark:border-gray-400'
@@ -326,7 +326,7 @@ export default function AffiliateApplicationPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white ${
+                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white ${
                         validationErrors.email
                           ? 'border-red-500 dark:border-red-500'
                           : 'border-gray-300 dark:border-gray-400'
@@ -348,7 +348,7 @@ export default function AffiliateApplicationPage() {
                       name="address"
                       value={formData.address}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
                       placeholder="Your address"
                     />
                   </div>
@@ -363,7 +363,7 @@ export default function AffiliateApplicationPage() {
                       value={formData.why_join}
                       onChange={handleInputChange}
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
                       placeholder="Tell us why you want to become an affiliate..."
                     />
                   </div>

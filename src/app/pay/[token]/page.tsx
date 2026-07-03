@@ -112,7 +112,7 @@ export default function PaymentLinkPage() {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
+        <div className="max-w-md w-full p-6 bg-white dark:bg-[#2a2a2a] rounded-lg shadow-md">
           <div className="mb-4">
             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,7 +143,7 @@ export default function PaymentLinkPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
         <div className="max-w-md w-full">
           {/* Payment Card */}
-          <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="bg-white dark:bg-[#2a2a2a] rounded-lg shadow-lg p-8">
             <div className="mb-6">
               <h1 className="text-2xl font-bold text-gray-900 mb-2">Complete Payment</h1>
               <p className="text-gray-600">Order #{order.order_id}</p>

@@ -1311,9 +1311,9 @@ export default function CheckoutPage() {
           },
         }}
       />
-      <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
+      <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-400">
+      <div className="bg-gray-50 dark:bg-[#2a1a1a] border-b border-gray-200 dark:border-gray-400">
         <div className="container py-4">
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
@@ -1342,7 +1342,7 @@ export default function CheckoutPage() {
           {/* Left Column - Customer Info & Payment */}
           <div className="lg:col-span-2 space-y-6">
             {/* Customer Information */}
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 p-6 rounded-lg">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-2 border-gray-200 dark:border-gray-400 p-6 rounded-lg">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                   {t('checkout.customerInfo')}
@@ -1366,7 +1366,7 @@ export default function CheckoutPage() {
                         ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
                         : phoneError
                         ? 'border-red-500 bg-red-50 dark:bg-red-900/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-red-500'
-                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#1f1515] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.phoneNumberPlaceholder')}
                   />
@@ -1391,7 +1391,7 @@ export default function CheckoutPage() {
                     className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
                       isAuthenticated
                         ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
-                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#1f1515] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.enterYourFullName')}
                   />
@@ -1413,7 +1413,7 @@ export default function CheckoutPage() {
                     className={`w-full px-4 py-3 border-2 rounded-lg outline-none transition-colors ${
                       (isAuthenticated && !!user?.email)
                         ? 'border-gray-300 bg-gray-100 text-gray-900 font-medium cursor-not-allowed'
-                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
+                        : 'border-gray-300 dark:border-gray-400 bg-white dark:bg-[#1f1515] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
                     }`}
                     placeholder={t('checkout.emailPlaceholder')}
                   />
@@ -1544,7 +1544,7 @@ export default function CheckoutPage() {
                           thana: '',
                         }));
                       }}
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
                       required
                     >
                       <option value="">{t('checkout.selectDivision')}</option>
@@ -1569,7 +1569,7 @@ export default function CheckoutPage() {
                         }));
                       }}
                       disabled={!formData.division}
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
                       required
                     >
                       <option value="">{formData.division ? t('checkout.selectDistrict') : t('checkout.selectDivisionFirst')}</option>
@@ -1589,7 +1589,7 @@ export default function CheckoutPage() {
                       value={formData.thana}
                       onChange={handleInputChange}
                       disabled={!formData.district}
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors disabled:bg-gray-100 dark:disabled:bg-gray-800 disabled:cursor-not-allowed"
                       required
                     >
                       <option value="">{formData.district ? t('checkout.selectThana') : t('checkout.selectDistrictFirst')}</option>
@@ -1612,7 +1612,7 @@ export default function CheckoutPage() {
                     value={formData.address}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors"
                     placeholder={t('checkout.addressPlaceholder')}
                   />
                 </div>
@@ -1631,7 +1631,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 p-6 rounded-lg">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-2 border-gray-200 dark:border-gray-400 p-6 rounded-lg">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 {t('checkout.paymentMethod')}
               </h2>
@@ -1670,7 +1670,7 @@ export default function CheckoutPage() {
                           setPaymentMethod('cod');
                           setPaymentError(null);
                         }}
-                        className="px-3 py-1 text-sm font-semibold bg-white dark:bg-[#1a1a1a] text-red-700 dark:text-red-300 border border-red-300 dark:border-red-700 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                        className="px-3 py-1 text-sm font-semibold bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] text-red-700 dark:text-red-300 border border-red-300 dark:border-red-700 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                       >
                         Switch to Cash on Delivery
                       </button>
@@ -1766,7 +1766,7 @@ export default function CheckoutPage() {
 
           {/* Right Column - Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 rounded-lg overflow-hidden lg:sticky lg:top-24">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-2 border-gray-200 dark:border-gray-400 rounded-lg overflow-hidden lg:sticky lg:top-24">
               {/* Header */}
               <div className="bg-gradient-to-r from-[#ec3137] to-[#8a0f12] text-white p-6">
                 <h2 className="text-2xl font-bold">{t('checkout.summary')}</h2>
@@ -1782,7 +1782,7 @@ export default function CheckoutPage() {
                     {cartItems.map((item) => (
                       <div key={`${item.product.id}-${item.variant?.id || 'default'}`} className="flex gap-3">
                         {/* Product Image */}
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-400 bg-gray-50 dark:bg-[#1a1a1a]">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-400 bg-gray-50 dark:bg-[#322020]">
                           <img
                             src={item.product.variant_image || item.product.image_url || '/placeholder-product.png'}
                             alt={getLocalizedNameForProduct(item.product)}
@@ -1929,7 +1929,7 @@ export default function CheckoutPage() {
                           }}
                           onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
                           placeholder={t('checkout.enterCode')}
-                          className={`flex-1 px-4 py-2.5 border-2 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none transition-colors ${
+                          className={`flex-1 px-4 py-2.5 border-2 rounded-lg bg-white dark:bg-[#1f1515] text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 outline-none transition-colors ${
                             couponStore.validationErrors.code || couponStore.validationErrors.general
                               ? 'border-red-500 dark:border-red-500 focus:ring-2 focus:ring-red-500 focus:border-red-500'
                               : 'border-gray-300 dark:border-gray-400 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137]'
@@ -2186,7 +2186,7 @@ export default function CheckoutPage() {
       {showOtpModal && pendingOrder && (
         <>
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
-            <div className="bg-white dark:bg-[#0a0a0a] rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-in fade-in zoom-in duration-300 border-4 border-red-500">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-in fade-in zoom-in duration-300 border-4 border-red-500">
               {/* Close Button */}
               <button
                 onClick={() => {
@@ -2246,7 +2246,7 @@ export default function CheckoutPage() {
                   setOtpCode(value);
                   setOtpError('');
                 }}
-                className="w-full px-4 py-4 text-2xl text-center tracking-widest border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#0a0a0a] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors font-mono"
+                className="w-full px-4 py-4 text-2xl text-center tracking-widest border-2 border-gray-300 dark:border-gray-400 rounded-lg bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] outline-none transition-colors font-mono"
                 placeholder={t('checkout.otpPlaceholder')}
               />
             </div>
@@ -2305,7 +2305,7 @@ export default function CheckoutPage() {
       {/* Payment Processing Overlay - Only for payment gateways, not COD */}
       {(isProcessingPayment || paymentLoading) && (paymentMethod === 'sslcommerz' || paymentMethod === 'eps') && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300">
+          <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#2a1a1a] rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300">
             <div className="flex justify-center mb-6">
               <div className="w-20 h-20 relative">
                 <div className="absolute inset-0 border-4 border-[#ec3137]/20 rounded-full"></div>

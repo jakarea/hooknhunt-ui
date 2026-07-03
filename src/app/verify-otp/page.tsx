@@ -119,7 +119,7 @@ function VerifyOtpContent() {
   return (
     <div className="min-h-screen bg-[#fcf8f6] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-8">
           {/* Header */}
           <div className="text-center mb-6">
             <div className="mx-auto w-16 h-16 bg-gradient-to-br from-[#ec3137] to-[#8a0f12] rounded-full flex items-center justify-center mb-4">
@@ -154,7 +154,7 @@ function VerifyOtpContent() {
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 onPaste={index === 0 ? handlePaste : undefined}
                 disabled={isLoading}
-                className="w-11 h-14 sm:w-14 sm:h-16 text-center text-xl sm:text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-[#ec3137] focus:ring-2 focus:ring-[#ec3137]/20 bg-white text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-11 h-14 sm:w-14 sm:h-16 text-center text-xl sm:text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-[#ec3137] focus:ring-2 focus:ring-[#ec3137]/20 bg-white dark:bg-[#2a2a2a] text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               />
             ))}
           </div>

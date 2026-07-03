@@ -105,7 +105,7 @@ export default function AffiliateTestPage() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">🎯 Affiliate Tracking Test</h1>
         
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
+        <div className="bg-white dark:bg-[#2a2a2a] rounded-lg shadow p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">Test Controls</h2>
           <div className="flex gap-4 mb-4">
             <input
@@ -139,7 +139,7 @@ export default function AffiliateTestPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-[#2a2a2a] rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4">Test Results</h2>
           <div className="space-y-2 max-h-96 overflow-y-auto">
             {logs.map((log, index) => (
@@ -155,7 +155,7 @@ export default function AffiliateTestPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6 mt-6">
+        <div className="bg-white dark:bg-[#2a2a2a] rounded-lg shadow p-6 mt-6">
           <h2 className="text-xl font-semibold mb-4">Environment Info</h2>
           <div className="space-y-2 text-sm">
             <p><strong>Current URL:</strong> {typeof window !== 'undefined' ? window.location.href : 'N/A'}</p>

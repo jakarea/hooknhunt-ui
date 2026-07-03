@@ -30,7 +30,7 @@ export default function DeleteConfirmModal({
 
       {/* Modal */}
       <div className="fixed inset-0 z-[201] flex items-center justify-center p-4">
-        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 rounded-2xl shadow-2xl max-w-md w-full animate-scaleIn">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-2 border-gray-200 dark:border-gray-400 rounded-2xl shadow-2xl max-w-md w-full animate-scaleIn">
           {/* Header with Warning Icon */}
           <div className="p-6 border-b border-gray-200 dark:border-gray-400">
             <div className="flex items-center gap-4">
@@ -84,7 +84,7 @@ export default function DeleteConfirmModal({
           </div>
 
           {/* Action Buttons */}
-          <div className="p-6 bg-gray-50 dark:bg-[#0f0f0f] border-t border-gray-200 dark:border-gray-400 flex gap-3">
+          <div className="p-6 bg-gray-50 dark:bg-[#2a1a1a] border-t border-gray-200 dark:border-gray-400 flex gap-3">
             <button
               onClick={onCancel}
               className="flex-1 py-3 px-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
@@ -101,7 +101,7 @@ export default function DeleteConfirmModal({
             </button>
             <button
               onClick={onConfirm}
-              className="py-3 px-4 bg-gray-200 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white dark:hover:bg-red-600 text-gray-700 dark:text-gray-100 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
+              className="py-3 px-4 bg-gray-200 dark:bg-[#322020] hover:bg-red-600 hover:text-white dark:hover:bg-red-600 text-gray-700 dark:text-gray-100 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path

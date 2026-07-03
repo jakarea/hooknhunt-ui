@@ -156,7 +156,7 @@ export default function PaymentSettingsPage() {
       )}
 
       {/* Active Gateway Selector */}
-      <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-6 mb-6">
+      <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-md p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
           Active Payment Gateway
         </h2>
@@ -245,7 +245,7 @@ export default function PaymentSettingsPage() {
 
       {/* EPS Configuration Details */}
       {settings?.active_gateway === 'eps' && (
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-6 mb-6">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-md p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
             EPS Configuration Details
           </h2>
@@ -272,7 +272,7 @@ export default function PaymentSettingsPage() {
                 </div>
                 <button
                   onClick={() => testEPS('sandbox')}
-                  className="mt-3 w-full bg-gray-100 dark:bg-[#1a1a1a] py-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  className="mt-3 w-full bg-gray-100 dark:bg-[#322020] py-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   Test Sandbox Connection
                 </button>
@@ -296,7 +296,7 @@ export default function PaymentSettingsPage() {
                 </div>
                 <button
                   onClick={() => testEPS('live')}
-                  className="mt-3 w-full bg-gray-100 dark:bg-[#1a1a1a] py-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  className="mt-3 w-full bg-gray-100 dark:bg-[#322020] py-2 rounded text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   Test Live Connection
                 </button>
@@ -372,7 +372,7 @@ export default function PaymentSettingsPage() {
 
       {saving && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg p-6 flex items-center gap-3">
+          <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg p-6 flex items-center gap-3">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#ec3137]"></div>
             <span>Saving changes...</span>
           </div>

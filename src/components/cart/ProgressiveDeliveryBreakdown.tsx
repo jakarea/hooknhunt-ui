@@ -32,10 +32,10 @@ export default function ProgressiveDeliveryBreakdown({
   const min_amount = progressive_delivery.min_amount || 0;
 
   return (
-    <div className={`bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-400 rounded-lg p-4 ${className}`}>
+    <div className={`bg-white dark:bg-[#1f1515] border border-gray-200 dark:border-gray-400 rounded-lg p-4 ${className}`}>
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Delivery Details</h3>
-        <span className="text-xs font-medium px-2.5 py-0.5 rounded bg-gray-100 dark:bg-[#1a1a1a] text-gray-800 dark:text-gray-200">
+        <span className="text-xs font-medium px-2.5 py-0.5 rounded bg-gray-100 dark:bg-[#322020] text-gray-800 dark:text-gray-200">
           {zone === 'inside_dhaka' ? 'Inside Dhaka' : zone === 'outside_dhaka' ? 'Outside Dhaka' : 'Flat Rate'}
         </span>
       </div>
@@ -58,7 +58,7 @@ export default function ProgressiveDeliveryBreakdown({
                 {progress_percentage.toFixed(1)}%
               </span>
             </div>
-            <div className="flex justify-between text-xs text-gray-600 dark:text-gray-200 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg px-3 py-2">
+            <div className="flex justify-between text-xs text-gray-600 dark:text-gray-200 bg-gray-50 dark:bg-[#322020] rounded-lg px-3 py-2">
               <span>Current: ৳{orderAmount.toLocaleString()}</span>
               <span className="font-medium">Goal: ৳{min_amount.toLocaleString()}</span>
             </div>

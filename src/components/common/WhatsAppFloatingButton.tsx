@@ -30,7 +30,7 @@ export default function WhatsAppFloatingButton() {
     <div className="fixed bottom-20 right-4 z-50 lg:bottom-6 lg:right-6">
       {/* Tooltip */}
       {showTooltip && (
-        <div className="absolute bottom-full right-0 mb-3 w-48 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg shadow-lg animate-fade-in">
+        <div className="absolute bottom-full right-0 mb-3 w-48 bg-gray-900 dark:bg-white dark:bg-[#2a2a2a] text-white dark:text-gray-900 px-4 py-2 rounded-lg shadow-lg animate-fade-in">
           <p className="text-sm font-medium">
             Need help? Chat with us!
           </p>

@@ -125,7 +125,7 @@ export default function AffiliateDashboard() {
         }}
       />
 
-      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-400">
+      <div className="bg-gray-50 dark:bg-[#2a1a1a] border-b border-gray-200 dark:border-gray-400">
         <div className="container py-4">
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
             <Link href="/account" className="hover:text-[#ec3137] transition-colors">আমার অ্যাকাউন্ট</Link>
@@ -177,7 +177,7 @@ export default function AffiliateDashboard() {
         <select
           value={selectedPeriod}
           onChange={(e) => setSelectedPeriod(e.target.value as '7days' | '30days' | '90days' | '1year')}
-          className="px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+          className="px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
         >
           <option value="7days">গত ৭ দিন</option>
           <option value="30days">গত ৩০ দিন</option>
@@ -188,28 +188,28 @@ export default function AffiliateDashboard() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
           <div className="text-center">
             <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">👥 মোট ক্লিক</p>
             <p className="text-3xl font-bold text-gray-900 dark:text-white">{periodStats?.clicks ?? 0}</p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
           <div className="text-center">
             <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">✅ অর্ডার</p>
             <p className="text-3xl font-bold text-gray-900 dark:text-white">{periodStats?.conversions ?? 0}</p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
           <div className="text-center">
             <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">💰 মোট আয়</p>
             <p className="text-3xl font-bold text-[#ec3137]">৳{(affiliate?.total_earned ?? 0).toFixed(2)}</p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
           <div className="text-center">
             <p className="text-sm text-gray-600 dark:text-gray-200 mb-2">📈 কনভার্সন রেট</p>
             <p className="text-3xl font-bold text-gray-900 dark:text-white">{periodStats?.conversion_rate ?? 0}%</p>
@@ -218,7 +218,7 @@ export default function AffiliateDashboard() {
       </div>
 
       {/* Balance Overview */}
-      <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+      <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">💳 আপনার ব্যালেন্স</h2>
 
         {balanceBreakdown && (
@@ -233,7 +233,7 @@ export default function AffiliateDashboard() {
                   ৳{((balanceBreakdown.pending || 0) as number).toFixed(2)} ({(balanceBreakdown.pending_percentage || 0).toFixed(1)}%)
                 </span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-[#1a1a1a] rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-[#322020] rounded-full h-2">
                 <div
                   className="bg-yellow-500 h-2 rounded-full transition-all"
                   style={{ width: `${(balanceBreakdown.pending_percentage || 0).toFixed(1)}%` }}
@@ -251,7 +251,7 @@ export default function AffiliateDashboard() {
                   ৳{((balanceBreakdown.confirmed || 0) as number).toFixed(2)} ({(balanceBreakdown.confirmed_percentage || 0).toFixed(1)}%)
                 </span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-[#1a1a1a] rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-[#322020] rounded-full h-2">
                 <div
                   className="bg-green-500 h-2 rounded-full transition-all"
                   style={{ width: `${(balanceBreakdown.confirmed_percentage || 0).toFixed(1)}%` }}
@@ -286,7 +286,7 @@ export default function AffiliateDashboard() {
 
       {/* Weekly Earnings Chart */}
       {weeklyEarnings && weeklyEarnings.length > 0 && weeklyEarnings.some((w) => (w.earnings || 0) > 0) && (
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">📈 সাপ্তাহিক আয়</h2>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={weeklyEarnings.filter((w) => (w.earnings || 0) > 0)}>
@@ -317,11 +317,11 @@ export default function AffiliateDashboard() {
 
       {/* Top 10 Earning Products */}
       {topProducts && topProducts.length > 0 && (
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">🏆 শীর্ষ ১০ আয়কারী পণ্য</h2>
           <div className="space-y-3">
             {topProducts.map((product, index) => (
-              <div key={product.product_name || index} className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+              <div key={product.product_name || index} className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-[#322020] rounded-lg">
                 <div className="flex-shrink-0 w-8 h-8 bg-[#ec3137] rounded-full flex items-center justify-center text-white font-bold">
                   {index + 1}
                 </div>
@@ -340,13 +340,13 @@ export default function AffiliateDashboard() {
       )}
 
       {/* Recent Orders */}
-      <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400">
+      <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400">
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-400">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">📦 সাম্প্রতিক আয়ের রেকর্ড</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-[#1a1a1a]">
+            <thead className="bg-gray-50 dark:bg-[#322020]">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">ইনভয়েস</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">গ্রাহক</th>
@@ -355,7 +355,7 @@ export default function AffiliateDashboard() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">অবস্থা</th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-[#1a1a1a] divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] divide-y divide-gray-200 dark:divide-gray-700">
               {recentEarnings.length > 0 ? (
                 recentEarnings.map((earning) => (
                   <tr key={earning.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
@@ -371,7 +371,7 @@ export default function AffiliateDashboard() {
                           ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                           : earning.status === 'pending'
                           ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                          : 'bg-gray-100 text-gray-800 dark:bg-[#1a1a1a] dark:text-gray-200'
+                          : 'bg-gray-100 text-gray-800 dark:bg-[#322020] dark:text-gray-200'
                       }`}>
                         {earning.status === 'paid' ? 'নিশ্চিত' : earning.status === 'pending' ? 'অপেক্ষাধীন' : earning.status}
                       </span>

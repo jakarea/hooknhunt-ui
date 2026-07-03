@@ -216,7 +216,7 @@ function AdminAffiliateApplicationsContent() {
   // Loading state
   if (loading && affiliates.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-[#0f0f0f]">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#2a1a1a]">
         <AdminHeader />
         <div className="flex">
           <AdminSidebar />
@@ -229,7 +229,7 @@ function AdminAffiliateApplicationsContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0f0f0f]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#2a1a1a]">
       <Toaster
         position="top-right"
         toastOptions={{
@@ -273,7 +273,7 @@ function AdminAffiliateApplicationsContent() {
           )}
 
           {/* Filters */}
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4 mb-6">
+          <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-4 mb-6">
             <div className="flex flex-col md:flex-row gap-4">
               {/* Search */}
               <div className="flex-1">
@@ -283,7 +283,7 @@ function AdminAffiliateApplicationsContent() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
               </div>
 
@@ -292,7 +292,7 @@ function AdminAffiliateApplicationsContent() {
                 <select
                   value={statusFilter}
                   onChange={(e) => router.push(`/admin/affiliate/applications?status=${e.target.value}`)}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
                 >
                   <option value="all">All Status</option>
                   <option value="pending">Pending</option>
@@ -337,10 +337,10 @@ function AdminAffiliateApplicationsContent() {
           )}
 
           {/* Affiliates Table */}
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 overflow-hidden">
+          <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 dark:bg-[#1a1a1a]">
+                <thead className="bg-gray-50 dark:bg-[#322020]">
                   <tr>
                     <th className="px-6 py-3 text-left">
                       <input
@@ -472,7 +472,7 @@ function AdminAffiliateApplicationsContent() {
 
             {/* Pagination */}
             {pagination.total > 0 && (
-              <div className="bg-gray-50 dark:bg-[#1a1a1a] px-6 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-400">
+              <div className="bg-gray-50 dark:bg-[#322020] px-6 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-400">
                 <div className="text-sm text-gray-700 dark:text-gray-100">
                   Showing <span className="font-medium">{pagination.from || 0}</span> to{' '}
                   <span className="font-medium">{pagination.to || 0}</span> of{' '}
@@ -482,14 +482,14 @@ function AdminAffiliateApplicationsContent() {
                   <button
                     onClick={() => fetchAffiliates({ page: pagination.current_page - 1, status: statusFilter, per_page: 15 })}
                     disabled={pagination.current_page === 1}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Previous
                   </button>
                   <button
                     onClick={() => fetchAffiliates({ page: pagination.current_page + 1, status: statusFilter, per_page: 15 })}
                     disabled={pagination.current_page === pagination.last_page}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next
                   </button>
@@ -501,7 +501,7 @@ function AdminAffiliateApplicationsContent() {
           {/* Reject Modal */}
           {showRejectModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-xl max-w-md w-full mx-4">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-xl max-w-md w-full mx-4">
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     Reject Affiliate Application
@@ -516,7 +516,7 @@ function AdminAffiliateApplicationsContent() {
                         onChange={(e) => setRejectReason(e.target.value)}
                         required
                         rows={4}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
                         placeholder="Provide a clear reason for rejecting this application..."
                       />
                     </div>
@@ -528,7 +528,7 @@ function AdminAffiliateApplicationsContent() {
                           setRejectingId(null);
                           setRejectReason('');
                         }}
-                        className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700"
+                        className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] hover:bg-gray-50 dark:hover:bg-gray-700"
                       >
                         Cancel
                       </button>
@@ -548,7 +548,7 @@ function AdminAffiliateApplicationsContent() {
           {/* Approve Modal */}
           {showApproveModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-xl max-w-md w-full mx-4">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-xl max-w-md w-full mx-4">
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     Approve Affiliate Application
@@ -565,7 +565,7 @@ function AdminAffiliateApplicationsContent() {
                         min="0"
                         max="100"
                         step="0.01"
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
                       />
                       <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">
                         Default commission rate. Can be customized later.
@@ -579,7 +579,7 @@ function AdminAffiliateApplicationsContent() {
                           setApprovingId(null);
                           setCommissionRate(5);
                         }}
-                        className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700"
+                        className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] hover:bg-gray-50 dark:hover:bg-gray-700"
                       >
                         Cancel
                       </button>
@@ -599,7 +599,7 @@ function AdminAffiliateApplicationsContent() {
           {/* Edit Referral Code Modal */}
           {showEditReferralModal && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-xl max-w-md w-full mx-4">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-xl max-w-md w-full mx-4">
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     Edit Referral Code
@@ -615,7 +615,7 @@ function AdminAffiliateApplicationsContent() {
                         onChange={(e) => setNewReferralCode(e.target.value.toUpperCase())}
                         required
                         maxLength={20}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white font-mono"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white font-mono"
                         placeholder="ENTER CODE"
                       />
                       <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">
@@ -630,7 +630,7 @@ function AdminAffiliateApplicationsContent() {
                           setEditingReferralId(null);
                           setNewReferralCode('');
                         }}
-                        className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#1a1a1a] hover:bg-gray-50 dark:hover:bg-gray-700"
+                        className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] hover:bg-gray-50 dark:hover:bg-gray-700"
                       >
                         Cancel
                       </button>

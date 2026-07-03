@@ -120,9 +120,9 @@ export default function CartPage() {
 
   if (cartItems.length === 0) {
     return (
-      <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
+      <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] min-h-screen">
         {/* Breadcrumb */}
-        <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-400">
+        <div className="bg-gray-50 dark:bg-[#2a1a1a] border-b border-gray-200 dark:border-gray-400">
           <div className="container px-3 md:px-4 py-4">
             <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
               <Link href="/" className="hover:text-[#ec3137] transition-colors">
@@ -139,7 +139,7 @@ export default function CartPage() {
         {/* Empty Cart State */}
         <div className="container px-3 md:px-4 py-20">
           <div className="text-center max-w-md mx-auto">
-            <div className="w-32 h-32 bg-gray-100 dark:bg-[#1a1a1a] rounded-full mx-auto mb-8 flex items-center justify-center">
+            <div className="w-32 h-32 bg-gray-100 dark:bg-[#322020] rounded-full mx-auto mb-8 flex items-center justify-center">
               <svg
                 className="w-16 h-16 text-gray-400"
                 fill="none"
@@ -181,9 +181,9 @@ export default function CartPage() {
   }
 
   return (
-    <div className="bg-white dark:bg-[#0a0a0a] min-h-screen">
+    <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 dark:bg-[#0f0f0f] border-b border-gray-200 dark:border-gray-400">
+      <div className="bg-gray-50 dark:bg-[#2a1a1a] border-b border-gray-200 dark:border-gray-400">
         <div className="container px-3 md:px-4 py-4">
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#ec3137] transition-colors">
@@ -198,7 +198,7 @@ export default function CartPage() {
       </div>
 
       {/* Page Header with Select All */}
-      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-400">
+      <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-b border-gray-200 dark:border-gray-400">
         <div className="container px-3 md:px-4 py-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             {/* Select All */}
@@ -244,7 +244,7 @@ export default function CartPage() {
               return (
                 <div
                   key={item.id}
-                  className={`bg-white dark:bg-[#0a0a0a] border ${
+                  className={`bg-white dark:bg-[#1f1515] border ${
                     isSelected
                       ? 'border-[#ec3137] shadow-sm'
                       : 'border-gray-200 dark:border-gray-400'
@@ -267,7 +267,7 @@ export default function CartPage() {
                       href={`/products/${item.product.slug}`}
                       className="flex-shrink-0 group"
                     >
-                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 dark:bg-[#1a1a1a] overflow-hidden rounded-md">
+                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 dark:bg-[#322020] overflow-hidden rounded-md">
                         <Image
                           src={item.product.variant_image || item.product.image_url || '/placeholder-image.jpg'}
                           alt={getLocalizedNameForProduct(item.product) || 'Product'}
@@ -390,7 +390,7 @@ export default function CartPage() {
             <div className="pt-4">
               <Link
                 href="/products"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-[#1a1a1a] hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-semibold transition-all duration-300 transform hover:scale-[1.02] rounded"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-[#322020] hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-semibold transition-all duration-300 transform hover:scale-[1.02] rounded"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -405,7 +405,7 @@ export default function CartPage() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 sticky top-24 rounded-lg overflow-hidden">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-2 border-gray-200 dark:border-gray-400 sticky top-24 rounded-lg overflow-hidden">
               {/* Header */}
               <div className="bg-gradient-to-r from-[#ec3137] to-[#8a0f12] text-white p-6">
                 <h2 className="text-2xl font-bold">{t('cart.page.orderSummary')}</h2>

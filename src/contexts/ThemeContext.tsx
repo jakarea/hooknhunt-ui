@@ -32,10 +32,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const applyTheme = (themeToApply: Theme) => {
     if (themeToApply === 'dark') {
       document.documentElement.classList.add('dark');
-      document.documentElement.style.setProperty('--background', '#0a0a0a');
+      document.documentElement.style.setProperty('--background', '#1f1515');
       document.documentElement.style.setProperty('--foreground', '#ededed');
       document.documentElement.style.colorScheme = 'dark';
-      document.body.style.background = '#0a0a0a';
+      document.body.style.background = '#1f1515';
       document.body.style.color = '#ededed';
       document.body.classList.add('dark');
     } else {

@@ -19,7 +19,7 @@ export default function Home() {
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Hook & Hunt - Premium Fishing Accessories in Bangladesh</h1>
 
-      <div className="bg-[#fee1e1] dark:bg-[#1a1a1a]">
+      <div className="bg-[#fee1e1] dark:bg-[#322020]">
         {/* Hero Slider - Full Screen */}
         <HeroSlider />
 
@@ -40,7 +40,7 @@ export default function Home() {
       <RecomendedYou />
 
       {/* Customer Reviews - Trust & Social Proof */}
-      <section className="bg-[#fee1e1] dark:bg-[#1a1a1a] dark:bg-[#1a1a1a] py-10 md:py-14 transition-colors duration-200">
+      <section className="bg-[#fee1e1] dark:bg-[#322020] dark:bg-[#322020] py-10 md:py-14 transition-colors duration-200">
         <div className="container px-3 md:px-4">
           {/* Left-aligned Header */}
           <div className="mb-6 md:mb-8">
@@ -54,9 +54,9 @@ export default function Home() {
             <div className="flex-shrink-0 w-80 md:w-96 snap-start">
               <div className="relative bg-gradient-to-br from-[#8a0f12] to-[#6b0c0e] rounded-none p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full overflow-hidden">
                 {/* Decorative Circles */}
-                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute top-12 right-4 w-16 h-16 bg-white/3 rounded-full blur-lg"></div>
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute top-12 right-4 w-16 h-16 bg-white dark:bg-[#2a2a2a]/3 rounded-full blur-lg"></div>
 
                 {/* Stars */}
                 <div className="flex items-center gap-1 mb-4 relative z-10">
@@ -83,9 +83,9 @@ export default function Home() {
             <div className="flex-shrink-0 w-80 md:w-96 snap-start">
               <div className="relative bg-gradient-to-br from-[#8a0f12] to-[#6b0c0e] rounded-none p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full overflow-hidden">
                 {/* Decorative Circles */}
-                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute top-12 right-4 w-16 h-16 bg-white/3 rounded-full blur-lg"></div>
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute top-12 right-4 w-16 h-16 bg-white dark:bg-[#2a2a2a]/3 rounded-full blur-lg"></div>
 
                 {/* Stars */}
                 <div className="flex items-center gap-1 mb-4 relative z-10">
@@ -112,9 +112,9 @@ export default function Home() {
             <div className="flex-shrink-0 w-80 md:w-96 snap-start">
               <div className="relative bg-gradient-to-br from-[#8a0f12] to-[#6b0c0e] rounded-none p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full overflow-hidden">
                 {/* Decorative Circles */}
-                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute top-12 right-4 w-16 h-16 bg-white/3 rounded-full blur-lg"></div>
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute top-12 right-4 w-16 h-16 bg-white dark:bg-[#2a2a2a]/3 rounded-full blur-lg"></div>
 
                 {/* Stars */}
                 <div className="flex items-center gap-1 mb-4 relative z-10">
@@ -141,9 +141,9 @@ export default function Home() {
             <div className="flex-shrink-0 w-80 md:w-96 snap-start">
               <div className="relative bg-gradient-to-br from-[#8a0f12] to-[#6b0c0e] rounded-none p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full overflow-hidden">
                 {/* Decorative Circles */}
-                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute top-12 right-4 w-16 h-16 bg-white/3 rounded-full blur-lg"></div>
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute top-12 right-4 w-16 h-16 bg-white dark:bg-[#2a2a2a]/3 rounded-full blur-lg"></div>
 
                 {/* Stars */}
                 <div className="flex items-center gap-1 mb-4 relative z-10">
@@ -170,9 +170,9 @@ export default function Home() {
             <div className="flex-shrink-0 w-80 md:w-96 snap-start">
               <div className="relative bg-gradient-to-br from-[#8a0f12] to-[#6b0c0e] rounded-none p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full overflow-hidden">
                 {/* Decorative Circles */}
-                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
-                <div className="absolute top-12 right-4 w-16 h-16 bg-white/3 rounded-full blur-lg"></div>
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-xl"></div>
+                <div className="absolute top-12 right-4 w-16 h-16 bg-white dark:bg-[#2a2a2a]/3 rounded-full blur-lg"></div>
 
                 {/* Stars */}
                 <div className="flex items-center gap-1 mb-4 relative z-10">
@@ -211,14 +211,14 @@ export default function Home() {
       {/* Features - Trust Indicators */}
       <section className="bg-gradient-to-br from-[#ec3137] to-[#8a0f12] text-white py-8 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-64 h-64 bg-white transform rotate-45"></div>
-          <div className="absolute bottom-10 right-10 w-64 h-64 bg-white transform -rotate-45"></div>
+          <div className="absolute top-10 left-10 w-64 h-64 bg-white dark:bg-[#2a2a2a] transform rotate-45"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 bg-white dark:bg-[#2a2a2a] transform -rotate-45"></div>
         </div>
 
         <div className="container relative z-10 px-3 md:px-4">
           <div className="grid grid-cols-3 gap-2 md:gap-4 lg:gap-8">
             <div className="group text-center transform hover:scale-105 transition-all duration-500">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white dark:bg-[#2a2a2a]/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
                 <svg
                   className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 group-hover:scale-110 transition-transform duration-300"
                   fill="none"
@@ -235,11 +235,11 @@ export default function Home() {
               </div>
               <span className="text-xs sm:text-sm md:text-base lg:text-heading-lg font-extrabold mb-1 sm:mb-2 lg:mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.shipping.title')}</span>
               <p className="text-white/90 text-[10px] sm:text-xs md:text-sm lg:text-body-lg font-semibold">{t('home.features.shipping.featureDesc')}</p>
-              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
+              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white dark:bg-[#2a2a2a]/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
             </div>
 
             <div className="group text-center transform hover:scale-105 transition-all duration-500">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white dark:bg-[#2a2a2a]/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
                 <svg
                   className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 group-hover:scale-110 transition-transform duration-300"
                   fill="none"
@@ -256,11 +256,11 @@ export default function Home() {
               </div>
               <span className="text-xs sm:text-sm md:text-base lg:text-heading-lg font-extrabold mb-1 sm:mb-2 lg:mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.payment.title')}</span>
               <p className="text-white/90 text-[10px] sm:text-xs md:text-sm lg:text-body-lg font-semibold">{t('home.features.payment.featureDesc')}</p>
-              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
+              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white dark:bg-[#2a2a2a]/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
             </div>
 
             <div className="group text-center transform hover:scale-105 transition-all duration-500">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 lg:mb-6 shadow-xl group-hover:bg-white dark:bg-[#2a2a2a]/30 transition-all duration-300 group-hover:shadow-2xl rounded-lg sm:rounded-xl">
                 <svg
                   className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 group-hover:scale-110 transition-transform duration-300"
                   fill="none"
@@ -277,7 +277,7 @@ export default function Home() {
               </div>
               <span className="text-xs sm:text-sm md:text-base lg:text-heading-lg font-extrabold mb-1 sm:mb-2 lg:mb-3 group-hover:scale-105 transition-transform duration-300 block">{t('home.features.returns.title')}</span>
               <p className="text-white/90 text-[10px] sm:text-xs md:text-sm lg:text-body-lg font-semibold">{t('home.features.returns.featureDesc')}</p>
-              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
+              <div className="w-8 h-0.5 sm:w-12 md:w-14 lg:w-16 bg-white dark:bg-[#2a2a2a]/40 mx-auto mt-2 sm:mt-3 lg:mt-4 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-24 transition-all duration-300"></div>
             </div>
           </div>
         </div>

@@ -118,7 +118,7 @@ export default function CreateCouponPage() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-8">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-md p-8">
         <div className="space-y-6">
           {/* Basic Information */}
           <div>
@@ -135,7 +135,7 @@ export default function CreateCouponPage() {
                   onChange={handleChange}
                   required
                   placeholder="e.g., SUMMER20"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white uppercase"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white uppercase"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Unique code for the coupon (will be converted to uppercase)</p>
               </div>
@@ -149,7 +149,7 @@ export default function CreateCouponPage() {
                   value={formData.type}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 >
                   <option value="percentage">Percentage Discount</option>
                   <option value="fixed_amount">Fixed Amount Discount</option>
@@ -170,7 +170,7 @@ export default function CreateCouponPage() {
                   min="0"
                   step="0.01"
                   placeholder={formData.type === 'percentage' ? 'e.g., 20' : 'e.g., 100'}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">
                   {formData.type === 'percentage' ? 'Percentage value (e.g., 20 for 20% off)' : 'Fixed amount in BDT'}
@@ -187,7 +187,7 @@ export default function CreateCouponPage() {
                   onChange={handleChange}
                   rows={3}
                   placeholder="Brief description of this coupon..."
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function CreateCouponPage() {
                   min="0"
                   step="0.01"
                   placeholder="0"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Minimum order value to use this coupon (leave 0 for no minimum)</p>
               </div>
@@ -226,7 +226,7 @@ export default function CreateCouponPage() {
                   min="0"
                   step="0.01"
                   placeholder="0"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum discount cap in BDT (for percentage coupons)</p>
               </div>
@@ -242,7 +242,7 @@ export default function CreateCouponPage() {
                   onChange={handleChange}
                   min="0"
                   placeholder="0"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum times this coupon can be used (leave 0 for unlimited)</p>
               </div>
@@ -258,7 +258,7 @@ export default function CreateCouponPage() {
                   onChange={handleChange}
                   min="0"
                   placeholder="0"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Maximum times each customer can use this coupon</p>
               </div>
@@ -272,7 +272,7 @@ export default function CreateCouponPage() {
                   name="starts_at"
                   value={formData.starts_at}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
               </div>
 
@@ -285,7 +285,7 @@ export default function CreateCouponPage() {
                   name="expires_at"
                   value={formData.expires_at}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
               </div>
             </div>
@@ -305,7 +305,7 @@ export default function CreateCouponPage() {
                   value={formData.product_ids}
                   onChange={handleChange}
                   placeholder="e.g., 1,2,3"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific products</p>
               </div>
@@ -320,7 +320,7 @@ export default function CreateCouponPage() {
                   value={formData.category_ids}
                   onChange={handleChange}
                   placeholder="e.g., 1,2,3"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific categories</p>
               </div>
@@ -335,7 +335,7 @@ export default function CreateCouponPage() {
                   value={formData.customer_ids}
                   onChange={handleChange}
                   placeholder="e.g., 1,2,3"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-200 mt-1">Restrict coupon to specific customers</p>
               </div>

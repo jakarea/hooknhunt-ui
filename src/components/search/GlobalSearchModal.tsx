@@ -135,7 +135,7 @@ export default function GlobalSearchModal() {
       onClick={handleBackdropClick}
     >
       <div
-        className="w-full max-w-2xl mx-4 bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl overflow-hidden animate-fadeInDown"
+        className="w-full max-w-2xl mx-4 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-2xl shadow-2xl overflow-hidden animate-fadeInDown"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Header */}
@@ -147,7 +147,7 @@ export default function GlobalSearchModal() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('header.search') || 'Search products...'}
-              className="w-full h-12 pl-12 pr-24 text-base border-2 border-gray-200 dark:border-gray-400 rounded-xl focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 placeholder-gray-400"
+              className="w-full h-12 pl-12 pr-24 text-base border-2 border-gray-200 dark:border-gray-400 rounded-xl focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/10 transition-all bg-white dark:bg-[#2a2a2a] dark:bg-[#4a3030] text-gray-900 dark:text-gray-100 placeholder-gray-400"
               autoFocus
             />
             {/* Search Icon */}
@@ -160,7 +160,7 @@ export default function GlobalSearchModal() {
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                  className="p-2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
                   aria-label="Clear search"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -171,7 +171,7 @@ export default function GlobalSearchModal() {
               <button
                 type="button"
                 onClick={closeSearchModal}
-                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="p-2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
                 aria-label="Close search"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,10 +198,10 @@ export default function GlobalSearchModal() {
                   <div
                     key={suggestion.id}
                     onClick={() => handleSuggestionClick(suggestion.slug)}
-                    className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer border-b border-gray-100 dark:border-gray-400 last:border-b-0 transition-colors"
+                    className="flex items-center gap-3 p-3 hover:bg-gray-50 dark:hover:bg-[#4a3030] cursor-pointer border-b border-gray-100 dark:border-gray-400 last:border-b-0 transition-colors"
                   >
                     {suggestion.image && (
-                      <div className="relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-[#1a1a1a]">
+                      <div className="relative w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-[#322020]">
                         <Image
                           src={suggestion.image}
                           alt={suggestion.name}
@@ -235,7 +235,7 @@ export default function GlobalSearchModal() {
                 ))}
                 <button
                   onClick={handleSearch}
-                  className="w-full text-center text-sm text-[#bc1215] font-medium py-3 mt-2 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] rounded-lg transition-colors"
+                  className="w-full text-center text-sm text-[#bc1215] font-medium py-3 mt-2 hover:bg-gray-50 dark:hover:bg-[#4a3030] rounded-lg transition-colors"
                 >
                   View all results for "{searchQuery}"
                 </button>
@@ -265,7 +265,7 @@ export default function GlobalSearchModal() {
                 <button
                   key={tip}
                   onClick={() => setSearchQuery(tip)}
-                  className="px-3 py-1.5 text-xs font-medium bg-gray-100 dark:bg-[#2a2a2a] text-gray-700 dark:text-gray-100 rounded-full hover:bg-gray-200 dark:hover:bg-[#333] transition-colors"
+                  className="px-3 py-1.5 text-xs font-medium bg-gray-100 dark:bg-[#4a3030] text-gray-700 dark:text-gray-100 rounded-full hover:bg-gray-200 dark:hover:bg-[#333] transition-colors"
                 >
                   {tip}
                 </button>

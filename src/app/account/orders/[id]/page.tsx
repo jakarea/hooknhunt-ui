@@ -192,7 +192,7 @@ export default function OrderDetailsPage() {
 
       {/* Header Actions - Hidden during print */}
       {!isPrinting && (
-        <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="bg-white dark:bg-[#2a2a2a] border-b border-gray-200 sticky top-0 z-10">
           <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
             <Link
               href="/account/orders"
@@ -220,7 +220,7 @@ export default function OrderDetailsPage() {
 
       {/* Invoice */}
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="bg-white dark:bg-[#2a2a2a] shadow-lg rounded-lg overflow-hidden">
           {/* Invoice Header */}
           <div className="bg-gradient-to-r from-red-700 to-red-800 px-8 py-6 text-white">
             <div className="flex items-center justify-between">

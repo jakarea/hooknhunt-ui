@@ -6,13 +6,13 @@ export default function DeliveryPolicyPage() {
   const { t } = useTranslation('policies');
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           {t('delivery.title')}
         </h1>
 
-        <div className="bg-white dark:bg-[#121212] rounded-lg shadow-lg p-8 space-y-8">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#2a1e1e] rounded-lg shadow-lg p-8 space-y-8">
           {/* Introduction */}
           <p className="text-gray-700 dark:text-gray-100 leading-relaxed">
             {t('delivery.intro')}

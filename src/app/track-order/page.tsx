@@ -21,7 +21,7 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] py-12 sm:py-16">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] py-12 sm:py-16">
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       <div className="container px-3 md:px-4">
@@ -37,7 +37,7 @@ export default function TrackOrderPage() {
 
         <div className="max-w-2xl mx-auto">
           {/* Courier Tracking Form */}
-          <div className="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm p-4 sm:p-6 lg:p-8">
+          <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-xl shadow-sm p-4 sm:p-6 lg:p-8">
             <form onSubmit={handleCourierTrack}>
               <div className="mb-4 sm:mb-6">
                 <label htmlFor="trackingId" className="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-100 mb-2">
@@ -49,7 +49,7 @@ export default function TrackOrderPage() {
                   value={trackingId}
                   onChange={(e) => setTrackingId(e.target.value)}
                   placeholder="আপনার স্টেডফাস্ট ট্র্যাকিং আইডি লিখুন"
-                  className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] dark:bg-[#4a3030] text-gray-900 dark:text-gray-100"
                   required
                 />
                 <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-200 leading-relaxed">

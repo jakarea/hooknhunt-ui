@@ -52,9 +52,9 @@ function SearchPageContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515]">
       {/* Header Section */}
-      <div className="bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-gray-400">
+      <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-b border-gray-200 dark:border-gray-400">
         <div className="container py-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Search Results
@@ -73,10 +73,10 @@ function SearchPageContent() {
         {loading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="bg-white dark:bg-[#1a1a1a] rounded-lg p-4 animate-pulse">
-                <div className="bg-gray-200 dark:bg-[#1a1a1a] h-40 rounded mb-4"></div>
-                <div className="bg-gray-200 dark:bg-[#1a1a1a] h-4 rounded mb-2"></div>
-                <div className="bg-gray-200 dark:bg-[#1a1a1a] h-4 w-2/3 rounded"></div>
+              <div key={i} className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg p-4 animate-pulse">
+                <div className="bg-gray-200 dark:bg-[#322020] h-40 rounded mb-4"></div>
+                <div className="bg-gray-200 dark:bg-[#322020] h-4 rounded mb-2"></div>
+                <div className="bg-gray-200 dark:bg-[#322020] h-4 w-2/3 rounded"></div>
               </div>
             ))}
           </div>
@@ -94,7 +94,7 @@ function SearchPageContent() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-gray-400 rounded-md hover:bg-gray-50 dark:hover:bg-[#2a2a2a] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-4 py-2 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] border border-gray-300 dark:border-gray-400 rounded-md hover:bg-gray-50 dark:hover:bg-[#2a2a2a] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Previous
                 </button>
@@ -104,7 +104,7 @@ function SearchPageContent() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-gray-400 rounded-md hover:bg-gray-50 dark:hover:bg-[#2a2a2a] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-4 py-2 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] border border-gray-300 dark:border-gray-400 rounded-md hover:bg-gray-50 dark:hover:bg-[#2a2a2a] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Next
                 </button>
@@ -150,7 +150,7 @@ function SearchPageContent() {
 export default function SearchPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#bc1215] border-t-transparent"></div>
       </div>
     }>

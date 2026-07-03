@@ -19,13 +19,13 @@ export default function Categories() {
 
   if (loading && categories.length === 0) {
     return (
-      <section className="py-8 md:py-10 bg-[#fee1e1] dark:bg-[#1a1a1a]">
+      <section className="py-8 md:py-10 bg-[#fee1e1] dark:bg-[#322020]">
         <div className="container px-4">
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="aspect-[4/5] bg-white/40 backdrop-blur-sm rounded-lg animate-pulse"
+                className="aspect-[4/5] bg-white dark:bg-[#2a2a2a]/40 backdrop-blur-sm rounded-lg animate-pulse"
               />
             ))}
           </div>
@@ -35,7 +35,7 @@ export default function Categories() {
   }
 
   return (
-    <section className="py-8 md:py-10 bg-[#fee1e1] dark:bg-[#1a1a1a]">
+    <section className="py-8 md:py-10 bg-[#fee1e1] dark:bg-[#322020]">
       <div className="container px-4">
         {/* Categories Grid - 6 columns, compact cards */}
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
@@ -48,7 +48,7 @@ export default function Categories() {
                 href={`/products?category=${category.slug}`}
                 className="group"
               >
-                <div className="relative rounded-none overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white">
+                <div className="relative rounded-none overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white dark:bg-[#2a2a2a]">
                   {/* Image Container - 1:1.25 aspect ratio like reference */}
                   <div className="relative aspect-[4/5] overflow-hidden">
                     {imageUrl ? (

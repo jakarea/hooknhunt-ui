@@ -42,15 +42,15 @@ export default function RootLayout({
                 // Ensure dark mode is applied before page renders
                 document.documentElement.classList.add('dark');
                 document.body.classList.add('dark');
-                document.documentElement.style.background = '#0a0a0a';
-                document.body.style.background = '#0a0a0a';
+                document.documentElement.style.background = '#1f1515';
+                document.body.style.background = '#1f1515';
                 document.body.style.color = '#ededed';
               })();
             `,
           }}
         />
       </head>
-      <body className={`${notoSansBengali.className} ${anekBangla.className} antialiased dark:bg-[#0a0a0a] dark:text-gray-100 bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
+      <body className={`${notoSansBengali.className} ${anekBangla.className} antialiased dark:bg-[#1f1515] dark:text-gray-100 bg-white text-gray-900 transition-colors duration-200`} suppressHydrationWarning>
         <script
           dangerouslySetInnerHTML={{
             __html: `

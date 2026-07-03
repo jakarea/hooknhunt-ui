@@ -137,7 +137,7 @@ export default function ForgotPasswordPage() {
                     </div>
 
                     {/* Phone Input Form */}
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                    <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-8">
                         <form onSubmit={handleSubmitPhone} className="space-y-6">
                             {/* Error Message */}
                             {error && (
@@ -173,7 +173,7 @@ export default function ForgotPasswordPage() {
                                             setPhone(e.target.value);
                                             setError('');
                                         }}
-                                        className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-700 focus:border-transparent bg-white text-gray-900 transition-colors"
+                                        className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-700 focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 transition-colors"
                                         placeholder="01xxxxxxxxx"
                                     />
                                 </div>
@@ -231,7 +231,7 @@ export default function ForgotPasswordPage() {
                     }}
                 />
                 <div className="max-w-md w-full">
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                    <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-8">
                         <OtpVerification
                             phone={phone}
                             onVerify={async (otp) => {
@@ -296,7 +296,7 @@ export default function ForgotPasswordPage() {
                 </div>
 
                 {/* New Password Form */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-8">
                     <form onSubmit={(e) => {
                         e.preventDefault();
                         setError('');
@@ -373,13 +373,13 @@ export default function ForgotPasswordPage() {
                                         setPassword(e.target.value);
                                         setError('');
                                     }}
-                                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-700 focus:border-transparent bg-white text-gray-900 transition-colors"
+                                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-700 focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 transition-colors"
                                     placeholder="Enter new password"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
                                 >
                                     {showPassword ? (
                                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -418,13 +418,13 @@ export default function ForgotPasswordPage() {
                                         setConfirmPassword(e.target.value);
                                         setError('');
                                     }}
-                                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-700 focus:border-transparent bg-white text-gray-900 transition-colors"
+                                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-700 focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 transition-colors"
                                     placeholder="Confirm new password"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
                                 >
                                     {showConfirmPassword ? (
                                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

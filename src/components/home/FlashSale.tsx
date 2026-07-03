@@ -134,7 +134,7 @@ export default function FlashSale() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <div className="w-12 h-12 bg-white dark:bg-[#2a2a2a]/20 backdrop-blur-sm flex items-center justify-center">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -155,15 +155,15 @@ export default function FlashSale() {
           <div className="flex items-center gap-2">
             <span className="text-white/90 text-sm font-medium hidden sm:block">{t('hotDeals.endsIn')}:</span>
             <div className="flex gap-2">
-              <div className="flex flex-col items-center bg-white/20 backdrop-blur-sm px-3 py-2 min-w-[60px]">
+              <div className="flex flex-col items-center bg-white dark:bg-[#2a2a2a]/20 backdrop-blur-sm px-3 py-2 min-w-[60px]">
                 <span className="text-2xl font-bold text-white">{String(timeLeft.hours).padStart(2, '0')}</span>
                 <span className="text-xs text-white/80 uppercase">{t('hotDeals.hours')}</span>
               </div>
-              <div className="flex flex-col items-center bg-white/20 backdrop-blur-sm px-3 py-2 min-w-[60px]">
+              <div className="flex flex-col items-center bg-white dark:bg-[#2a2a2a]/20 backdrop-blur-sm px-3 py-2 min-w-[60px]">
                 <span className="text-2xl font-bold text-white">{String(timeLeft.minutes).padStart(2, '0')}</span>
                 <span className="text-xs text-white/80 uppercase">{t('hotDeals.minutes')}</span>
               </div>
-              <div className="flex flex-col items-center bg-white/20 backdrop-blur-sm px-3 py-2 min-w-[60px]">
+              <div className="flex flex-col items-center bg-white dark:bg-[#2a2a2a]/20 backdrop-blur-sm px-3 py-2 min-w-[60px]">
                 <span className="text-2xl font-bold text-white">{String(timeLeft.seconds).padStart(2, '0')}</span>
                 <span className="text-xs text-white/80 uppercase">{t('hotDeals.seconds')}</span>
               </div>
@@ -176,7 +176,7 @@ export default function FlashSale() {
           {/* Previous Arrow */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 hover:bg-white text-[#ec3137] flex items-center justify-center transition-all duration-300 hover:scale-110"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 hover:bg-white dark:bg-[#2a2a2a] text-[#ec3137] flex items-center justify-center transition-all duration-300 hover:scale-110"
             aria-label="Previous slide"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -193,9 +193,9 @@ export default function FlashSale() {
             >
               {flashProducts.map((product) => (
                 <div key={product.id} className="w-1/6 flex-shrink-0 px-2">
-                  <div className="group bg-white dark:bg-[#1a1a1a] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                  <div className="group bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
                     {/* Image */}
-                    <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-[#1a1a1a]">
+                    <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-[#322020]">
                       <Link href={`/products/${product.id}`}>
                         <Image
                           src={product.image}
@@ -242,7 +242,7 @@ export default function FlashSale() {
           {/* Next Arrow */}
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 hover:bg-white text-[#ec3137] flex items-center justify-center transition-all duration-300 hover:scale-110"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 hover:bg-white dark:bg-[#2a2a2a] text-[#ec3137] flex items-center justify-center transition-all duration-300 hover:scale-110"
             aria-label="Next slide"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -255,7 +255,7 @@ export default function FlashSale() {
         <div className="text-center mt-8">
           <Link
             href="/hot-deals"
-            className="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-[#bc1215] px-8 py-3 font-semibold transition-colors duration-300"
+            className="inline-flex items-center gap-2 bg-white dark:bg-[#2a2a2a] hover:bg-gray-100 text-[#bc1215] px-8 py-3 font-semibold transition-colors duration-300"
           >
             {t('hotDeals.viewAll')}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

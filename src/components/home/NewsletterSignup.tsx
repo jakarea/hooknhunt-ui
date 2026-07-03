@@ -37,15 +37,15 @@ export default function NewsletterSignup() {
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
           }}></div>
         </div>
-        <div className="absolute top-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-10 left-10 w-40 h-40 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-10 right-10 w-32 h-32 bg-white dark:bg-[#2a2a2a]/10 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-10 left-10 w-40 h-40 bg-white dark:bg-[#2a2a2a]/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="container relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Header */}
           <div className="mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-[#2a2a2a]/20 backdrop-blur-sm mb-4">
               <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
@@ -70,14 +70,14 @@ export default function NewsletterSignup() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t('footer.newsletter.placeholder')}
-                    className="w-full px-6 py-4 text-gray-900 placeholder-gray-500 bg-white rounded-lg focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
+                    className="w-full px-6 py-4 text-gray-900 placeholder-gray-500 bg-white dark:bg-[#2a2a2a] rounded-lg focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300"
                     required
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting || !email}
-                  className="px-8 py-4 bg-white text-[#ec3137] font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 shadow-lg"
+                  className="px-8 py-4 bg-white dark:bg-[#2a2a2a] text-[#ec3137] font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 shadow-lg"
                 >
                   {isSubmitting ? (
                     <>
@@ -97,7 +97,7 @@ export default function NewsletterSignup() {
                 </button>
               </form>
             ) : (
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-8 border border-white/30">
+              <div className="bg-white dark:bg-[#2a2a2a]/20 backdrop-blur-sm rounded-lg p-8 border border-white/30">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <svg className="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />

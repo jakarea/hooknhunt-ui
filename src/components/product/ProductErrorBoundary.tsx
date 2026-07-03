@@ -33,8 +33,8 @@ export default class ProductErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="min-h-screen bg-gray-50 dark:bg-[#1a1a1a] flex items-center justify-center px-4 py-12">
-          <div className="max-w-md w-full bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 text-center">
+        <div className="min-h-screen bg-gray-50 dark:bg-[#322020] flex items-center justify-center px-4 py-12">
+          <div className="max-w-md w-full bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-2xl shadow-xl p-8 text-center">
             {/* Error Icon */}
             <div className="w-16 h-16 mx-auto mb-4 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
               <svg className="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +74,7 @@ export default class ProductErrorBoundary extends Component<Props, State> {
               </button>
               <a
                 href="/products"
-                className="px-6 py-2.5 min-h-[44px] bg-gray-200 dark:bg-[#1a1a1a] hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold text-sm rounded-xl transition-all transform hover:scale-[1.02] inline-flex items-center justify-center"
+                className="px-6 py-2.5 min-h-[44px] bg-gray-200 dark:bg-[#322020] hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold text-sm rounded-xl transition-all transform hover:scale-[1.02] inline-flex items-center justify-center"
               >
                 Browse Products
               </a>

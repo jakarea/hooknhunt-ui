@@ -217,7 +217,7 @@ export default function AddressesPage() {
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">আমার ঠিকানাসমূহ</h1>
@@ -240,7 +240,7 @@ export default function AddressesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* User Profile as Default Address if no addresses exist */}
           {addresses.length === 0 && user && (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 relative">
+            <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6 relative">
                     <div className="absolute top-4 right-4">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                         <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -301,7 +301,7 @@ export default function AddressesPage() {
                 {addresses.map((address) => (
                   <div
                     key={address.id}
-                    className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 relative group"
+                    className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6 relative group"
                   >
                     {/* Default Badge */}
                     {(address.isDefault || address.is_default) && (
@@ -393,7 +393,7 @@ export default function AddressesPage() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 text-center py-16">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 text-center py-16">
                 <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -417,7 +417,7 @@ export default function AddressesPage() {
       {/* Add/Edit Address Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[95vh] overflow-y-auto">
+          <div className="bg-white dark:bg-[#2a2a2a] rounded-2xl shadow-2xl max-w-2xl w-full max-h-[95vh] overflow-y-auto">
             {/* Modal Header */}
             <div className="sticky top-0 bg-gradient-to-r from-[#ec3137] to-[#8a0f12] p-6 rounded-t-2xl z-10">
               <div className="flex items-center justify-between">
@@ -431,7 +431,7 @@ export default function AddressesPage() {
                 </div>
                 <button
                   onClick={handleCloseModal}
-                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-2 transition-all duration-200"
+                  className="text-white/80 hover:text-white hover:bg-white dark:bg-[#2a2a2a]/20 rounded-full p-2 transition-all duration-200"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -528,7 +528,7 @@ export default function AddressesPage() {
                     value={formData.full_name}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200"
+                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white dark:bg-[#2a2a2a] transition-all duration-200"
                     placeholder="পূর্ণ নাম লিখুন"
                   />
                 </div>
@@ -548,7 +548,7 @@ export default function AddressesPage() {
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200"
+                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white dark:bg-[#2a2a2a] transition-all duration-200"
                     placeholder="01xxxxxxxxx"
                   />
                 </div>
@@ -571,7 +571,7 @@ export default function AddressesPage() {
                   value={formData.address_line1}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200"
+                  className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white dark:bg-[#2a2a2a] transition-all duration-200"
                   placeholder="বাসা/ফ্ল্যাট নম্বর, ভবন, রাস্তা"
                 />
               </div>
@@ -592,7 +592,7 @@ export default function AddressesPage() {
                   name="address_line2"
                   value={formData.address_line2}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200"
+                  className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white dark:bg-[#2a2a2a] transition-all duration-200"
                   placeholder="এলাকা, ল্যান্ডমার্ক (ঐচ্ছিক)"
                 />
               </div>
@@ -620,7 +620,7 @@ export default function AddressesPage() {
                       }));
                     }}
                     required
-                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200"
+                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white dark:bg-[#2a2a2a] transition-all duration-200"
                   >
                     <option value="">বিভাগ নির্বাচন করুন</option>
                     {bangladeshDivisions.map(div => (
@@ -650,7 +650,7 @@ export default function AddressesPage() {
                     }}
                     required
                     disabled={!formData.division}
-                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white dark:bg-[#2a2a2a] transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   >
                     <option value="">{formData.division ? 'জেলা নির্বাচন করুন' : 'প্রথমে বিভাগ নির্বাচন করুন'}</option>
                     {formData.division && bangladeshDivisions
@@ -675,7 +675,7 @@ export default function AddressesPage() {
                     onChange={handleChange}
                     required
                     disabled={!formData.district}
-                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white dark:bg-[#2a2a2a] transition-all duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   >
                     <option value="">{formData.district ? 'থানা নির্বাচন করুন' : 'প্রথমে জেলা নির্বাচন করুন'}</option>
                     {formData.district && getThanasForDistrict(formData.district).map(thana => (
@@ -700,7 +700,7 @@ export default function AddressesPage() {
                   name="post_code"
                   value={formData.post_code}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white transition-all duration-200"
+                  className="w-full px-3 py-2 text-sm border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] bg-white dark:bg-[#2a2a2a] transition-all duration-200"
                   placeholder="পোস্ট কোড"
                 />
               </div>
@@ -759,10 +759,10 @@ export default function AddressesPage() {
       {/* Delete Confirmation Modal */}
       {deleteConfirm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
+          <div className="bg-white dark:bg-[#2a2a2a] rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
             {/* Header */}
             <div className="bg-gradient-to-r from-red-600 to-red-700 p-6">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-white dark:bg-[#2a2a2a]/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>

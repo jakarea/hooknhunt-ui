@@ -196,7 +196,7 @@ export default function AffiliatePayoutsPage() {
       case 'rejected':
         return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-[#1a1a1a] dark:text-gray-200';
+        return 'bg-gray-100 text-gray-800 dark:bg-[#322020] dark:text-gray-200';
     }
   };
 
@@ -219,7 +219,7 @@ export default function AffiliatePayoutsPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
           >
             <option value="">All Status</option>
             <option value="pending">Pending</option>
@@ -231,10 +231,10 @@ export default function AffiliatePayoutsPage() {
         </div>
 
         {/* Payouts Table */}
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-[#1a1a1a]">
+              <thead className="bg-gray-50 dark:bg-[#322020]">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase">
                     ID
@@ -259,7 +259,7 @@ export default function AffiliatePayoutsPage() {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-[#1a1a1a] divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] divide-y divide-gray-200 dark:divide-gray-700">
                 {loading ? (
                   <tr>
                     <td colSpan={7} className="px-6 py-12 text-center">
@@ -358,7 +358,7 @@ export default function AffiliatePayoutsPage() {
         {/* Reject Modal */}
         {showRejectModal && selectedPayout && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg p-6 max-w-md w-full mx-4">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Reject Payout Request
               </h3>
@@ -370,7 +370,7 @@ export default function AffiliatePayoutsPage() {
                   value={rejectionReason}
                   onChange={(e) => setRejectionReason(e.target.value)}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
                   placeholder="Enter reason for rejection..."
                   required
                 />
@@ -383,7 +383,7 @@ export default function AffiliatePayoutsPage() {
                   value={adminNotes}
                   onChange={(e) => setAdminNotes(e.target.value)}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] focus:border-[#ec3137] dark:bg-[#322020] dark:text-white"
                   placeholder="Additional notes..."
                 />
               </div>

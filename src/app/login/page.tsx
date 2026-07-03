@@ -149,7 +149,7 @@ function LoginForm() {
                 </div>
 
                 {/* Login Form */}
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-lg p-8">
+                <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-lg shadow-lg p-8">
                     <form onSubmit={handleSubmit} className="space-y-6">
 
                         {/* Phone Number Field */}
@@ -170,7 +170,7 @@ function LoginForm() {
                                     required
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
-                                    className="appearance-none block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-400 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec3137] focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                                    className="appearance-none block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-400 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec3137] focus:border-transparent bg-white dark:bg-[#2a2a2a] dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                                     placeholder={t('checkout.phoneNumberPlaceholder')}
                                 />
                             </div>
@@ -195,14 +195,14 @@ function LoginForm() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="appearance-none block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-400 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec3137] focus:border-transparent bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                                    className="appearance-none block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-400 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec3137] focus:border-transparent bg-white dark:bg-[#2a2a2a] dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
                                     placeholder={t('auth.login.passwordPlaceholder')}
                                 />
                                 
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                                 >
                                     {showPassword ? (
                                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -265,7 +265,7 @@ function LoginForm() {
                                 <div className="w-full border-t border-gray-300 dark:border-gray-400"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white dark:bg-[#1a1a1a] text-gray-500 dark:text-gray-200">
+                                <span className="px-2 bg-white dark:bg-[#2a2a2a] dark:bg-[#1a1a1a] text-gray-500 dark:text-gray-200">
                                     {t('auth.login.noAccount')}
                                 </span>
                             </div>
@@ -276,7 +276,7 @@ function LoginForm() {
                     <div className="mt-6">
                         <Link
                             href="/registration"
-                            className="w-full flex justify-center py-3 px-4 border border-gray-300 dark:border-gray-400 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] hover:bg-gray-50 dark:hover:bg-[#333333] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ec3137] transition-all duration-300"
+                            className="w-full flex justify-center py-3 px-4 border border-gray-300 dark:border-gray-400 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-[#2a2a2a] dark:bg-[#2a2a2a] hover:bg-gray-50 dark:hover:bg-[#333333] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ec3137] transition-all duration-300"
                         >
                             {t('auth.login.signUp')}
                         </Link>

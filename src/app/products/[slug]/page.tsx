@@ -579,7 +579,7 @@ function ProductDetailPageContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#fee1e1] dark:bg-[#1a1a1a] flex items-center justify-center">
+      <div className="min-h-screen bg-[#fee1e1] dark:bg-[#322020] flex items-center justify-center">
         <div className="text-center">
           <div className="relative w-16 h-16 mx-auto mb-4">
             <div className="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
@@ -593,7 +593,7 @@ function ProductDetailPageContent() {
 
   if (error || !product || !selectedVariant) {
     return (
-      <div className="min-h-screen bg-[#fee1e1] dark:bg-[#1a1a1a] flex items-center justify-center">
+      <div className="min-h-screen bg-[#fee1e1] dark:bg-[#322020] flex items-center justify-center">
         <div className="text-center p-8">
           <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -609,9 +609,9 @@ function ProductDetailPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fee1e1] dark:bg-[#1a1a1a] overflow-x-hidden">
+    <div className="min-h-screen bg-[#fee1e1] dark:bg-[#322020] overflow-x-hidden">
       {/* Breadcrumb */}
-      <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-400/50 overflow-x-hidden">
+      <div className="bg-white dark:bg-[#2a2a2a]/50 dark:bg-[#2a1a1a]/50 border-b border-gray-200/50 dark:border-gray-400/50 overflow-x-hidden">
         <div className="container px-3 md:px-4 py-3">
           <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-200">
             <Link href="/" className="hover:text-[#bc1215] transition-colors">Home</Link>
@@ -642,7 +642,7 @@ function ProductDetailPageContent() {
           {/* Product Images */}
           <div className="space-y-4 min-w-0">
             {/* Main Image */}
-            <div className="relative bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-lg h-64 sm:h-auto sm:aspect-square">
+            <div className="relative bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-2xl overflow-hidden shadow-lg h-64 sm:h-auto sm:aspect-square">
               {product.gallery_images[selectedImageIndex] ? (
                 <Image
                   src={product.gallery_images[selectedImageIndex]}
@@ -805,7 +805,7 @@ function ProductDetailPageContent() {
 
                         {/* Out of Stock */}
                         {isOutOfStock && (
-                          <span className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-black/70 rounded-xl">
+                          <span className="absolute inset-0 flex items-center justify-center bg-white dark:bg-[#2a2a2a]/70 dark:bg-black/70 rounded-xl">
                             <span className="text-[9px] font-bold text-gray-700 dark:text-gray-100">Sold Out</span>
                           </span>
                         )}
@@ -937,7 +937,7 @@ function ProductDetailPageContent() {
 
         {/* Product Details Tabs */}
         <div className="mt-12 overflow-x-hidden">
-          <div className="bg-white/70 dark:bg-[#0a0a0a]/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm">
+          <div className="bg-white dark:bg-[#2a2a2a]/70 dark:bg-[#1f1515]/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm">
             {/* Tab Headers */}
             <div className="flex border-b border-gray-200/50 dark:border-gray-400/50">
               <button
@@ -973,7 +973,7 @@ function ProductDetailPageContent() {
             </div>
 
             {/* Tab Content */}
-            <div className="p-6 sm:p-8 bg-white dark:bg-[#1a1a1a]">
+            <div className="p-6 sm:p-8 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020]">
               {activeTab === 'description' && (
                 <div className="prose prose-gray dark:prose-invert max-w-none dark:text-gray-100">
                   {localizedDescription ? (
@@ -1017,35 +1017,35 @@ function ProductDetailPageContent() {
                     {/* Filter skeleton */}
                     <div className="flex gap-2 flex-wrap">
                       {[...Array(5)].map((_, i) => (
-                        <div key={i} className="h-8 w-20 bg-gray-200 dark:bg-[#1a1a1a] rounded-full animate-pulse"></div>
+                        <div key={i} className="h-8 w-20 bg-gray-200 dark:bg-[#322020] rounded-full animate-pulse"></div>
                       ))}
                     </div>
 
                     {/* Review cards skeleton */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {[...Array(4)].map((_, i) => (
-                        <div key={i} className="bg-white dark:bg-[#0a0a0a] p-6 rounded-xl shadow-sm animate-pulse">
+                        <div key={i} className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] p-6 rounded-xl shadow-sm animate-pulse">
                           {/* Avatar + Name */}
                           <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-gray-200 dark:bg-[#1a1a1a] rounded-full"></div>
+                            <div className="w-10 h-10 bg-gray-200 dark:bg-[#322020] rounded-full"></div>
                             <div className="flex-1">
-                              <div className="h-3 bg-gray-200 dark:bg-[#1a1a1a] rounded w-3/4 mb-2"></div>
-                              <div className="h-2 bg-gray-200 dark:bg-[#1a1a1a] rounded w-1/2"></div>
+                              <div className="h-3 bg-gray-200 dark:bg-[#322020] rounded w-3/4 mb-2"></div>
+                              <div className="h-2 bg-gray-200 dark:bg-[#322020] rounded w-1/2"></div>
                             </div>
                           </div>
 
                           {/* Rating stars skeleton */}
                           <div className="flex gap-1 mb-3">
                             {[...Array(5)].map((_, j) => (
-                              <div key={j} className="w-4 h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded-full"></div>
+                              <div key={j} className="w-4 h-4 bg-gray-200 dark:bg-[#322020] rounded-full"></div>
                             ))}
                           </div>
 
                           {/* Review text skeleton */}
                           <div className="space-y-2">
-                            <div className="h-3 bg-gray-200 dark:bg-[#1a1a1a] rounded w-full"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-[#1a1a1a] rounded w-5/6"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-[#1a1a1a] rounded w-4/6"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-[#322020] rounded w-full"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-[#322020] rounded w-5/6"></div>
+                            <div className="h-3 bg-gray-200 dark:bg-[#322020] rounded w-4/6"></div>
                           </div>
                         </div>
                       ))}

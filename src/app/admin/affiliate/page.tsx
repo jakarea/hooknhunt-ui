@@ -30,7 +30,7 @@ export default function AdminAffiliateDashboard() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-[#0f0f0f]">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#2a1a1a]">
         <AdminHeader />
         <div className="flex">
           <AdminSidebar />
@@ -51,7 +51,7 @@ export default function AdminAffiliateDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0f0f0f]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#2a1a1a]">
       <Toaster
         position="top-right"
         toastOptions={{
@@ -87,7 +87,7 @@ export default function AdminAffiliateDashboard() {
           {stats && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               {/* Total Affiliates */}
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-200">
@@ -106,7 +106,7 @@ export default function AdminAffiliateDashboard() {
               </div>
 
               {/* Active Affiliates */}
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-200">
@@ -125,7 +125,7 @@ export default function AdminAffiliateDashboard() {
               </div>
 
               {/* Pending Applications */}
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-200">
@@ -152,7 +152,7 @@ export default function AdminAffiliateDashboard() {
               </div>
 
               {/* Total Payouts */}
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 dark:text-gray-200">
@@ -176,7 +176,7 @@ export default function AdminAffiliateDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Link
               href="/admin/affiliate/applications"
-              className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-4">
                 <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-full">
@@ -193,7 +193,7 @@ export default function AdminAffiliateDashboard() {
 
             <Link
               href="/admin/affiliate/applications?status=pending"
-              className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-4">
                 <div className="bg-green-100 dark:bg-green-900 p-3 rounded-full">
@@ -210,7 +210,7 @@ export default function AdminAffiliateDashboard() {
 
             <Link
               href="/admin/affiliate/payouts"
-              className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-4">
                 <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-full">
@@ -229,7 +229,7 @@ export default function AdminAffiliateDashboard() {
           {/* Revenue Statistics */}
           {stats && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Performance Overview
                 </h3>
@@ -261,7 +261,7 @@ export default function AdminAffiliateDashboard() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
+              <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-sm border border-gray-200 dark:border-gray-400 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Engagement Metrics
                 </h3>

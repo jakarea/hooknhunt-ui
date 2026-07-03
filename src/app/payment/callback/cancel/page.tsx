@@ -41,8 +41,8 @@ function PaymentCancelContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-xl p-8 text-center">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white dark:bg-[#2a2a2a] dark:bg-[#2a1a1a] rounded-2xl shadow-xl p-8 text-center">
         {status === 'loading' && (
           <div className="space-y-4">
             <div className="w-16 h-16 mx-auto border-4 border-yellow-600 border-t-transparent rounded-full animate-spin" />
@@ -117,8 +117,8 @@ function PaymentCancelContent() {
 export default function PaymentCancelPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-xl p-8 text-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white dark:bg-[#2a2a2a] dark:bg-[#2a1a1a] rounded-2xl shadow-xl p-8 text-center">
           <div className="w-16 h-16 mx-auto border-4 border-[#ec3137] border-t-transparent rounded-full animate-spin" />
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mt-4">
             Loading...

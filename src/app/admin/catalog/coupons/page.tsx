@@ -148,7 +148,7 @@ export default function CouponsListPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-6">
+      <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-md p-6">
         <div className="flex gap-4 flex-wrap">
           <div className="flex-1 min-w-[200px]">
             <input
@@ -157,13 +157,13 @@ export default function CouponsListPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
             />
           </div>
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
           >
             <option value="all">All Types</option>
             <option value="percentage">Percentage</option>
@@ -173,7 +173,7 @@ export default function CouponsListPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#1a1a1a] dark:text-white"
+            className="px-4 py-2 border border-gray-300 dark:border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ec3137] dark:bg-[#322020] dark:text-white"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -190,14 +190,14 @@ export default function CouponsListPage() {
 
       {/* Table */}
       {loading ? (
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md p-12 text-center">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-md p-12 text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#ec3137]"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-200">Loading coupons...</p>
         </div>
       ) : (
-        <div className="bg-white dark:bg-[#1a1a1a] rounded-lg shadow-md overflow-hidden">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-lg shadow-md overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-[#1a1a1a]">
+            <thead className="bg-gray-50 dark:bg-[#322020]">
               <tr>
                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-100 uppercase tracking-wider">
                   Code
@@ -307,7 +307,7 @@ export default function CouponsListPage() {
 
           {/* Pagination */}
           {discounts && discounts.last_page > 1 && (
-            <div className="bg-white dark:bg-[#1a1a1a] px-6 py-4 border-t border-gray-200 dark:border-gray-400 flex items-center justify-between">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] px-6 py-4 border-t border-gray-200 dark:border-gray-400 flex items-center justify-between">
               <div className="text-sm text-gray-700 dark:text-gray-100">
                 Showing {((discounts.current_page - 1) * discounts.per_page) + 1} to{' '}
                 {Math.min(discounts.current_page * discounts.per_page, discounts.total)} of {discounts.total} results

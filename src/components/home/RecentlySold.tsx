@@ -30,7 +30,7 @@ export default function RecentlySold() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="bg-[#fee1e1] dark:bg-[#1a1a1a] dark:bg-[#1a1a1a] py-10 transition-colors duration-200">
+    <section className="bg-[#fee1e1] dark:bg-[#322020] dark:bg-[#322020] py-10 transition-colors duration-200">
       <div className="container px-3 md:px-4">
         <div className="mb-8">
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{t('home.recentlySold.title')}</h3>
@@ -39,9 +39,9 @@ export default function RecentlySold() {
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="animate-pulse">
-                  <div className="aspect-square bg-gray-200 dark:bg-[#1a1a1a] rounded" />
-                  <div className="mt-2 h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-3/4" />
-                  <div className="mt-1 h-4 bg-gray-200 dark:bg-[#1a1a1a] rounded w-1/2" />
+                  <div className="aspect-square bg-gray-200 dark:bg-[#322020] rounded" />
+                  <div className="mt-2 h-4 bg-gray-200 dark:bg-[#322020] rounded w-3/4" />
+                  <div className="mt-1 h-4 bg-gray-200 dark:bg-[#322020] rounded w-1/2" />
                 </div>
               ))
             : products.map(product => (

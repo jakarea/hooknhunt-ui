@@ -45,7 +45,7 @@ function OrderFailContent() {
         </div>
 
         {/* Order Details Card */}
-        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-red-200 dark:border-red-800 rounded-xl p-8 mb-6 shadow-lg">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-2 border-red-200 dark:border-red-800 rounded-xl p-8 mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Order Details</h2>
             <div className="px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-lg text-sm font-semibold">
@@ -54,14 +54,14 @@ function OrderFailContent() {
           </div>
 
           {invoiceNo && (
-            <div className="mb-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+            <div className="mb-4 p-4 bg-gray-50 dark:bg-[#322020] rounded-lg">
               <p className="text-sm text-gray-600 dark:text-gray-200">Invoice Number</p>
               <p className="text-lg font-bold text-gray-900 dark:text-white">{invoiceNo}</p>
             </div>
           )}
 
           {orderTotal > 0 && (
-            <div className="mb-4 p-4 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg">
+            <div className="mb-4 p-4 bg-gray-50 dark:bg-[#322020] rounded-lg">
               <p className="text-sm text-gray-600 dark:text-gray-200">Order Total</p>
               <p className="text-lg font-bold text-[#ec3137]">৳{orderTotal.toLocaleString()}</p>
             </div>
@@ -83,7 +83,7 @@ function OrderFailContent() {
         </div>
 
         {/* What To Do */}
-        <div className="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-400 rounded-xl p-8 shadow-lg">
+        <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515] border-2 border-gray-200 dark:border-gray-400 rounded-xl p-8 shadow-lg">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">What You Can Do</h2>
 
           <div className="space-y-4 mb-8">
@@ -157,7 +157,7 @@ function OrderFailContent() {
         <div className="text-center mt-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-[#1a1a1a] hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-bold rounded-xl transition-all duration-300 text-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 dark:bg-[#322020] hover:bg-gray-900 dark:hover:bg-gray-600 text-white font-bold rounded-xl transition-all duration-300 text-sm"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7m7 7v14m0 0l-7-7m7 7v10a2 2 0 002-2h3a2 2 0 002-2v-4a2 2 0 00-2-2h-3m0 0h3a2 2 0 002 2v3a2 2 0 002 2h3a2 2 0 002-2v-4a2 2 0 00-2-2h-3m-6 0h6" />
@@ -182,7 +182,7 @@ function OrderFailContent() {
 export default function OrderFailPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] flex items-center justify-center">
         <div className="w-16 h-16 border-4 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
       </div>
     }>

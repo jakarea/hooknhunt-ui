@@ -72,7 +72,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] py-6 sm:py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] py-6 sm:py-8">
       <div className="container px-3 md:px-4">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
@@ -87,7 +87,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {/* Contact Info */}
           <div className="lg:col-span-1 space-y-4 sm:space-y-6">
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm p-4 sm:p-5 lg:p-6">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-xl shadow-sm p-4 sm:p-5 lg:p-6">
               <div className="flex items-start gap-3 sm:gap-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-[#bc1215]/10 rounded-lg flex items-center justify-center">
                   <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#bc1215]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm p-4 sm:p-5 lg:p-6">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-xl shadow-sm p-4 sm:p-5 lg:p-6">
               <div className="flex items-start gap-3 sm:gap-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-[#046bd2]/10 rounded-lg flex items-center justify-center">
                   <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#046bd2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +117,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm p-4 sm:p-5 lg:p-6">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-xl shadow-sm p-4 sm:p-5 lg:p-6">
               <div className="flex items-start gap-3 sm:gap-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center">
                   <svg className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm p-4 sm:p-6 lg:p-8">
+            <div className="bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-xl shadow-sm p-4 sm:p-6 lg:p-8">
 
               {/* Success/Error Messages */}
               {submitStatus.type && (
@@ -161,7 +161,7 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t('form.fullName.placeholder')}
-                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] dark:bg-[#4a3030] text-gray-900 dark:text-gray-100"
                       required
                       disabled={isSubmitting}
                     />
@@ -177,7 +177,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder={t('form.phone.placeholder')}
-                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                      className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] dark:bg-[#4a3030] text-gray-900 dark:text-gray-100"
                       required
                       disabled={isSubmitting}
                     />
@@ -194,7 +194,7 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder={t('form.email.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] dark:bg-[#4a3030] text-gray-900 dark:text-gray-100"
                     disabled={isSubmitting}
                   />
                 </div>
@@ -209,7 +209,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder={t('form.subject.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] dark:bg-[#4a3030] text-gray-900 dark:text-gray-100"
                     required
                     disabled={isSubmitting}
                   />
@@ -225,7 +225,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     rows={5}
                     placeholder={t('form.message.placeholder')}
-                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 resize-none"
+                    className="w-full px-4 py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-400 rounded-lg focus:outline-none focus:border-[#bc1215] focus:ring-2 focus:ring-[#bc1215]/20 transition-all bg-white dark:bg-[#2a2a2a] dark:bg-[#4a3030] text-gray-900 dark:text-gray-100 resize-none"
                     required
                     disabled={isSubmitting}
                   />

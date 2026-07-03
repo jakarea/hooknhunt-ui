@@ -174,7 +174,7 @@ export default function OrdersPage() {
   return (
     <>
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+      <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -193,7 +193,7 @@ export default function OrdersPage() {
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-700 focus:border-red-700 bg-white"
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-700 focus:border-red-700 bg-white dark:bg-[#2a2a2a]"
                   >
                     <option value="">সকল অর্ডার</option>
                     <option value="completed">সম্পন্ন</option>
@@ -210,7 +210,7 @@ export default function OrdersPage() {
             {filteredOrders.length > 0 ? (
               <div className="space-y-6">
                 {filteredOrders.map((order) => (
-                  <div key={order.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                  <div key={order.id} className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 p-6">
                     {/* Order Header */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                       <div>
@@ -254,7 +254,7 @@ export default function OrdersPage() {
                           </thead>
                           <tbody className="divide-y divide-gray-200">
                             {order.items.map((item) => (
-                              <tr key={item.id} className="hover:bg-gray-50">
+                              <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-[#4a3030]">
                                 {/* Product with Thumbnail */}
                                 <td className="px-4 py-4">
                                   <a
@@ -336,7 +336,7 @@ export default function OrdersPage() {
                     {/* Order Actions */}
                     <div className="mt-6 pt-6 border-t border-gray-200 flex flex-wrap gap-3">
                       {order.status === 'completed' && (
-                        <button className="bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium py-2 px-4 rounded-lg transition-colors">
+                        <button className="bg-gray-100 dark:bg-[#322020] hover:bg-gray-200 dark:hover:bg-[#4a3030] text-gray-900 dark:text-gray-100 font-medium py-2 px-4 rounded-lg transition-colors">
                           রিভিউ দিন
                         </button>
                       )}
@@ -345,7 +345,7 @@ export default function OrdersPage() {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 text-center py-12">
+              <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm border border-gray-200 text-center py-12">
                 <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />

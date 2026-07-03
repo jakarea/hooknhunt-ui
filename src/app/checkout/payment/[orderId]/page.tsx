@@ -205,7 +205,7 @@ export default function PaymentInitiationPage() {
         </Link>
 
         {/* Order Summary Card */}
-        <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+        <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-md p-6 mb-6">
           <div className="flex items-center mb-6">
             <ShoppingBag className="h-8 w-8 text-[#ec3137] mr-3" />
             <div>
@@ -243,7 +243,7 @@ export default function PaymentInitiationPage() {
         )}
 
         {/* Pay Now Button */}
-        <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-md p-6">
           <div className="text-center mb-6">
             <CreditCard className="h-12 w-12 text-[#ec3137] mx-auto mb-3" />
             <h2 className="text-xl font-bold text-gray-900 mb-2">Ready to Pay?</h2>

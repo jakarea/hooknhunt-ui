@@ -70,8 +70,8 @@ function PaymentSuccessContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-xl p-8 text-center">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white dark:bg-[#2a2a2a] dark:bg-[#2a1a1a] rounded-2xl shadow-xl p-8 text-center">
         {status === 'loading' && (
           <div className="space-y-4">
             <div className="w-16 h-16 mx-auto border-4 border-[#ec3137] border-t-transparent rounded-full animate-spin" />
@@ -110,7 +110,7 @@ function PaymentSuccessContent() {
               Thank you for your payment. Your order is being processed.
             </p>
             {orderData && (
-              <div className="bg-gray-50 dark:bg-[#1a1a1a] rounded-lg p-4 mt-4">
+              <div className="bg-gray-50 dark:bg-[#322020] rounded-lg p-4 mt-4">
                 <p className="text-sm text-gray-600 dark:text-gray-200">
                   Order Invoice
                 </p>
@@ -166,8 +166,8 @@ function PaymentSuccessContent() {
 export default function PaymentSuccessPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-xl p-8 text-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-[#1f1515] flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white dark:bg-[#2a2a2a] dark:bg-[#2a1a1a] rounded-2xl shadow-xl p-8 text-center">
           <div className="w-16 h-16 mx-auto border-4 border-[#ec3137] border-t-transparent rounded-full animate-spin" />
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mt-4">
             Loading...

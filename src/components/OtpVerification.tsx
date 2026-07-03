@@ -142,7 +142,7 @@ export default function OtpVerification({ phone, onVerify, onResend, isLoading =
             onKeyDown={(e) => handleKeyDown(index, e)}
             onPaste={index === 0 ? handlePaste : undefined}
             disabled={isLoading}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 dark:border-gray-400 rounded-lg focus:border-[#ec3137] focus:ring-2 focus:ring-[#ec3137]/20 bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 dark:border-gray-400 rounded-lg focus:border-[#ec3137] focus:ring-2 focus:ring-[#ec3137]/20 bg-white dark:bg-[#2a2a2a] dark:bg-[#4a3030] text-gray-900 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           />
         ))}
       </div>

@@ -84,7 +84,7 @@ export default function TrustSignals() {
   ];
 
   return (
-    <section className="py-12 sm:py-16 bg-white dark:bg-[#0a0a0a]">
+    <section className="py-12 sm:py-16 bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515]">
       <div className="container">
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
@@ -120,7 +120,7 @@ export default function TrustSignals() {
             {guarantees.map((guarantee, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center text-center p-4 bg-white dark:bg-white/10 backdrop-blur-sm rounded-xl border border-green-200 dark:border-green-700/50 hover:shadow-md transition-all duration-300"
+                className="flex flex-col items-center text-center p-4 bg-white dark:bg-white dark:bg-[#2a2a2a]/10 backdrop-blur-sm rounded-xl border border-green-200 dark:border-green-700/50 hover:shadow-md transition-all duration-300"
               >
                 <div className="w-10 h-10 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center text-green-600 dark:text-green-400 mb-3">
                   {guarantee.icon}

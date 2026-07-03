@@ -84,7 +84,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   // Show loading spinner while checking authentication or redirecting
   if (isLoading || isRedirecting) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0a0a0a]">
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#2a2a2a] dark:bg-[#1f1515]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ec3137] mx-auto"></div>
           <p className="mt-4 text-gray-600 dark:text-gray-200">Loading...</p>

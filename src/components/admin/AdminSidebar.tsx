@@ -119,7 +119,7 @@ export default function AdminSidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-16 bottom-0 w-64 bg-white dark:bg-[#1a1a1a] shadow-lg border-r border-gray-200 dark:border-gray-400 overflow-y-auto z-30">
+    <aside className="fixed left-0 top-16 bottom-0 w-64 bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] shadow-lg border-r border-gray-200 dark:border-gray-400 overflow-y-auto z-30">
       <div className="p-4">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-8">

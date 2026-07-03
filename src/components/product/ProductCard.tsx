@@ -94,7 +94,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white dark:bg-[#1a1a1a] border hover:shadow-xl border-[#ffa2a2] dark:border-[#6b2a2a] hover:border-[#ec3137]/30 dark:hover:border-[#8a3a3a] transition-all duration-300 overflow-hidden h-full flex flex-col relative p-2 lg:p-3 rounded-none">
+    <div className="group bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] border hover:shadow-xl border-[#ffa2a2] dark:border-[#6b2a2a] hover:border-[#ec3137]/30 dark:hover:border-[#8a3a3a] transition-all duration-300 overflow-hidden h-full flex flex-col relative p-2 lg:p-3 rounded-none">
       <Link href={`/products/${product.slug}`} className="flex flex-col h-full">
         {/* Product Image */}
         <div className="relative overflow-hidden aspect-square p-2 flex-shrink-0 rounded-[8px]">
