@@ -19,7 +19,7 @@ export default function Categories() {
 
   if (loading && categories.length === 0) {
     return (
-      <section className="py-8 md:py-10 bg-[#fee1e1]">
+      <section className="py-8 md:py-10 bg-[#fee1e1] dark:bg-[#1a1a1a]">
         <div className="container px-4">
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -35,7 +35,7 @@ export default function Categories() {
   }
 
   return (
-    <section className="py-8 md:py-10 bg-[#fee1e1]">
+    <section className="py-8 md:py-10 bg-[#fee1e1] dark:bg-[#1a1a1a]">
       <div className="container px-4">
         {/* Categories Grid - 6 columns, compact cards */}
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3">

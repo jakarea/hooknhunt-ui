@@ -579,7 +579,7 @@ function ProductDetailPageContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#fee1e1] flex items-center justify-center">
+      <div className="min-h-screen bg-[#fee1e1] dark:bg-[#1a1a1a] flex items-center justify-center">
         <div className="text-center">
           <div className="relative w-16 h-16 mx-auto mb-4">
             <div className="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
@@ -593,7 +593,7 @@ function ProductDetailPageContent() {
 
   if (error || !product || !selectedVariant) {
     return (
-      <div className="min-h-screen bg-[#fee1e1] flex items-center justify-center">
+      <div className="min-h-screen bg-[#fee1e1] dark:bg-[#1a1a1a] flex items-center justify-center">
         <div className="text-center p-8">
           <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -609,7 +609,7 @@ function ProductDetailPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fee1e1] overflow-x-hidden">
+    <div className="min-h-screen bg-[#fee1e1] dark:bg-[#1a1a1a] overflow-x-hidden">
       {/* Breadcrumb */}
       <div className="bg-white/50 dark:bg-[#0f0f0f]/50 border-b border-gray-200/50 dark:border-gray-400/50 overflow-x-hidden">
         <div className="container px-3 md:px-4 py-3">

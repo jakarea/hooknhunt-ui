@@ -61,7 +61,7 @@ export default function Header() {
   return (
     <header className="bg-white dark:bg-[#0a0a0a] z-50">
       {/* Merged Header Section: All Elements in One Line */}
-      <div className="bg-[#fee1e1] dark:bg-[#0a0a0a]">
+      <div className="bg-[#fee1e1] dark:bg-[#1a1a1a] dark:bg-[#0a0a0a]">
         <div className="container px-3 md:px-4">
           <div className="flex items-center justify-between gap-2 sm:gap-4 py-3 sm:py-4">
             {/* Left: Logo */}
@@ -268,7 +268,7 @@ export default function Header() {
           }`}
         >
           {/* Sidebar Header */}
-          <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-400 bg-[#fee1e1] dark:bg-[#1a1a1a]">
+          <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-400 bg-[#fee1e1] dark:bg-[#1a1a1a] dark:bg-[#1a1a1a]">
             <Link href="/" className="flex-shrink-0" onClick={() => setIsMenuOpen(false)}>
               <Image
                 src="/hook-and-hunt-logo.svg"

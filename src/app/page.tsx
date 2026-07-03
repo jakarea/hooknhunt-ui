@@ -19,7 +19,7 @@ export default function Home() {
       {/* Hidden H1 for SEO */}
       <h1 className="sr-only">Hook & Hunt - Premium Fishing Accessories in Bangladesh</h1>
 
-      <div className="bg-[#fee1e1]">
+      <div className="bg-[#fee1e1] dark:bg-[#1a1a1a]">
         {/* Hero Slider - Full Screen */}
         <HeroSlider />
 
@@ -40,7 +40,7 @@ export default function Home() {
       <RecomendedYou />
 
       {/* Customer Reviews - Trust & Social Proof */}
-      <section className="bg-[#fee1e1] dark:bg-[#0f0f0f] py-10 md:py-14 transition-colors duration-200">
+      <section className="bg-[#fee1e1] dark:bg-[#1a1a1a] dark:bg-[#1a1a1a] py-10 md:py-14 transition-colors duration-200">
         <div className="container px-3 md:px-4">
           {/* Left-aligned Header */}
           <div className="mb-6 md:mb-8">

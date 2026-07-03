@@ -279,7 +279,7 @@ function ProductsPageContent() {
   const hasActiveFilters = !selectedCategories.includes('all') || selectedCategories.length > 1 || priceRange.length > 0 || minRating > 0;
 
   return (
-    <div className="bg-[#fee1e1] min-h-screen">
+    <div className="bg-[#fee1e1] dark:bg-[#1a1a1a] min-h-screen">
       {/* Breadcrumb - Modern Style */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#bc1215]/5 to-transparent"></div>
@@ -789,7 +789,7 @@ function ProductsPageContent() {
 export default function ProductsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#fee1e1] flex items-center justify-center">
+      <div className="min-h-screen bg-[#fee1e1] dark:bg-[#1a1a1a] flex items-center justify-center">
         <div className="text-center">
           <div className="relative">
             <div className="w-16 h-16 border-4 border-gray-200 rounded-full mx-auto"></div>

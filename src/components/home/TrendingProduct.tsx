@@ -30,7 +30,7 @@ export default function TrendingProduct() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section className="bg-[#fee1e1] pb-10">
+    <section className="bg-[#fee1e1] dark:bg-[#1a1a1a] pb-10">
       <div className="container">
       {/* <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
         <div className="flex-1">

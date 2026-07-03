@@ -30,7 +30,7 @@ export default function HotDealsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fee1e1]">
+    <div className="min-h-screen bg-[#fee1e1] dark:bg-[#1a1a1a]">
       {/* Products Grid */}
       <div className="container px-3 md:px-4 py-12 sm:py-16">
         {/* Page Header */}
