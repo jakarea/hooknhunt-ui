@@ -912,9 +912,9 @@ function ProductDetailPageContent() {
 
               {/* Includes in Box */}
               {localizedIncludesInBox && localizedIncludesInBox.length > 0 && (
-                <div className="bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200 rounded-2xl p-4">
+                <div className="bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950 dark:to-amber-900 border border-amber-200 dark:border-amber-800 rounded-2xl p-4">
                   <div className="flex items-center gap-2 mb-3">
-                    <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
                     <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">{t('includesInBox')}</h3>
@@ -922,7 +922,7 @@ function ProductDetailPageContent() {
                   <ul className="space-y-2">
                     {localizedIncludesInBox.map((item, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <svg className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                         <span className="text-sm text-gray-700 dark:text-gray-100 leading-relaxed">{item}</span>
@@ -973,13 +973,13 @@ function ProductDetailPageContent() {
             </div>
 
             {/* Tab Content */}
-            <div className="p-6 sm:p-8 bg-white dark:bg-white">
+            <div className="p-6 sm:p-8 bg-white dark:bg-[#1a1a1a]">
               {activeTab === 'description' && (
-                <div className="prose prose-gray dark:prose-invert max-w-none">
+                <div className="prose prose-gray dark:prose-invert max-w-none dark:text-gray-100">
                   {localizedDescription ? (
                     <div dangerouslySetInnerHTML={{ __html: localizedDescription }} />
                   ) : (
-                    <p className="text-gray-500">No description available.</p>
+                    <p className="text-gray-500 dark:text-gray-400">No description available.</p>
                   )}
                 </div>
               )}
