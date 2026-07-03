@@ -185,7 +185,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 transition-colors flex items-center gap-1.5"
+                className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1.5"
               >
                 {/* {item.icon && <span className="text-base">{item.icon}</span>} */}
                 {item.label}
@@ -198,7 +198,7 @@ export default function Header() {
               onMouseEnter={() => setIsCategoryDropdownOpen(true)}
               onMouseLeave={() => setIsCategoryDropdownOpen(false)}
             >
-              <button className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1.5">
+              <button className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1.5">
                 {/* <span className="text-base">📁</span> */}
                 {t('nav.category')}
                 <svg className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -241,7 +241,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1.5"
+                className="py-2 text-sm md:text-base font-medium text-white hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1.5"
               >
                 {/* {item.icon && <span className="text-base">{item.icon}</span>} */}
                 {item.label}
