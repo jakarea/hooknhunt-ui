@@ -94,7 +94,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group bg-white border hover:shadow-xl border-[#ffa2a2]  hover:border-[#ec3137]/30 transition-all duration-300 overflow-hidden h-full flex flex-col relative p-2 lg:p-3 rounded-none">
+    <div className="group bg-white dark:bg-[#1a1a1a] border hover:shadow-xl border-[#ffa2a2] dark:border-[#6b2a2a] hover:border-[#ec3137]/30 dark:hover:border-[#8a3a3a] transition-all duration-300 overflow-hidden h-full flex flex-col relative p-2 lg:p-3 rounded-none">
       <Link href={`/products/${product.slug}`} className="flex flex-col h-full">
         {/* Product Image */}
         <div className="relative overflow-hidden aspect-square p-2 flex-shrink-0 rounded-[8px]">
@@ -107,7 +107,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400">
+            <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-500">
               <svg
                 className="w-16 h-16"
                 fill="none"
@@ -147,8 +147,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             onClick={handleWishlistToggle}
             className={`absolute top-2 right-2 p-2.5 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 z-10 ${
               productInWishlist
-                ? 'bg-white/90 text-red-500 scale-110'
-                : 'bg-white/70 text-gray-400 hover:text-red-500 hover:scale-110 hover:bg-white/90'
+                ? 'bg-white/90 dark:bg-gray-700/90 text-red-500 scale-110'
+                : 'bg-white/70 dark:bg-gray-700/70 text-gray-400 dark:text-gray-400 hover:text-red-500 hover:scale-110 hover:bg-white/90 dark:hover:bg-gray-700/90'
             } ${wishlistAnimating ? 'scale-125' : ''}`}
             aria-label={productInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
           >
@@ -184,7 +184,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Product Info */}
         <div className="w-full mt-2 lg:mt-3 flex-1 flex flex-col">
           {/* Product Name */}
-          <h3 className="font-semibold text-black line-clamp-2 text-body-sm group-hover:text-[#bc1215] transition-colors min-h-[2.5rem] block mb-2">
+          <h3 className="font-semibold text-black dark:text-gray-100 line-clamp-2 text-body-sm group-hover:text-[#bc1215] dark:group-hover:text-[#ff6b6b] transition-colors min-h-[2.5rem] block mb-2">
             {name}
           </h3>
 
