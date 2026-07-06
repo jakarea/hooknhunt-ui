@@ -139,16 +139,25 @@ export default function TrackingScripts() {
     }
   }, [])
 
-  // Helper: Safely decode HTML entities only if needed
+  // Helper: Safely decode HTML entities (backend now returns clean HTML, but keep as fallback)
   const decodeHtmlEntities = (html: string): string => {
-    // Only decode if HTML contains encoded entities
-    if (!html.includes('&') || (!html.includes('&amp;') && !html.includes('&lt;') && !html.includes('&gt;') && !html.includes('&quot;'))) {
-      return html // Already clean, no need to decode
+    // Backend now decodes HTML before sending, but keep fallback for any remaining encoded entities
+    if (!html || !html.includes('&')) {
+      return html // Already clean
     }
 
+    // Only decode if contains HTML entities
     const textarea = document.createElement('textarea')
     textarea.innerHTML = html
-    return textarea.value
+    const decoded = textarea.value
+
+    // If multiple passes needed, repeat (handles rare triple-encoding edge cases)
+    if (decoded !== html && decoded.includes('&')) {
+      textarea.innerHTML = decoded
+      return textarea.value
+    }
+
+    return decoded
   }
 
   // Helper: Inject HTML-containing script code (extracts JS from <script> tags)
