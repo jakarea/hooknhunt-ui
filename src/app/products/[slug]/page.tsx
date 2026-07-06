@@ -703,6 +703,9 @@ function ProductDetailPageContent() {
                 </div>
               </div>
             )}
+
+            {/* YouTube Video - display in image preview section */}
+            {product.videoUrl && <YouTubeVideo videoUrl={product.videoUrl} />}
           </div>
 
           {/* Product Info */}
@@ -735,9 +738,6 @@ function ProductDetailPageContent() {
                 {localizedShortDescription}
               </p>
             )}
-
-            {/* YouTube Video */}
-            {product.videoUrl && <YouTubeVideo videoUrl={product.videoUrl} />}
 
             {/* Variant Selection - only show if multiple variants */}
             {product.variants.length > 1 && (
