@@ -72,13 +72,13 @@ function getYouTubeVideoId(url: string): string | null {
 }
 
 // YouTube Video Player Component
-function YouTubeVideo({ videoUrl }: { videoUrl: string | null }) {
+function YouTubeVideo({ videoUrl, className = '' }: { videoUrl: string | null; className?: string }) {
   const videoId = getYouTubeVideoId(videoUrl || '')
 
   if (!videoId) return null
 
   return (
-    <div className="mt-8 overflow-hidden rounded-xl shadow-lg">
+    <div className={`overflow-hidden rounded-xl shadow-lg ${className}`}>
       <div className="relative w-full bg-black" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
         <iframe
           className="absolute inset-0 w-full h-full"
@@ -231,6 +231,7 @@ function ProductDetailPageContent() {
   const [error, setError] = useState<string | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [showVideo, setShowVideo] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<'description' | 'highlights' | 'attributes' | 'reviews'>('description');
   const [thumbnailOffset, setThumbnailOffset] = useState(0);
@@ -641,9 +642,13 @@ function ProductDetailPageContent() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Images */}
           <div className="space-y-4 min-w-0">
-            {/* Main Image */}
-            <div className="relative bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-2xl overflow-hidden shadow-lg h-64 sm:h-auto sm:aspect-square">
-              {product.gallery_images[selectedImageIndex] ? (
+            {/* Main Image or Video */}
+            <div className={`relative bg-white dark:bg-[#2a2a2a] dark:bg-[#322020] rounded-2xl overflow-hidden shadow-lg ${
+              showVideo && product.videoUrl ? 'h-auto' : 'h-64 sm:h-auto sm:aspect-square'
+            }`}>
+              {showVideo && product.videoUrl ? (
+                <YouTubeVideo videoUrl={product.videoUrl} className="mt-0" />
+              ) : product.gallery_images[selectedImageIndex] ? (
                 <Image
                   src={product.gallery_images[selectedImageIndex]}
                   alt={selectedVariant?.image?.alt_text || localizedName}
@@ -670,19 +675,21 @@ function ProductDetailPageContent() {
             </div>
 
             {/* Thumbnail Gallery - Slider */}
-            {product.gallery_images.length > 1 && (
+            {(product.gallery_images.length > 1 || product.videoUrl) && (
               <div className="relative group overflow-hidden">
                 {/* Thumbnails Container */}
                 <div className="overflow-x-auto overflow-y-hidden scrollbar-hide">
-                  <div
-                    className="flex gap-1.5"
-                  >
+                  <div className="flex gap-1.5">
+                    {/* Image Thumbnails */}
                     {product.gallery_images.map((img, index) => (
                       <button
-                        key={index}
-                        onClick={() => setSelectedImageIndex(index)}
+                        key={`img-${index}`}
+                        onClick={() => {
+                          setShowVideo(false);
+                          setSelectedImageIndex(index);
+                        }}
                         className={`relative aspect-square rounded-xl overflow-hidden border-2 flex-shrink-0 w-16 transition-all ${
-                          selectedImageIndex === index
+                          !showVideo && selectedImageIndex === index
                             ? 'border-[#bc1215] ring-2 ring-[#bc1215]/20'
                             : 'border-transparent hover:border-gray-300'
                         }`}
@@ -694,18 +701,34 @@ function ProductDetailPageContent() {
                           className="object-cover"
                           sizes="100px"
                         />
-                        {selectedImageIndex === index && (
+                        {!showVideo && selectedImageIndex === index && (
                           <div className="absolute inset-0 bg-[#bc1215]/10 pointer-events-none rounded-xl" />
                         )}
                       </button>
                     ))}
+
+                    {/* Video Thumbnail */}
+                    {product.videoUrl && (
+                      <button
+                        onClick={() => setShowVideo(true)}
+                        className={`relative aspect-square rounded-xl overflow-hidden border-2 flex-shrink-0 w-16 transition-all bg-gray-900 flex items-center justify-center ${
+                          showVideo
+                            ? 'border-[#bc1215] ring-2 ring-[#bc1215]/20'
+                            : 'border-transparent hover:border-gray-300'
+                        }`}
+                      >
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                        {showVideo && (
+                          <div className="absolute inset-0 bg-[#bc1215]/10 pointer-events-none rounded-xl" />
+                        )}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
             )}
-
-            {/* YouTube Video - display in image preview section */}
-            {product.videoUrl && <YouTubeVideo videoUrl={product.videoUrl} />}
           </div>
 
           {/* Product Info */}
