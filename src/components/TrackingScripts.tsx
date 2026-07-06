@@ -30,6 +30,7 @@ export default function TrackingScripts() {
         const response = await api.getTrackingSettings() as ApiResponse
 
         if (!response.success || !response.data) {
+          console.warn('[TrackingScripts] No tracking data returned from API')
           return
         }
 
@@ -42,10 +43,16 @@ export default function TrackingScripts() {
         // ============================================
         const { pixelId, pixelCode } = data.facebook
 
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[TrackingScripts] Facebook pixel data:', { pixelId, hasPixelCode: !!pixelCode })
+        }
+
         // Priority: Custom code > ID
         if (pixelCode && pixelCode.trim()) {
+          console.log('[TrackingScripts] Injecting custom Facebook pixel code')
           injectHtmlScript(pixelCode, 'facebook-pixel-custom')
         } else if (pixelId && pixelId.trim()) {
+          console.log('[TrackingScripts] Injecting standard Facebook pixel with ID:', pixelId)
           // Generate standard Facebook Pixel script
           const standardPixelScript = `
             !function(f,b,e,v,n,t,s)
@@ -61,6 +68,8 @@ export default function TrackingScripts() {
           `
           injectScriptToHead(standardPixelScript, 'facebook-pixel-standard')
           injectNoscriptToBody(`<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixelId.trim()}&ev=PageView&noscript=1"/>`, 'facebook-pixel-noscript')
+        } else {
+          console.warn('[TrackingScripts] No Facebook pixel ID or code provided')
         }
 
         // ============================================
@@ -130,9 +139,13 @@ export default function TrackingScripts() {
     }
   }, [])
 
-  // Helper: Decode HTML entities (now backend returns clean HTML)
+  // Helper: Safely decode HTML entities only if needed
   const decodeHtmlEntities = (html: string): string => {
-    // Single decode pass - backend now returns clean HTML
+    // Only decode if HTML contains encoded entities
+    if (!html.includes('&') || (!html.includes('&amp;') && !html.includes('&lt;') && !html.includes('&gt;') && !html.includes('&quot;'))) {
+      return html // Already clean, no need to decode
+    }
+
     const textarea = document.createElement('textarea')
     textarea.innerHTML = html
     return textarea.value
@@ -144,20 +157,21 @@ export default function TrackingScripts() {
       return
     }
 
+    // Decode only if necessary
     const decoded = decodeHtmlEntities(htmlContent)
 
     // Create a temporary div to parse the HTML
     const temp = document.createElement('div')
     temp.innerHTML = decoded
 
-    // Extract and execute any script tags
+    // Extract and execute script tags
     const scripts = temp.querySelectorAll('script')
 
     scripts.forEach((originalScript, index) => {
       const newScript = document.createElement('script')
       newScript.id = `${id}-${index}`
 
-      // Copy all attributes
+      // Copy all attributes (important for async, defer, etc.)
       Array.from(originalScript.attributes).forEach(attr => {
         if (attr.name !== 'id') {
           newScript.setAttribute(attr.name, attr.value)
@@ -169,7 +183,16 @@ export default function TrackingScripts() {
         newScript.textContent = originalScript.textContent
       }
 
+      // Append to head (critical for pixel scripts to load first)
       document.head.appendChild(newScript)
+
+      // Force script execution by creating a new script element
+      // This ensures inline scripts run immediately
+      if (originalScript.textContent && !originalScript.src) {
+        const execScript = document.createElement('script')
+        execScript.textContent = originalScript.textContent
+        document.head.appendChild(execScript)
+      }
     })
 
     // Handle noscript tags (add to body)
@@ -180,6 +203,15 @@ export default function TrackingScripts() {
         injectNoscriptToBody(noscript.textContent, `${id}-noscript-${index}`)
       }
     })
+
+    // Log for debugging
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[TrackingScripts] Injected ${id}:`, {
+        scripts: scripts.length,
+        noscripts: noscripts.length,
+        content: decoded.substring(0, 100)
+      })
+    }
   }
 
   // Helper: Inject script to head (for direct JS code)
@@ -188,14 +220,20 @@ export default function TrackingScripts() {
 
     const script = document.createElement('script')
     script.id = id
+    script.type = 'text/javascript'
 
-    if (isRawText) {
-      script.textContent = content
-    } else {
-      script.text = content
-    }
+    // Use textContent for better compatibility
+    script.textContent = content
 
+    // Inject to head for early execution
     document.head.appendChild(script)
+
+    // Force execution by waiting a tick
+    if (process.env.NODE_ENV === 'development') {
+      setTimeout(() => {
+        console.log('[TrackingScripts] Script injected:', id)
+      }, 0)
+    }
   }
 
   // Helper: Inject noscript to body
