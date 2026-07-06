@@ -40,19 +40,21 @@ export default function RootLayout({
             __html: `
               (function() {
                 // Respect system theme preference
-                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                if (systemTheme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                  document.body.classList.add('dark');
-                  document.documentElement.style.background = '#1f1515';
-                  document.body.style.background = '#1f1515';
-                  document.body.style.color = '#ededed';
-                } else {
-                  document.documentElement.classList.remove('dark');
-                  document.body.classList.remove('dark');
-                  document.documentElement.style.background = '#ffffff';
-                  document.body.style.background = '#ffffff';
-                  document.body.style.color = '#171717';
+                if (document && document.documentElement) {
+                  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  if (systemTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    if (document.body) document.body.classList.add('dark');
+                    document.documentElement.style.background = '#1f1515';
+                    if (document.body) document.body.style.background = '#1f1515';
+                    if (document.body) document.body.style.color = '#ededed';
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                    if (document.body) document.body.classList.remove('dark');
+                    document.documentElement.style.background = '#ffffff';
+                    if (document.body) document.body.style.background = '#ffffff';
+                    if (document.body) document.body.style.color = '#171717';
+                  }
                 }
               })();
             `,

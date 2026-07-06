@@ -27,10 +27,12 @@ export default function TrackingScripts() {
 
     const injectTrackingScripts = async () => {
       try {
-        const response = await api.getTrackingSettings() as ApiResponse
+        const response = await api.getTrackingSettings() as any
 
-        if (!response.success || !response.data) {
-          console.warn('[TrackingScripts] No tracking data returned from API')
+        // Check for both success and status fields (API returns 'status')
+        const isSuccess = response?.success || response?.status
+        if (!isSuccess || !response?.data) {
+          console.warn('[TrackingScripts] No tracking data returned from API', { response })
           return
         }
 
