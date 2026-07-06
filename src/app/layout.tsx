@@ -33,18 +33,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="bn" className="dark" suppressHydrationWarning>
+    <html lang="bn" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                // Ensure dark mode is applied before page renders
-                document.documentElement.classList.add('dark');
-                document.body.classList.add('dark');
-                document.documentElement.style.background = '#1f1515';
-                document.body.style.background = '#1f1515';
-                document.body.style.color = '#ededed';
+                // Respect system theme preference
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                if (systemTheme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                  document.body.classList.add('dark');
+                  document.documentElement.style.background = '#1f1515';
+                  document.body.style.background = '#1f1515';
+                  document.body.style.color = '#ededed';
+                } else {
+                  document.documentElement.classList.remove('dark');
+                  document.body.classList.remove('dark');
+                  document.documentElement.style.background = '#ffffff';
+                  document.body.style.background = '#ffffff';
+                  document.body.style.color = '#171717';
+                }
               })();
             `,
           }}

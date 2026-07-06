@@ -781,27 +781,13 @@ function ProductDetailPageContent() {
                           </div>
                         )}
 
-                        {/* Variant Info - show name and price if image, only name if no image */}
+                        {/* Variant Info - show name only */}
                         <div className="flex flex-col items-start gap-0.5">
                           {/* Variant Name */}
                           <span className="text-xs font-bold leading-tight">
                             {variant.name}
                           </span>
-
-                          {/* Price - only show if variant has image */}
-                          {hasImage && (
-                            <span className="text-xs font-semibold">
-                              ৳{variant.retail_price.toLocaleString()}
-                            </span>
-                          )}
                         </div>
-
-                        {/* Discount Badge - Desktop only */}
-                        {hasDiscount && (
-                          <span className="hidden sm:block px-1.5 py-0.5 bg-amber-500 text-white text-[9px] font-bold rounded ml-auto">
-                            -{Math.round(((variant.original_price - variant.retail_price) / variant.original_price) * 100)}%
-                          </span>
-                        )}
 
                         {/* Out of Stock */}
                         {isOutOfStock && (

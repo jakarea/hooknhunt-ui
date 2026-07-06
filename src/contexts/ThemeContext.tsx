@@ -21,12 +21,26 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setMounted(true);
 
-    // Load saved theme preference or default to dark
-    const savedTheme = (localStorage.getItem('theme') as Theme) || 'dark';
-    setTheme(savedTheme);
+    // Detect system theme preference
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-    // Apply the saved theme to the DOM
-    applyTheme(savedTheme);
+    // Use system theme (ignore localStorage for system-only mode)
+    const themeToUse = systemTheme;
+    setTheme(themeToUse);
+
+    // Apply the theme to the DOM
+    applyTheme(themeToUse);
+
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
+      const newTheme = e.matches ? 'dark' : 'light';
+      setTheme(newTheme);
+      applyTheme(newTheme);
+    };
+
+    mediaQuery.addEventListener('change', handleSystemThemeChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
   }, []);
 
   const applyTheme = (themeToApply: Theme) => {
@@ -49,11 +63,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Theme is now controlled by system preference only
+  // This function is kept for backwards compatibility but does nothing
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    applyTheme(newTheme);
+    // Theme toggling disabled - using system preference only
   };
 
   // Prevent hydration mismatch

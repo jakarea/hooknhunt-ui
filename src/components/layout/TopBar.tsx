@@ -2,13 +2,11 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '@/contexts/ThemeContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import SocialLinks from './SocialLinks';
 
 export default function TopBar() {
   const { t } = useTranslation();
-  const { toggleTheme } = useTheme();
 
   return (
     <div className="bg-[#bc1215] text-white">
@@ -32,17 +30,6 @@ export default function TopBar() {
 
             {/* Language Switcher */}
             <LanguageSwitcher />
-
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="hover:opacity-80 transition-opacity"
-              aria-label="Toggle theme"
-            >
-              <svg className="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-              </svg>
-            </button>
 
             {/* Social Links */}
             <SocialLinks />

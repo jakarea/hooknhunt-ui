@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { useCategoryStore } from '@/stores/categoryStore';
-import { useTheme } from '@/contexts/ThemeContext';
+// Theme is handled by ThemeProvider - system preference only
 import { useSearchModal } from '@/contexts/SearchModalContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import { getCategoryTranslationKey } from '@/utils/categoryTranslations';
@@ -24,7 +24,6 @@ export default function Header() {
   const fetchCategories = useCategoryStore((s) => s.fetchCategories);
   const { getCartCount, toggleCart } = useCart();
   const { isAuthenticated, isLoading } = useAuth();
-  const { toggleTheme } = useTheme();
   const { openSearchModal } = useSearchModal();
 
   // Prevent hydration mismatch
@@ -118,16 +117,6 @@ export default function Header() {
                 <LanguageSwitcher />
               </div>
 
-               {/* Theme Toggle - Desktop */}
-               <button
-                onClick={toggleTheme}
-                className="hidden lg:flex w-9 h-9 bg-[#ec3137]/90 hover:bg-[#ec3137]/70 transition-colors rounded-lg items-center justify-center"
-                aria-label="Toggle theme"
-              > 
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-              </button>
               {/* Account */}
               {mounted && !isLoading && (
                 <Link
@@ -322,18 +311,7 @@ export default function Header() {
                   {isAuthenticated ? t('header.account') : t('header.login')}
                 </Link>
               )}
-              <div className="flex gap-2">
-                <button
-                  onClick={toggleTheme}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-[#322020] hover:bg-gray-200 dark:hover:bg-[#4a3030] transition-colors"
-                  aria-label="Toggle theme"
-                >
-                  <svg className="w-5 h-5 text-gray-700 dark:text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                  </svg>
-                </button>
-                <LanguageSwitcher />
-              </div>
+              <LanguageSwitcher />
             </div>
 
             {/* Mobile Navigation */}
