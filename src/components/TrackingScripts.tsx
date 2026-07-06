@@ -139,22 +139,39 @@ export default function TrackingScripts() {
     }
   }, [])
 
-  // Helper: Safely decode HTML entities (backend now returns clean HTML, but keep as fallback)
+  // Helper: Safely decode HTML entities (handles single, double, or triple encoding)
   const decodeHtmlEntities = (html: string): string => {
-    // Backend now decodes HTML before sending, but keep fallback for any remaining encoded entities
     if (!html || !html.includes('&')) {
       return html // Already clean
     }
 
-    // Only decode if contains HTML entities
-    const textarea = document.createElement('textarea')
-    textarea.innerHTML = html
-    const decoded = textarea.value
+    let decoded = html
+    let previousValue = ''
+    let passCount = 0
+    const maxPasses = 5 // Prevent infinite loops
 
-    // If multiple passes needed, repeat (handles rare triple-encoding edge cases)
-    if (decoded !== html && decoded.includes('&')) {
+    // Keep decoding until the value doesn't change or we hit max passes
+    while (decoded !== previousValue && passCount < maxPasses) {
+      previousValue = decoded
+
+      // Check if still has encoded entities
+      if (!decoded.includes('&amp;') && !decoded.includes('&lt;') && !decoded.includes('&gt;')) {
+        break // Stop if no more entities to decode
+      }
+
+      // Decode using textarea method
+      const textarea = document.createElement('textarea')
       textarea.innerHTML = decoded
-      return textarea.value
+      decoded = textarea.value
+      passCount++
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`[TrackingScripts] Decode pass ${passCount}: ${decoded.substring(0, 50)}...`)
+      }
+    }
+
+    if (process.env.NODE_ENV === 'development' && passCount > 1) {
+      console.log(`[TrackingScripts] HTML required ${passCount} decode passes`)
     }
 
     return decoded
@@ -166,7 +183,7 @@ export default function TrackingScripts() {
       return
     }
 
-    // Decode only if necessary
+    // Decode multiple times if necessary (handles triple-encoding)
     const decoded = decodeHtmlEntities(htmlContent)
 
     // Create a temporary div to parse the HTML
@@ -175,6 +192,10 @@ export default function TrackingScripts() {
 
     // Extract and execute script tags
     const scripts = temp.querySelectorAll('script')
+
+    if (scripts.length === 0) {
+      console.warn(`[TrackingScripts] No script tags found in ${id}. Content: ${decoded.substring(0, 100)}`)
+    }
 
     scripts.forEach((originalScript, index) => {
       const newScript = document.createElement('script')
@@ -218,7 +239,7 @@ export default function TrackingScripts() {
       console.log(`[TrackingScripts] Injected ${id}:`, {
         scripts: scripts.length,
         noscripts: noscripts.length,
-        content: decoded.substring(0, 100)
+        firstScriptContent: scripts[0]?.textContent?.substring(0, 80) || 'N/A'
       })
     }
   }
