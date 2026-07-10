@@ -23,8 +23,37 @@ const anekBangla = Anek_Bangla({
 });
 
 export const metadata: Metadata = {
-  title: "Hook & Hunt - Premium Fishing Accessories",
-  description: "Your premier destination for quality fishing accessories and equipment",
+  title: "Hook & Hunt - Premium Fishing Accessories & Equipment",
+  description: "Discover premium fishing accessories, rods, reels, and equipment at Hook & Hunt. Buy quality fishing gear online with best prices.",
+  keywords: "fishing accessories, fishing rods, fishing reels, fishing equipment, buy fishing gear",
+  authors: [{ name: "Hook & Hunt" }],
+  creator: "Hook & Hunt",
+  openGraph: {
+    title: "Hook & Hunt - Premium Fishing Accessories & Equipment",
+    description: "Your premier destination for quality fishing accessories and equipment. Shop fishing rods, reels, and more.",
+    url: "https://hooknhunt.com",
+    siteName: "Hook & Hunt",
+    images: [
+      {
+        url: "https://hooknhunt.com/hook-and-hunt-logo.svg",
+        width: 1200,
+        height: 630,
+        alt: "Hook & Hunt - Premium Fishing Accessories",
+      },
+    ],
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hook & Hunt - Premium Fishing Accessories",
+    description: "Discover premium fishing accessories and equipment",
+    images: ["https://hooknhunt.com/hook-and-hunt-logo.svg"],
+  },
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://hooknhunt.com",
+  },
 };
 
 export default function RootLayout({

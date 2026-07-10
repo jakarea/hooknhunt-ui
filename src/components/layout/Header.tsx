@@ -47,7 +47,7 @@ export default function Header() {
 
   const navItems = [
     { href: '/', label: t('nav.home'), icon: '🏠' },
-    { href: '/hot-deals', label: t('nav.hotDeals'), icon: '🔥' },
+    // { href: '/hot-deals', label: t('nav.hotDeals'), icon: '🔥' }, // Hidden - No deals available
     { href: '/products', label: t('nav.allProduct'), icon: '🎣' },
   ];
 
