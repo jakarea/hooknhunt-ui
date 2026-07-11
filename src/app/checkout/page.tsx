@@ -1016,13 +1016,8 @@ export default function CheckoutPage() {
               // Clear cart after redirect to avoid triggering the empty cart redirect useEffect
               setTimeout(() => clearCart(), 100);
 
-              // Open payment gateway in new tab (same as SSL Commerz flow)
-              const paymentWindow = window.open(gatewayUrl, '_blank', 'noopener,noreferrer,width=1000,height=800');
-
-              if (!paymentWindow) {
-                // Popup blocked - fallback to same window redirect
-                window.location.href = gatewayUrl;
-              }
+              // For EPS: Direct redirect (don't open in new tab - causes duplicate requests)
+              window.location.href = gatewayUrl;
 
               // Hide loading modal since gateway is now opening
               setIsProcessingPayment(false);
