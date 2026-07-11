@@ -80,13 +80,8 @@ export default function PaymentLinkPage() {
         throw new Error('Payment gateway URL not received');
       }
 
-      // Open payment gateway in new tab
-      const paymentWindow = window.open(gatewayUrl, '_blank', 'noopener,noreferrer,width=1000,height=800');
-
-      if (!paymentWindow) {
-        // Fallback to same window if popup blocked
-        window.location.href = gatewayUrl;
-      }
+      // For EPS: Direct redirect (don't open in new tab - causes duplicate requests)
+      window.location.href = gatewayUrl;
 
       setProcessing(false);
     } catch (err: any) {

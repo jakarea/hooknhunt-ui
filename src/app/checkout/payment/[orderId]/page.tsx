@@ -141,16 +141,8 @@ export default function PaymentInitiationPage() {
       const gatewayUrl = (response.data as any)?.gatewayUrl as string | undefined
 
       if (gatewayUrl) {
-        // Open payment gateway in new tab
-        const paymentWindow = window.open(gatewayUrl, '_blank', 'noopener,noreferrer,width=1000,height=800')
-
-        if (!paymentWindow) {
-          // Popup blocked - auto fallback to same window redirect
-          window.location.href = gatewayUrl
-        } else {
-          // Successfully opened - show notification
-          toast.success('Payment gateway opened. Complete your payment in the new tab.')
-        }
+        // For EPS: Direct redirect (don't open in new tab - causes duplicate requests)
+        window.location.href = gatewayUrl
       } else {
         throw new Error('Payment gateway URL not received')
       }

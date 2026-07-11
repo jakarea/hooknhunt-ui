@@ -177,13 +177,8 @@ export function usePayment() {
     sessionStorage.setItem('ssl_payment_return_url', window.location.href);
     sessionStorage.setItem('ssl_payment_timestamp', Date.now().toString());
 
-    // Open in new tab for better UX (user can return to app if needed)
-    const paymentWindow = window.open(gatewayUrl, '_blank', 'noopener,noreferrer,width=1000,height=800');
-
-    if (!paymentWindow) {
-      // Fallback: redirect in same window if popup blocked
-      window.location.href = gatewayUrl;
-    }
+    // Direct redirect to payment gateway (prevents duplicate requests)
+    window.location.href = gatewayUrl;
   }, []);
 
   /**
