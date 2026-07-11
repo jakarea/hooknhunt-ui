@@ -989,12 +989,18 @@ export default function CheckoutPage() {
 
         // Handle EPS payment - initiate directly and redirect to gateway
         if (paymentMethod === 'eps') {
+          console.log('🔵 [CHECKOUT] EPS Payment Flow Started');
+          console.log('📦 Order ID:', orderId);
+          console.log('👤 Customer:', formData.name);
+
           // Save cart items to sessionStorage before clearing cart (for retry on fail/cancel)
           if (typeof window !== 'undefined') {
             sessionStorage.setItem('checkout_cart_backup', JSON.stringify(cartItems));
+            console.log('💾 [CHECKOUT] Cart backup saved to sessionStorage');
           }
 
           try {
+            console.log('🚀 [CHECKOUT] Calling api.initiateEpsPayment...');
             // Initiate EPS payment to get gateway URL
             const paymentResponse = await api.initiateEpsPayment({
               sales_order_id: orderId,
@@ -1010,22 +1016,30 @@ export default function CheckoutPage() {
               },
             });
 
+            console.log('✅ [CHECKOUT] API Response received:', paymentResponse);
             const gatewayUrl = (paymentResponse.data as any)?.gatewayUrl as string | undefined;
+            console.log('🌐 Gateway URL:', gatewayUrl);
 
             if (gatewayUrl) {
+              console.log('⏳ [CHECKOUT] Clearing cart...');
               // Clear cart after redirect to avoid triggering the empty cart redirect useEffect
               setTimeout(() => clearCart(), 100);
 
+              console.log('⚠️ [CHECKOUT] About to redirect to EPS gateway...');
+              console.log('🔗 Redirect URL:', gatewayUrl);
               // For EPS: Direct redirect (don't open in new tab - causes duplicate requests)
               window.location.href = gatewayUrl;
+              console.log('✅ [CHECKOUT] Redirect executed');
 
               // Hide loading modal since gateway is now opening
               setIsProcessingPayment(false);
               return;
             } else {
+              console.error('❌ [CHECKOUT] No gateway URL received in response!');
               throw new Error('Payment gateway URL not received');
             }
           } catch (paymentErr: unknown) {
+            console.error('❌ [CHECKOUT] Payment Error:', paymentErr);
             // Handle different error structures
             let errorMsg = 'Payment initiation failed. Please try again.';
 

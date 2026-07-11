@@ -173,28 +173,41 @@ export function usePayment() {
    * Opens in new tab to maintain app session
    */
   const redirectToGateway = useCallback((gatewayUrl: string, tranId: string) => {
+    console.log('🔵 [PAYMENT-HOOK] redirectToGateway called');
+    console.log('🌐 Gateway URL:', gatewayUrl);
+    console.log('🎟️ Transaction ID:', tranId);
+
     // Save current URL for redirect back after payment
     sessionStorage.setItem('ssl_payment_return_url', window.location.href);
     sessionStorage.setItem('ssl_payment_timestamp', Date.now().toString());
 
+    console.log('⚠️ [PAYMENT-HOOK] About to redirect to payment gateway');
+    console.log('📍 Current URL:', window.location.href);
     // Direct redirect to payment gateway (prevents duplicate requests)
     window.location.href = gatewayUrl;
+    console.log('✅ [PAYMENT-HOOK] Redirect executed (this may not appear due to page reload)');
   }, []);
 
   /**
    * Complete payment flow: initiate and redirect
    */
   const initiateAndPay = useCallback(async (data: InitiatePaymentRequest): Promise<void> => {
+    console.log('🔵 [PAYMENT-HOOK] initiateAndPay called with data:', data);
     try {
+      console.log('🚀 [PAYMENT-HOOK] Calling initiatePayment...');
       const result = await initiatePayment(data);
+      console.log('✅ [PAYMENT-HOOK] initiatePayment result:', result);
 
       // Validate required fields before redirect
       if (!result.gateway_url) {
+        console.error('❌ [PAYMENT-HOOK] No gateway_url in result!');
         throw new PaymentError(PaymentErrorType.PAYMENT_FAILED, 'Payment gateway URL not received');
       }
 
+      console.log('🔄 [PAYMENT-HOOK] Calling redirectToGateway...');
       redirectToGateway(result.gateway_url, result.tran_id || '');
     } catch (err) {
+      console.error('❌ [PAYMENT-HOOK] Error in initiateAndPay:', err);
       // Error is already handled in initiatePayment
       throw err;
     }
