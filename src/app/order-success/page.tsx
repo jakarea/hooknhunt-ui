@@ -46,16 +46,27 @@ function OrderSuccessContent() {
   const paymentStatus = searchParams.get('payment_status') || '';
   const gateway = searchParams.get('gateway') || '';
 
+  console.log('🟢 [ORDER-SUCCESS] Page loaded');
+  console.log('📋 Query params:', { invoiceNo, orderTotal, customerName, paymentStatus, gateway });
+
   // Payment failure detection
   const isPaymentFailed = paymentStatus === 'failed';
   const isSSLCommerz = gateway === 'sslcommerz';
   const isEPS = gateway === 'eps';
 
+  console.log('💳 Payment Status:', paymentStatus);
+  console.log('❌ Is Payment Failed?', isPaymentFailed);
+  console.log('🏦 Gateway:', gateway);
+
   useEffect(() => {
     setMounted(true);
     // Only clear cart if payment succeeded (not failed)
     if (!isPaymentFailed) {
+      console.log('🗑️ [ORDER-SUCCESS] Clearing cart...');
       clearCart();
+      console.log('✅ [ORDER-SUCCESS] Cart cleared');
+    } else {
+      console.log('⚠️ [ORDER-SUCCESS] Payment failed - NOT clearing cart');
     }
 
     const confettiTimer = setTimeout(() => setShowConfetti(false), 5000);
