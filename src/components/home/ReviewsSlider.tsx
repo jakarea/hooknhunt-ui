@@ -7,6 +7,7 @@ export default function ReviewsSlider() {
   const { t } = useTranslation();
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const reviews = [
     {
@@ -41,25 +42,36 @@ export default function ReviewsSlider() {
     },
   ];
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality - infinite seamless scrolling
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider) return;
 
-    const scroll = () => {
-      if (isHovered) return; // Pause on hover
+    const startAutoScroll = () => {
+      if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
 
-      const scrollAmount = 2; // Smooth scroll amount
-      slider.scrollLeft += scrollAmount;
+      scrollIntervalRef.current = setInterval(() => {
+        if (isHovered) return; // Pause on hover
 
-      // Reset to start when reaching end
-      if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
-        slider.scrollLeft = 0;
-      }
+        const scrollAmount = 1; // Smooth scroll speed
+        slider.scrollLeft += scrollAmount;
+
+        // Get single item width (reviews are w-80 md:w-96, gap-4)
+        const itemWidth = 320 + 16; // 80 * 4 + gap of 4
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+
+        // Seamless infinite scroll - reset when reaching end
+        if (slider.scrollLeft >= maxScroll - 10) {
+          slider.scrollLeft = 0;
+        }
+      }, 16); // ~60fps for smooth animation
     };
 
-    const interval = setInterval(scroll, 20); // Smooth animation
-    return () => clearInterval(interval);
+    startAutoScroll();
+
+    return () => {
+      if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+    };
   }, [isHovered]);
 
   return (
