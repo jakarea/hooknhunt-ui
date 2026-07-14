@@ -116,7 +116,7 @@ class ApiClient {
 
   // Auth endpoints
   async register(phone: string, password: string, name?: string): Promise<ApiResponse> {
-    return this.request('/store/auth/register', {
+    return this.request('/auth/register', {
       method: 'POST',
       body: JSON.stringify({
         phone,
@@ -128,14 +128,14 @@ class ApiClient {
   }
 
   async sendOtp(phone: string): Promise<ApiResponse> {
-    return this.request('/store/auth/send-otp', {
+    return this.request('/auth/send-otp', {
       method: 'POST',
       body: JSON.stringify({ phone }),
     });
   }
 
   async verifyOtp(phone: string, otp: string): Promise<ApiResponse<{ user: User; token?: string; tokenType?: string }>> {
-    const response = await this.request<{ user: User; token?: string; tokenType?: string }>('/store/auth/verify-otp', {
+    const response = await this.request<{ user: User; token?: string; tokenType?: string }>('/auth/verify-otp', {
       method: 'POST',
       body: JSON.stringify({ phone, otp }),
     });
@@ -156,14 +156,14 @@ class ApiClient {
   }
 
   async sendResetOtp(phone: string): Promise<ApiResponse<{ message: string; otp_code?: string }>> {
-    return this.request<{ message: string; otp_code?: string }>('/store/auth/send-reset-otp', {
+    return this.request<{ message: string; otp_code?: string }>('/auth/send-reset-otp', {
       method: 'POST',
       body: JSON.stringify({ phone }),
     });
   }
 
   async resetPassword(phone: string, otp: string, password: string, passwordConfirmation: string): Promise<ApiResponse> {
-    return this.request('/store/auth/reset-password', {
+    return this.request('/auth/reset-password', {
       method: 'POST',
       body: JSON.stringify({
         phone,
@@ -175,7 +175,7 @@ class ApiClient {
   }
 
   async login(phone: string, password: string, rememberMe: boolean = true): Promise<ApiResponse<{ user: User; token?: string; tokenType?: string }>> {
-    const response = await this.request<{ user: User; token?: string; tokenType?: string }>('/store/auth/login', {
+    const response = await this.request<{ user: User; token?: string; tokenType?: string }>('/auth/login', {
       method: 'POST',
       body: JSON.stringify({ login_id: phone, password }),
     });
@@ -195,11 +195,11 @@ class ApiClient {
   }
 
   async getMe(): Promise<ApiResponse<{ user: User }>> {
-    return this.request('/store/account/me', {}, true);
+    return this.request('/auth/me', {}, true);
   }
 
   async logout(): Promise<ApiResponse> {
-    const response = await this.request('/store/account/logout', {
+    const response = await this.request('/auth/logout', {
       method: 'POST',
     }, true);
 
@@ -208,7 +208,7 @@ class ApiClient {
   }
 
   async updateProfile(data: { name?: string; email?: string; whatsapp_number?: string; address?: string; city?: string; district?: string }): Promise<ApiResponse> {
-    return this.request('/store/account/profile', {
+    return this.request('/user/profile', {
       method: 'PUT',
       body: JSON.stringify(data),
     }, true);
@@ -216,35 +216,35 @@ class ApiClient {
 
   // Address endpoints
   async getAddresses(): Promise<ApiResponse<Address[]>> {
-    return this.request('/store/account/addresses', {}, true);
+    return this.request('/user/addresses', {}, true);
   }
 
   async addAddress(address: Omit<Address, 'id' | 'user_id' | 'created_at' | 'updated_at'>): Promise<ApiResponse> {
-    return this.request('/store/account/addresses', {
+    return this.request('/user/addresses', {
       method: 'POST',
       body: JSON.stringify(address),
     }, true);
   }
 
   async updateAddress(addressId: number, address: Partial<Omit<Address, 'id' | 'user_id' | 'created_at' | 'updated_at'>>): Promise<ApiResponse> {
-    return this.request(`/store/account/addresses/${addressId}`, {
+    return this.request(`/user/addresses/${addressId}`, {
       method: 'PUT',
       body: JSON.stringify(address),
     }, true);
   }
 
   async deleteAddress(addressId: number): Promise<ApiResponse> {
-    return this.request(`/store/account/addresses/${addressId}`, {
+    return this.request(`/user/addresses/${addressId}`, {
       method: 'DELETE',
     }, true);
   }
 
   async getOrders(): Promise<ApiResponse> {
-    return this.request('/store/account/orders', {}, true);
+    return this.request('/store/orders', {}, true);
   }
 
   async getOrder(orderId: number | string): Promise<ApiResponse> {
-    return this.request(`/store/account/orders/${orderId}`, {}, true);
+    return this.request(`/store/orders/${orderId}`, {}, true);
   }
 
   // Public: Get order by order number (for payment page)
@@ -305,7 +305,7 @@ class ApiClient {
 
   // Public: Categories (paginated — returns { data: { data: Category[], ... } })
   async getCategories(): Promise<ApiResponse<{ data: Category[]; total: number }>> {
-    return this.request('/store/categories', {});
+    return this.request('/categories', {});
   }
 
   // Public: Products (paginated with filters)
@@ -338,12 +338,12 @@ class ApiClient {
 
   // Public: Hot deals products
   async getHotDeals(limit: number = 12): Promise<ApiResponse> {
-    return this.request(`/store/products/hot-deals?limit=${limit}`, {});
+    return this.request(`/offers/hot-deals?limit=${limit}`, {});
   }
 
   // Public: Sliders for home page banner
   async getSliders(): Promise<ApiResponse<Slider[]>> {
-    return this.request('/store/sliders', {});
+    return this.request('/offers/sliders', {});
   }
 
   // Contact Form Submission (Public Endpoint)
@@ -618,7 +618,7 @@ class ApiClient {
   async getActivePaymentGateway(): Promise<ApiResponse<{
     activeGateway: 'sslcommerz' | 'eps' | null;
   }>> {
-    return this.request('/store/payment/gateway');
+    return this.request('/store/payments/gateway');
   }
 
   // Generic POST method for other API calls
