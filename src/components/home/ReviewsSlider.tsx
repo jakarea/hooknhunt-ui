@@ -53,8 +53,8 @@ export default function ReviewsSlider() {
     const scroll = () => {
       if (isHovered) return;
 
-      // Scroll continuously at smooth speed
-      slider.scrollLeft += 0.5;
+      // Scroll continuously at faster speed
+      slider.scrollLeft += 2;
 
       // Calculate the width of one set of reviews
       const itemWidth = 336; // w-80 (320px) + gap-4 (16px)
@@ -67,7 +67,7 @@ export default function ReviewsSlider() {
     };
 
     if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
-    scrollIntervalRef.current = setInterval(scroll, 50);
+    scrollIntervalRef.current = setInterval(scroll, 30);
 
     return () => {
       if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
