@@ -2,7 +2,7 @@
 
 import { User, Address, Category, Slider } from '@/types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://hooknhunt-api.test/api/v2';
 
 interface ApiResponse<T = unknown> {
   data?: T;
