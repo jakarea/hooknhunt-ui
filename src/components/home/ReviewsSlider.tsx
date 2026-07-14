@@ -9,7 +9,7 @@ export default function ReviewsSlider() {
   const [isHovered, setIsHovered] = useState(false);
   const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const reviews = [
+  const baseReviews = [
     {
       id: 1,
       textKey: 'home.reviews.review1.text',
@@ -42,32 +42,32 @@ export default function ReviewsSlider() {
     },
   ];
 
+  // Duplicate reviews 3 times for seamless infinite scrolling
+  const reviews = [...baseReviews, ...baseReviews, ...baseReviews];
+
   // Auto-scroll functionality - infinite seamless scrolling
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider) return;
 
-    const startAutoScroll = () => {
-      if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+    const scroll = () => {
+      if (isHovered) return;
 
-      scrollIntervalRef.current = setInterval(() => {
-        if (isHovered) return; // Pause on hover
+      // Scroll continuously at smooth speed
+      slider.scrollLeft += 0.5;
 
-        const scrollAmount = 1; // Smooth scroll speed
-        slider.scrollLeft += scrollAmount;
+      // Calculate the width of one set of reviews
+      const itemWidth = 336; // w-80 (320px) + gap-4 (16px)
+      const oneSetWidth = itemWidth * baseReviews.length;
 
-        // Get single item width (reviews are w-80 md:w-96, gap-4)
-        const itemWidth = 320 + 16; // 80 * 4 + gap of 4
-        const maxScroll = slider.scrollWidth - slider.clientWidth;
-
-        // Seamless infinite scroll - reset when reaching end
-        if (slider.scrollLeft >= maxScroll - 10) {
-          slider.scrollLeft = 0;
-        }
-      }, 16); // ~60fps for smooth animation
+      // Reset to start when reaching middle point for seamless loop
+      if (slider.scrollLeft >= oneSetWidth) {
+        slider.scrollLeft = 0;
+      }
     };
 
-    startAutoScroll();
+    if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+    scrollIntervalRef.current = setInterval(scroll, 50);
 
     return () => {
       if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
@@ -89,11 +89,15 @@ export default function ReviewsSlider() {
           ref={sliderRef}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide scroll-smooth"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-4 overflow-x-hidden pb-4 scroll-smooth"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+          }}
         >
-          {reviews.map((review) => (
-            <div key={review.id} className="flex-shrink-0 w-80 md:w-96 snap-start">
+          {reviews.map((review, index) => (
+            <div key={`${review.id}-${index}`} className="flex-shrink-0 w-80 md:w-96">
               <div
                 className={`relative bg-gradient-to-br ${review.gradient} rounded-none p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full overflow-hidden`}
               >
