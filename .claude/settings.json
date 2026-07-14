@@ -116,7 +116,10 @@
       "Bash(php /Users/jakareaparvez/Sites/hooknhunt-api/artisan route:clear)",
       "Bash(php /Users/jakareaparvez/Sites/hooknhunt-api/artisan tinker '--execute= *)",
       "Bash(php /Users/jakareaparvez/Sites/hooknhunt-api/artisan optimize:clear)",
-      "Bash(php /Users/jakareaparvez/Sites/hooknhunt-api/artisan view:clear)"
+      "Bash(php /Users/jakareaparvez/Sites/hooknhunt-api/artisan view:clear)",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(git commit -m 'fix: update API endpoints to match Laravel v2 route structure *)"
     ],
     "additionalDirectories": [
       "/Users/jakareaparvez/Sites/hooknhunt/hooknhunt-api/app/Http/Controllers/Api/V2/Website",
